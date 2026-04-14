@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "project-bare",
-    "slug": "project-bare",
+    "scheme": "budgetapp", 
+    "name": "budget-app",
+    "slug": "budget-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,6 +25,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
