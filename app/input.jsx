@@ -1,22 +1,20 @@
 import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
 import { Link } from 'expo-router'
 
-import React from 'react'
-import { Colors } from '../constants/Colors'
-
-const Home = () => {
+const Input = () => {
   return (
     <View style={styles.container}>
 
-      <Text style={styles.title}>Home</Text>
-      <Link href="/input" style={styles.link}>Input Page</Link>
+      <Text style={styles.title}>Input Page</Text>
+      <Link href="/" style={styles.link}>Back home</Link>
 
     </View>
+
   )
-  
 }
 
-export default Home
+export default Input
 
 const styles = StyleSheet.create({
   container: {
