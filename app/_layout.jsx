@@ -3,12 +3,14 @@ import { Tabs } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import { Colors } from '../constants/Colors'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 
 const RootLayout = () => {
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme] ?? colorScheme.light
 
   return (
+    <SafeAreaProvider>
     <Tabs 
       screenOptions={{ headerShown: false, tabBarStyle: {
         backgroundColor: theme.navBackground, 
@@ -53,6 +55,7 @@ const RootLayout = () => {
       />
         
     </Tabs>
+    </SafeAreaProvider>
   )
 }
 
