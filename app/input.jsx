@@ -1,14 +1,18 @@
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View, Text, useColorScheme, Pressable } from 'react-native'
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View, Text, useColorScheme, Pressable, Alert } from 'react-native'
 import React, { useRef, useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { SelectList } from "react-native-dropdown-select-list";
+import { SafeAreaInsetsContext } from 'react-native-safe-area-context'
+import { addCategory, addRecipient, addRecord, initTables, fetchAllCategories, fetchAllRecipients, fetchAllRecords, dropAllTables } from '../components/dbClient'
 
 // themed components
+import { Colors } from '../constants/Colors'
 import ThemedText from "../components/ThemedText"
 import ThemedTextInput from "../components/ThemedTextInput"
 import ThemedButton from "../components/ThemedButton"
-import ThemedPickerSelect from "../components/ThemedPickerSelect"
-import { Colors } from '../constants/Colors'
-import { SafeAreaInsetsContext } from 'react-native-safe-area-context'
+import ThemedSelectList from '../components/ThemedSelectList';
+import ThemedView from "../components/ThemedView"
+import ThemedScrollView from '../components/ThemedScrollView';
 
 const Input = () => {
   const colorScheme = useColorScheme();
@@ -16,13 +20,14 @@ const Input = () => {
 
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [transaction_type, setTransactionType] = useState("");
+  const [transaction_type, setTransactionType] = useState("spending");
+  const [typeSelectResetKey, setTypeSelectResetKey] = useState(0.0);
   const [recipient, setRecipient] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState(0);
+  const [currency, setCurrency] = useState("HKD");
   const [description, setDescription] = useState("");
 
-  const typeInputRef = useRef(null);
   const recipientInputRef = useRef(null);
   const categoryInputRef = useRef(null);
   const amountInputRef = useRef(null);
@@ -38,19 +43,58 @@ const Input = () => {
     }
   }
 
+  async function loadAll() {
+    try {
+      const [cats, recips, recs] = await Promise.all([
+        fetchAllCategories().catch(() => []),
+        fetchAllRecipients().catch(() => []),
+        fetchAllRecords().catch(() => [])
+      ])
+      // setCategories(cats || [])
+      // setRecipients(recips || [])
+      setRecords(recs || [])
+    } catch (e) {
+      console.log('loadAll error', e)
+    }
+  }
+
   async function handleSubmit() {
     if (!date.toISOString() || !transaction_type.trim() || !recipient.trim() || !category.trim()){
       console.log("Incomplete input");
       return;
     }
 
-    console.log(date.toISOString(), transaction_type, recipient, category, amount, description);
+    console.log(date.toLocaleDateString('en-CA'), transaction_type, recipient, category, amount, description);
 
+    try {
+      const obj = {
+        amount: amount,
+        cname: category || null,
+        date: date.toLocaleDateString('en-CA'),
+        type: transaction_type || '',
+        currency: currency || '',
+        inputdatetime: new Date().toISOString(),
+        description: description || '',
+        rname: recipient || null
+      }
+      const res = await addRecord(obj)
+      // clear
+      reset()
+
+      await loadAll()
+      Alert.alert('Record added', String(res))
+    } catch (e) {
+      console.log(e)
+      Alert.alert('Error', String(e))
+    }
   }
+
+  
 
   function reset() {
     setDate(new Date())
-    setTransactionType("")
+    setTransactionType("spending")
+    setTypeSelectResetKey((prev) => prev + 1)
     setRecipient("")
     setCategory("")
     setAmount(0)
@@ -73,20 +117,21 @@ const Input = () => {
   }
 
   return (
-    <SafeAreaInsetsContext.Consumer>
-    {insets => <KeyboardAvoidingView
-      style={[styles.container, { paddingTop: insets.top }]}
+    <KeyboardAvoidingView
+      style={[styles.container]}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
     >
-      <ScrollView
+      <ThemedScrollView
+        safe={true}
+        useBottomSafe={false}
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.form}>
+        <ThemedView style={styles.form}>
           <View style={styles.fieldRow}>
-            <ThemedText style={styles.fieldname}>Date</ThemedText>
+            <ThemedText style={styles.fieldname}>Date:</ThemedText>
 
             <ThemedButton
               onPress={() => setShowDatePicker(true)}
@@ -106,28 +151,27 @@ const Input = () => {
           </View>
 
           <View style={styles.fieldRow}>
-            <ThemedText style={styles.fieldname}>Type</ThemedText>
+            <ThemedText style={styles.fieldname}>Type:</ThemedText>
             
-            {/* <ThemedTextInput
-              ref={typeInputRef}
-              style={styles.textinput}
-              value={transaction_type}
-              onChangeText={setTransactionType}
-              returnKeyType="next"
-              blurOnSubmit={false}
-              onSubmitEditing={() => recipientInputRef.current?.focus()}
-            /> */}
-            <ThemedPickerSelect style={styles.textinput}
-              items={[
-                { label: "Hello", value: "World"}
+            <ThemedSelectList 
+              key={typeSelectResetKey}
+              setSelected={setTransactionType} 
+              data={[
+                {key: "spending", value: "Spending"},
+                {key: "income", value: "Income"}
               ]}
+              floating={true}
+              save="key"
+              defaultOption={{ key: 'spending', value: 'Spending' }}
+              search={false}
+              inputStyles={{ color: '#fff' }}
             />
 
           </View>
 
           <View style={styles.fieldRow}>
             
-            <ThemedText style={styles.fieldname}>Recipient</ThemedText>
+            <ThemedText style={styles.fieldname}>Recipient:</ThemedText>
             
             
             <ThemedTextInput
@@ -143,7 +187,7 @@ const Input = () => {
 
           <View style={styles.fieldRow}>
             
-            <ThemedText style={styles.fieldname}>Category</ThemedText>
+            <ThemedText style={styles.fieldname}>Category:</ThemedText>
             
             
             <ThemedTextInput
@@ -159,7 +203,7 @@ const Input = () => {
 
           <View style={styles.fieldRow}>
             
-            <ThemedText style={styles.fieldname}>Amount</ThemedText>
+            <ThemedText style={styles.fieldname}>Amount:</ThemedText>
             
             
             <ThemedTextInput
@@ -176,7 +220,7 @@ const Input = () => {
 
           <View style={styles.fieldRow}>
             
-            <ThemedText style={styles.fieldname}>Description</ThemedText>
+            <ThemedText style={styles.fieldname}>Description:</ThemedText>
             
             
             <ThemedTextInput
@@ -190,7 +234,7 @@ const Input = () => {
               returnKeyType="done"
             />
           </View>
-        </View>
+        </ThemedView>
 
         <View style={[styles.container, { flexDirection: "row", justifyContent: "space-evenly", height: "30" }]}>
 
@@ -212,9 +256,8 @@ const Input = () => {
 
 
 
-      </ScrollView>
-    </KeyboardAvoidingView>}
-    </SafeAreaInsetsContext.Consumer>
+      </ThemedScrollView>
+    </KeyboardAvoidingView>
   )
 }
 
