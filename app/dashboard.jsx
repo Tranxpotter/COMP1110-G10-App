@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'expo-router';
 import { LineChart, BarChart } from "react-native-gifted-charts";
 import { SelectList } from "react-native-dropdown-select-list";
+import PagerView from 'react-native-pager-view';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -10,12 +11,7 @@ const screenHeight = Dimensions.get('window').height;
 const Dashboard = () => {
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [chartModalVisible, setChartModalVisible] = useState(false);
-  const [selectedChart, setSelectedChart] = useState("Line");
-
-  const dropdownData = [
-    { key: 'Line', value: 'Line Chart' },
-    { key: 'Bar', value: 'Bar Chart' },
-  ];
+  const [currentPage, setCurrentPage] = useState(0);
 
   const data = [
     { value: 1000.1, month: 'Jan', label: 'Jan' }, 
@@ -41,45 +37,43 @@ const Dashboard = () => {
   }));
 
   const totalAmount = data.reduce((acc, item) => acc + Math.round(item.value * 100), 0) / 100;
-  // Calculate the exact spacing to fit all 12 months within the available width
   const chartWidth = screenWidth * 0.8;
   const numberOfPoints = data.length;
-  // Formula: (Total Width - Y-Axis Width) / (Number of data points - 1)
   const dynamicSpacing = (chartWidth - 40) / (numberOfPoints - 1);
 
   return (
     <View style={styles.container}>
-      {/* HEADER SECTION (Fixed height) */}
+      {/* HEADER */}
       <View style={styles.header}>
         <Text style={styles.title}>Dashboard</Text>
-        <View style={styles.dropdownContainer}>
-          <SelectList 
-            setSelected={(val) => setSelectedChart(val)} 
-            data={dropdownData} 
-            save="key"
-            defaultOption={{ key: 'Line', value: 'Line Chart' }}
-            search={false}
-            boxStyles={styles.dropdownBox}
-            dropdownStyles={styles.dropdownListFloating}
-          />
+        
+        {/* PAGINATION DOTS */}
+        <View style={styles.paginationDots}>
+          <View style={[styles.dot, currentPage === 0 && styles.activeDot]} />
+          <View style={[styles.dot, currentPage === 1 && styles.activeDot]} />
         </View>
       </View>
 
       {/* CHART SECTION (Responsive Flex) */}
-      <View style={styles.chartSection}>
-        <View style={styles.chartWrapper}>
-          {selectedChart === 'Line' ? (
+      <PagerView 
+        style={styles.pagerView} 
+        initialPage={0} 
+        onPageSelected={(e) => setCurrentPage(e.nativeEvent.position)}
+      >
+        <View key="1" style={styles.page}>
+          <View style={styles.chartSection}>
+            <Text style={styles.chartLabel}>Spending Trend (Line)</Text>
             <LineChart 
               data={data} 
               color="#0BA5A4" 
               width={chartWidth}
-              height={screenHeight * 0.1} // Chart drawing area
+              height={screenHeight * 0.1}
               noOfSections={4}
               maxValue={yAxisRange}
               mostNegativeValue={-yAxisRange}
               areaChart
               disableScroll={true}
-              initialSpacing={0}
+              initialSpacing={10}
               startFillColor="#0BA5A4"
               startOpacity={0.1}
               yAxisLabelWidth={40}
@@ -87,65 +81,40 @@ const Dashboard = () => {
               xAxisLabelsVerticalShift = {screenHeight * 0.1}
               spacing={dynamicSpacing}
             />
-          ) : (
-            <BarChart 
-              data={dynamicData} 
-              width={chartWidth}
-              height={screenHeight * 0.1}
-              barWidth={10}
-              noOfSections={4}
-              maxValue={yAxisRange}
-              mostNegativeValue={-yAxisRange}
-              initialSpacing={10}
-              yAxisLabelWidth={40}
-              disableScroll={true}
-              xAxisLabelTextStyle={{fontSize: 12}}
-              xAxisLabelsVerticalShift = {screenHeight * 0.1}
-              spacing={dynamicSpacing-10}
-            />
-          )}
-        </View>
-      </View>
-
-      {/* TABLE SECTION (Responsive Flex) */}
-      <View style={styles.tableSection}>
-        <View style={styles.tableContainer}>
-          <View style={styles.tableHeader}>
-            <Text style={[styles.columnHeader, { flex: 1 }]}>Month</Text>
-            <Text style={[styles.columnHeader, { flex: 2, textAlign: 'right', paddingRight: 20 }]}>Total Spending/Income</Text>
           </View>
-          <ScrollView style={styles.scrollBody}>
-            {data.map((item, index) => (
-              <View key={index} style={styles.tableRow}>
-                <Text style={[styles.cell, { flex: 1 }]}>{item.month}</Text>
-                <Text style={[styles.cell, { flex: 2, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: item.value >= 0 ? '#2e7d32' : '#d32f2f' }]}>
-                  {item.value >= 0 ? `+$${item.value.toFixed(2)}` : `-$${Math.abs(item.value).toFixed(2)}`}
-                </Text>
-              </View>
-            ))}
-          </ScrollView>
-          <View style={styles.summaryRow}>
-            <Text style={[styles.cell, { flex: 1, fontWeight: 'bold' }]}>Summary</Text>
-            <Text style={[styles.cell, { flex: 2, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: totalAmount >= 0 ? '#2e7d32' : '#d32f2f' }]}>
-              {totalAmount >= 0 ? `+$${totalAmount.toFixed(2)}` : `-$${Math.abs(totalAmount).toFixed(2)}`}
-            </Text>
-          </View>
+          <TableComponent data={data} />
         </View>
-      </View>
 
-      {/* --- FOOTER WITH THREE BUTTONS --- */}
+          {/* PAGE 2: BAR CHART DASHBOARD */}
+          <View key="2" style={styles.page}>
+            <View style={styles.chartSection}>
+              <Text style={styles.chartLabel}>Monthly Volume (Bar)</Text>
+              <BarChart 
+                data={dynamicData} 
+                width={chartWidth}
+                height={screenHeight * 0.1}
+                barWidth={10}
+                noOfSections={4}
+                maxValue={yAxisRange}
+                mostNegativeValue={-yAxisRange}
+                initialSpacing={10}
+                yAxisLabelWidth={40}
+                disableScroll={true}
+                xAxisLabelTextStyle={{fontSize: 12}}
+                xAxisLabelsVerticalShift = {screenHeight * 0.1}
+                spacing={dynamicSpacing-10}
+              />
+          </View>
+          <TableComponent data={data} />
+        </View>
+      </PagerView>
+
+      {/* --- FOOTER WITH TWO BUTTONS --- */}
       <View style={styles.footerContainer}>
         {/* Left Side: Chart Button */}
         <TouchableOpacity style={styles.sideButton} onPress={() => setChartModalVisible(true)}>
           <Text style={styles.sideButtonText}>Chart</Text>
         </TouchableOpacity>
-
-        {/* Center: Back Home Button */}
-        <Link href="/" asChild>
-          <TouchableOpacity style={styles.centerButton}>
-            <Text style={styles.buttonText}>Back home</Text>
-          </TouchableOpacity>
-        </Link>
 
         {/* Right Side: Filter Button */}
         <TouchableOpacity style={styles.sideButton} onPress={() => setFilterModalVisible(true)}>
@@ -182,122 +151,70 @@ const Dashboard = () => {
   );
 }
 
+// Reusable Table
+const TableComponent = ({ data }) => {
+  const totalAmount = data.reduce((acc, item) => acc + Math.round(item.value * 100), 0) / 100;
+  return (
+    <View style={styles.tableSection}>
+      <View style={styles.tableContainer}>
+        <View style={styles.tableHeader}>
+          <Text style={[styles.columnHeader, { flex: 1 }]}>Month</Text>
+          <Text style={[styles.columnHeader, { flex: 2, textAlign: 'right', paddingRight: 20 }]}>Amount</Text>
+        </View>
+        <ScrollView style={styles.scrollBody}>
+          {data.map((item, index) => (
+            <View key={index} style={styles.tableRow}>
+              <Text style={[styles.cell, { flex: 1 }]}>{item.month}</Text>
+              <Text style={[styles.cell, { flex: 2, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: item.value >= 0 ? '#2e7d32' : '#d32f2f' }]}>
+                {item.value >= 0 ? `+$${item.value.toFixed(2)}` : `-$${Math.abs(item.value).toFixed(2)}`}
+              </Text>
+            </View>
+          ))}
+        </ScrollView>
+        <View style={styles.summaryRow}>
+          <Text style={[styles.cell, { flex: 1, fontWeight: 'bold' }]}>Summary</Text>
+          <Text style={[styles.cell, { flex: 2, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: totalAmount >= 0 ? '#2e7d32' : '#d32f2f' }]}>
+            ${totalAmount.toFixed(2)}
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
+};
+
 export default Dashboard;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  header: {
-    paddingTop: 30,
-    alignItems: 'center',
-    paddingBottom: 10,
-  },
-  title: {
-    fontSize: screenHeight * 0.03,
-    fontWeight: 'bold',
-  },
-  dropdownContainer: {
-    flex: 1,
-    width: '65%',
-    zIndex: 1000,
-  },
-  dropdownBox: {
-    borderColor: '#eee',
-    borderRadius: 10,
-    backgroundColor: '#f9f9f9',
-    height: 45,
-  },
-  dropdownListFloating: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    width: '100%',
-    top: 45,
-    zIndex: 999,
-    elevation: 5,
-    borderColor: '#eee',
-  },
+  container: { flex: 1, backgroundColor: '#fff' },
+  header: { paddingTop: 50, alignItems: 'center' },
+  title: { fontSize: screenHeight * 0.03, fontWeight: 'bold' },
+
+  // Pagination Dots
+  paginationDots: { flexDirection: 'row', marginTop: 10, marginBottom: 10 },
+  dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#ddd', marginHorizontal: 4 },
+  activeDot: { backgroundColor: '#0BA5A4', width: 20 },
+
+  pagerView: { flex: 1 },
+  page: { flex: 1 },
 
   // Responsive Chart Area
-  chartSection: {
-    flex: 3, // Takes 3 parts of available height
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1,
-  },
-  chartWrapper: {
-    width: screenWidth,
-    alignItems: 'center',
-    paddingBottom: 20,
-  },
+  chartSection: {flex: 3, justifyContent: 'center', alignItems: 'center', zIndex: 1,},
+  chartLabel: { fontSize: 14, color: '#333', marginBottom: 10, fontWeight: '500' },
 
   // Responsive Table Area
-  tableSection: {
-    flex: 4, // Takes 4 parts of available height (bigger than chart)
-    paddingHorizontal: '5%',
-    paddingBottom: 10,
-  },
-  tableContainer: {
-    flex: 1, // Fills the tableSection
-    borderWidth: 1,
-    borderColor: '#eee',
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  tableHeader: {
-    flexDirection: 'row',
-    backgroundColor: '#f9f9f9',
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  scrollBody: {
-    flex: 1,
-  },
-  tableRow: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    alignItems: 'center',
-  },
+  tableSection: {flex: 4, paddingHorizontal: '5%', paddingBottom: 10},
+  tableContainer: {flex: 1, borderWidth: 1, borderColor: '#eee', borderRadius: 10, overflow: 'hidden'},
+  tableHeader: {flexDirection: 'row', backgroundColor: '#f9f9f9', borderBottomWidth: 1, borderBottomColor: '#eee'},
+  scrollBody: {flex: 1},
+  tableRow: {flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#eee', alignItems: 'center'},
   columnHeader: { padding: 12, fontWeight: 'bold', fontSize: 14 },
   cell: { paddingHorizontal: 12, paddingVertical: 10, fontSize: 14 },
-  summaryRow: {
-    flexDirection: 'row',
-    backgroundColor: '#f0fdfa',
-    borderTopWidth: 2,
-    borderTopColor: '#0BA5A4',
-    alignItems: 'center',
-    paddingVertical: 5,
-  },
+  summaryRow: {flexDirection: 'row', backgroundColor: '#f0fdfa', borderTopWidth: 2, borderTopColor: '#0BA5A4', alignItems: 'center', paddingVertical: 5},
 
   // Footer Area
-  footerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: '5%',
-    paddingBottom: 30,
-    paddingTop: 10,
-  },
-  centerButton: {
-    backgroundColor: '#0BA5A4',
-    paddingVertical: 12,
-    paddingHorizontal: 25,
-    borderRadius: 25,
-    minWidth: 140,
-    elevation: 3,
-  },
-  sideButton: {
-    width: 65,
-    paddingVertical: 10,
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: '#0BA5A4',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  buttonText: { color: '#fff', fontSize: 15, fontWeight: '600', textAlign: 'center' },
+  footerContainer: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: '5%', paddingBottom: 30, paddingTop: 10},
+
+  sideButton: {width: screenWidth*0.4, paddingVertical: 10, borderRadius: 15, borderWidth: 1, borderColor: '#0BA5A4', alignItems: 'center', backgroundColor: '#fff'},
   sideButtonText: { color: '#0BA5A4', fontWeight: 'bold', fontSize: 13 },
 
   // MODAL STYLES
