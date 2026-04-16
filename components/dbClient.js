@@ -3,28 +3,104 @@ import Papa from 'papaparse'
 import * as FileSystem from 'expo-file-system'
 import * as Sharing from 'expo-sharing'
 
-const db = SQLite.openDatabaseAsync('example.db') // singleton
-
-export function executeSqlAsync(sql, params = []) {
-    return new Promise((resolve, reject) => {
-        db.transaction(tx => {
-            tx.executeSql(
-                sql,
-                params,
-                (_tx, result) => resolve(result),
-                (_tx, err) => { console.log('SQL error:', err); reject(err); return false }
-            )
-        }, (txError) => {
-            console.log('Transaction error:', txError)
-            reject(txError)
-        })
-    })
+// lazy/open async DB (uses new expo-sqlite async API)
+let _db = null
+let _dbPromise = null
+async function getDb() {
+  if (_db) return _db
+  if (_dbPromise) return _dbPromise
+  if (typeof SQLite.openDatabaseAsync !== 'function') {
+    // fallback to sync APIs if present
+    if (typeof SQLite.openDatabaseSync === 'function') {
+      try {
+        _db = SQLite.openDatabaseSync('example.db')
+        return _db
+      } catch (e) {
+        _db = null
+        throw e
+      }
+    }
+    if (typeof SQLite.openDatabase === 'function') {
+      _db = SQLite.openDatabase('example.db')
+      return _db
+    }
+    throw new Error('No supported openDatabase API found on expo-sqlite')
+  }
+  _dbPromise = SQLite.openDatabaseAsync('example.db').then(db => {
+    _db = db
+    return _db
+  })
+  return _dbPromise
 }
 
-export async function initTables() {//obviously run this 
-    await executeSqlAsync(`CREATE TABLE IF NOT EXISTS category (cid INTEGER PRIMARY KEY AUTOINCREMENT, cname TEXT, description TEXT)`)
-    await executeSqlAsync(`CREATE TABLE IF NOT EXISTS recipient (rid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, cid INTEGER)`)
-    await executeSqlAsync(`CREATE TABLE IF NOT EXISTS record (tid INTEGER PRIMARY KEY AUTOINCREMENT, amount REAL, cid INTEGER, date TEXT, type TEXT, currency TEXT, inputdatetime TEXT, description TEXT, rid INTEGER)`)
+// wrapper: executes SQL using new API methods and returns compatible shape
+export async function executeSqlAsync(sql, params = []) {
+  const db = await getDb()
+  const sqlTrim = String(sql || '').trim().toUpperCase()
+  // SELECT -> use getAllAsync (returns array of rows)
+  if (sqlTrim.startsWith('SELECT')) {
+    // getAllAsync accepts params optional
+    const rows = await db.getAllAsync(sql, params)
+    return { rows: { _array: Array.isArray(rows) ? rows : [] } }
+  }
+  // For other statements use runAsync (returns { lastInsertRowId, changes })
+  const res = await db.runAsync(sql, params)
+  return { insertId: res?.lastInsertRowId ?? null, rowsAffected: res?.changes ?? 0, raw: res }
+}
+// alias
+export const executeSql = executeSqlAsync
+// ...existing code...
+
+export async function dropAllTables() {  //this function is scary and should never be used!!!
+  // drop in dependency order (ONLY USE IN TESTING)
+  await executeSqlAsync('DROP TABLE IF EXISTS record')
+  await executeSqlAsync('DROP TABLE IF EXISTS recipient')
+  await executeSqlAsync('DROP TABLE IF EXISTS category')
+  return true
+}
+
+export async function initTables() {
+  // enable foreign keys on this connection
+  try {
+    await executeSqlAsync('PRAGMA foreign_keys = ON')
+  } catch (e) {
+    console.warn('Could not enable foreign_keys pragma', e)
+  }
+
+  // Create the canonical tables with foreign keys. Uses ON DELETE SET NULL to avoid accidental cascade deletes;
+  // change to ON DELETE CASCADE if you want deleting a category/recipient to remove dependent records.
+  await executeSqlAsync(`
+    CREATE TABLE IF NOT EXISTS category (
+      cid INTEGER PRIMARY KEY AUTOINCREMENT,
+      cname TEXT,
+      description TEXT
+    )
+  `)
+
+  await executeSqlAsync(`
+    CREATE TABLE IF NOT EXISTS recipient (
+      rid INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT,
+      cid INTEGER,
+      FOREIGN KEY (cid) REFERENCES category(cid) ON DELETE SET NULL
+    )
+  `)
+
+  await executeSqlAsync(`
+    CREATE TABLE IF NOT EXISTS record (
+      tid INTEGER PRIMARY KEY AUTOINCREMENT,
+      amount REAL,
+      cid INTEGER,
+      date TEXT,
+      type TEXT,
+      currency TEXT,
+      inputdatetime TEXT,
+      description TEXT,
+      rid INTEGER,
+      FOREIGN KEY (cid) REFERENCES category(cid) ON DELETE SET NULL,
+      FOREIGN KEY (rid) REFERENCES recipient(rid) ON DELETE SET NULL
+    )
+  `)
 }
 
 
@@ -306,8 +382,9 @@ export async function deleteRecord(tid) {
 export async function importRecordsFromRows(rows = [], chunkSize = 200) {
   if (!Array.isArray(rows) || rows.length === 0) return { inserted: 0, skipped: 0 }
   let inserted = 0, skipped = 0
+  const db = await getDb()
 
-  // normalize rows into value arrays (match your record columns)
+  // normalize rows first (keep names/cid/rid logic elsewhere if needed)
   const normalized = rows.map(r => ([
     Number(r.amount) || 0,
     r.cid ? Number(r.cid) : null,
@@ -321,18 +398,19 @@ export async function importRecordsFromRows(rows = [], chunkSize = 200) {
 
   for (let i = 0; i < normalized.length; i += chunkSize) {
     const chunk = normalized.slice(i, i + chunkSize)
-    await new Promise((resolve, reject) => {
-      db.transaction(tx => {
-        for (const vals of chunk) {
-          tx.executeSql(
-            `INSERT INTO record (amount, cid, date, type, currency, inputdatetime, description, rid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-            vals,
-            () => { inserted += 1 },
-            (_tx, err) => { console.warn('insert failed', err); skipped += 1; return true }
-          )
-        }
-      }, (txErr) => reject(txErr), () => resolve())
-    })
+    for (const vals of chunk) {
+      try {
+        const res = await db.runAsync(
+          `INSERT INTO record (amount, cid, date, type, currency, inputdatetime, description, rid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+          vals
+        )
+        if (res?.lastInsertRowId) inserted += 1
+        else if (res?.changes) inserted += res.changes
+      } catch (err) {
+        console.warn('insert failed', err)
+        skipped += 1
+      }
+    }
   }
 
   return { inserted, skipped }
@@ -354,7 +432,7 @@ export async function exportRecordsToCsv() {
 }
 
 export default {
-    db,
+    _db,
     executeSqlAsync,
     initTables,
     fetchAllCategories,
