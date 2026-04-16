@@ -1,6 +1,6 @@
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View, Text, useColorScheme, Pressable } from 'react-native'
 import React, { useRef, useState } from 'react'
-// import DatePicker from 'react-native-date-picker'
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 // themed components
 import ThemedText from "../components/ThemedText"
@@ -13,7 +13,8 @@ const Input = () => {
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme] ?? Colors.light;
 
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [transaction_type, setTransactionType] = useState("");
   const [recipient, setRecipient] = useState("");
   const [category, setCategory] = useState("");
@@ -47,7 +48,7 @@ const Input = () => {
   }
 
   function reset() {
-    setDate("")
+    setDate(new Date())
     setTransactionType("")
     setRecipient("")
     setCategory("")
@@ -55,6 +56,20 @@ const Input = () => {
     setDescription("")
   }
 
+  function handleDateChange(event, selectedDate) {
+    if (event?.type === 'dismissed') {
+      setShowDatePicker(false);
+      return;
+    }
+
+    if (selectedDate) {
+      setDate(selectedDate);
+    }
+
+    if (Platform.OS === 'android') {
+      setShowDatePicker(false);
+    }
+  }
 
   return (
     <SafeAreaInsetsContext.Consumer>
@@ -72,16 +87,29 @@ const Input = () => {
           <View style={styles.fieldRow}>
             <ThemedText style={styles.fieldname}>Date</ThemedText>
 
-            {/* <DatePicker /> */}
+            <ThemedButton
+              onPress={() => setShowDatePicker(true)}
+            >
+
+            </ThemedButton>
+
+            {showDatePicker && (<DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode='date'
+              is24Hour={true}
+              onValueChange={(event, selectedDate) => setDate(selectedDate)}
+              onChange={handleDateChange}
+            />)}
             
-            <ThemedTextInput
+            {/* <ThemedTextInput
               style={styles.textinput}
               value={date}
               onChangeText={setDate}
               returnKeyType="next"
               blurOnSubmit={false}
               onSubmitEditing={() => typeInputRef.current?.focus()}
-            />
+            /> */}
           </View>
 
           <View style={styles.fieldRow}>

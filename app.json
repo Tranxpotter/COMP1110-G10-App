@@ -1,6 +1,6 @@
 {
   "expo": {
-    "scheme": "budgetapp", 
+    "scheme": "budgetapp",
     "name": "budget-app",
     "slug": "budget-app",
     "version": "1.0.0",
@@ -27,7 +27,8 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "@react-native-community/datetimepicker"
     ]
   }
 }
