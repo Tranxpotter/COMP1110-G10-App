@@ -6,6 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ThemedText from "../components/ThemedText"
 import ThemedTextInput from "../components/ThemedTextInput"
 import ThemedButton from "../components/ThemedButton"
+import ThemedPickerSelect from "../components/ThemedPickerSelect"
 import { Colors } from '../constants/Colors'
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context'
 
@@ -38,12 +39,12 @@ const Input = () => {
   }
 
   async function handleSubmit() {
-    if (!date.trim() || !transaction_type.trim() || !recipient.trim() || !category.trim()){
+    if (!date.toISOString() || !transaction_type.trim() || !recipient.trim() || !category.trim()){
       console.log("Incomplete input");
       return;
     }
 
-    console.log(date, transaction_type, recipient, category, amount, description);
+    console.log(date.toISOString(), transaction_type, recipient, category, amount, description);
 
   }
 
@@ -90,7 +91,7 @@ const Input = () => {
             <ThemedButton
               onPress={() => setShowDatePicker(true)}
             >
-
+              <Text style={{color:"#fff"}} >{date.toDateString()}</Text>
             </ThemedButton>
 
             {showDatePicker && (<DateTimePicker
@@ -101,21 +102,13 @@ const Input = () => {
               onValueChange={(event, selectedDate) => setDate(selectedDate)}
               onChange={handleDateChange}
             />)}
-            
-            {/* <ThemedTextInput
-              style={styles.textinput}
-              value={date}
-              onChangeText={setDate}
-              returnKeyType="next"
-              blurOnSubmit={false}
-              onSubmitEditing={() => typeInputRef.current?.focus()}
-            /> */}
+
           </View>
 
           <View style={styles.fieldRow}>
             <ThemedText style={styles.fieldname}>Type</ThemedText>
             
-            <ThemedTextInput
+            {/* <ThemedTextInput
               ref={typeInputRef}
               style={styles.textinput}
               value={transaction_type}
@@ -123,7 +116,13 @@ const Input = () => {
               returnKeyType="next"
               blurOnSubmit={false}
               onSubmitEditing={() => recipientInputRef.current?.focus()}
+            /> */}
+            <ThemedPickerSelect style={styles.textinput}
+              items={[
+                { label: "Hello", value: "World"}
+              ]}
             />
+
           </View>
 
           <View style={styles.fieldRow}>
