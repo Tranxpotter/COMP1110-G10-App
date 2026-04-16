@@ -1,107 +1,126 @@
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal } from 'react-native';
-import React, { useState } from 'react';;
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, FlatList } from 'react-native';
+import React, { useState } from 'react';
 import { Link } from 'expo-router';
-import { LineChart } from "react-native-gifted-charts";
+import { LineChart, BarChart } from "react-native-gifted-charts";
+import { SelectList } from "react-native-dropdown-select-list";
 
-// Get screen width for better chart scaling
 const screenWidth = Dimensions.get('window').width;
 
 const Dashboard = () => {
-  // States for two different modals
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [chartModalVisible, setChartModalVisible] = useState(false);
-
-  // Added labels for the Month column
-  const data = [
-    { value: 1000.1, month: 'Jan', label: 'Jan' }, 
-    { value: 203, month: 'Feb', label: 'Feb' },
-    { value: 180, month: 'Mar', label: 'Mar' }, 
-    { value: -40, month: 'Apr', label: 'Apr' },
-    { value: 0, month: 'May', label: 'May' }, 
-    { value: -3, month: 'Jun', label: 'Jun' },
-    { value: -1310, month: 'Jul', label: 'Jul' }, 
-    { value: 225, month: 'Aug', label: 'Aug' },
+  const [selectedChart, setSelectedChart] = useState("Line");
+  
+// Data for the dropdown
+  const dropdownData = [
+    { key: 'Line', value: 'Line Chart' },
+    { key: 'Bar', value: 'Bar Chart' },
   ];
 
-  // Calculate fixed y-axis range to keep chart consistent
+  const chartOptions = ['Line', 'Bar'];
+
+  const data = [
+    { value: 1000.1, month: 'Jan', label: 'Jan', frontColor: '#0BA5A4' }, 
+    { value: 203, month: 'Feb', label: 'Feb', frontColor: '#0BA5A4' },
+    { value: 180, month: 'Mar', label: 'Mar', frontColor: '#0BA5A4' }, 
+    { value: -40, month: 'Apr', label: 'Apr', frontColor: '#0BA5A4' },
+    { value: 0, month: 'May', label: 'May', frontColor: '#0BA5A4' }, 
+    { value: -3, month: 'Jun', label: 'Jun', frontColor: '#0BA5A4' },
+    { value: -1310, month: 'Jul', label: 'Jul', frontColor: '#0BA5A4' }, 
+    { value: -1225, month: 'Aug', label: 'Aug', frontColor: '#0BA5A4' },
+    { value: -900, month: 'Sep', label: 'Sep', frontColor: '#0BA5A4' }, 
+    { value: -86, month: 'Oct', label: 'Oct', frontColor: '#0BA5A4' },
+    { value: -130, month: 'Nov', label: 'Nov', frontColor: '#0BA5A4' }, 
+    { value: 21, month: 'Dec', label: 'Dec', frontColor: '#0BA5A4' },
+  ];
+
   const maxVal = Math.max(...data.map(d => d.value));
   const minVal = Math.min(...data.map(d => d.value));
   const absMax = Math.max(Math.abs(maxVal), Math.abs(minVal));
-  const yAxisRange = Math.ceil((absMax * 1.2) / 10) * 10; // Round to nearest multiple of 10 with 20% padding
+  const yAxisRange = Math.ceil((absMax * 1.2) / 10) * 10;
 
-  // Calculate the total sum of all values
-  const totalAmount = data.reduce((acc, item) => {
-    // Multiply by 100 and round to clear any existing float errors
-    return acc + Math.round(item.value * 100);
-  }, 0) / 100;
+  const totalAmount = data.reduce((acc, item) => acc + Math.round(item.value * 100), 0) / 100;
   const isTotalPositive = totalAmount >= 0;
   const totalColor = isTotalPositive ? '#2e7d32' : '#d32f2f';
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Dashboard</Text>
-      
-      {/* This container will now grow to fill the middle space */}
-      <View style={styles.chartWrapper}>
-        <LineChart 
-          data={data} 
-          color="#0BA5A4" 
-          thickness={3}
-          width={screenWidth * 0.8} // Sets chart width to 80% of screen
-          height={50}            // Fixed height for the chart
-          noOfSections={4}        // Number of horizontal scale lines
-          xAxisThickness={2}
-          xAxisLabelsVerticalShift = {50} // Moves x-axis labels closer to the line
-          areaChart
-          startFillColor="#0BA5A4"
-          startOpacity={0.2}
-          endOpacity={0.01}
-          // Fix y-axis alignment and scaling
-          yAxisLabelWidth={35}
-          yAxisTextStyle = {{fontSize: 10,}}
-          yAxisAtOrigin
-          yAxisThickness={2}
-          maxValue={yAxisRange}
-          hideDataPoints={false}
-          spacing={40}
-          initialSpacing={10}
-          adjustToWidth
+
+      {/* --- SELECT LIST DROPDOWN --- */}
+      <View style={styles.dropdownContainer}>
+        <SelectList 
+          setSelected={(val) => setSelectedChart(val)} 
+          data={dropdownData} 
+          save="key"
+          defaultOption={{ key: 'Line', value: 'Line Chart' }}
+          search={false} // Keeps it clean
+          boxStyles={styles.dropdownBox}
+          dropdownStyles={styles.dropdownListFloating}
+          inputStyles={styles.dropdownInput}
         />
       </View>
 
-      {/* --- TABLE SECTION --- */}
+      {/* CONDITIONAL CHART RENDERING */}
+      <View style={styles.chartWrapper}>
+        {selectedChart === 'Line' ? (
+          <LineChart 
+            data={data} 
+            color="#0BA5A4" 
+            thickness={3}
+            width={screenWidth * 0.8}
+            height={50}
+            noOfSections={4}
+            xAxisLabelsVerticalShift={45}
+            areaChart
+            startFillColor="#0BA5A4"
+            startOpacity={0.2}
+            yAxisLabelWidth={35}
+            yAxisTextStyle={{ fontSize: 10 }}
+            maxValue={yAxisRange}
+            mostNegativeValue={-yAxisRange}
+            spacing={40}
+            initialSpacing={10}
+          />
+        ) : (
+          <BarChart 
+            data={data} 
+            barWidth={18}
+            noOfSections={4}
+            barBorderRadius={4}
+            frontColor="#0BA5A4"
+            width={screenWidth * 0.8}
+            height={50}
+            yAxisTextStyle={{ fontSize: 10 }}
+            yAxisLabelWidth={35}
+            maxValue={yAxisRange}
+            mostNegativeValue={-yAxisRange}
+            xAxisLabelsVerticalShift={45}
+          />
+        )}
+      </View>
+
+      {/* --- TABLE SECTION (remains the same) --- */}
       <View style={styles.tableContainer}>
-        {/* Fixed Header */}
         <View style={styles.tableHeader}>
           <Text style={[styles.columnHeader, { flex: 1 }]}>Month</Text>
-          {/* Added textAlign: 'right' and extra paddingRight to match the rows */}
           <Text style={[styles.columnHeader, { flex: 2, textAlign: 'right', paddingRight: 20 }]}>
-            Total Spent/Income
+            Total Spending/Income
           </Text>
         </View>
-
-        {/* Scrollable Rows */}
         <ScrollView style={styles.scrollBody}>
-          {data.map((item, index) => {
-            const isPositive = item.value >= 0;
-            const amountColor = isPositive ? '#2e7d32' : '#d32f2f';
-            return (
-              <View key={index} style={styles.tableRow}>
-                <Text style={[styles.cell, { flex: 1 }]}>{item.month}</Text>
-                {/* Use textAlign: 'right' here */}
-                <Text style={[styles.cell, { flex: 2, color: amountColor, fontWeight: 'bold', textAlign: 'right', paddingRight: 20 }]}>
-                  {isPositive ? `+$${item.value.toFixed(2)}` : `-$${Math.abs(item.value)}.00`}
-                </Text>
-              </View>
-            );
-          })}
+          {data.map((item, index) => (
+            <View key={index} style={styles.tableRow}>
+              <Text style={[styles.cell, { flex: 1 }]}>{item.month}</Text>
+              <Text style={[styles.cell, { flex: 2, color: item.value >= 0 ? '#2e7d32' : '#d32f2f', fontWeight: 'bold', textAlign: 'right', paddingRight: 20 }]}>
+                {item.value >= 0 ? `+$${item.value.toFixed(2)}` : `-$${Math.abs(item.value).toFixed(2)}`}
+              </Text>
+            </View>
+          ))}
         </ScrollView>
-
-        {/* Fixed Summary Row */}
         <View style={styles.summaryRow}>
           <Text style={[styles.cell, { flex: 1, fontWeight: 'bold' }]}>Summary</Text>
           <Text style={[styles.cell, { flex: 2, color: totalColor, fontWeight: 'bold', textAlign: 'right', paddingRight: 20 }]}>
-            {/* .toFixed(2) ensures two decimal places are always shown */}
             {isTotalPositive ? `+$${totalAmount.toFixed(2)}` : `-$${Math.abs(totalAmount).toFixed(2)}`}
           </Text>
         </View>
@@ -159,76 +178,65 @@ const Dashboard = () => {
 export default Dashboard;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-  }, 
-  title: {
-    marginTop: 50,
-    fontSize: 28,
-    fontWeight: 'bold',
-  }, 
-  chartWrapper: {
-    marginTop: 10,
-    marginBottom: 20,
-    // Ensure no extra padding is pushing the chart to one side
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: screenWidth,
+  container: { flex: 1, backgroundColor: '#fff', alignItems: 'center' },
+  title: { marginTop: 20, fontSize: 28, fontWeight: 'bold' },
+
+  // --- NEW DROPDOWN STYLES ---
+  dropdownContainer: {
+    width: '60%',
+    zIndex: 1000, 
   },
-  tableContainer: {
-    width: '90%',
-    height: 240,
-    borderWidth: 1,
+  dropdownBox: {
     borderColor: '#eee',
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
-  tableHeader: {
-    flexDirection: 'row',
+    borderRadius: 10,
     backgroundColor: '#f9f9f9',
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    zIndex: 1,
-  },
-  scrollBody: {
-    flex: 1,                 // Allows the scroll area to fill the container height
-  },
-  tableRow: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    height: 45,
     alignItems: 'center',
   },
-  columnHeader: {
-    padding: 12,
-    fontWeight: 'bold',
-    color: '#333',
-    fontSize: 14,
+  dropdownListFloating: {
+    // This makes the list float instead of pushing content
+    position: 'absolute',
+    backgroundColor: 'white',
+    width: '100%',
+    top: 40, // Adjust based on your box height
+    zIndex: 999,
+    borderColor: '#eee',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5, // Adds shadow for Android
   },
-  cell: {
-    paddingHorizontal: 12,
-    paddingVertical: 3,
-    color: '#555',
-    fontSize: 14,
+  dropdownInput: { 
+    fontSize: 14, 
+    color: '#333' 
+  },
+  
+  chartWrapper: { 
+    marginTop: 10, 
+    marginBottom: 5, 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    width: screenWidth,
+    // Ensure this has a lower zIndex than the dropdown
+    zIndex: 1, 
+  },
+  optionText: { fontSize: 14, color: '#555' },
+  modalOverlay: { 
+    flex: 1, 
+    backgroundColor: 'rgba(0,0,0,0.2)', 
+    justifyContent: 'center', 
+    alignItems: 'center' 
   },
 
-  // NEW SUMMARY ROW STYLES
-  summaryRow: {
-    flexDirection: 'row',
-    backgroundColor: '#f0fdfa', // Light tint to make it stand out
-    borderTopWidth: 2,
-    borderTopColor: '#0BA5A4',
-    paddingVertical: 10,
-    alignItems: 'center',
-  },
-  summaryText: {
-    paddingHorizontal: 12,
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#333',
-  },
+  chartWrapper: { marginTop: 10, marginBottom: 5, alignItems: 'center', justifyContent: 'center', width: screenWidth },
+  tableContainer: { width: '90%', height: 240, borderWidth: 1, borderColor: '#eee', borderRadius: 8, overflow: 'hidden' },
+  tableHeader: { flexDirection: 'row', backgroundColor: '#f9f9f9', borderBottomWidth: 1, borderBottomColor: '#eee' },
+  scrollBody: { flex: 1 },
+  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#eee', alignItems: 'center' },
+  columnHeader: { padding: 12, fontWeight: 'bold', color: '#333', fontSize: 14 },
+  cell: { paddingHorizontal: 12, paddingVertical: 8, color: '#555', fontSize: 14 },
+  summaryRow: { flexDirection: 'row', backgroundColor: '#f0fdfa', borderTopWidth: 2, borderTopColor: '#0BA5A4', paddingVertical: 10, alignItems: 'center' },
 
   // FOOTER & BUTTONS
   footerContainer: {
@@ -292,6 +300,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
+    marginTop: 5,
   },
   buttonText: { color: '#fff', fontSize: 15, fontWeight: '600', textAlign: 'center' },
   sideButton: {
@@ -302,6 +311,7 @@ const styles = StyleSheet.create({
     borderColor: '#0BA5A4',
     alignItems: 'center',
     backgroundColor: '#fff',
+    marginTop: 5,
   },
   sideButtonText: { color: '#0BA5A4', fontWeight: 'bold', fontSize: 13 },
 
