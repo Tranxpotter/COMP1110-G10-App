@@ -28,6 +28,8 @@ const Input = () => {
   const [currency, setCurrency] = useState("HKD");
   const [description, setDescription] = useState("");
 
+  const [logMsg, setLogMsg] = useState("");
+
   const recipientInputRef = useRef(null);
   const categoryInputRef = useRef(null);
   const amountInputRef = useRef(null);
@@ -52,7 +54,7 @@ const Input = () => {
       ])
       // setCategories(cats || [])
       // setRecipients(recips || [])
-      setRecords(recs || [])
+      // setRecords(recs || [])
     } catch (e) {
       console.log('loadAll error', e)
     }
@@ -60,7 +62,8 @@ const Input = () => {
 
   async function handleSubmit() {
     if (!date.toISOString() || !transaction_type.trim() || !recipient.trim() || !category.trim()){
-      console.log("Incomplete input");
+      // console.log("Incomplete input");
+      setLogMsg("Incomplete Input");
       return;
     }
 
@@ -82,7 +85,8 @@ const Input = () => {
       reset()
 
       await loadAll()
-      Alert.alert('Record added', String(res))
+      setLogMsg("Record added")
+      // Alert.alert('Record added', String(res))
     } catch (e) {
       console.log(e)
       Alert.alert('Error', String(e))
@@ -99,6 +103,7 @@ const Input = () => {
     setCategory("")
     setAmount(0)
     setDescription("")
+    setLogMsg("")
   }
 
   function handleDateChange(event, selectedDate) {
@@ -144,7 +149,7 @@ const Input = () => {
               value={date}
               mode='date'
               is24Hour={true}
-              onValueChange={(event, selectedDate) => setDate(selectedDate)}
+              onValueChange={(event, selectedDate) => {setDate(selectedDate); setLogMsg("");}}
               onChange={handleDateChange}
             />)}
 
@@ -155,7 +160,7 @@ const Input = () => {
             
             <ThemedSelectList 
               key={typeSelectResetKey}
-              setSelected={setTransactionType} 
+              setSelected={(value) => {setTransactionType(value);}} 
               data={[
                 {key: "spending", value: "Spending"},
                 {key: "income", value: "Income"}
@@ -178,7 +183,7 @@ const Input = () => {
               ref={recipientInputRef}
               style={styles.textinput}
               value={recipient}
-              onChangeText={setRecipient}
+              onChangeText={(value) => {setRecipient(value); setLogMsg("");}}
               returnKeyType="next"
               blurOnSubmit={false}
               onSubmitEditing={() => categoryInputRef.current?.focus()}
@@ -194,7 +199,7 @@ const Input = () => {
               ref={categoryInputRef}
               style={styles.textinput}
               value={category}
-              onChangeText={setCategory}
+              onChangeText={(value) => {setCategory(value); setLogMsg("");}}
               returnKeyType="next"
               blurOnSubmit={false}
               onSubmitEditing={() => amountInputRef.current?.focus()}
@@ -211,7 +216,7 @@ const Input = () => {
               ref={amountInputRef}
               style={styles.textinput}
               value={String(amount)}
-              onChangeText={handleAmountInput}
+              onChangeText={(value) => {handleAmountInput(value); setLogMsg("");}}
               returnKeyType="next"
               blurOnSubmit={false}
               onSubmitEditing={() => descriptionInputRef.current?.focus()}
@@ -227,7 +232,7 @@ const Input = () => {
               ref={descriptionInputRef}
               style={styles.multiline}
               value={description}
-              onChangeText={setDescription}
+              onChangeText={(value) => {setDescription(value); setLogMsg("");}}
               multiline={true}
               // numberOfLines={5}
               textAlignVertical="top"
@@ -254,7 +259,7 @@ const Input = () => {
 
         </View>
 
-
+        <Text style={{ color: Colors.warning, width: "100%", textAlign: "center"}}>{logMsg}</Text>
 
       </ThemedScrollView>
     </KeyboardAvoidingView>
