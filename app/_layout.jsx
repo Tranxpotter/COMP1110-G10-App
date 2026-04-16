@@ -1,9 +1,12 @@
-import { View, Text, useColorScheme } from 'react-native'
+import { View, Text, useColorScheme, Dimensions } from 'react-native'
 import { Tabs } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import { Colors } from '../constants/Colors'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const RootLayout = () => {
   const colorScheme = useColorScheme();
@@ -15,7 +18,7 @@ const RootLayout = () => {
       screenOptions={{ headerShown: false, tabBarStyle: {
         backgroundColor: theme.navBackground, 
         paddingTop: 10, 
-        height: 90
+        height: screenHeight *0.1
       }, 
       tabBarActiveTintColor: theme.iconColorFocused, 
       tabBarInactiveTintColor: theme.iconColor
