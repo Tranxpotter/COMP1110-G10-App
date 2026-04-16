@@ -1,0 +1,13 @@
+AMOUNT,CNAME,DATE,TYPE,CURRENCY,DESCRIPTION,RNAME
+0.00,Education,2024-06-15,spending,HKD,Boundary test: raw=0.0,Amy Jones
+0.01,Utilities,2024-06-15,spending,HKD,Boundary test: raw=0.01,Elizabeth Thomas
+0.00,Salary,2024-06-15,income,HKD,Boundary test: raw=0.001,Brandon Hudson
+-1.00,Refund,2024-06-15,income,HKD,Boundary test: raw=-1.0,Steven Cox
+-9999.99,Salary,2024-06-15,income,HKD,Boundary test: raw=-9999.99,Megan Smith
+999999999.99,Insurance,2024-06-15,spending,HKD,Boundary test: raw=999999999.99,Joshua Morales
+1000000000000.00,Food,2024-06-15,spending,HKD,Boundary test: raw=1000000000000.0,Jessica Long
+-0.00,Education,2024-06-15,spending,HKD,Boundary test: raw=-0.0,Andrew Hunt
+0.01,Insurance,2024-06-15,spending,HKD,Boundary test: raw=0.005,Todd Hines
+100000000.00,Entertainment,2024-06-15,spending,HKD,Boundary test: raw=100000000.0,Kenneth Miller
+-100000000.00,Transport,2024-06-15,spending,HKD,Boundary test: raw=-100000000.0,Rhonda Gilbert MD
+0.30,Rent,2024-06-15,spending,HKD,Boundary test: raw=0.30000000000000004,Tracy Thompson
