@@ -39,6 +39,13 @@ const Dashboard = () => {
   const absMax = Math.max(Math.abs(maxVal), Math.abs(minVal));
   const yAxisRange = Math.ceil((absMax * 1.2) / 10) * 10;
 
+  // Process data to add dynamic colors
+  const dynamicData = data.map(item => ({
+    ...item,
+    // If value is >= 0, use Teal, else use Red
+    frontColor: item.value >= 0 ? '#0BA5A4' : '#d32f2f',
+  }));
+
   const totalAmount = data.reduce((acc, item) => acc + Math.round(item.value * 100), 0) / 100;
   const isTotalPositive = totalAmount >= 0;
   const totalColor = isTotalPositive ? '#2e7d32' : '#d32f2f';
@@ -84,7 +91,7 @@ const Dashboard = () => {
           />
         ) : (
           <BarChart 
-            data={data} 
+            data={dynamicData} 
             barWidth={18}
             noOfSections={4}
             barBorderRadius={4}
