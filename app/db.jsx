@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, Button, Alert, ScrollView, StyleSheet } from 'react-native'
-import { addCategory, addRecipient, addRecord } from './dbClient'
+import { addCategory, addRecipient, addRecord } from '../components/dbClient'
 
 export default function InputForms() {
   // category
