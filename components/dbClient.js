@@ -1,6 +1,6 @@
 import * as SQLite from 'expo-sqlite'
 import Papa from 'papaparse'
-import * as FileSystem from 'expo-file-system'
+import * as FileSystem from 'expo-file-system/legacy'
 import * as Sharing from 'expo-sharing'
 
 // lazy/open async DB (uses new expo-sqlite async API)
@@ -20,7 +20,7 @@ async function getDb() {
         throw e
       }
     }
-    if (typeof SQLite.openDatabase === 'function') {
+    if (typeof SQLite.openDatabase === 'function') { //I think this is not used/
       _db = SQLite.openDatabase('example.db')
       return _db
     }
@@ -49,7 +49,7 @@ export async function executeSqlAsync(sql, params = []) {
 }
 // alias
 export const executeSql = executeSqlAsync
-// ...existing code...
+
 
 export async function dropAllTables() {  //this function is scary and should never be used!!!
   // drop in dependency order (ONLY USE IN TESTING)
@@ -91,10 +91,10 @@ export async function initTables() {
       tid INTEGER PRIMARY KEY AUTOINCREMENT,
       amount REAL,
       cid INTEGER,
-      date TEXT,
+      date DATE,
       type TEXT,
       currency TEXT,
-      inputdatetime TEXT,
+      inputdatetime DATETIME,
       description TEXT,
       rid INTEGER,
       FOREIGN KEY (cid) REFERENCES category(cid) ON DELETE SET NULL,
@@ -117,6 +117,78 @@ export async function fetchAllRecipients() {
 export async function fetchAllRecords() {
     const res = await executeSqlAsync('SELECT * FROM record')
     return res.rows._array
+}
+
+//order by for records
+export async function fetchRecordsOrderByAmount(order = 'DESC') {
+  const o = String(order || '').toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
+  const res = await executeSqlAsync(`SELECT * FROM record ORDER BY amount ${o}`)
+  return (res && res.rows && res.rows._array) ? res.rows._array : []
+}
+
+export async function fetchRecordsOrderByDate(order = 'DESC') {
+  const o = String(order || '').toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
+  const res = await executeSqlAsync(`SELECT * FROM record ORDER BY date ${o}, inputdatetime ${o}`)
+  return (res && res.rows && res.rows._array) ? res.rows._array : []
+}
+
+export async function fetchRecordsOrderByCid(order = 'ASC') {
+  const o = String(order || '').toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
+  const res = await executeSqlAsync(`SELECT * FROM record ORDER BY cid ${o}`)
+  return (res && res.rows && res.rows._array) ? res.rows._array : []
+}
+
+
+
+//broad filter function
+export async function fetchRecordsByFilters(filters = {}) { //note I don't export this function, I want u (whoever) to use them in wrappers.
+  const { startDate, endDate, categoryName, type, recipientName } = filters || {}
+  let sql = `SELECT r.* FROM record r
+             LEFT JOIN category c ON r.cid = c.cid
+             LEFT JOIN recipient p ON r.rid = p.rid`
+  const where = []
+  const params = []
+
+  if (startDate) {//preparing SQL
+    where.push('r.date >= ?')
+    params.push(startDate)
+  }
+  if (endDate) {
+    where.push('r.date <= ?')
+    params.push(endDate)
+  }
+  if (categoryName) {
+    where.push('c.cname = ?')
+    params.push(String(categoryName).trim())
+  }
+  if (type) {
+    where.push('r.type = ?')
+    params.push(String(type).trim())
+  }
+  if (recipientName) {
+    where.push('p.name = ?')
+    params.push(String(recipientName).trim())
+  }
+
+  if (where.length) sql += ' WHERE ' + where.join(' AND ')
+  sql += ' ORDER BY r.date DESC, r.inputdatetime DESC'
+
+  const res = await executeSqlAsync(sql, params)
+  return (res && res.rows && res.rows._array) ? res.rows._array : []
+}
+
+// convenience wrappers(for filters, take note some could allow multiple filters, just take note)
+export async function fetchRecordsByDateRange(startDate, endDate) {
+  return fetchRecordsByFilters({ startDate, endDate })
+}
+export async function fetchRecordsByCategoryName(categoryName, startDate = null, endDate = null) {//e.g could same time do time
+  return fetchRecordsByFilters({ categoryName, startDate, endDate })
+}
+export async function fetchRecordsByType(type, startDate = null, endDate = null) {
+  return fetchRecordsByFilters({ type, startDate, endDate })
+}
+export async function fetchRecordsByRecipientName(recipientName, startDate = null, endDate = null) {
+  return fetchRecordsByFilters({ recipientName, startDate, endDate })
 }
 
 
@@ -426,7 +498,8 @@ export async function exportRecordsToCsv() {
     const ts = new Date().toISOString().slice(0,19).replace(/[:T]/g, '-')
     const filename = `records-${ts}.csv`
     const path = `${FileSystem.cacheDirectory}${filename}`
-    await FileSystem.writeAsStringAsync(path, csv, { encoding: FileSystem.EncodingType.UTF8 })
+    const enc = FileSystem?.EncodingType?.UTF8 || 'utf8'
+    await FileSystem.writeAsStringAsync(path, csv, { encoding: enc })
     if (await Sharing.isAvailableAsync()) await Sharing.shareAsync(path, { mimeType: 'text/csv' })
     return path
 }
@@ -438,6 +511,13 @@ export default {
     fetchAllCategories,
     fetchAllRecipients,
     fetchAllRecords,
+    fetchRecordsOrderByAmount,
+    fetchRecordsOrderByDate,
+    fetchRecordsOrderByCid,
+    fetchRecordsByDateRange,
+    fetchRecordsByCategoryName,
+    fetchRecordsByType,
+    fetchRecordsByRecipientName,
     addCategory,
     updateCategory,
     deleteCategory,

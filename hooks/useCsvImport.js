@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import * as FileSystem from 'expo-file-system'
+import * as FileSystem from 'expo-file-system/legacy'
 import Papa from 'papaparse'
 import { Alert } from 'react-native'
-import { importRecordsFromRows } from '../componenets/dbClient' // adjust path if you move dbClient
+import { importRecordsFromRows } from '../components/dbClient' 
 
 export function useCsvImport() {
   const [loading, setLoading] = useState(false)
@@ -10,7 +10,8 @@ export function useCsvImport() {
   async function importCsv(uri) {
     setLoading(true)
     try {
-      const content = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.UTF8 })
+      const enc = FileSystem?.EncodingType?.UTF8 || 'utf8'
+      const content = await FileSystem.readAsStringAsync(uri, { encoding: enc })
       const parsed = Papa.parse(content, { header: true, skipEmptyLines: true })
       if (parsed.errors && parsed.errors.length) {
         console.warn('CSV parse errors', parsed.errors)

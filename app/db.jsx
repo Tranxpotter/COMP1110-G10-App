@@ -1,6 +1,7 @@
 import React, { useState , useEffect} from 'react'
 import { View, Text, TextInput, Button, Alert, ScrollView, StyleSheet } from 'react-native'
 import { addCategory, addRecipient, addRecord, initTables, fetchAllCategories, fetchAllRecipients, fetchAllRecords, dropAllTables } from '../components/dbClient'
+import CsvUploader from '../components/CsvUploader'
 
 export default function InputForms() {
 
@@ -18,6 +19,15 @@ export default function InputForms() {
       setCategories(cats || [])
       setRecipients(recips || [])
       setRecords(recs || [])
+
+        // DEBUG: log summary and every record (helps trace blank page / large payload issues)
+        /*
+      const count = (recs || []).length
+      console.log(`loadAll: fetched ${count} records`)
+      if (count) {
+        recs.forEach((r, i) => console.log(`record[${i}]`, r))
+      }
+*/
     } catch (e) {
       console.log('loadAll error', e)
     }
@@ -103,13 +113,41 @@ export default function InputForms() {
   async function onAddRecord() {
     try {
       const amt = amount ? Number(amount) : 0
+
+      // format date -> "YYYY-MM-DD" (leave empty string if none)
+      const formattedDate = (() => {
+        const raw = (date || '').trim()
+        if (!raw) return ''
+        const d = new Date(raw)
+        if (isNaN(d.getTime())) {
+          // if parsing fails, try to accept raw if it looks like YYYY-MM-DD; otherwise empty
+          return /^\d{4}-\d{2}-\d{2}$/.test(raw) ? raw : ''
+        }
+        const yyyy = d.getFullYear()
+        const mm = String(d.getMonth() + 1).padStart(2, '0')
+        const dd = String(d.getDate()).padStart(2, '0')
+        return `${yyyy}-${mm}-${dd}`
+      })()
+
+      // format inputdatetime -> "YYYY-MM-DD HH:MM:SS"
+      const inputdatetime = (() => {
+        const now = new Date()
+        const yyyy = now.getFullYear()
+        const mm = String(now.getMonth() + 1).padStart(2, '0')
+        const dd = String(now.getDate()).padStart(2, '0')
+        const hh = String(now.getHours()).padStart(2, '0')
+        const min = String(now.getMinutes()).padStart(2, '0')
+        const ss = String(now.getSeconds()).padStart(2, '0')
+        return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`
+      })()
+
       const obj = {
         amount: amt,
         cname: cnameForRecord || null,
-        date: date || '',
+        date: formattedDate,
         type: type || '',
         currency: currency || '',
-        inputdatetime: new Date().toISOString(),
+        inputdatetime,
         description: description || '',
         rname: rnameForRecord || null
       }
@@ -162,7 +200,15 @@ export default function InputForms() {
       </View>
       <View style={{ marginTop: 12 }}>
           <Button title="Drop all tables (debug)" color="#b22222" onPress={onDropAllConfirm} />
-        </View>
+      </View>
+      {/* CSV uploader (debug): upload CSV to import records, this is how u implement my csv uploader hahahahahhahahah*/}
+      <View style={{ marginTop: 12 }}>
+        <CsvUploader /> 
+      </View>
+      <View style={{ marginTop: 12 }}>
+        <Button title="Refresh Records" onPress={loadAll} />
+      </View>
+
       </ScrollView>
   )
 }
