@@ -4,11 +4,51 @@ import { LineChart, BarChart } from "react-native-gifted-charts";
 import PagerView from 'react-native-pager-view';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { fetchAllRecords, initTables } from '../components/dbClient';
+import {MaterialIcons} from '@expo/vector-icons';
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const year = 2023;
+
+const items = [
+  // this is the parent or 'item'
+  {
+    name: 'Fruits',
+    id: 0,
+    // these are the children or 'sub items'
+    children: [
+      {
+        name: 'Apple',
+        id: 10,
+      },
+      {
+        name: 'Strawberry',
+        id: 17,
+      },
+      {
+        name: 'Pineapple',
+        id: 13,
+      },
+      {
+        name: 'Banana',
+        id: 14,
+      },
+      {
+        name: 'Watermelon',
+        id: 15,
+      },
+      {
+        name: 'Kiwi fruit',
+        id: 16,
+      },
+    ],
+  },
+
+];
+
 
 const formatRecordsToChartData = (records = []) => {
   const monthly = MONTH_LABELS.map(label => ({ month: label, label, value: 0 }));
@@ -56,7 +96,7 @@ const Dashboard = () => {
     loadData();
   }, []);
 
-  const radioButtons = useMemo(() => ([
+  const charts = useMemo(() => ([
     {
       id: '1', // acts as primary key, should be unique and non-empty string
       label: 'Option 1',
@@ -70,6 +110,11 @@ const Dashboard = () => {
   ]), []);
 
   const [selectedId, setSelectedId] = useState();
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  const onSelectedItemsChange = (items) => {
+    setSelectedItems(items);
+  };
 
   if (loading) {
     return (
@@ -181,7 +226,7 @@ const Dashboard = () => {
             <Text style={styles.modalTitle}>Chart Settings</Text>
             <Text style={styles.modalSubtitle}>Customize how your data is visualized.</Text>
             <RadioGroup 
-              radioButtons={radioButtons} 
+              radioButtons={charts} 
               onPress={setSelectedId}
               selectedId={selectedId}
             />
@@ -198,11 +243,57 @@ const Dashboard = () => {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Filter Data</Text>
             <Text style={styles.modalSubtitle}>Choose specific months or values to display.</Text>
-            <RadioGroup 
-              radioButtons={radioButtons} 
-              onPress={setSelectedId}
-              selectedId={selectedId}
-            />
+            <View>
+              <SectionedMultiSelect
+                items={items}
+                IconRenderer={MaterialIcons}
+                uniqueKey="id"
+                subKey="children"
+                displayKey="name"
+                selectText="Choose some things..."
+                alwaysShowSelectText={true}
+                showDropDowns={true}
+                onSelectedItemsChange={onSelectedItemsChange}
+                selectedItems={selectedItems}
+                styles={{
+                  selectToggle: {
+                    marginTop: 10,
+                    padding: 14,
+                    width: screenWidth * 0.8 - 60,
+                    borderWidth: 1,
+                    borderColor: '#ccc',
+                    borderRadius: 10,
+                    backgroundColor: '#fff'
+                  },
+                  selectToggleText: {
+                    color: '#333',
+                    fontSize: 16
+                  },
+                  searchBar: {
+                    backgroundColor: '#f5f5f5',
+                    borderRadius: 10,
+                    marginBottom: 10
+                  },
+                  searchTextInput: {
+                    color: '#000'
+                  },
+                  chipsWrapper: {
+                    marginTop: 12,
+                    flexWrap: 'wrap'
+                  },
+                  chipContainer: {
+                    backgroundColor: '#E3F2FD',
+                    borderRadius: 20,
+                    paddingHorizontal: 12,
+                    paddingVertical: 6,
+                    margin: 4
+                  },
+                  chipText: {
+                    color: '#0BA5A4'
+                  }
+                }}
+              />
+            </View>
             <TouchableOpacity style={styles.applyBtn} onPress={() => setFilterModalVisible(false)}>
               <Text style={styles.applyBtnText}>Apply Filters</Text>
             </TouchableOpacity>
