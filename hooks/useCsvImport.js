@@ -1,0 +1,35 @@
+import { useState } from 'react'
+import * as FileSystem from 'expo-file-system'
+import Papa from 'papaparse'
+import { Alert } from 'react-native'
+import { importRecordsFromRows } from '../componenets/dbClient' // adjust path if you move dbClient
+
+export function useCsvImport() {
+  const [loading, setLoading] = useState(false)
+
+  async function importCsv(uri) {
+    setLoading(true)
+    try {
+      const content = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.UTF8 })
+      const parsed = Papa.parse(content, { header: true, skipEmptyLines: true })
+      if (parsed.errors && parsed.errors.length) {
+        console.warn('CSV parse errors', parsed.errors)
+      }
+      const rows = parsed.data || []
+      if (!rows.length) {
+        Alert.alert('Import', 'No rows found in CSV')
+        setLoading(false)
+        return
+      }
+      const result = await importRecordsFromRows(rows) // dbClient does validation & chunking
+      Alert.alert('Import complete', `${result.inserted} inserted, ${result.skipped} skipped`)
+    } catch (e) {
+      console.log('importCsv error', e)
+      Alert.alert('Import error', String(e))
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return { importCsv, loading }
+}

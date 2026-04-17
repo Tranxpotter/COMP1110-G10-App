@@ -9,16 +9,35 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "8.4.4",
+    "@react-native-picker/picker": "2.11.1",
+    "@react-native-vector-icons/evil-icons": "^13.1.0",
+    "@react-native-vector-icons/fontawesome-free-solid": "^1.1.0",
     "expo": "~54.0.33",
     "expo-constants": "~18.0.13",
     "expo-linking": "~8.0.11",
     "expo-router": "~6.0.23",
+    "expo-sharing": "~14.0.8",
+    "expo-sqlite": "~16.0.10",
     "expo-status-bar": "~3.0.9",
+    "lodash": "^4.17.21",
+    "prop-types": "^15.8.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
+    "react-native-dropdown-select-list": "^2.0.5",
+    "react-native-gifted-charts": "^1.4.76",
+    "react-native-linear-gradient": "^2.8.3",
+    "react-native-multiple-select": "^0.5.12",
+    "react-native-pager-view": "6.9.1",
+    "react-native-picker-select": "^9.3.1",
+    "react-native-radio-buttons-group": "^3.1.0",
     "react-native-safe-area-context": "~5.6.0",
-    "react-native-screens": "~4.16.0"
+    "react-native-screens": "~4.16.0",
+    "react-native-sectioned-multi-select": "^0.10.0",
+    "react-native-svg": "15.12.1",
+    "react-native-web": "^0.21.0",
+    "react-papaparse": "^4.4.0"
   },
   "private": true
 }
