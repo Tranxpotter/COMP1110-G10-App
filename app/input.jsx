@@ -3,13 +3,14 @@ import React, { useRef, useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SelectList } from "react-native-dropdown-select-list";
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context'
-import { addCategory, addRecipient, addRecord, initTables, fetchAllCategories, fetchAllRecipients, fetchAllRecords, dropAllTables } from '../components/dbClient'
+import { addCategory, addRecipient, addRecord, initTables, fetchAllCategories, fetchAllRecipients, fetchAllRecords, dropAllTables, executeSqlAsync } from '../components/dbClient'
 
 // themed components
 import { Colors } from '../constants/Colors'
 import ThemedText from "../components/ThemedText"
 import ThemedTextInput from "../components/ThemedTextInput"
 import ThemedButton from "../components/ThemedButton"
+import ThemedAutocomplete from '../components/ThemedAutocomplete';
 import ThemedSelectList from '../components/ThemedSelectList';
 import ThemedView from "../components/ThemedView"
 import ThemedScrollView from '../components/ThemedScrollView';
@@ -22,6 +23,7 @@ const Input = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [transaction_type, setTransactionType] = useState("spending");
   const [typeSelectResetKey, setTypeSelectResetKey] = useState(0.0);
+  const [typeDropdownCloseKey, setTypeDropdownCloseKey] = useState(0);
   const [recipient, setRecipient] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState(0);
@@ -29,6 +31,8 @@ const Input = () => {
   const [description, setDescription] = useState("");
 
   const [logMsg, setLogMsg] = useState("");
+  const [matchingRecipients, setMatchingRecipients] = useState([])
+  const [matchingCategories, setMatchingCategories] = useState([])
 
   const recipientInputRef = useRef(null);
   const categoryInputRef = useRef(null);
@@ -36,8 +40,27 @@ const Input = () => {
   const descriptionInputRef = useRef(null);
 
   function handleAmountInput(text) {
-    let numericValue = text.replace(/[^0-9]/, '');
-    numericValue = numericValue.replace(/^0+/, '');
+    let numericValue = String(text || '').replace(/[^0-9.]/g, '');
+
+    const firstDotIndex = numericValue.indexOf('.')
+    if (firstDotIndex !== -1) {
+      numericValue =
+        numericValue.slice(0, firstDotIndex + 1) +
+        numericValue.slice(firstDotIndex + 1).replace(/\./g, '')
+    }
+
+    if (numericValue.startsWith('.')) {
+      numericValue = `0${numericValue}`
+    }
+
+    if (numericValue.includes('.')) {
+      const [intPart, decimalPart] = numericValue.split('.')
+      const normalizedIntPart = intPart.replace(/^0+(?=\d)/, '')
+      numericValue = `${normalizedIntPart || '0'}.${decimalPart}`
+    } else {
+      numericValue = numericValue.replace(/^0+/, '')
+    }
+
     if (numericValue){
       setAmount(numericValue);
     } else {
@@ -45,20 +68,7 @@ const Input = () => {
     }
   }
 
-  async function loadAll() {
-    try {
-      const [cats, recips, recs] = await Promise.all([
-        fetchAllCategories().catch(() => []),
-        fetchAllRecipients().catch(() => []),
-        fetchAllRecords().catch(() => [])
-      ])
-      // setCategories(cats || [])
-      // setRecipients(recips || [])
-      // setRecords(recs || [])
-    } catch (e) {
-      console.log('loadAll error', e)
-    }
-  }
+  
 
   async function handleSubmit() {
     if (!date.toISOString() || !transaction_type.trim() || !recipient.trim() || !category.trim()){
@@ -84,7 +94,6 @@ const Input = () => {
       // clear
       reset()
 
-      await loadAll()
       setLogMsg("Record added")
       // Alert.alert('Record added', String(res))
     } catch (e) {
@@ -99,6 +108,7 @@ const Input = () => {
     setDate(new Date())
     setTransactionType("spending")
     setTypeSelectResetKey((prev) => prev + 1)
+    setTypeDropdownCloseKey((prev) => prev + 1)
     setRecipient("")
     setCategory("")
     setAmount(0)
@@ -121,6 +131,152 @@ const Input = () => {
     }
   }
 
+  async function lookupRecipientMatches(value) {
+    const keyword = String(value || '').trim()
+
+    if (!keyword) {
+      setMatchingRecipients([])
+      return
+    }
+
+    const res = await executeSqlAsync(
+      `SELECT r.name, c.cname
+       FROM recipient r
+       LEFT JOIN category c ON c.cid = r.cid
+       WHERE r.name LIKE ?
+       ORDER BY r.name ASC
+       LIMIT 8`,
+      [`${keyword}%`]
+    )
+
+    setMatchingRecipients(res?.rows?._array || [])
+  }
+
+  async function maybeAutofillCategoryByRecipient(value) {
+    if (String(category || '').trim()) return
+
+    const exact = String(value || '').trim()
+    if (!exact) return
+
+    const res = await executeSqlAsync(
+      `SELECT c.cname
+       FROM recipient r
+       LEFT JOIN category c ON c.cid = r.cid
+       WHERE LOWER(r.name) = LOWER(?)
+       LIMIT 1`,
+      [exact]
+    )
+
+    const linkedCategory = res?.rows?._array?.[0]?.cname
+    if (linkedCategory) {
+      setCategory(linkedCategory)
+    }
+  }
+
+  async function handleRecipientChange(value) {
+    setRecipient(value)
+    setLogMsg("")
+    closeCategorySuggestions()
+
+    try {
+      await lookupRecipientMatches(value)
+      await maybeAutofillCategoryByRecipient(value)
+    } catch (e) {
+      console.log('recipient lookup failed', e)
+    }
+  }
+
+  async function handleRecipientSuggestionPress(item) {
+    setRecipient(item?.name || '')
+    setMatchingRecipients([])
+    setLogMsg("")
+
+    if (!String(category || '').trim() && item?.cname) {
+      setCategory(item.cname)
+    }
+  }
+
+  function closeRecipientSuggestions() {
+    setMatchingRecipients([])
+  }
+
+  function closeTypeDropdownPanel() {
+    setTypeDropdownCloseKey((prev) => prev + 1)
+  }
+
+  async function lookupCategoryMatches(value) {
+    const keyword = String(value || '').trim()
+
+    if (!keyword) {
+      setMatchingCategories([])
+      return
+    }
+
+    const res = await executeSqlAsync(
+      `SELECT cname
+       FROM category
+       WHERE cname LIKE ?
+       ORDER BY cname ASC
+       LIMIT 8`,
+      [`${keyword}%`]
+    )
+
+    setMatchingCategories(res?.rows?._array || [])
+  }
+
+  async function handleCategoryChange(value) {
+    setCategory(value)
+    setLogMsg("")
+    closeRecipientSuggestions()
+
+    try {
+      await lookupCategoryMatches(value)
+    } catch (e) {
+      console.log('category lookup failed', e)
+    }
+  }
+
+  function handleCategorySuggestionPress(item) {
+    setCategory(item?.cname || '')
+    setMatchingCategories([])
+    setLogMsg("")
+  }
+
+  function closeCategorySuggestions() {
+    setMatchingCategories([])
+  }
+
+  function closeAllSuggestions() {
+    closeRecipientSuggestions()
+    closeCategorySuggestions()
+    closeTypeDropdownPanel()
+  }
+
+  function closeRecipientAndCategorySuggestions() {
+    closeRecipientSuggestions()
+    closeCategorySuggestions()
+  }
+
+  function handleTypeSelected(value) {
+    const normalized = value === 'income' ? 'income' : 'spending'
+    setTransactionType(normalized)
+    closeRecipientAndCategorySuggestions()
+  }
+
+  const typeOptions = [
+    { key: "spending", value: "Spending" },
+    { key: "income", value: "Income" }
+  ]
+
+  const selectedTypeOption =
+    transaction_type === 'income'
+      ? { key: 'income', value: 'Income' }
+      : { key: 'spending', value: 'Spending' }
+
+
+
+
+
   return (
     <KeyboardAvoidingView
       style={[styles.container]}
@@ -139,7 +295,10 @@ const Input = () => {
             <ThemedText style={styles.fieldname}>Date:</ThemedText>
 
             <ThemedButton
-              onPress={() => setShowDatePicker(true)}
+              onPress={() => {
+                closeAllSuggestions()
+                setShowDatePicker(true)
+              }}
             >
               <Text style={{color:"#fff"}} >{date.toDateString()}</Text>
             </ThemedButton>
@@ -155,21 +314,22 @@ const Input = () => {
 
           </View>
 
-          <View style={styles.fieldRow}>
+          <View
+            style={[styles.fieldRow, styles.typeRow]}
+            onTouchStart={closeRecipientAndCategorySuggestions}
+          >
             <ThemedText style={styles.fieldname}>Type:</ThemedText>
             
             <ThemedSelectList 
-              key={typeSelectResetKey}
-              setSelected={(value) => {setTransactionType(value);}} 
-              data={[
-                {key: "spending", value: "Spending"},
-                {key: "income", value: "Income"}
-              ]}
+              key={`${typeSelectResetKey}-${typeDropdownCloseKey}`}
+              setSelected={handleTypeSelected}
+              data={typeOptions}
               floating={true}
               save="key"
-              defaultOption={{ key: 'spending', value: 'Spending' }}
+              defaultOption={selectedTypeOption}
               search={false}
               inputStyles={{ color: '#fff' }}
+              dropdownStyles={styles.typeDropdown}
             />
 
           </View>
@@ -178,31 +338,59 @@ const Input = () => {
             
             <ThemedText style={styles.fieldname}>Recipient:</ThemedText>
             
-            
-            <ThemedTextInput
-              ref={recipientInputRef}
-              style={styles.textinput}
+            <ThemedAutocomplete
+              inputRef={recipientInputRef}
+              containerStyle={styles.autocompleteWrap}
+              inputStyle={styles.textinput}
               value={recipient}
-              onChangeText={(value) => {setRecipient(value); setLogMsg("");}}
+              onFocus={closeTypeDropdownPanel}
+              onChangeText={handleRecipientChange}
+              onSubmitEditing={() => {
+                closeRecipientSuggestions()
+                closeCategorySuggestions()
+                categoryInputRef.current?.focus()
+              }}
               returnKeyType="next"
               blurOnSubmit={false}
-              onSubmitEditing={() => categoryInputRef.current?.focus()}
+              autoCorrect={false}
+              suggestions={matchingRecipients}
+              shouldShowSuggestions={!!recipient.trim() && matchingRecipients.length > 0}
+              onSelectSuggestion={handleRecipientSuggestionPress}
+              onClose={closeRecipientSuggestions}
+              getSuggestionLabel={(item) => item?.name || ''}
+              maxVisibleItems={3}
+              suggestionRowHeight={50}
             />
+
+
           </View>
 
           <View style={styles.fieldRow}>
             
             <ThemedText style={styles.fieldname}>Category:</ThemedText>
             
-            
-            <ThemedTextInput
-              ref={categoryInputRef}
-              style={styles.textinput}
+
+            <ThemedAutocomplete
+              inputRef={categoryInputRef}
+              containerStyle={styles.autocompleteWrap}
+              inputStyle={styles.textinput}
               value={category}
-              onChangeText={(value) => {setCategory(value); setLogMsg("");}}
+              onFocus={closeTypeDropdownPanel}
+              onChangeText={handleCategoryChange}
+              onSubmitEditing={() => {
+                closeCategorySuggestions()
+                amountInputRef.current?.focus()
+              }}
               returnKeyType="next"
               blurOnSubmit={false}
-              onSubmitEditing={() => amountInputRef.current?.focus()}
+              autoCorrect={false}
+              suggestions={matchingCategories}
+              shouldShowSuggestions={!!category.trim() && matchingCategories.length > 0}
+              onSelectSuggestion={handleCategorySuggestionPress}
+              onClose={closeCategorySuggestions}
+              getSuggestionLabel={(item) => item?.cname || ''}
+              maxVisibleItems={3}
+              suggestionRowHeight={50}
             />
           </View>
 
@@ -216,6 +404,7 @@ const Input = () => {
               ref={amountInputRef}
               style={styles.textinput}
               value={String(amount)}
+              onFocus={closeAllSuggestions}
               onChangeText={(value) => {handleAmountInput(value); setLogMsg("");}}
               returnKeyType="next"
               blurOnSubmit={false}
@@ -232,6 +421,7 @@ const Input = () => {
               ref={descriptionInputRef}
               style={styles.multiline}
               value={description}
+              onFocus={closeAllSuggestions}
               onChangeText={(value) => {setDescription(value); setLogMsg("");}}
               multiline={true}
               // numberOfLines={5}
@@ -297,7 +487,20 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     columnGap: 10,
   },
+  typeRow: {
+    zIndex: 300,
+    elevation: 300,
+  },
+  typeDropdown: {
+    zIndex: 400,
+    elevation: 400,
+  },
   textinput: {
+    flex: 1,
+    minWidth: 0,
+    maxWidth: "100%",
+  },
+  autocompleteWrap: {
     flex: 1,
     minWidth: 0,
     maxWidth: "100%",
