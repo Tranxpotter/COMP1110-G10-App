@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator, Button } from 'react-native';
 import React, { useMemo, useState, useEffect } from 'react';
-import { LineChart, BarChart } from "react-native-gifted-charts";
+import { LineChart, BarChart, PieChart } from "react-native-gifted-charts";
 import PagerView from 'react-native-pager-view';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { fetchAllRecords, initTables } from '../components/dbClient';
@@ -11,42 +11,24 @@ import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const year = 2023;
+const year = 2026;
 
-const items = [
+const initialFilters = [
   // this is the parent or 'item'
   {
-    name: 'Fruits',
+    name: 'Categaries',
     id: 0,
     // these are the children or 'sub items'
     children: [
-      {
-        name: 'Apple',
-        id: 10,
-      },
-      {
-        name: 'Strawberry',
-        id: 17,
-      },
-      {
-        name: 'Pineapple',
-        id: 13,
-      },
-      {
-        name: 'Banana',
-        id: 14,
-      },
-      {
-        name: 'Watermelon',
-        id: 15,
-      },
-      {
-        name: 'Kiwi fruit',
-        id: 16,
-      },
     ],
   },
-
+  {
+    name: 'Recipients',
+    id: 1,
+    // these are the children or 'sub items'
+    children: [
+    ],
+  },
 ];
 
 
@@ -80,6 +62,15 @@ const Dashboard = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [items, setItems] = useState(initialFilters);
+
+  const addMoreChildren = () => {
+    const updatedItems = [...items];
+    // Find the parent and push new children into its array
+    updatedItems[0].children.push({ name: 'Mango', id: 25 }); 
+    setItems(updatedItems);
+  };
+
   useEffect(() => {
     async function loadData() {
       try {
@@ -96,20 +87,42 @@ const Dashboard = () => {
     loadData();
   }, []);
 
+  
   const charts = useMemo(() => ([
     {
-      id: '1', // acts as primary key, should be unique and non-empty string
-      label: 'Option 1',
-      value: 'option1'
+      id: 'Line', // Used as the key for logic
+      label: 'Line Chart',
+      value: 'Line',
+      color: '#0BA5A4',
+      selected: true, // Default selection
     },
     {
-      id: '2',
-      label: 'Option 2',
-      value: 'option2'
+      id: 'Bar',
+      label: 'Bar Chart',
+      value: 'Bar',
+      color: '#0BA5A4',
     }
   ]), []);
 
-  const [selectedId, setSelectedId] = useState();
+  const page2Charts = useMemo(() => ([
+    {
+      id: 'Bar',
+      label: 'Bar Chart',
+      value: 'Bar',
+      color: '#0BA5A4',
+      selected: true,
+    },
+    {
+      id: 'Pie',
+      label: 'Pie Charts',
+      value: 'Pie',
+      color: '#0BA5A4',
+    }
+  ]), []);
+
+  // Initialize state to 'Line'
+  const [selectedId, setSelectedId] = useState('Line');
+  const [page2ChartType, setPage2ChartType] = useState('Bar');
   const [selectedItems, setSelectedItems] = useState([]);
 
   const onSelectedItemsChange = (items) => {
@@ -137,6 +150,105 @@ const Dashboard = () => {
   const numberOfPoints = data.length;
   const dynamicSpacing = (chartWidth - 40) / (numberOfPoints - 1);
 
+  const pieColorPalette = ['#0BA5A4', '#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6', '#f97316', '#7c3aed'];
+  const getSliceColor = (index) => pieColorPalette[index % pieColorPalette.length];
+
+  // Filter for positive values only
+  const incomePieData = data
+    .filter(item => item.value > 0)
+    .map((item, index) => ({
+      value: item.value,
+      color: getSliceColor(index),
+      label: item.month,
+      text: item.month,
+    }));
+
+  // Filter for negative values only (converted to absolute)
+  const spendingPieData = data
+    .filter(item => item.value < 0)
+    .map((item, index) => ({
+      value: Math.abs(item.value),
+      color: getSliceColor(index + incomePieData.length),
+      label: item.month,
+      text: item.month,
+    }));
+
+
+  const chartCommonProps = {
+    width: chartWidth,
+    height: screenHeight * 0.1,
+    noOfSections: 4,
+    maxValue: yAxisRange,
+    mostNegativeValue: -yAxisRange,
+    disableScroll: true,
+    initialSpacing: 10,
+    yAxisLabelWidth: 40,
+    xAxisLabelsVerticalShift: screenHeight * 0.1,
+  };
+
+  const lineChartProps = {
+    ...chartCommonProps,
+    data,
+    color: '#0BA5A4',
+    areaChart: true,
+    startFillColor: '#0BA5A4',
+    startOpacity: 0.1,
+    spacing: dynamicSpacing,
+  };
+
+  const barChartProps = {
+    ...chartCommonProps,
+    data: dynamicData,
+    barWidth: 10,
+    spacing: dynamicSpacing - 10,
+  };
+
+
+
+  const renderChart = () =>
+    selectedId === 'Line' ? <LineChart {...lineChartProps} /> : <BarChart {...barChartProps} />;
+
+  // Example of toggling Page 2 visual style
+  const renderPage2Chart = () => {
+    if (page2ChartType === 'Bar') {
+      return <BarChart {...barChartProps} />;
+    }
+
+    return (
+      <View style={styles.pieContainer}>
+        <View style={styles.pieWrapper}>
+          <Text style={styles.miniChartLabel}>Income Sources</Text>
+          <PieChart
+            data={incomePieData.length > 0 ? incomePieData : [{ value: 1, color: '#eee', text: 'No data' }]}
+            radius={screenWidth * 0.15}
+            innerRadius={screenWidth * 0.08}
+            showText
+            textColor="white"
+            textSize={8}
+          />
+        </View>
+
+        <View style={styles.pieWrapper}>
+          <Text style={styles.miniChartLabel}>Spending Breakdown</Text>
+          <PieChart
+            data={spendingPieData.length > 0 ? spendingPieData : [{ value: 1, color: '#eee', text: 'No data' }]}
+            radius={screenWidth * 0.15}
+            innerRadius={screenWidth * 0.08}
+            showText
+            textColor="white"
+            textSize={8}
+          />
+        </View>
+      </View>
+    );
+  };
+
+  const isPage1 = currentPage === 0;
+  const activePageChartOptions = isPage1 ? charts : page2Charts;
+  const activePageChartSelection = isPage1 ? selectedId : page2ChartType;
+  const activePageChartSetter = isPage1 ? setSelectedId : setPage2ChartType;
+
+
   return (
     <View style={styles.container}>
       {/* HEADER */}
@@ -156,50 +268,23 @@ const Dashboard = () => {
         initialPage={0} 
         onPageSelected={(e) => setCurrentPage(e.nativeEvent.position)}
       >
+        {/* PAGE 1 */}
         <View key="1" style={styles.page}>
           <View style={styles.chartSection}>
-            <Text style={styles.chartLabel}>Spending Trend (Line)</Text>
-            <LineChart 
-              data={data} 
-              color="#0BA5A4" 
-              width={chartWidth}
-              height={screenHeight * 0.1}
-              noOfSections={4}
-              maxValue={yAxisRange}
-              mostNegativeValue={-yAxisRange}
-              areaChart
-              disableScroll={true}
-              initialSpacing={10}
-              startFillColor="#0BA5A4"
-              startOpacity={0.1}
-              yAxisLabelWidth={40}
-              xAxisLabelTextStyle={{fontSize: 12}}
-              xAxisLabelsVerticalShift = {screenHeight * 0.1}
-              spacing={dynamicSpacing}
-            />
+            <Text style={styles.chartLabel}>
+              {selectedId === 'Line' ? 'Spending Trend (Line)' : 'Spending Trend (Bar)'}
+            </Text>
+            {renderChart()}
           </View>
           <TableComponent data={data} />
         </View>
 
-          {/* PAGE 2: BAR CHART DASHBOARD */}
-          <View key="2" style={styles.page}>
-            <View style={styles.chartSection}>
-              <Text style={styles.chartLabel}>Monthly Volume (Bar)</Text>
-              <BarChart 
-                data={dynamicData} 
-                width={chartWidth}
-                height={screenHeight * 0.1}
-                barWidth={10}
-                noOfSections={4}
-                maxValue={yAxisRange}
-                mostNegativeValue={-yAxisRange}
-                initialSpacing={10}
-                yAxisLabelWidth={40}
-                disableScroll={true}
-                xAxisLabelTextStyle={{fontSize: 12}}
-                xAxisLabelsVerticalShift = {screenHeight * 0.1}
-                spacing={dynamicSpacing-10}
-              />
+        <View key="2" style={styles.page}>
+          <View style={styles.chartSection}>
+            <Text style={styles.chartLabel}>
+              {page2ChartType === 'Bar' ? 'Monthly Volume (Bar)' : 'Monthly Volume (Pie)'}
+            </Text>
+            {renderPage2Chart()}
           </View>
           <TableComponent data={data} />
         </View>
@@ -225,12 +310,18 @@ const Dashboard = () => {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Chart Settings</Text>
             <Text style={styles.modalSubtitle}>Customize how your data is visualized.</Text>
+            
+            <Text style={[styles.modalSubtitle, { marginBottom: 10 }]}>
+              {isPage1 ? 'Page 1 chart type' : 'Page 2 chart type'}
+            </Text>
             <RadioGroup 
-              radioButtons={charts} 
-              onPress={setSelectedId}
-              selectedId={selectedId}
+              radioButtons={activePageChartOptions} 
+              onPress={(id) => activePageChartSetter(id)}
+              selectedId={activePageChartSelection}
+              layout="row"
             />
-            <TouchableOpacity style={styles.applyBtn} onPress={() => setChartModalVisible(false)}>
+
+            <TouchableOpacity style={[styles.applyBtn, { marginTop: 20 }]} onPress={() => setChartModalVisible(false)}>
               <Text style={styles.applyBtnText}>Close</Text>
             </TouchableOpacity>
           </View>
@@ -353,6 +444,23 @@ const styles = StyleSheet.create({
   // Responsive Chart Area
   chartSection: {flex: 3, justifyContent: 'center', alignItems: 'center', zIndex: 1,},
   chartLabel: { fontSize: 14, color: '#333', marginBottom: 10, fontWeight: '500' },
+
+  pieContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    paddingHorizontal: 10,
+  },
+  pieWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  miniChartLabel: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#666',
+    marginBottom: 8,
+  },
 
   // Responsive Table Area
   tableSection: {flex: 4, paddingHorizontal: '5%', paddingBottom: 10},
