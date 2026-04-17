@@ -18,15 +18,65 @@ const initialFilters = [
   {
     name: 'Categaries',
     id: 0,
-    // these are the children or 'sub items'
+    // only allow one child selection under this parent
+    singleChildren: true,
     children: [
+      {
+        name: 'Apple',
+        id: 110,
+      },
+      {
+        name: 'Strawberry',
+        id: 117,
+      },
+      {
+        name: 'Pineapple',
+        id: 113,
+      },
+      {
+        name: 'Banana',
+        id: 114,
+      },
+      {
+        name: 'Watermelon',
+        id: 115,
+      },
+      {
+        name: 'Kiwi fruit',
+        id: 116,
+      },
     ],
   },
   {
     name: 'Recipients',
     id: 1,
-    // these are the children or 'sub items'
+    // allow multiple child selections under this parent
+    singleChildren: false,
     children: [
+      {
+        name: 'Apple',
+        id: 10,
+      },
+      {
+        name: 'Strawberry',
+        id: 17,
+      },
+      {
+        name: 'Pineapple',
+        id: 13,
+      },
+      {
+        name: 'Banana',
+        id: 14,
+      },
+      {
+        name: 'Watermelon',
+        id: 15,
+      },
+      {
+        name: 'Kiwi fruit',
+        id: 16,
+      },
     ],
   },
 ];
@@ -125,8 +175,137 @@ const Dashboard = () => {
   const [page2ChartType, setPage2ChartType] = useState('Bar');
   const [selectedItems, setSelectedItems] = useState([]);
 
+  const singleSelectionParentIds = items
+    .filter(parent => parent.singleChildren)
+    .map(parent => parent.id);
+
+  const childToParentMap = items.reduce((map, parent) => {
+    parent.children?.forEach(child => {
+      map[child.id] = parent.id;
+    });
+    return map;
+  }, {});
+
+  const normalizeSelectedItems = (selectedIds) => {
+    const singleParentSelections = {};
+
+    selectedIds.forEach(id => {
+      const parentId = childToParentMap[id];
+      if (singleSelectionParentIds.includes(parentId)) {
+        singleParentSelections[parentId] = singleParentSelections[parentId] || [];
+        singleParentSelections[parentId].push(id);
+      }
+    });
+
+    return selectedIds.filter(id => {
+      const parentId = childToParentMap[id];
+      if (!singleSelectionParentIds.includes(parentId)) {
+        return true;
+      }
+      const selectedForParent = singleParentSelections[parentId];
+      return selectedForParent[selectedForParent.length - 1] === id;
+    });
+  };
+
   const onSelectedItemsChange = (items) => {
-    setSelectedItems(items);
+    setSelectedItems(normalizeSelectedItems(items));
+  };
+
+  const multiSelectStyles = {
+    modalWrapper: { backgroundColor: 'rgba(0,0,0,0.4)' },
+    selectToggle: {
+      marginTop: 10,
+      padding: 14,
+      width: screenWidth * 0.8 - 60,
+      borderWidth: 1,
+      borderColor: '#0BA5A4',
+      borderRadius: 10,
+      backgroundColor: '#f0fdfa',
+    },
+    selectToggleText: {
+      color: '#0B7285',
+      fontSize: 16,
+    },
+    item: {
+      padding: 14,
+      backgroundColor: '#ffffff',
+    },
+    selectedItem: {
+      backgroundColor: '#d1fae5',
+    },
+    subItem: {
+      paddingLeft: 26,
+      paddingVertical: 12,
+      backgroundColor: '#f8fafc',
+    },
+    selectedSubItem: {
+      backgroundColor: '#c7f0e8',
+    },
+    itemText: {
+      color: '#0f766e',
+      fontSize: 15,
+    },
+    selectedItemText: {
+      color: '#115e59',
+      fontWeight: 'bold',
+    },
+    subItemText: {
+      color: '#164e63',
+      fontSize: 14,
+    },
+    selectedSubItemText: {
+      color: '#0f5662',
+      fontWeight: 'bold',
+    },
+    searchBar: {
+      backgroundColor: '#e0f2fe',
+      borderRadius: 10,
+      marginBottom: 10,
+    },
+    searchTextInput: {
+      color: '#0f172a',
+    },
+    chipsWrapper: {
+      marginTop: 12,
+      flexWrap: 'wrap',
+    },
+    chipContainer: {
+      backgroundColor: '#0BA5A4',
+      borderRadius: 20,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      margin: 4,
+    },
+    chipText: {
+      color: '#fff',
+    },
+    cancelButton: {
+      backgroundColor: '#ef4444',
+    },
+    button: {
+      backgroundColor: '#0BA5A4',
+    },
+    confirmText: {
+      color: '#ffffff',
+    },
+    backdrop: {
+      backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    },
+  };
+
+  const multiSelectColors = {
+    primary: '#0BA5A4',
+    success: '#10b981',
+    cancel: '#ef4444',
+    text: '#0f172a',
+    subText: '#475569',
+    selectToggleTextColor: '#0B7285',
+    searchPlaceholderTextColor: '#94a3b8',
+    searchSelectionColor: '#0BA5A4',
+    chipColor: '#0BA5A4',
+    itemBackground: '#ffffff',
+    subItemBackground: '#f8fafc',
+    disabled: '#cbd5e1',
   };
 
   if (loading) {
@@ -310,10 +489,6 @@ const Dashboard = () => {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Chart Settings</Text>
             <Text style={styles.modalSubtitle}>Customize how your data is visualized.</Text>
-            
-            <Text style={[styles.modalSubtitle, { marginBottom: 10 }]}>
-              {isPage1 ? 'Page 1 chart type' : 'Page 2 chart type'}
-            </Text>
             <RadioGroup 
               radioButtons={activePageChartOptions} 
               onPress={(id) => activePageChartSetter(id)}
@@ -346,43 +521,8 @@ const Dashboard = () => {
                 showDropDowns={true}
                 onSelectedItemsChange={onSelectedItemsChange}
                 selectedItems={selectedItems}
-                styles={{
-                  selectToggle: {
-                    marginTop: 10,
-                    padding: 14,
-                    width: screenWidth * 0.8 - 60,
-                    borderWidth: 1,
-                    borderColor: '#ccc',
-                    borderRadius: 10,
-                    backgroundColor: '#fff'
-                  },
-                  selectToggleText: {
-                    color: '#333',
-                    fontSize: 16
-                  },
-                  searchBar: {
-                    backgroundColor: '#f5f5f5',
-                    borderRadius: 10,
-                    marginBottom: 10
-                  },
-                  searchTextInput: {
-                    color: '#000'
-                  },
-                  chipsWrapper: {
-                    marginTop: 12,
-                    flexWrap: 'wrap'
-                  },
-                  chipContainer: {
-                    backgroundColor: '#E3F2FD',
-                    borderRadius: 20,
-                    paddingHorizontal: 12,
-                    paddingVertical: 6,
-                    margin: 4
-                  },
-                  chipText: {
-                    color: '#0BA5A4'
-                  }
-                }}
+                styles={multiSelectStyles}
+                colors={multiSelectColors}
               />
             </View>
             <TouchableOpacity style={styles.applyBtn} onPress={() => setFilterModalVisible(false)}>
