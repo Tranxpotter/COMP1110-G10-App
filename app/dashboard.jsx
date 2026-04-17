@@ -1,32 +1,83 @@
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal } from 'react-native';
-import React, { useState } from 'react';
-import { Link } from 'expo-router';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator, Button } from 'react-native';
+import React, { useMemo, useState, useEffect } from 'react';
 import { LineChart, BarChart } from "react-native-gifted-charts";
-import { SelectList } from "react-native-dropdown-select-list";
 import PagerView from 'react-native-pager-view';
+import RadioGroup from 'react-native-radio-buttons-group';
+import { fetchAllRecords, initTables } from '../components/dbClient';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
+const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const year = 2023;
+
+const formatRecordsToChartData = (records = []) => {
+  const monthly = MONTH_LABELS.map(label => ({ month: label, label, value: 0 }));
+
+  records.forEach(record => {
+    const amount = Number(record.amount) || 0;
+    const transactionType = record.type;
+    const dateValue = record.date ? new Date(record.date) : null;
+    const monthIndex = dateValue instanceof Date && !Number.isNaN(dateValue.getTime()) ? dateValue.getMonth() : null;
+    const yearIndex = dateValue instanceof Date && !Number.isNaN(dateValue.getTime()) ? dateValue.getFullYear() : null;
+
+    if (monthIndex !== null && monthIndex >= 0 && monthIndex < 12 && yearIndex == year) {
+      if (transactionType == "spending") {
+        monthly[monthIndex].value -= amount;
+      }
+      else if (transactionType == "income") {
+        monthly[monthIndex].value += amount;
+      }
+    }
+  });
+
+  return monthly;
+};
 
 const Dashboard = () => {
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [chartModalVisible, setChartModalVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const data = [
-    { value: 1000.1, month: 'Jan', label: 'Jan' }, 
-    { value: 203, month: 'Feb', label: 'Feb' },
-    { value: 180, month: 'Mar', label: 'Mar' }, 
-    { value: -40, month: 'Apr', label: 'Apr' },
-    { value: 0, month: 'May', label: 'May' }, 
-    { value: -3, month: 'Jun', label: 'Jun' },
-    { value: -1310, month: 'Jul', label: 'Jul' }, 
-    { value: -1225, month: 'Aug', label: 'Aug' },
-    { value: -900, month: 'Sep', label: 'Sep' }, 
-    { value: -86, month: 'Oct', label: 'Oct' },
-    { value: -130, month: 'Nov', label: 'Nov' }, 
-    { value: 21, month: 'Dec', label: 'Dec' },
-  ];
+  useEffect(() => {
+    async function loadData() {
+      try {
+        await initTables();
+        const records = await fetchAllRecords();
+        setData(formatRecordsToChartData(records));
+      } catch (error) {
+        console.error('Dashboard load error', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
+  }, []);
+
+  const radioButtons = useMemo(() => ([
+    {
+      id: '1', // acts as primary key, should be unique and non-empty string
+      label: 'Option 1',
+      value: 'option1'
+    },
+    {
+      id: '2',
+      label: 'Option 2',
+      value: 'option2'
+    }
+  ]), []);
+
+  const [selectedId, setSelectedId] = useState();
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#0BA5A4" style={{ marginTop: 40 }} />
+      </View>
+    );
+  }
 
   // Dynamic axis and color logic
   const absMax = Math.max(...data.map(d => Math.abs(d.value)));
@@ -122,12 +173,18 @@ const Dashboard = () => {
         </TouchableOpacity>
       </View>
 
+      
       {/* --- CHART MODAL --- */}
       <Modal animationType="fade" transparent={true} visible={chartModalVisible}>
         <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={() => setChartModalVisible(false)}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Chart Settings</Text>
             <Text style={styles.modalSubtitle}>Customize how your data is visualized.</Text>
+            <RadioGroup 
+              radioButtons={radioButtons} 
+              onPress={setSelectedId}
+              selectedId={selectedId}
+            />
             <TouchableOpacity style={styles.applyBtn} onPress={() => setChartModalVisible(false)}>
               <Text style={styles.applyBtnText}>Close</Text>
             </TouchableOpacity>
@@ -141,6 +198,11 @@ const Dashboard = () => {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Filter Data</Text>
             <Text style={styles.modalSubtitle}>Choose specific months or values to display.</Text>
+            <RadioGroup 
+              radioButtons={radioButtons} 
+              onPress={setSelectedId}
+              selectedId={selectedId}
+            />
             <TouchableOpacity style={styles.applyBtn} onPress={() => setFilterModalVisible(false)}>
               <Text style={styles.applyBtnText}>Apply Filters</Text>
             </TouchableOpacity>
