@@ -1,8 +1,60 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import { View, Text, TextInput, Button, Alert, ScrollView, StyleSheet } from 'react-native'
-import { addCategory, addRecipient, addRecord } from '../components/dbClient'
+import { addCategory, addRecipient, addRecord, initTables, fetchAllCategories, fetchAllRecipients, fetchAllRecords, dropAllTables } from '../components/dbClient'
 
 export default function InputForms() {
+
+  const [categories, setCategories] = useState([])
+  const [recipients, setRecipients] = useState([])
+  const [records, setRecords] = useState([])
+
+  async function loadAll() {
+    try {
+      const [cats, recips, recs] = await Promise.all([
+        fetchAllCategories().catch(() => []),
+        fetchAllRecipients().catch(() => []),
+        fetchAllRecords().catch(() => [])
+      ])
+      setCategories(cats || [])
+      setRecipients(recips || [])
+      setRecords(recs || [])
+    } catch (e) {
+      console.log('loadAll error', e)
+    }
+  }
+
+  async function onDropAllConfirm() {
+    Alert.alert('Danger — Reset DB', 'This will DROP ALL TABLES and recreate them. Continue?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'OK',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            await dropAllTables()
+            await initTables()
+            await loadAll()
+            Alert.alert('DB reset', 'All tables dropped and recreated.')
+          } catch (e) {
+            console.error('reset failed', e)
+            Alert.alert('Reset failed', String(e))
+          }
+        }
+      }
+    ])
+  }
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        await initTables()
+      } catch (e) {
+        console.error('initTables failed', e)
+        Alert.alert('Database error', 'Failed to initialize database tables.')
+      }
+    })()
+  }, [])
+
   // category
   const [catName, setCatName] = useState('')
 
@@ -19,11 +71,14 @@ export default function InputForms() {
   const [currency, setCurrency] = useState('')
   const [description, setDescription] = useState('')
 
+
+
   async function onAddCategory() {//we need these function for button haha, safeguard is also here.
     try {
       if (!catName.trim()) return Alert.alert('Validation', 'Enter category name')
       const res = await addCategory(catName.trim(), '')
       setCatName('')
+      await loadAll()
       Alert.alert('Category added', String(res))
     } catch (e) {
       console.log(e)
@@ -37,6 +92,7 @@ export default function InputForms() {
       const cid = recCid ? Number(recCid) : null
       const res = await addRecipient(recName.trim(), cid)
       setRecName(''); setRecCid('')
+      await loadAll()
       Alert.alert('Recipient added', String(res))
     } catch (e) {
       console.log(e)
@@ -60,6 +116,7 @@ export default function InputForms() {
       const res = await addRecord(obj)
       // clear
       setAmount(''); setCnameForRecord(''); setDate(''); setType(''); setCurrency(''); setDescription(''); setRnameForRecord('')
+      await loadAll()
       Alert.alert('Record added', String(res))
     } catch (e) {
       console.log(e)
@@ -93,7 +150,20 @@ export default function InputForms() {
         <TextInput value={description} onChangeText={setDescription} placeholder="Description" style={styles.input} />
         <Button title="Add Record" onPress={onAddRecord} />
       </View>
-    </ScrollView>
+    <View style={{ padding: 16, borderTopWidth: 1, borderColor: '#eee' }}>
+        <Text style={styles.title}>Debug — Categories</Text>
+        <Text selectable>{JSON.stringify(categories, null, 2)}</Text>
+
+        <Text style={[styles.title, { marginTop: 12 }]}>Debug — Recipients</Text>
+        <Text selectable>{JSON.stringify(recipients, null, 2)}</Text>
+
+        <Text style={[styles.title, { marginTop: 12 }]}>Debug — Records</Text>
+        <Text selectable>{JSON.stringify(records, null, 2)}</Text>
+      </View>
+      <View style={{ marginTop: 12 }}>
+          <Button title="Drop all tables (debug)" color="#b22222" onPress={onDropAllConfirm} />
+        </View>
+      </ScrollView>
   )
 }
 
