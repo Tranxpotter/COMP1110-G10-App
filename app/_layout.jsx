@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useColorScheme } from 'react-native'
+=======
+import { View, Text, useColorScheme, Dimensions } from 'react-native'
+>>>>>>> master
 import { Tabs } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useEffect } from 'react'
@@ -6,7 +10,14 @@ import { Colors } from '../constants/Colors'
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { addCategory, addRecipient, addRecord, initTables, fetchAllCategories, fetchAllRecipients, fetchAllRecords, dropAllTables } from '../components/dbClient'
 
+<<<<<<< HEAD
 const TabsLayout = () => {
+=======
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
+const RootLayout = () => {
+>>>>>>> master
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme] ?? Colors.light
   const insets = useSafeAreaInsets();
@@ -27,7 +38,11 @@ const TabsLayout = () => {
       screenOptions={{ headerShown: false, tabBarStyle: {
         backgroundColor: theme.navBackground, 
         paddingTop: 10, 
+<<<<<<< HEAD
         paddingBottom: insets.bottom,
+=======
+        height: screenHeight *0.1
+>>>>>>> master
       }, 
       tabBarActiveTintColor: theme.iconColorFocused, 
       tabBarInactiveTintColor: theme.iconColor
