@@ -241,13 +241,18 @@ const toPeriodIndex = (dateValue, periods) => {
   if (!dateValue) return -1;
   const valueMs = dateValue.getTime();
 
+  if (periods.length === 0) return -1;
+  if (valueMs < periods[0].startMs || valueMs > periods[periods.length - 1].endMs) {
+    return -1;
+  }
+
   for (let index = 0; index < periods.length; index += 1) {
     if (valueMs >= periods[index].startMs && valueMs <= periods[index].endMs) {
       return index;
     }
   }
 
-  return valueMs < periods[0].startMs ? 0 : periods.length - 1;
+  return -1;
 };
 
 const buildTrendModel = (records = [], categoriesById = {}, trendConfig = {}, filterConfig = {}) => {
