@@ -276,59 +276,13 @@ export class RecordSortConfig {
   }
 }
 
-
-
-
-
-
-/**
- * Fetches records with optional filtering, multi-column sorting, and pagination.
- *
- * @param {object} [filterConfig={}] Filtering and pagination options.
- * @param {object} [filterConfig.date] Date filter.
- * @param {'all'|'before'|'after'|'between'} [filterConfig.date.mode='all'] Date matching mode.
- * @param {string} [filterConfig.date.before] Upper date bound for `before` mode.
- * @param {string} [filterConfig.date.after] Lower date bound for `after` mode.
- * @param {string} [filterConfig.date.betweenStart] First date for `between` mode.
- * @param {string} [filterConfig.date.betweenEnd] Second date for `between` mode.
- * @param {object} [filterConfig.amount] Amount filter.
- * @param {'all'|'spending'|'income'} [filterConfig.amount.type='all'] Transaction type filter.
- * @param {'all'|'above'|'below'|'between'} [filterConfig.amount.rangeMode='all'] Numeric range mode.
- * @param {number|string} [filterConfig.amount.min] Min amount for `above`/`between` modes.
- * @param {number|string} [filterConfig.amount.max] Max amount for `below`/`between` modes.
- * @param {object} [filterConfig.category] Category include/exclude IDs.
- * @param {Array<number|string>} [filterConfig.category.includeIds] Allowed category IDs.
- * @param {Array<number|string>} [filterConfig.category.excludeIds] Blocked category IDs.
- * @param {object} [filterConfig.recipient] Recipient include/exclude IDs.
- * @param {Array<number|string>} [filterConfig.recipient.includeIds] Allowed recipient IDs.
- * @param {Array<number|string>} [filterConfig.recipient.excludeIds] Blocked recipient IDs.
- * @param {number|string|null} [filterConfig.limit=null] Maximum rows returned.
- * @param {number|string} [filterConfig.offset=0] Rows skipped before returning results.
- * @param {Array<{key: 'date'|'amount'|'category'|'recipient', direction?: 'asc'|'desc'}>} [sortConfig=[]]
- * Sorting config, ordered by priority (first item has highest priority).
- *
- * @returns {Promise<Array<object>>} Matching records.
- */
-export async function fetchRecordsWithFilters(filterConfig = {}, sortConfig = []) {
+function buildRecordWhereClauses(filterConfig = {}) {
   const normalizedFilterConfig = RecordFilterConfig.from(filterConfig).build()
-  const effectiveSortConfig = (Array.isArray(sortConfig) && sortConfig.length > 0)
-    ? sortConfig
-    : (Array.isArray(filterConfig?.sort) ? filterConfig.sort : [])
-  const normalizedSortConfig = RecordSortConfig.from(effectiveSortConfig).build()
-
   const dateFilter = normalizedFilterConfig.date || {}
   const amountFilter = normalizedFilterConfig.amount || {}
   const categoryFilter = normalizedFilterConfig.category || {}
   const recipientFilter = normalizedFilterConfig.recipient || {}
-  const limit = normalizedFilterConfig.limit
-  const offset = normalizedFilterConfig.offset
 
-  let sql = `
-    SELECT r.*
-    FROM record r
-    LEFT JOIN category c ON c.cid = r.cid
-    LEFT JOIN recipient re ON re.rid = r.rid
-  `
   const whereClauses = []
   const params = []
 
@@ -395,6 +349,61 @@ export async function fetchRecordsWithFilters(filterConfig = {}, sortConfig = []
     params.push(...recipientExcludeIds)
   }
 
+  return {
+    whereClauses,
+    params,
+    limit: normalizedFilterConfig.limit,
+    offset: normalizedFilterConfig.offset,
+  }
+}
+
+
+
+
+
+
+/**
+ * Fetches records with optional filtering, multi-column sorting, and pagination.
+ *
+ * @param {object} [filterConfig={}] Filtering and pagination options.
+ * @param {object} [filterConfig.date] Date filter.
+ * @param {'all'|'before'|'after'|'between'} [filterConfig.date.mode='all'] Date matching mode.
+ * @param {string} [filterConfig.date.before] Upper date bound for `before` mode.
+ * @param {string} [filterConfig.date.after] Lower date bound for `after` mode.
+ * @param {string} [filterConfig.date.betweenStart] First date for `between` mode.
+ * @param {string} [filterConfig.date.betweenEnd] Second date for `between` mode.
+ * @param {object} [filterConfig.amount] Amount filter.
+ * @param {'all'|'spending'|'income'} [filterConfig.amount.type='all'] Transaction type filter.
+ * @param {'all'|'above'|'below'|'between'} [filterConfig.amount.rangeMode='all'] Numeric range mode.
+ * @param {number|string} [filterConfig.amount.min] Min amount for `above`/`between` modes.
+ * @param {number|string} [filterConfig.amount.max] Max amount for `below`/`between` modes.
+ * @param {object} [filterConfig.category] Category include/exclude IDs.
+ * @param {Array<number|string>} [filterConfig.category.includeIds] Allowed category IDs.
+ * @param {Array<number|string>} [filterConfig.category.excludeIds] Blocked category IDs.
+ * @param {object} [filterConfig.recipient] Recipient include/exclude IDs.
+ * @param {Array<number|string>} [filterConfig.recipient.includeIds] Allowed recipient IDs.
+ * @param {Array<number|string>} [filterConfig.recipient.excludeIds] Blocked recipient IDs.
+ * @param {number|string|null} [filterConfig.limit=null] Maximum rows returned.
+ * @param {number|string} [filterConfig.offset=0] Rows skipped before returning results.
+ * @param {Array<{key: 'date'|'amount'|'category'|'recipient', direction?: 'asc'|'desc'}>} [sortConfig=[]]
+ * Sorting config, ordered by priority (first item has highest priority).
+ *
+ * @returns {Promise<Array<object>>} Matching records.
+ */
+export async function fetchRecordsWithFilters(filterConfig = {}, sortConfig = []) {
+  const effectiveSortConfig = (Array.isArray(sortConfig) && sortConfig.length > 0)
+    ? sortConfig
+    : (Array.isArray(filterConfig?.sort) ? filterConfig.sort : [])
+  const normalizedSortConfig = RecordSortConfig.from(effectiveSortConfig).build()
+  const { whereClauses, params, limit, offset } = buildRecordWhereClauses(filterConfig)
+
+  let sql = `
+    SELECT r.*
+    FROM record r
+    LEFT JOIN category c ON c.cid = r.cid
+    LEFT JOIN recipient re ON re.rid = r.rid
+  `
+
   if (whereClauses.length > 0) {
     sql += ` WHERE ${whereClauses.join(' AND ')}`
   }
@@ -435,6 +444,25 @@ export async function fetchRecordsWithFilters(filterConfig = {}, sortConfig = []
 
   const res = await executeSqlAsync(sql, params)
   return res.rows._array
+}
+
+export async function fetchRecordCountWithFilters(filterConfig = {}) {
+  const { whereClauses, params } = buildRecordWhereClauses(filterConfig)
+
+  let sql = `
+    SELECT COUNT(*) AS total
+    FROM record r
+    LEFT JOIN category c ON c.cid = r.cid
+    LEFT JOIN recipient re ON re.rid = r.rid
+  `
+
+  if (whereClauses.length > 0) {
+    sql += ` WHERE ${whereClauses.join(' AND ')}`
+  }
+
+  const res = await executeSqlAsync(sql, params)
+  const total = res?.rows?._array?.[0]?.total
+  return Number(total) || 0
 }
 
 
