@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator, Button } from 'react-native';
-import React, { useMemo, useState, useEffect, useCallback } from 'react';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator } from 'react-native';
+import React, { useMemo, useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { LineChart, BarChart, PieChart } from "react-native-gifted-charts";
 import PagerView from 'react-native-pager-view';
@@ -27,7 +27,6 @@ const formatRecordsToChartData = (records = []) => {
     const transactionType = record.type;
     const dateValue = record.date ? new Date(record.date) : null;
     const monthIndex = dateValue instanceof Date && !Number.isNaN(dateValue.getTime()) ? dateValue.getMonth() : null;
-    const yearIndex = dateValue instanceof Date && !Number.isNaN(dateValue.getTime()) ? dateValue.getFullYear() : null;
 
     if (monthIndex !== null && monthIndex >= 0 && monthIndex < 12) {
       if (transactionType == "spending") {
@@ -61,6 +60,7 @@ const formatYAxisLabel = (value) => {
 };
 
 const Y_AXIS_SECTION_COUNT = 4;
+const MAX_CATEGORY_CHART_ITEMS = 11;
 
 const getNiceStepValue = (maxAbsValue) => {
   const safeValue = Math.max(1, Number(maxAbsValue) || 0);
@@ -73,12 +73,70 @@ const getNiceStepValue = (maxAbsValue) => {
   return niceResidual * magnitude;
 };
 
+const getSignedAmount = (record) => {
+  const rawAmount = Number(record?.amount) || 0;
+  const transactionType = String(record?.type || '').toLowerCase();
+  const magnitude = Math.abs(rawAmount);
+
+  if (transactionType === 'spending') return -magnitude;
+  if (transactionType === 'income') return magnitude;
+  return rawAmount;
+};
+
+const toCategoryName = (record, categoriesById) => {
+  const cid = record?.cid;
+  const explicit = categoriesById?.[cid];
+  if (explicit && String(explicit).trim()) return String(explicit).trim();
+  return 'Uncategorized';
+};
+
+const aggregateByCategory = (records = [], categoriesById = {}) => {
+  const categoryMap = records.reduce((acc, record) => {
+    const categoryName = toCategoryName(record, categoriesById);
+    acc[categoryName] = (acc[categoryName] || 0) + getSignedAmount(record);
+    return acc;
+  }, {});
+
+  return Object.entries(categoryMap)
+    .map(([categoryName, value]) => ({ month: categoryName, label: categoryName, value }))
+    .sort((left, right) => left.month.localeCompare(right.month));
+};
+
+const toTopCategoryChartData = (categoryRows = []) => {
+  if (categoryRows.length <= MAX_CATEGORY_CHART_ITEMS) {
+    return [...categoryRows].sort((left, right) => Math.abs(right.value) - Math.abs(left.value));
+  }
+
+  const ranked = [...categoryRows].sort((left, right) => Math.abs(right.value) - Math.abs(left.value));
+  const top = ranked.slice(0, MAX_CATEGORY_CHART_ITEMS);
+  const othersValue = ranked
+    .slice(MAX_CATEGORY_CHART_ITEMS)
+    .reduce((sum, row) => sum + row.value, 0);
+
+  return [...top, { month: 'Others', label: 'Others', value: othersValue }];
+};
+
+const getAxisModel = (rows = []) => {
+  const absMax = rows.length > 0 ? Math.max(...rows.map((item) => Math.abs(item.value))) : 0;
+  const stepValue = getNiceStepValue(absMax);
+  return {
+    stepValue,
+    yAxisRange: stepValue * Y_AXIS_SECTION_COUNT,
+  };
+};
+
+const getDynamicSpacing = (chartWidth, pointsCount) => {
+  if (pointsCount <= 1) return chartWidth * 0.35;
+  return (chartWidth - 40) / (pointsCount - 1);
+};
+
 const Dashboard = () => {
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [chartModalVisible, setChartModalVisible] = useState(false);
   const [filterModalColumnKey, setFilterModalColumnKey] = useState('date');
   const [currentPage, setCurrentPage] = useState(0);
-  const [data, setData] = useState([]);
+  const [monthlyData, setMonthlyData] = useState([]);
+  const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categoriesById, setCategoriesById] = useState({});
   const [recipientsById, setRecipientsById] = useState({});
@@ -109,7 +167,8 @@ const Dashboard = () => {
 
       setCategoriesById(categoryMap);
       setRecipientsById(recipientMap);
-      setData(formatRecordsToChartData(records));
+      setRecords(records || []);
+      setMonthlyData(formatRecordsToChartData(records));
     } catch (error) {
       console.error('Dashboard load error', error);
     } finally {
@@ -155,6 +214,14 @@ const Dashboard = () => {
     setFilterModalVisible(false);
     loadData(normalizedFilter, normalizedSort);
   };
+
+  const allCategoryRows = useMemo(() => {
+    return aggregateByCategory(records, categoriesById);
+  }, [records, categoriesById]);
+
+  const categoryChartData = useMemo(() => {
+    return toTopCategoryChartData(allCategoryRows);
+  }, [allCategoryRows]);
 
   
   const charts = useMemo(() => ([
@@ -202,24 +269,27 @@ const Dashboard = () => {
   }
 
   // Dynamic axis and color logic
-  const absMax = data.length > 0 ? Math.max(...data.map(d => Math.abs(d.value))) : 0;
-  const stepValue = getNiceStepValue(absMax);
-  const yAxisRange = stepValue * Y_AXIS_SECTION_COUNT;
-  const dynamicData = data.map(item => ({
+  const page1AxisModel = getAxisModel(monthlyData);
+  const page2AxisModel = getAxisModel(categoryChartData);
+
+  const page1BarData = monthlyData.map(item => ({
     ...item,
     frontColor: item.value >= 0 ? '#0BA5A4' : '#d32f2f',
   }));
 
-  const totalAmount = data.reduce((acc, item) => acc + Math.round(item.value * 100), 0) / 100;
+  const page2BarData = categoryChartData.map(item => ({
+    ...item,
+    frontColor: item.value >= 0 ? '#0BA5A4' : '#d32f2f',
+  }));
+
   const chartWidth = screenWidth * 0.8;
-  const numberOfPoints = data.length;
-  const dynamicSpacing = (chartWidth - 40) / (numberOfPoints - 1);
+  const page1Spacing = getDynamicSpacing(chartWidth, monthlyData.length);
+  const page2Spacing = getDynamicSpacing(chartWidth, categoryChartData.length);
 
   const pieColorPalette = ['#0BA5A4', '#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6', '#f97316', '#7c3aed'];
   const getSliceColor = (index) => pieColorPalette[index % pieColorPalette.length];
 
-  // Filter for positive values only
-  const incomePieData = data
+  const incomeCategoryPieData = categoryChartData
     .filter(item => item.value > 0)
     .map((item, index) => ({
       value: item.value,
@@ -228,25 +298,19 @@ const Dashboard = () => {
       text: item.month,
     }));
 
-  // Filter for negative values only (converted to absolute)
-  const spendingPieData = data
+  const spendingCategoryPieData = categoryChartData
     .filter(item => item.value < 0)
     .map((item, index) => ({
       value: Math.abs(item.value),
-      color: getSliceColor(index + incomePieData.length),
+      color: getSliceColor(index + incomeCategoryPieData.length),
       label: item.month,
       text: item.month,
     }));
-
 
   const chartCommonProps = {
     width: chartWidth,
     height: screenHeight * 0.1,
     noOfSections: Y_AXIS_SECTION_COUNT,
-    maxValue: yAxisRange,
-    mostNegativeValue: -yAxisRange,
-    stepValue,
-    negativeStepValue: stepValue,
     disableScroll: true,
     initialSpacing: 10,
     yAxisLabelWidth: 52,
@@ -258,38 +322,57 @@ const Dashboard = () => {
 
   const lineChartProps = {
     ...chartCommonProps,
-    data,
+    data: monthlyData,
+    maxValue: page1AxisModel.yAxisRange,
+    mostNegativeValue: -page1AxisModel.yAxisRange,
+    stepValue: page1AxisModel.stepValue,
+    negativeStepValue: page1AxisModel.stepValue,
     color: '#0BA5A4',
     areaChart: true,
     startFillColor: '#0BA5A4',
     startOpacity: 0.1,
-    spacing: dynamicSpacing,
+    spacing: page1Spacing,
   };
 
-  const barChartProps = {
+  const page1BarChartProps = {
     ...chartCommonProps,
-    data: dynamicData,
+    data: page1BarData,
+    maxValue: page1AxisModel.yAxisRange,
+    mostNegativeValue: -page1AxisModel.yAxisRange,
+    stepValue: page1AxisModel.stepValue,
+    negativeStepValue: page1AxisModel.stepValue,
     barWidth: 10,
-    spacing: dynamicSpacing - 10,
+    spacing: Math.max(8, page1Spacing - 10),
+  };
+
+  const page2BarChartProps = {
+    ...chartCommonProps,
+    data: page2BarData,
+    maxValue: page2AxisModel.yAxisRange,
+    mostNegativeValue: -page2AxisModel.yAxisRange,
+    stepValue: page2AxisModel.stepValue,
+    negativeStepValue: page2AxisModel.stepValue,
+    barWidth: 10,
+    spacing: Math.max(8, page2Spacing - 10),
   };
 
 
 
   const renderChart = () =>
-    selectedId === 'Line' ? <LineChart {...lineChartProps} /> : <BarChart {...barChartProps} />;
+    selectedId === 'Line' ? <LineChart {...lineChartProps} /> : <BarChart {...page1BarChartProps} />;
 
   // Example of toggling Page 2 visual style
   const renderPage2Chart = () => {
     if (page2ChartType === 'Bar') {
-      return <BarChart {...barChartProps} />;
+      return <BarChart {...page2BarChartProps} />;
     }
 
     return (
       <View style={styles.pieContainer}>
         <View style={styles.pieWrapper}>
-          <Text style={styles.miniChartLabel}>Income Sources</Text>
+          <Text style={styles.miniChartLabel}>Income Categories</Text>
           <PieChart
-            data={incomePieData.length > 0 ? incomePieData : [{ value: 1, color: '#eee', text: 'No data' }]}
+            data={incomeCategoryPieData.length > 0 ? incomeCategoryPieData : [{ value: 1, color: '#eee', text: 'No data' }]}
             radius={screenWidth * 0.15}
             innerRadius={screenWidth * 0.08}
             showText
@@ -299,9 +382,9 @@ const Dashboard = () => {
         </View>
 
         <View style={styles.pieWrapper}>
-          <Text style={styles.miniChartLabel}>Spending Breakdown</Text>
+          <Text style={styles.miniChartLabel}>Spending Categories</Text>
           <PieChart
-            data={spendingPieData.length > 0 ? spendingPieData : [{ value: 1, color: '#eee', text: 'No data' }]}
+            data={spendingCategoryPieData.length > 0 ? spendingCategoryPieData : [{ value: 1, color: '#eee', text: 'No data' }]}
             radius={screenWidth * 0.15}
             innerRadius={screenWidth * 0.08}
             showText
@@ -346,17 +429,17 @@ const Dashboard = () => {
             </Text>
             {renderChart()}
           </View>
-          <TableComponent data={data} />
+          <TableComponent data={monthlyData} firstColumnTitle="Month" />
         </View>
 
         <View key="2" style={styles.page}>
           <View style={styles.chartSection}>
             <Text style={styles.chartLabel}>
-              {page2ChartType === 'Bar' ? 'Monthly Volume (Bar)' : 'Monthly Volume (Pie)'}
+              {page2ChartType === 'Bar' ? 'Category Volume (Bar)' : 'Category Volume (Pie)'}
             </Text>
             {renderPage2Chart()}
           </View>
-          <TableComponent data={data} />
+          <TableComponent data={allCategoryRows} firstColumnTitle="Category" />
         </View>
       </PagerView>
 
@@ -408,19 +491,19 @@ const Dashboard = () => {
 }
 
 // Reusable Table
-const TableComponent = ({ data }) => {
+const TableComponent = ({ data, firstColumnTitle = 'Month' }) => {
   const totalAmount = data.reduce((acc, item) => acc + Math.round(item.value * 100), 0) / 100;
   return (
     <View style={styles.tableSection}>
       <View style={styles.tableContainer}>
         <View style={styles.tableHeader}>
-          <Text style={[styles.columnHeader, { flex: 1 }]}>Month</Text>
+          <Text style={[styles.columnHeader, { flex: 1 }]}>{firstColumnTitle}</Text>
           <Text style={[styles.columnHeader, { flex: 2, textAlign: 'right', paddingRight: 20 }]}>Amount</Text>
         </View>
         <ScrollView style={styles.scrollBody}>
           {data.map((item, index) => (
             <View key={index} style={styles.tableRow}>
-              <Text style={[styles.cell, { flex: 1 }]}>{item.month}</Text>
+              <Text style={[styles.cell, { flex: 1 }]}>{item.label || item.month}</Text>
               <Text style={[styles.cell, { flex: 2, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: item.value >= 0 ? '#2e7d32' : '#d32f2f' }]}>
                 {item.value >= 0 ? `+$${item.value.toFixed(2)}` : `-$${Math.abs(item.value).toFixed(2)}`}
               </Text>
