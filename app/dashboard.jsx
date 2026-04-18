@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator, Button } from 'react-native';
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native'; // Add this import
 import { LineChart, BarChart, PieChart } from "react-native-gifted-charts";
 import PagerView from 'react-native-pager-view';
 import RadioGroup from 'react-native-radio-buttons-group';
@@ -11,7 +12,6 @@ import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const year = 2026;
 
 const initialFilters = [
   // this is the parent or 'item'
@@ -92,7 +92,7 @@ const formatRecordsToChartData = (records = []) => {
     const monthIndex = dateValue instanceof Date && !Number.isNaN(dateValue.getTime()) ? dateValue.getMonth() : null;
     const yearIndex = dateValue instanceof Date && !Number.isNaN(dateValue.getTime()) ? dateValue.getFullYear() : null;
 
-    if (monthIndex !== null && monthIndex >= 0 && monthIndex < 12 && yearIndex == year) {
+    if (monthIndex !== null && monthIndex >= 0 && monthIndex < 12) {
       if (transactionType == "spending") {
         monthly[monthIndex].value -= amount;
       }
@@ -111,8 +111,8 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [items, setItems] = useState(initialFilters);
+
 
   const addMoreChildren = () => {
     const updatedItems = [...items];
@@ -121,21 +121,26 @@ const Dashboard = () => {
     setItems(updatedItems);
   };
 
-  useEffect(() => {
-    async function loadData() {
-      try {
-        await initTables();
-        const records = await fetchAllRecords();
-        setData(formatRecordsToChartData(records));
-      } catch (error) {
-        console.error('Dashboard load error', error);
-      } finally {
-        setLoading(false);
-      }
+  // 1. Move the fetching logic into a reusable function
+  const loadData = useCallback(async () => {
+    try {
+      // No need to initTables every time if already done once
+      const records = await fetchAllRecords();
+      setData(formatRecordsToChartData(records));
+    } catch (error) {
+      console.error('Dashboard load error', error);
+    } finally {
+      setLoading(false);
     }
-
-    loadData();
   }, []);
+
+  // 2. Use useFocusEffect instead of useEffect
+  // This runs every time the Dashboard screen comes into view
+  useFocusEffect(
+    useCallback(() => {
+      loadData();
+    }, [loadData])
+  );
 
   
   const charts = useMemo(() => ([
@@ -363,6 +368,7 @@ const Dashboard = () => {
     initialSpacing: 10,
     yAxisLabelWidth: 40,
     xAxisLabelsVerticalShift: screenHeight * 0.1,
+    xAxisLabelTextStyle: {fontSize: 12,},
   };
 
   const lineChartProps = {
@@ -403,7 +409,7 @@ const Dashboard = () => {
             innerRadius={screenWidth * 0.08}
             showText
             textColor="white"
-            textSize={8}
+            textSize={12}
           />
         </View>
 
@@ -415,7 +421,7 @@ const Dashboard = () => {
             innerRadius={screenWidth * 0.08}
             showText
             textColor="white"
-            textSize={8}
+            textSize={12}
           />
         </View>
       </View>
