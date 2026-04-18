@@ -119,6 +119,114 @@ export async function fetchAllRecords() {
     return res.rows._array
 }
 
+export async function fetchRecordsWithFilters(filterConfig = {}) {
+  const dateFilter = filterConfig.date || {}
+  const amountFilter = filterConfig.amount || {}
+  const categoryFilter = filterConfig.category || {}
+  const recipientFilter = filterConfig.recipient || {}
+  const sortConfig = Array.isArray(filterConfig.sort) ? filterConfig.sort : []
+
+  let sql = `
+    SELECT r.*
+    FROM record r
+    LEFT JOIN category c ON c.cid = r.cid
+    LEFT JOIN recipient re ON re.rid = r.rid
+  `
+  const whereClauses = []
+  const params = []
+
+  if (dateFilter.mode === 'before' && dateFilter.before) {
+    whereClauses.push('r.date < ?')
+    params.push(dateFilter.before)
+  } else if (dateFilter.mode === 'after' && dateFilter.after) {
+    whereClauses.push('r.date > ?')
+    params.push(dateFilter.after)
+  } else if (dateFilter.mode === 'between' && dateFilter.betweenStart && dateFilter.betweenEnd) {
+    const start = dateFilter.betweenStart <= dateFilter.betweenEnd ? dateFilter.betweenStart : dateFilter.betweenEnd
+    const end = dateFilter.betweenStart <= dateFilter.betweenEnd ? dateFilter.betweenEnd : dateFilter.betweenStart
+    whereClauses.push('r.date BETWEEN ? AND ?')
+    params.push(start, end)
+  }
+
+  if (amountFilter.type === 'spending' || amountFilter.type === 'income') {
+    whereClauses.push('r.type = ?')
+    params.push(amountFilter.type)
+  }
+
+  if (amountFilter.rangeMode === 'above' && amountFilter.min !== '') {
+    whereClauses.push('r.amount > ?')
+    params.push(Number(amountFilter.min))
+  } else if (amountFilter.rangeMode === 'below' && amountFilter.max !== '') {
+    whereClauses.push('r.amount < ?')
+    params.push(Number(amountFilter.max))
+  } else if (amountFilter.rangeMode === 'between' && amountFilter.min !== '' && amountFilter.max !== '') {
+    const min = Number(amountFilter.min)
+    const max = Number(amountFilter.max)
+    whereClauses.push('r.amount BETWEEN ? AND ?')
+    params.push(Math.min(min, max), Math.max(min, max))
+  }
+
+  const categoryIncludeIds = Array.isArray(categoryFilter.includeIds)
+    ? categoryFilter.includeIds.map((value) => Number(value)).filter((value) => Number.isFinite(value))
+    : []
+  const categoryExcludeIds = Array.isArray(categoryFilter.excludeIds)
+    ? categoryFilter.excludeIds.map((value) => Number(value)).filter((value) => Number.isFinite(value))
+    : []
+
+  if (categoryIncludeIds.length > 0) {
+    whereClauses.push(`c.cid IN (${categoryIncludeIds.map(() => '?').join(', ')})`)
+    params.push(...categoryIncludeIds)
+  }
+  if (categoryExcludeIds.length > 0) {
+    whereClauses.push(`c.cid NOT IN (${categoryExcludeIds.map(() => '?').join(', ')})`)
+    params.push(...categoryExcludeIds)
+  }
+
+  const recipientIncludeIds = Array.isArray(recipientFilter.includeIds)
+    ? recipientFilter.includeIds.map((value) => Number(value)).filter((value) => Number.isFinite(value))
+    : []
+  const recipientExcludeIds = Array.isArray(recipientFilter.excludeIds)
+    ? recipientFilter.excludeIds.map((value) => Number(value)).filter((value) => Number.isFinite(value))
+    : []
+
+  if (recipientIncludeIds.length > 0) {
+    whereClauses.push(`re.rid IN (${recipientIncludeIds.map(() => '?').join(', ')})`)
+    params.push(...recipientIncludeIds)
+  }
+  if (recipientExcludeIds.length > 0) {
+    whereClauses.push(`re.rid NOT IN (${recipientExcludeIds.map(() => '?').join(', ')})`)
+    params.push(...recipientExcludeIds)
+  }
+
+  if (whereClauses.length > 0) {
+    sql += ` WHERE ${whereClauses.join(' AND ')}`
+  }
+
+  const orderClauses = []
+  for (const item of sortConfig) {
+    const direction = String(item?.direction || 'desc').toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
+    if (item.key === 'date') {
+      orderClauses.push(`r.date ${direction}`)
+    } else if (item.key === 'amount') {
+      orderClauses.push(`r.amount ${direction}`)
+    } else if (item.key === 'category') {
+      orderClauses.push(`LOWER(COALESCE(c.cname, '')) ${direction}`)
+    } else if (item.key === 'recipient') {
+      orderClauses.push(`LOWER(COALESCE(re.name, '')) ${direction}`)
+    }
+  }
+
+  if (orderClauses.length === 0) {
+    orderClauses.push('r.date DESC')
+  }
+  orderClauses.push('r.tid DESC')
+
+  sql += ` ORDER BY ${orderClauses.join(', ')}`
+
+  const res = await executeSqlAsync(sql, params)
+  return res.rows._array
+}
+
 
 
 
@@ -438,6 +546,7 @@ export default {
     fetchAllCategories,
     fetchAllRecipients,
     fetchAllRecords,
+    fetchRecordsWithFilters,
     addCategory,
     updateCategory,
     deleteCategory,
