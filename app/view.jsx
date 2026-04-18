@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Colors } from '../constants/Colors'
-import { deleteRecord, executeSqlAsync, fetchAllCategories, fetchAllRecipients, fetchRecordsWithFiltersTranxpotter, initTables, updateRecord } from '../components/dbClient'
+import { RecordFilterConfig, RecordSortConfig, deleteRecord, executeSqlAsync, fetchAllCategories, fetchAllRecipients, fetchRecordsWithFilters, initTables, updateRecord } from '../components/dbClient'
 import ThemedAutocomplete from '../components/ThemedAutocomplete'
 import ThemedButton from '../components/ThemedButton'
 import ThemedSelectList from '../components/ThemedSelectList'
@@ -29,6 +29,9 @@ const TYPE_OPTIONS = [
   { key: 'spending', value: 'Spending' },
   { key: 'income', value: 'Income' },
 ]
+
+const DEFAULT_FETCH_LIMIT = 500
+const DEFAULT_FETCH_OFFSET = 0
 
 const parseDateValue = (value) => {
   const parsed = new Date(value)
@@ -496,7 +499,13 @@ const ViewTable = () => {
   const [editingRecord, setEditingRecord] = useState(null)
   const [filterModalVisible, setFilterModalVisible] = useState(false)
   const [filterModalColumnKey, setFilterModalColumnKey] = useState('date')
-  const [filterConfig, setFilterConfig] = useState({})
+  const [filterConfig, setFilterConfig] = useState(() => (
+    RecordFilterConfig
+      .from()
+      .withPagination(DEFAULT_FETCH_LIMIT, DEFAULT_FETCH_OFFSET)
+      .build()
+  ))
+  const [sortConfig, setSortConfig] = useState(() => RecordSortConfig.byDate('desc').build())
   const [selectMode, setSelectMode] = useState(false)
   const [selectedRecordIds, setSelectedRecordIds] = useState([])
 
@@ -514,12 +523,12 @@ const ViewTable = () => {
       .sort((left, right) => String(left.value).localeCompare(String(right.value)))
   }, [recipientsById])
 
-  const loadRecords = useCallback(async (config = filterConfig) => {
+  const loadRecords = useCallback(async (nextFilterConfig = filterConfig, nextSortConfig = sortConfig) => {
     try {
       setLoading(true)
       await initTables()
       const [rows, categories, recipients] = await Promise.all([
-        fetchRecordsWithFiltersTranxpotter(config),
+        fetchRecordsWithFilters(nextFilterConfig, nextSortConfig),
         fetchAllCategories(),
         fetchAllRecipients(),
       ])
@@ -544,7 +553,7 @@ const ViewTable = () => {
     } finally {
       setLoading(false)
     }
-  }, [filterConfig])
+  }, [filterConfig, sortConfig])
 
   useFocusEffect(
     useCallback(() => {
@@ -601,11 +610,21 @@ const ViewTable = () => {
   }, [])
 
   const handleApplyFilterConfig = useCallback(async (nextConfig) => {
-    const normalizedConfig = nextConfig || {}
-    setFilterConfig(normalizedConfig)
+    const source = nextConfig || {}
+    const nextSortConfig = RecordSortConfig.from(source.sort).build()
+    const nextFilterConfig = RecordFilterConfig
+      .from(source)
+      .withPagination(
+        source.limit ?? filterConfig.limit ?? DEFAULT_FETCH_LIMIT,
+        source.offset ?? filterConfig.offset ?? DEFAULT_FETCH_OFFSET
+      )
+      .build()
+
+    setFilterConfig(nextFilterConfig)
+    setSortConfig(nextSortConfig)
     setFilterModalVisible(false)
-    await loadRecords(normalizedConfig)
-  }, [loadRecords])
+    await loadRecords(nextFilterConfig, nextSortConfig)
+  }, [loadRecords, filterConfig.limit, filterConfig.offset])
 
   const handleSaveUpdate = useCallback(async (payload) => {
     await updateRecord(payload.tid, {
@@ -722,7 +741,7 @@ const ViewTable = () => {
       <RecordsFilterModal
         visible={filterModalVisible}
         activeColumnKey={filterModalColumnKey}
-        initialConfig={filterConfig}
+        initialConfig={{ ...filterConfig, sort: sortConfig }}
         categoryOptions={categoryOptions}
         recipientOptions={recipientOptions}
         onClose={handleCloseFilterModal}
