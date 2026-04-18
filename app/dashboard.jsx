@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator } from 'react-native';
 import React, { useMemo, useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { LineChart, BarChart, PieChart } from "react-native-gifted-charts";
+import { LineChart, BarChart, PieChart } from 'react-native-gifted-charts';
 import PagerView from 'react-native-pager-view';
-import RadioGroup from 'react-native-radio-buttons-group';
 import {
   fetchAllCategories,
   fetchAllRecipients,
@@ -12,35 +11,16 @@ import {
   RecordSortConfig,
 } from '../components/dbClient';
 import DashboardFilterModal from '../components/DashboardFilterModal';
+import DashboardTrendFilter from '../components/DashboardTrendFilter';
 import { Colors } from '../constants/Colors';
-
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
-const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-
-const formatRecordsToChartData = (records = []) => {
-  const monthly = MONTH_LABELS.map(label => ({ month: label, label, value: 0 }));
-
-  records.forEach(record => {
-    const amount = Number(record.amount) || 0;
-    const transactionType = record.type;
-    const dateValue = record.date ? new Date(record.date) : null;
-    const monthIndex = dateValue instanceof Date && !Number.isNaN(dateValue.getTime()) ? dateValue.getMonth() : null;
-
-    if (monthIndex !== null && monthIndex >= 0 && monthIndex < 12) {
-      if (transactionType == "spending") {
-        monthly[monthIndex].value -= amount;
-      }
-      else if (transactionType == "income") {
-        monthly[monthIndex].value += amount;
-      }
-    }
-  });
-
-  return monthly;
-};
+const PERIOD_COUNT = 12;
+const Y_AXIS_SECTION_COUNT = 4;
+const MAX_CATEGORY_CHART_ITEMS = 11;
+const TREND_COLORS = ['#0BA5A4', '#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6'];
 
 const formatYAxisLabel = (value) => {
   const numericValue = Number(value) || 0;
@@ -59,9 +39,6 @@ const formatYAxisLabel = (value) => {
 
   return `${sign}${absValue}`;
 };
-
-const Y_AXIS_SECTION_COUNT = 4;
-const MAX_CATEGORY_CHART_ITEMS = 11;
 
 const getNiceStepValue = (maxAbsValue) => {
   const safeValue = Math.max(1, Number(maxAbsValue) || 0);
@@ -131,44 +108,217 @@ const getDynamicSpacing = (chartWidth, pointsCount) => {
   return (chartWidth - 40) / (pointsCount - 1);
 };
 
+const toValidDate = (value) => {
+  const parsed = value ? new Date(value) : null;
+  if (!(parsed instanceof Date) || Number.isNaN(parsed.getTime())) return null;
+  return parsed;
+};
+
+const toSimpleDateString = (date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${year}/${month}/${day}`;
+};
+
+const toTwoRowDateLabel = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}\n${month}/${day}`;
+};
+
+const toPeriodDefinitions = (records = []) => {
+  const validDates = records
+    .map((item) => toValidDate(item.date))
+    .filter(Boolean)
+    .map((item) => item.getTime())
+    .sort((a, b) => a - b);
+
+  if (validDates.length === 0) {
+    const today = new Date();
+    return Array.from({ length: PERIOD_COUNT }, () => ({
+      startMs: today.getTime(),
+      endMs: today.getTime(),
+      startLabel: toSimpleDateString(today),
+      endLabel: toSimpleDateString(today),
+      rangeLabel: `${toSimpleDateString(today)}-${toSimpleDateString(today)}`,
+    }));
+  }
+
+  const minMs = validDates[0];
+  const maxMs = validDates[validDates.length - 1];
+  const span = Math.max(1, maxMs - minMs + 1);
+
+  return Array.from({ length: PERIOD_COUNT }, (_, index) => {
+    const startMs = minMs + Math.floor((span * index) / PERIOD_COUNT);
+    const endMs = index === PERIOD_COUNT - 1
+      ? maxMs
+      : minMs + Math.floor((span * (index + 1)) / PERIOD_COUNT) - 1;
+
+    const startDate = new Date(startMs);
+    const endDate = new Date(endMs);
+
+    return {
+      startMs,
+      endMs,
+      startLabel: toSimpleDateString(startDate),
+      endLabel: toSimpleDateString(endDate),
+      endChartLabel: toTwoRowDateLabel(endDate),
+      rangeLabel: `${toSimpleDateString(startDate)}-${toSimpleDateString(endDate)}`,
+    };
+  });
+};
+
+const toPeriodIndex = (dateValue, periods) => {
+  if (!dateValue) return -1;
+  const valueMs = dateValue.getTime();
+
+  for (let index = 0; index < periods.length; index += 1) {
+    if (valueMs >= periods[index].startMs && valueMs <= periods[index].endMs) {
+      return index;
+    }
+  }
+
+  return valueMs < periods[0].startMs ? 0 : periods.length - 1;
+};
+
+const buildTrendModel = (records = [], categoriesById = {}, trendConfig = {}) => {
+  const periods = toPeriodDefinitions(records);
+  const totals = Array.from({ length: periods.length }, () => 0);
+
+  const selectedCategoryIds = Array.from(new Set((trendConfig.categoryIds || []).map((item) => String(item)).filter(Boolean)));
+  const seriesByCategoryId = selectedCategoryIds.reduce((acc, id) => {
+    acc[id] = Array.from({ length: periods.length }, () => 0);
+    return acc;
+  }, {});
+
+  records.forEach((record) => {
+    const dateValue = toValidDate(record.date);
+    const periodIndex = toPeriodIndex(dateValue, periods);
+    if (periodIndex < 0) return;
+
+    const amount = getSignedAmount(record);
+    totals[periodIndex] += amount;
+
+    const categoryId = String(record?.cid || '');
+    if (seriesByCategoryId[categoryId]) {
+      seriesByCategoryId[categoryId][periodIndex] += amount;
+    }
+  });
+
+  const tableRows = periods.map((period, index) => ({
+    month: period.rangeLabel,
+    label: period.rangeLabel,
+    value: totals[index],
+  }));
+
+  const totalLineData = periods.map((period, index) => ({
+    label: period.endChartLabel || period.endLabel,
+    value: totals[index],
+  }));
+
+  const totalBarData = periods.map((period, index) => ({
+    label: period.endChartLabel || period.endLabel,
+    value: totals[index],
+    frontColor: totals[index] >= 0 ? '#0BA5A4' : '#d32f2f',
+  }));
+
+  const multiLineDataSet = selectedCategoryIds.map((categoryId, index) => ({
+    data: periods.map((period, periodIndex) => ({
+      label: period.endChartLabel || period.endLabel,
+      value: seriesByCategoryId[categoryId]?.[periodIndex] || 0,
+    })),
+    color: TREND_COLORS[index % TREND_COLORS.length],
+    dataPointsColor: TREND_COLORS[index % TREND_COLORS.length],
+    thickness: 2,
+    textShiftY: -4,
+  }));
+
+  const stackedBarData = periods.map((period, periodIndex) => ({
+    label: period.endChartLabel || period.endLabel,
+    stacks: selectedCategoryIds.map((categoryId, index) => ({
+      value: seriesByCategoryId[categoryId]?.[periodIndex] || 0,
+      color: TREND_COLORS[index % TREND_COLORS.length],
+    })),
+  }));
+
+  const legend = selectedCategoryIds.map((categoryId, index) => ({
+    key: categoryId,
+    label: categoriesById[categoryId] || `Category ${categoryId}`,
+    color: TREND_COLORS[index % TREND_COLORS.length],
+  }));
+
+  let maxAbsValue = Math.max(...totals.map((value) => Math.abs(value)), 1);
+
+  if (trendConfig.mode === 'category') {
+    const allSeriesValues = selectedCategoryIds.flatMap((categoryId) => seriesByCategoryId[categoryId] || []);
+    const lineModeMax = allSeriesValues.length > 0 ? Math.max(...allSeriesValues.map((value) => Math.abs(value))) : 1;
+
+    const stackedMax = stackedBarData.reduce((acc, period) => {
+      const positive = period.stacks
+        .filter((item) => item.value > 0)
+        .reduce((sum, item) => sum + item.value, 0);
+      const negative = period.stacks
+        .filter((item) => item.value < 0)
+        .reduce((sum, item) => sum + item.value, 0);
+      return Math.max(acc, Math.abs(positive), Math.abs(negative));
+    }, 1);
+
+    maxAbsValue = Math.max(lineModeMax, stackedMax, 1);
+  }
+
+  return {
+    periods,
+    tableRows,
+    totalLineData,
+    totalBarData,
+    multiLineDataSet,
+    stackedBarData,
+    legend,
+    maxAbsValue,
+    pointsCount: periods.length,
+  };
+};
+
 const Dashboard = () => {
   const [filterModalVisible, setFilterModalVisible] = useState(false);
+  const [trendFilterVisible, setTrendFilterVisible] = useState(false);
   const [chartModalVisible, setChartModalVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const [monthlyData, setMonthlyData] = useState([]);
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categoriesById, setCategoriesById] = useState({});
   const [recipientsById, setRecipientsById] = useState({});
   const [filterConfig, setFilterConfig] = useState(() => RecordFilterConfig.from().build());
   const [sortConfig, setSortConfig] = useState(() => RecordSortConfig.byDate('desc').build());
+  const [trendConfig, setTrendConfig] = useState({ mode: 'total', chartType: 'line', categoryIds: [] });
+  const [page2ChartType, setPage2ChartType] = useState('Bar');
 
-  // 1. Move the fetching logic into a reusable function
   const loadData = useCallback(async (
     nextFilterConfig = filterConfig,
     nextSortConfig = sortConfig,
   ) => {
     try {
-      const [records, categories, recipients] = await Promise.all([
+      const [nextRecords, categories, recipients] = await Promise.all([
         fetchRecordsWithFilters(nextFilterConfig, nextSortConfig),
         fetchAllCategories(),
         fetchAllRecipients(),
       ]);
 
       const categoryMap = (categories || []).reduce((acc, item) => {
-        acc[item.cid] = item.cname || '';
+        acc[String(item.cid)] = item.cname || '';
         return acc;
       }, {});
 
       const recipientMap = (recipients || []).reduce((acc, item) => {
-        acc[item.rid] = item.name || '';
+        acc[String(item.rid)] = item.name || '';
         return acc;
       }, {});
 
       setCategoriesById(categoryMap);
       setRecipientsById(recipientMap);
-      setRecords(records || []);
-      setMonthlyData(formatRecordsToChartData(records));
+      setRecords(nextRecords || []);
     } catch (error) {
       console.error('Dashboard load error', error);
     } finally {
@@ -176,7 +326,6 @@ const Dashboard = () => {
     }
   }, [filterConfig, sortConfig]);
 
-  // This runs every time the Dashboard screen comes into view
   useFocusEffect(
     useCallback(() => {
       loadData();
@@ -214,6 +363,16 @@ const Dashboard = () => {
     loadData(normalizedFilter, normalizedSort);
   };
 
+  const handleApplyTrendConfig = (nextTrendConfig = {}) => {
+    setTrendConfig((prev) => ({
+      ...prev,
+      mode: nextTrendConfig.mode === 'category' ? 'category' : 'total',
+      chartType: nextTrendConfig.chartType === 'stackedBar' ? 'stackedBar' : 'line',
+      categoryIds: (nextTrendConfig.categoryIds || []).map((item) => String(item)).filter(Boolean),
+    }));
+    setTrendFilterVisible(false);
+  };
+
   const allCategoryRows = useMemo(() => {
     return aggregateByCategory(records, categoriesById);
   }, [records, categoriesById]);
@@ -222,22 +381,13 @@ const Dashboard = () => {
     return toTopCategoryChartData(allCategoryRows);
   }, [allCategoryRows]);
 
-  
-  const charts = useMemo(() => ([
-    {
-      id: 'Line', // Used as the key for logic
-      label: 'Line Chart',
-      value: 'Line',
-      color: '#0BA5A4',
-      selected: true, // Default selection
-    },
-    {
-      id: 'Bar',
-      label: 'Bar Chart',
-      value: 'Bar',
-      color: '#0BA5A4',
-    }
-  ]), []);
+  const trendModel = useMemo(() => {
+    return buildTrendModel(records, categoriesById, trendConfig);
+  }, [records, categoriesById, trendConfig]);
+
+  const page1StepValue = getNiceStepValue(trendModel.maxAbsValue);
+  const page1AxisRange = page1StepValue * Y_AXIS_SECTION_COUNT;
+  const page2AxisModel = getAxisModel(categoryChartData);
 
   const page2Charts = useMemo(() => ([
     {
@@ -255,10 +405,6 @@ const Dashboard = () => {
     }
   ]), []);
 
-  // Initialize state to 'Line'
-  const [selectedId, setSelectedId] = useState('Line');
-  const [page2ChartType, setPage2ChartType] = useState('Bar');
-
   if (loading) {
     return (
       <View style={styles.container}>
@@ -267,22 +413,13 @@ const Dashboard = () => {
     );
   }
 
-  // Dynamic axis and color logic
-  const page1AxisModel = getAxisModel(monthlyData);
-  const page2AxisModel = getAxisModel(categoryChartData);
-
-  const page1BarData = monthlyData.map(item => ({
-    ...item,
-    frontColor: item.value >= 0 ? '#0BA5A4' : '#d32f2f',
-  }));
-
   const page2BarData = categoryChartData.map(item => ({
     ...item,
     frontColor: item.value >= 0 ? '#0BA5A4' : '#d32f2f',
   }));
 
-  const chartWidth = screenWidth * 0.8;
-  const page1Spacing = getDynamicSpacing(chartWidth, monthlyData.length);
+  const chartWidth = screenWidth * 0.84;
+  const page1Spacing = getDynamicSpacing(chartWidth, trendModel.pointsCount);
   const page2Spacing = getDynamicSpacing(chartWidth, categoryChartData.length);
 
   const pieColorPalette = ['#0BA5A4', '#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6', '#f97316', '#7c3aed'];
@@ -311,21 +448,24 @@ const Dashboard = () => {
     height: screenHeight * 0.1,
     noOfSections: Y_AXIS_SECTION_COUNT,
     disableScroll: true,
-    initialSpacing: 10,
-    yAxisLabelWidth: 52,
+    initialSpacing: 8,
+    yAxisLabelWidth: 40,
     xAxisLabelsVerticalShift: screenHeight * 0.1,
-    xAxisLabelTextStyle: { fontSize: 10 },
+    xAxisTextNumberOfLines: 2,
+    xAxisLabelsHeight: 30,
+    labelsExtraHeight: 2,
+    xAxisLabelTextStyle: { fontSize: 8, lineHeight: 10, textAlign: 'center' },
     yAxisTextStyle: { fontSize: 10 },
     formatYLabel: formatYAxisLabel,
   };
 
-  const lineChartProps = {
+  const page1TotalLineProps = {
     ...chartCommonProps,
-    data: monthlyData,
-    maxValue: page1AxisModel.yAxisRange,
-    mostNegativeValue: -page1AxisModel.yAxisRange,
-    stepValue: page1AxisModel.stepValue,
-    negativeStepValue: page1AxisModel.stepValue,
+    data: trendModel.totalLineData,
+    maxValue: page1AxisRange,
+    mostNegativeValue: -page1AxisRange,
+    stepValue: page1StepValue,
+    negativeStepValue: page1StepValue,
     color: '#0BA5A4',
     areaChart: true,
     startFillColor: '#0BA5A4',
@@ -333,15 +473,37 @@ const Dashboard = () => {
     spacing: page1Spacing,
   };
 
-  const page1BarChartProps = {
+  const page1TotalBarProps = {
     ...chartCommonProps,
-    data: page1BarData,
-    maxValue: page1AxisModel.yAxisRange,
-    mostNegativeValue: -page1AxisModel.yAxisRange,
-    stepValue: page1AxisModel.stepValue,
-    negativeStepValue: page1AxisModel.stepValue,
-    barWidth: 10,
+    data: trendModel.totalBarData,
+    maxValue: page1AxisRange,
+    mostNegativeValue: -page1AxisRange,
+    stepValue: page1StepValue,
+    negativeStepValue: page1StepValue,
+    barWidth: 12,
     spacing: Math.max(8, page1Spacing - 10),
+  };
+
+  const page1MultiLineProps = {
+    ...chartCommonProps,
+    dataSet: trendModel.multiLineDataSet,
+    maxValue: page1AxisRange,
+    mostNegativeValue: -page1AxisRange,
+    stepValue: page1StepValue,
+    negativeStepValue: page1StepValue,
+    spacing: page1Spacing,
+  };
+
+  const page1StackedBarProps = {
+    ...chartCommonProps,
+    xAxisLabelsVerticalShift: screenHeight * 0.2,
+    stackData: trendModel.stackedBarData,
+    maxValue: page1AxisRange,
+    mostNegativeValue: -page1AxisRange,
+    stepValue: page1StepValue,
+    negativeStepValue: page1StepValue,
+    barWidth: 10,
+    spacing: Math.max(8, page1Spacing - 8),
   };
 
   const page2BarChartProps = {
@@ -355,12 +517,26 @@ const Dashboard = () => {
     spacing: Math.max(8, page2Spacing - 10),
   };
 
+  const renderPage1Chart = () => {
+    if (trendConfig.mode === 'category') {
+      if (trendModel.legend.length < 2) {
+        return <Text style={styles.chartHelpText}>Select 2 or more categories in Trend Chart Setup.</Text>;
+      }
 
+      if (trendConfig.chartType === 'line') {
+        return <LineChart {...page1MultiLineProps} />;
+      }
 
-  const renderChart = () =>
-    selectedId === 'Line' ? <LineChart {...lineChartProps} /> : <BarChart {...page1BarChartProps} />;
+      return <BarChart {...page1StackedBarProps} />;
+    }
 
-  // Example of toggling Page 2 visual style
+    if (trendConfig.chartType === 'stackedBar') {
+      return <BarChart {...page1TotalBarProps} />;
+    }
+
+    return <LineChart {...page1TotalLineProps} />;
+  };
+
   const renderPage2Chart = () => {
     if (page2ChartType === 'Bar') {
       return <BarChart {...page2BarChartProps} />;
@@ -395,40 +571,54 @@ const Dashboard = () => {
     );
   };
 
-  const isPage1 = currentPage === 0;
-  const activePageChartOptions = isPage1 ? charts : page2Charts;
-  const activePageChartSelection = isPage1 ? selectedId : page2ChartType;
-  const activePageChartSetter = isPage1 ? setSelectedId : setPage2ChartType;
-
+  const page1Title = trendConfig.mode === 'category'
+    ? (trendConfig.chartType === 'line' ? 'Trend by Categories (Multi-Line)' : 'Trend by Categories (Stacked Bar)')
+    : (trendConfig.chartType === 'line' ? 'Total Trend (Line)' : 'Total Trend (Bar)');
 
   return (
     <View style={styles.container}>
-      {/* HEADER */}
       <View style={styles.header}>
         <Text style={styles.title}>Dashboard</Text>
-        
-        {/* PAGINATION DOTS */}
+
         <View style={styles.paginationDots}>
           <View style={[styles.dot, currentPage === 0 && styles.activeDot]} />
           <View style={[styles.dot, currentPage === 1 && styles.activeDot]} />
         </View>
       </View>
 
-      {/* CHART SECTION (Responsive Flex) */}
-      <PagerView 
-        style={styles.pagerView} 
-        initialPage={0} 
+      <PagerView
+        style={styles.pagerView}
+        initialPage={0}
         onPageSelected={(e) => setCurrentPage(e.nativeEvent.position)}
       >
-        {/* PAGE 1 */}
         <View key="1" style={styles.page}>
           <View style={styles.chartSection}>
-            <Text style={styles.chartLabel}>
-              {selectedId === 'Line' ? 'Spending Trend (Line)' : 'Spending Trend (Bar)'}
-            </Text>
-            {renderChart()}
+            <Text style={styles.chartLabel}>{page1Title}</Text>
+            {renderPage1Chart()}
           </View>
-          <TableComponent data={monthlyData} firstColumnTitle="Month" />
+          {trendConfig.mode === 'category' && trendModel.legend.length > 0 ? (
+            <View style={styles.legendStrip}>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={true}
+                style={styles.legendWrap}
+                contentContainerStyle={styles.legendRow}
+              >
+                {trendModel.legend.map((item) => (
+                  <View key={item.key} style={styles.legendItem}>
+                    <View style={[styles.legendDot, { backgroundColor: item.color }]} />
+                    <Text style={styles.legendText}>{item.label}</Text>
+                  </View>
+                ))}
+              </ScrollView>
+            </View>
+          ) : null}
+          <TableComponent
+            data={trendModel.tableRows}
+            firstColumnTitle="Period"
+            firstColumnFlex={2.4}
+            amountColumnFlex={1.2}
+          />
         </View>
 
         <View key="2" style={styles.page}>
@@ -438,41 +628,67 @@ const Dashboard = () => {
             </Text>
             {renderPage2Chart()}
           </View>
-          <TableComponent data={allCategoryRows} firstColumnTitle="Category" />
+          <TableComponent data={allCategoryRows} firstColumnTitle="Category" firstColumnFlex={1.4} amountColumnFlex={1.6} />
         </View>
       </PagerView>
 
-      {/* --- FOOTER WITH TWO BUTTONS --- */}
       <View style={styles.footerContainer}>
-        {/* Left Side: Chart Button */}
-        <TouchableOpacity style={styles.sideButton} onPress={() => setChartModalVisible(true)}>
+        <TouchableOpacity
+          style={styles.sideButton}
+          onPress={() => {
+            if (currentPage === 0) {
+              setTrendFilterVisible(true);
+            } else {
+              setChartModalVisible(true);
+            }
+          }}
+        >
           <Text style={styles.sideButtonText}>Chart</Text>
         </TouchableOpacity>
 
-        {/* Right Side: Filter Button */}
         <TouchableOpacity style={styles.sideButton} onPress={handleOpenFilterModal}>
           <Text style={styles.sideButtonText}>Filter</Text>
         </TouchableOpacity>
       </View>
 
-      
-      {/* --- CHART MODAL --- */}
       <Modal animationType="fade" transparent={true} visible={chartModalVisible}>
         <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={() => setChartModalVisible(false)}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Chart Settings</Text>
-            <Text style={styles.modalSubtitle}>Customize how your data is visualized.</Text>
-            <RadioGroup 
-              radioButtons={activePageChartOptions} 
-              onPress={(id) => activePageChartSetter(id)}
-              selectedId={activePageChartSelection}
-              layout="row"
-            />
+          <TouchableOpacity activeOpacity={1} style={styles.modalContent} onPress={() => {}}>
+            <View style={styles.modalHeaderRow}>
+              <Text style={styles.modalTitle}>Category Chart Setup</Text>
+              <TouchableOpacity style={styles.modalCloseButton} onPress={() => setChartModalVisible(false)}>
+                <Text style={styles.modalCloseButtonText}>Close</Text>
+              </TouchableOpacity>
+            </View>
+            
 
-            <TouchableOpacity style={[styles.applyBtn, { marginTop: 20 }]} onPress={() => setChartModalVisible(false)}>
-              <Text style={styles.applyBtnText}>Close</Text>
-            </TouchableOpacity>
-          </View>
+            <View style={styles.modalSection}>
+              <Text style={styles.modalSectionTitle}>Chart Type</Text>
+              <View style={styles.optionRow}>
+                {page2Charts.map((option) => {
+                  const isActive = page2ChartType === option.id;
+                  return (
+                    <TouchableOpacity
+                      key={option.id}
+                      style={[styles.optionButton, isActive && styles.optionButtonActive]}
+                      onPress={() => setPage2ChartType(option.id)}
+                    >
+                      <Text style={[styles.optionButtonText, isActive && styles.optionButtonTextActive]}>{option.label}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </View>
+
+            <View style={styles.modalActionRow}>
+              <TouchableOpacity style={[styles.modalActionButton, styles.applyBtn]} onPress={() => setChartModalVisible(false)}>
+                <Text style={styles.applyBtnText}>Apply</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.modalActionButton, styles.cancelBtn]} onPress={() => setChartModalVisible(false)}>
+                <Text style={styles.applyBtnText}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
         </TouchableOpacity>
       </Modal>
 
@@ -484,33 +700,45 @@ const Dashboard = () => {
         onClose={handleCloseFilterModal}
         onApply={handleApplyFilterConfig}
       />
+
+      <DashboardTrendFilter
+        visible={trendFilterVisible}
+        initialConfig={trendConfig}
+        categoryOptions={categoryOptions}
+        onClose={() => setTrendFilterVisible(false)}
+        onApply={handleApplyTrendConfig}
+      />
     </View>
   );
-}
+};
 
-// Reusable Table
-const TableComponent = ({ data, firstColumnTitle = 'Month' }) => {
+const TableComponent = ({
+  data,
+  firstColumnTitle = 'Month',
+  firstColumnFlex = 1,
+  amountColumnFlex = 2,
+}) => {
   const totalAmount = data.reduce((acc, item) => acc + Math.round(item.value * 100), 0) / 100;
   return (
     <View style={styles.tableSection}>
       <View style={styles.tableContainer}>
         <View style={styles.tableHeader}>
-          <Text style={[styles.columnHeader, { flex: 1 }]}>{firstColumnTitle}</Text>
-          <Text style={[styles.columnHeader, { flex: 2, textAlign: 'right', paddingRight: 20 }]}>Amount</Text>
+          <Text style={[styles.columnHeader, { flex: firstColumnFlex }]}>{firstColumnTitle}</Text>
+          <Text style={[styles.columnHeader, { flex: amountColumnFlex, textAlign: 'right', paddingRight: 20 }]}>Amount</Text>
         </View>
         <ScrollView style={styles.scrollBody}>
           {data.map((item, index) => (
             <View key={index} style={[styles.tableRow, index % 2 === 0 ? styles.evenRow : styles.oddRow]}>
-              <Text style={[styles.cell, { flex: 1 }]}>{item.label || item.month}</Text>
-              <Text style={[styles.cell, { flex: 2, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: item.value >= 0 ? '#2e7d32' : '#d32f2f' }]}>
+              <Text style={[styles.cell, { flex: firstColumnFlex }]}>{item.label || item.month}</Text>
+              <Text style={[styles.cell, { flex: amountColumnFlex, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: item.value >= 0 ? '#2e7d32' : '#d32f2f' }]}>
                 {item.value >= 0 ? `+$${item.value.toFixed(2)}` : `-$${Math.abs(item.value).toFixed(2)}`}
               </Text>
             </View>
           ))}
         </ScrollView>
         <View style={styles.summaryRow}>
-          <Text style={[styles.cell, { flex: 1, fontWeight: 'bold' }]}>Summary</Text>
-          <Text style={[styles.cell, { flex: 2, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: totalAmount >= 0 ? '#2e7d32' : '#d32f2f' }]}>
+          <Text style={[styles.cell, { flex: firstColumnFlex, fontWeight: 'bold' }]}>Summary</Text>
+          <Text style={[styles.cell, { flex: amountColumnFlex, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: totalAmount >= 0 ? '#2e7d32' : '#d32f2f' }]}>
             ${totalAmount.toFixed(2)}
           </Text>
         </View>
@@ -523,20 +751,56 @@ export default Dashboard;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.light.background },
-  header: { paddingTop: 40, paddingHorizontal: 12, alignItems: 'center', marginBottom: 8 },
+  header: { paddingTop: 40, paddingHorizontal: 12, alignItems: 'center', marginBottom: 0 },
   title: { fontSize: 20, fontWeight: '700', color: Colors.light.title },
 
-  // Pagination Dots
-  paginationDots: { flexDirection: 'row', marginTop: 10, marginBottom: 6 },
+  paginationDots: { flexDirection: 'row', marginTop: 8, marginBottom: 0 },
   dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#c4cfcb', marginHorizontal: 4 },
   activeDot: { backgroundColor: Colors.primary, width: 20 },
 
-  pagerView: { flex: 1 },
+  pagerView: { flex: 1, marginTop: 5 },
   page: { flex: 1 },
 
-  // Responsive Chart Area
-  chartSection: {flex: 3, justifyContent: 'center', alignItems: 'center', zIndex: 1,},
+  chartSection: { flex: 3, justifyContent: 'center', alignItems: 'center', zIndex: 1 },
   chartLabel: { fontSize: 14, color: Colors.light.text, marginTop: 10, fontWeight: '600' },
+  chartHelpText: { marginTop: 12, color: Colors.warning, fontWeight: '600' },
+
+  legendStrip: {
+    minHeight: 38,
+    justifyContent: 'center',
+    paddingHorizontal: '4%',
+    marginTop: 2,
+    marginBottom: 2,
+  },
+
+  legendWrap: {
+    width: '100%',
+    maxHeight: 34,
+  },
+  legendRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingRight: 8,
+  },
+  legendItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#eef3f0',
+    borderRadius: 10,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    marginRight: 6,
+  },
+  legendDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginRight: 6,
+  },
+  legendText: {
+    color: Colors.light.text,
+    fontSize: 12,
+  },
 
   pieContainer: {
     flexDirection: 'row',
@@ -555,29 +819,77 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 
-  // Responsive Table Area
-  tableSection: {flex: 4, paddingHorizontal: '5%', paddingBottom: 10},
-  tableContainer: {flex: 1, borderWidth: 1, borderColor: '#d0d0d0', borderRadius: 10, overflow: 'hidden'},
-  tableHeader: {flexDirection: 'row', backgroundColor: Colors.primary, borderBottomWidth: 1, borderBottomColor: '#d0d0d0'},
-  scrollBody: {flex: 1},
-  tableRow: {flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#d0d0d0', alignItems: 'center'},
+  tableSection: { flex: 4, paddingHorizontal: '4%', paddingBottom: 6 },
+  tableContainer: { flex: 1, borderWidth: 1, borderColor: '#d0d0d0', borderRadius: 10, overflow: 'hidden' },
+  tableHeader: { flexDirection: 'row', backgroundColor: Colors.primary, borderBottomWidth: 1, borderBottomColor: '#d0d0d0' },
+  scrollBody: { flex: 1 },
+  tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#d0d0d0', alignItems: 'center' },
   evenRow: { backgroundColor: '#ffffff' },
   oddRow: { backgroundColor: '#f5f7fa' },
   columnHeader: { padding: 12, fontWeight: '700', fontSize: 14, color: '#fff' },
-  cell: { paddingHorizontal: 12, paddingVertical: 10, fontSize: 14, borderRightWidth: 1, borderColor: '#d0d0d0' },
-  summaryRow: {flexDirection: 'row', backgroundColor: '#ffffff', borderTopWidth: 1, borderTopColor: '#d0d0d0', alignItems: 'center', paddingVertical: 5},
+  cell: { paddingHorizontal: 10, paddingVertical: 10, fontSize: 13, borderRightWidth: 1, borderColor: '#d0d0d0' },
+  summaryRow: { flexDirection: 'row', backgroundColor: '#ffffff', borderTopWidth: 1, borderTopColor: '#d0d0d0', alignItems: 'center', paddingVertical: 5 },
 
-  // Footer Area
-  footerContainer: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: '5%', paddingBottom: 30, paddingTop: 10, borderTopWidth: 1, borderTopColor: '#d0d0d0'},
+  footerContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: '5%', paddingBottom: 8, paddingTop: 10, borderTopWidth: 1, borderTopColor: '#d0d0d0' },
 
-  sideButton: {width: screenWidth*0.4, paddingVertical: 10, borderRadius: 8, borderWidth: 1, borderColor: Colors.primary, alignItems: 'center', backgroundColor: Colors.primary},
+  sideButton: { width: screenWidth * 0.4, paddingVertical: 10, borderRadius: 8, borderWidth: 1, borderColor: Colors.primary, alignItems: 'center', backgroundColor: Colors.primary },
   sideButtonText: { color: '#fff', fontWeight: '700', fontSize: 13 },
 
-  // MODAL STYLES
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.45)', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 14, paddingVertical: 20 },
-  modalContent: { backgroundColor: '#fff', width: '80%', maxWidth: 720, padding: 25, borderRadius: 12, alignItems: 'center' },
-  modalTitle: { fontSize: 20, fontWeight: '700', marginBottom: 10 },
-  modalSubtitle: { fontSize: 14, color: Colors.light.disabledText, marginBottom: 20, textAlign: 'center' },
-  applyBtn: { backgroundColor: Colors.primary, paddingVertical: 10, paddingHorizontal: 30, borderRadius: 8, width: '100%' },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.45)', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 12, paddingVertical: 18 },
+  modalContent: { backgroundColor: '#fff', width: '100%', maxWidth: 760, maxHeight: '95%', borderRadius: 12, paddingHorizontal: 14, paddingTop: 12, paddingBottom: 16, alignItems: 'stretch' },
+  modalHeaderRow: { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
+  modalTitle: { fontSize: 20, fontWeight: '700' },
+  modalSubtitle: { fontSize: 14, color: Colors.light.disabledText, marginBottom: 8 },
+  modalCloseButton: { paddingHorizontal: 10, paddingVertical: 6, borderRadius: 6, backgroundColor: Colors.warning },
+  modalCloseButtonText: { color: '#fff', fontWeight: '700' },
+  modalSection: {
+    width: '100%',
+    marginTop: 8,
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: '#d2d7d4',
+  },
+  modalSectionTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 8,
+  },
+  optionRow: {
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginBottom: 10,
+  },
+  optionButton: {
+    backgroundColor: Colors.primary,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  optionButtonActive: {
+    backgroundColor: Colors.savings,
+  },
+  optionButtonText: {
+    color: '#e8f0ec',
+    fontWeight: '700',
+  },
+  optionButtonTextActive: {
+    color: '#fff',
+  },
+  modalActionRow: {
+    width: '100%',
+    marginTop: 14,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  modalActionButton: {
+    minWidth: 120,
+    justifyContent: 'center',
+  },
+  cancelBtn: { backgroundColor: Colors.expense, paddingVertical: 10, paddingHorizontal: 30, borderRadius: 8 },
+  applyBtn: { backgroundColor: Colors.primary, paddingVertical: 10, paddingHorizontal: 30, borderRadius: 8 },
   applyBtnText: { color: '#fff', fontWeight: '700', textAlign: 'center' },
 });
