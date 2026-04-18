@@ -122,16 +122,11 @@ const CsvUploader = () => {
 
       // try import hook
       try {
-        await importCsv(uri, text, parsed.data);
+        await importCsv(parsed.data);
       } catch (e) {
-        console.warn('importCsv(uri, text) failed, trying importCsv(text)', e);
-        try {
-          await importCsv(text, parsed.data);
-        } catch (e2) {
-          console.error('importCsv failed', e2);
-          Alert.alert('Import failed', 'CSV import failed. See console.');
-          return;
-        }
+        console.error('importCsv failed', e);
+        Alert.alert('Import failed', 'CSV import failed. See console.');
+        return;
       }
 
       Alert.alert('Imported', `Imported ${name}`);

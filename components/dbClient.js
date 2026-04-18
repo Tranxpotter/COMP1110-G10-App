@@ -725,35 +725,96 @@ export async function deleteRecord(tid) {
 
 
 
+function normalizeCsvRow(row = {}) {
+  const normalized = Object.keys(row).reduce((acc, rawKey) => {
+    if (typeof rawKey !== 'string') return acc
+    acc[rawKey.trim().toLowerCase()] = row[rawKey]
+    return acc
+  }, {})
+
+  const get = (...keys) => {
+    for (const key of keys) {
+      if (normalized[key] !== undefined && normalized[key] !== null) return normalized[key]
+    }
+    return undefined
+  }
+
+  const normalizeAmount = (value) => {
+    if (value === undefined || value === null) return 0
+    const parsed = Number(String(value).replace(/,/g, '').trim())
+    return Number.isFinite(parsed) ? parsed : 0
+  }
+
+  const normalizeType = (value) => {
+    const raw = String(value || '').trim().toLowerCase()
+    if (raw === 'income') return 'income'
+    if (raw === 'spending' || raw === 'expense' || raw === 'expenses' || raw === 'spend') return 'spending'
+    return raw
+  }
+
+  const normalizeDate = (value) => {
+    if (value === undefined || value === null) return ''
+    const raw = String(value).trim()
+    if (!raw) return ''
+
+    const ymd = raw.match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})$/)
+    if (ymd) {
+      const yyyy = ymd[1]
+      const mm = String(Number(ymd[2])).padStart(2, '0')
+      const dd = String(Number(ymd[3])).padStart(2, '0')
+      return `${yyyy}-${mm}-${dd}`
+    }
+
+    const dmy = raw.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/)
+    if (dmy) {
+      const dd = String(Number(dmy[1])).padStart(2, '0')
+      const mm = String(Number(dmy[2])).padStart(2, '0')
+      const yyyy = dmy[3]
+      return `${yyyy}-${mm}-${dd}`
+    }
+
+    const parsed = new Date(raw)
+    if (!Number.isNaN(parsed.getTime())) {
+      const yyyy = parsed.getFullYear()
+      const mm = String(parsed.getMonth() + 1).padStart(2, '0')
+      const dd = String(parsed.getDate()).padStart(2, '0')
+      return `${yyyy}-${mm}-${dd}`
+    }
+
+    return ''
+  }
+
+  return {
+    amount: normalizeAmount(get('amount', 'amt', 'value', 'transaction amount', 'transaction_amount')),
+    cid: get('cid', 'categoryid', 'category_id'),
+    cname: get('cname', 'category', 'category_name', 'categoryname'),
+    date: normalizeDate(get('date', 'transactiondate', 'transaction_date', 'date_time', 'datetime')),
+    type: normalizeType(get('type', 'transactiontype', 'transaction_type')),
+    currency: get('currency', 'curr', 'currency_code') ?? '',
+    inputdatetime: get('inputdatetime', 'input_datetime', 'timestamp', 'created_at') ?? '',
+    description: get('description', 'desc', 'note', 'notes') ?? '',
+    rid: get('rid', 'recipientid', 'recipient_id'),
+    rname: get('rname', 'recipient', 'recipient_name', 'recipientname')
+  }
+}
+
+
 export async function importRecordsFromRows(rows = [], chunkSize = 200) {
   if (!Array.isArray(rows) || rows.length === 0) return { inserted: 0, skipped: 0 }
   let inserted = 0, skipped = 0
-  const db = await getDb()
 
-  // normalize rows first (keep names/cid/rid logic elsewhere if needed)
-  const normalized = rows.map(r => ([
-    Number(r.amount) || 0,
-    r.cid ? Number(r.cid) : null,
-    r.date ?? '',
-    r.type ?? '',
-    r.currency ?? '',
-    r.inputdatetime ?? '',
-    r.description ?? '',
-    r.rid ? Number(r.rid) : null
-  ]))
+  const normalized = rows
+    .map(normalizeCsvRow)
+    .filter(row => Object.values(row).some(value => value !== undefined && value !== null && String(value).trim() !== ''))
 
   for (let i = 0; i < normalized.length; i += chunkSize) {
     const chunk = normalized.slice(i, i + chunkSize)
-    for (const vals of chunk) {
+    for (const row of chunk) {
       try {
-        const res = await db.runAsync(
-          `INSERT INTO record (amount, cid, date, type, currency, inputdatetime, description, rid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-          vals
-        )
-        if (res?.lastInsertRowId) inserted += 1
-        else if (res?.changes) inserted += res.changes
+        const res = await addRecord(row)
+        if (res) inserted += 1
       } catch (err) {
-        console.warn('insert failed', err)
+        console.warn('importRecordsFromRows insert failed', err)
         skipped += 1
       }
     }

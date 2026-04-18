@@ -7,16 +7,19 @@ import { importRecordsFromRows } from '../components/dbClient'
 export function useCsvImport() {
   const [loading, setLoading] = useState(false)
 
-  async function importCsv(uri) {
+  async function importCsv(input) {
     setLoading(true)
     try {
-      const enc = FileSystem?.EncodingType?.UTF8 || 'utf8'
-      const content = await FileSystem.readAsStringAsync(uri, { encoding: enc })
-      const parsed = Papa.parse(content, { header: true, skipEmptyLines: true })
-      if (parsed.errors && parsed.errors.length) {
-        console.warn('CSV parse errors', parsed.errors)
+      let rows = input
+      if (!Array.isArray(rows)) {
+        const enc = FileSystem?.EncodingType?.UTF8 || 'utf8'
+        const content = await FileSystem.readAsStringAsync(input, { encoding: enc })
+        const parsed = Papa.parse(content, { header: true, skipEmptyLines: true })
+        if (parsed.errors && parsed.errors.length) {
+          console.warn('CSV parse errors', parsed.errors)
+        }
+        rows = parsed.data || []
       }
-      const rows = parsed.data || []
       if (!rows.length) {
         Alert.alert('Import', 'No rows found in CSV')
         setLoading(false)
