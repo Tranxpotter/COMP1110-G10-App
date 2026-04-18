@@ -119,93 +119,170 @@ export async function fetchAllRecords() {
     return res.rows._array
 }
 
-//order by for records
-export async function fetchRecordsOrderByAmount(order = 'DESC') {
-  const o = String(order || '').toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
-  const res = await executeSqlAsync(`SELECT * FROM record ORDER BY amount ${o}`)
-  return (res && res.rows && res.rows._array) ? res.rows._array : []
+
+const RECORD_SORT_KEYS = ['date', 'amount', 'category', 'recipient']
+const RECORD_SORT_KEY_SET = new Set(RECORD_SORT_KEYS)
+
+function toSafeNonNegativeInteger(value, fallback = null) {
+  if (value === '' || value == null) return fallback
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed)) return fallback
+  return Math.max(0, Math.trunc(parsed))
 }
 
-export async function fetchRecordsOrderByDate(order = 'DESC') {
-  const o = String(order || '').toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
-  const res = await executeSqlAsync(`SELECT * FROM record ORDER BY date ${o}, inputdatetime ${o}`)
-  return (res && res.rows && res.rows._array) ? res.rows._array : []
-}
+/**
+ * Builder-style config for record filtering.
+ */
+export class RecordFilterConfig {
+  constructor(source = {}) {
+    const safeSource = source && typeof source === 'object' ? source : {}
 
-export async function fetchRecordsOrderByCid(order = 'ASC') {
-  const o = String(order || '').toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
-  const res = await executeSqlAsync(`SELECT * FROM record ORDER BY cid ${o}`)
-  return (res && res.rows && res.rows._array) ? res.rows._array : []
-}
+    this.date = {
+      mode: 'all',
+      before: '',
+      after: '',
+      betweenStart: '',
+      betweenEnd: '',
+      ...(safeSource.date || {}),
+    }
 
+    this.amount = {
+      type: 'all',
+      rangeMode: 'all',
+      min: '',
+      max: '',
+      ...(safeSource.amount || {}),
+    }
 
+    this.category = {
+      includeIds: [],
+      excludeIds: [],
+      ...(safeSource.category || {}),
+    }
 
-//broad filter function
-export async function fetchRecordsByFilters(filters = {}) { //note I don't export this function, I want u (whoever) to use them in wrappers.
-  const { startDate, endDate, categoryName, type, recipientName } = filters || {}
-  let sql = `SELECT r.* FROM record r
-             LEFT JOIN category c ON r.cid = c.cid
-             LEFT JOIN recipient p ON r.rid = p.rid`
-  const where = []
-  const params = []
+    this.recipient = {
+      includeIds: [],
+      excludeIds: [],
+      ...(safeSource.recipient || {}),
+    }
 
-  if (startDate) {//preparing SQL
-    where.push('r.date >= ?')
-    params.push(startDate)
+    this.limit = toSafeNonNegativeInteger(safeSource.limit, null)
+    this.offset = toSafeNonNegativeInteger(safeSource.offset, 0)
   }
-  if (endDate) {
-    where.push('r.date <= ?')
-    params.push(endDate)
-  }
-  if (categoryName) {
-    where.push('c.cname = ?')
-    params.push(String(categoryName).trim())
-  }
-  if (type) {
-    where.push('r.type = ?')
-    params.push(String(type).trim())
-  }
-  if (recipientName) {
-    where.push('p.name = ?')
-    params.push(String(recipientName).trim())
+
+  static from(source = {}) {
+    return new RecordFilterConfig(source)
   }
 
-  if (where.length) sql += ' WHERE ' + where.join(' AND ')
-  sql += ' ORDER BY r.date DESC, r.inputdatetime DESC'
+  withDate(partial = {}) {
+    this.date = { ...this.date, ...(partial || {}) }
+    return this
+  }
 
-  const res = await executeSqlAsync(sql, params)
-  return (res && res.rows && res.rows._array) ? res.rows._array : []
+  withAmount(partial = {}) {
+    this.amount = { ...this.amount, ...(partial || {}) }
+    return this
+  }
+
+  withCategory(partial = {}) {
+    this.category = { ...this.category, ...(partial || {}) }
+    return this
+  }
+
+  withRecipient(partial = {}) {
+    this.recipient = { ...this.recipient, ...(partial || {}) }
+    return this
+  }
+
+  withLimit(limit = null) {
+    this.limit = toSafeNonNegativeInteger(limit, null)
+    return this
+  }
+
+  withOffset(offset = 0) {
+    this.offset = toSafeNonNegativeInteger(offset, 0)
+    return this
+  }
+
+  withPagination(limit = null, offset = 0) {
+    this.withLimit(limit)
+    this.withOffset(offset)
+    return this
+  }
+
+  build() {
+    return {
+      date: { ...this.date },
+      amount: { ...this.amount },
+      category: {
+        ...this.category,
+        includeIds: Array.isArray(this.category.includeIds) ? [...this.category.includeIds] : [],
+        excludeIds: Array.isArray(this.category.excludeIds) ? [...this.category.excludeIds] : [],
+      },
+      recipient: {
+        ...this.recipient,
+        includeIds: Array.isArray(this.recipient.includeIds) ? [...this.recipient.includeIds] : [],
+        excludeIds: Array.isArray(this.recipient.excludeIds) ? [...this.recipient.excludeIds] : [],
+      },
+      limit: this.limit,
+      offset: this.offset,
+    }
+  }
 }
 
-// convenience wrappers(for filters, take note some could allow multiple filters, just take note)
-export async function fetchRecordsByDateRange(startDate, endDate) {
-  return fetchRecordsByFilters({ startDate, endDate })
-}
-export async function fetchRecordsByCategoryName(categoryName, startDate = null, endDate = null) {//e.g could same time do time
-  return fetchRecordsByFilters({ categoryName, startDate, endDate })
-}
-export async function fetchRecordsByType(type, startDate = null, endDate = null) {
-  return fetchRecordsByFilters({ type, startDate, endDate })
-}
-export async function fetchRecordsByRecipientName(recipientName, startDate = null, endDate = null) {
-  return fetchRecordsByFilters({ recipientName, startDate, endDate })
+/**
+ * Builder-style config for record sorting.
+ *
+ * Each item has shape: { key, direction }
+ */
+export class RecordSortConfig {
+  constructor(source = []) {
+    this.items = []
+    this.addMany(source)
+  }
+
+  static from(source = []) {
+    return new RecordSortConfig(source)
+  }
+
+  static byDate(direction = 'desc') {
+    return new RecordSortConfig().add('date', direction)
+  }
+
+  add(key, direction = 'desc') {
+    const normalizedKey = String(key || '').toLowerCase()
+    if (!RECORD_SORT_KEY_SET.has(normalizedKey)) return this
+
+    const normalizedDirection = String(direction || '').toLowerCase() === 'asc' ? 'asc' : 'desc'
+    this.items.push({ key: normalizedKey, direction: normalizedDirection })
+    return this
+  }
+
+  addMany(source = []) {
+    if (!Array.isArray(source)) return this
+    for (const item of source) {
+      this.add(item?.key, item?.direction)
+    }
+    return this
+  }
+
+  clear() {
+    this.items = []
+    return this
+  }
+
+  build() {
+    return this.items.map((item) => ({ ...item }))
+  }
 }
 
+function buildRecordWhereClauses(filterConfig = {}) {
+  const normalizedFilterConfig = RecordFilterConfig.from(filterConfig).build()
+  const dateFilter = normalizedFilterConfig.date || {}
+  const amountFilter = normalizedFilterConfig.amount || {}
+  const categoryFilter = normalizedFilterConfig.category || {}
+  const recipientFilter = normalizedFilterConfig.recipient || {}
 
-
-export async function fetchRecordsWithFiltersTranxpotter(filterConfig = {}) {
-  const dateFilter = filterConfig.date || {}
-  const amountFilter = filterConfig.amount || {}
-  const categoryFilter = filterConfig.category || {}
-  const recipientFilter = filterConfig.recipient || {}
-  const sortConfig = Array.isArray(filterConfig.sort) ? filterConfig.sort : []
-
-  let sql = `
-    SELECT r.*
-    FROM record r
-    LEFT JOIN category c ON c.cid = r.cid
-    LEFT JOIN recipient re ON re.rid = r.rid
-  `
   const whereClauses = []
   const params = []
 
@@ -272,12 +349,67 @@ export async function fetchRecordsWithFiltersTranxpotter(filterConfig = {}) {
     params.push(...recipientExcludeIds)
   }
 
+  return {
+    whereClauses,
+    params,
+    limit: normalizedFilterConfig.limit,
+    offset: normalizedFilterConfig.offset,
+  }
+}
+
+
+
+
+
+
+/**
+ * Fetches records with optional filtering, multi-column sorting, and pagination.
+ *
+ * @param {object} [filterConfig={}] Filtering and pagination options.
+ * @param {object} [filterConfig.date] Date filter.
+ * @param {'all'|'before'|'after'|'between'} [filterConfig.date.mode='all'] Date matching mode.
+ * @param {string} [filterConfig.date.before] Upper date bound for `before` mode.
+ * @param {string} [filterConfig.date.after] Lower date bound for `after` mode.
+ * @param {string} [filterConfig.date.betweenStart] First date for `between` mode.
+ * @param {string} [filterConfig.date.betweenEnd] Second date for `between` mode.
+ * @param {object} [filterConfig.amount] Amount filter.
+ * @param {'all'|'spending'|'income'} [filterConfig.amount.type='all'] Transaction type filter.
+ * @param {'all'|'above'|'below'|'between'} [filterConfig.amount.rangeMode='all'] Numeric range mode.
+ * @param {number|string} [filterConfig.amount.min] Min amount for `above`/`between` modes.
+ * @param {number|string} [filterConfig.amount.max] Max amount for `below`/`between` modes.
+ * @param {object} [filterConfig.category] Category include/exclude IDs.
+ * @param {Array<number|string>} [filterConfig.category.includeIds] Allowed category IDs.
+ * @param {Array<number|string>} [filterConfig.category.excludeIds] Blocked category IDs.
+ * @param {object} [filterConfig.recipient] Recipient include/exclude IDs.
+ * @param {Array<number|string>} [filterConfig.recipient.includeIds] Allowed recipient IDs.
+ * @param {Array<number|string>} [filterConfig.recipient.excludeIds] Blocked recipient IDs.
+ * @param {number|string|null} [filterConfig.limit=null] Maximum rows returned.
+ * @param {number|string} [filterConfig.offset=0] Rows skipped before returning results.
+ * @param {Array<{key: 'date'|'amount'|'category'|'recipient', direction?: 'asc'|'desc'}>} [sortConfig=[]]
+ * Sorting config, ordered by priority (first item has highest priority).
+ *
+ * @returns {Promise<Array<object>>} Matching records.
+ */
+export async function fetchRecordsWithFilters(filterConfig = {}, sortConfig = []) {
+  const effectiveSortConfig = (Array.isArray(sortConfig) && sortConfig.length > 0)
+    ? sortConfig
+    : (Array.isArray(filterConfig?.sort) ? filterConfig.sort : [])
+  const normalizedSortConfig = RecordSortConfig.from(effectiveSortConfig).build()
+  const { whereClauses, params, limit, offset } = buildRecordWhereClauses(filterConfig)
+
+  let sql = `
+    SELECT r.*
+    FROM record r
+    LEFT JOIN category c ON c.cid = r.cid
+    LEFT JOIN recipient re ON re.rid = r.rid
+  `
+
   if (whereClauses.length > 0) {
     sql += ` WHERE ${whereClauses.join(' AND ')}`
   }
 
   const orderClauses = []
-  for (const item of sortConfig) {
+  for (const item of normalizedSortConfig) {
     const direction = String(item?.direction || 'desc').toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
     if (item.key === 'date') {
       orderClauses.push(`r.date ${direction}`)
@@ -297,8 +429,40 @@ export async function fetchRecordsWithFiltersTranxpotter(filterConfig = {}) {
 
   sql += ` ORDER BY ${orderClauses.join(', ')}`
 
+  if (limit !== null) {
+    sql += ' LIMIT ?'
+    params.push(limit)
+  }
+
+  if (offset > 0) {
+    if (limit === null) {
+      sql += ' LIMIT -1'
+    }
+    sql += ' OFFSET ?'
+    params.push(offset)
+  }
+
   const res = await executeSqlAsync(sql, params)
   return res.rows._array
+}
+
+export async function fetchRecordCountWithFilters(filterConfig = {}) {
+  const { whereClauses, params } = buildRecordWhereClauses(filterConfig)
+
+  let sql = `
+    SELECT COUNT(*) AS total
+    FROM record r
+    LEFT JOIN category c ON c.cid = r.cid
+    LEFT JOIN recipient re ON re.rid = r.rid
+  `
+
+  if (whereClauses.length > 0) {
+    sql += ` WHERE ${whereClauses.join(' AND ')}`
+  }
+
+  const res = await executeSqlAsync(sql, params)
+  const total = res?.rows?._array?.[0]?.total
+  return Number(total) || 0
 }
 
 
@@ -621,14 +785,6 @@ export default {
     fetchAllCategories,
     fetchAllRecipients,
     fetchAllRecords,
-    fetchRecordsOrderByAmount,
-    fetchRecordsOrderByDate,
-    fetchRecordsOrderByCid,
-    fetchRecordsByDateRange,
-    fetchRecordsByCategoryName,
-    fetchRecordsByType,
-    fetchRecordsByRecipientName,
-    fetchRecordsWithFiltersTranxpotter,
     addCategory,
     updateCategory,
     deleteCategory,

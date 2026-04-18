@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Colors } from '../constants/Colors'
-import { deleteRecord, executeSqlAsync, fetchAllCategories, fetchAllRecipients, fetchRecordsWithFiltersTranxpotter, initTables, updateRecord } from '../components/dbClient'
+import { RecordFilterConfig, RecordSortConfig, deleteRecord, executeSqlAsync, fetchAllCategories, fetchAllRecipients, fetchRecordCountWithFilters, fetchRecordsWithFilters, initTables, updateRecord } from '../components/dbClient'
 import ThemedAutocomplete from '../components/ThemedAutocomplete'
 import ThemedButton from '../components/ThemedButton'
 import ThemedSelectList from '../components/ThemedSelectList'
@@ -29,6 +29,25 @@ const TYPE_OPTIONS = [
   { key: 'spending', value: 'Spending' },
   { key: 'income', value: 'Income' },
 ]
+
+const PAGE_SIZE_OPTIONS = [
+  { key: '10', value: '10 / page' },
+  { key: '20', value: '20 / page' },
+  { key: '50', value: '50 / page' },
+]
+const ALLOWED_PAGE_SIZES = [10, 20, 50]
+const DEFAULT_ROWS_PER_PAGE = 20
+
+const normalizePageSize = (value) => {
+  const parsed = Number(value)
+  return ALLOWED_PAGE_SIZES.includes(parsed) ? parsed : DEFAULT_ROWS_PER_PAGE
+}
+
+const normalizePage = (value) => {
+  const parsed = Number(value)
+  if (!Number.isFinite(parsed) || parsed < 1) return 1
+  return Math.trunc(parsed)
+}
 
 const parseDateValue = (value) => {
   const parsed = new Date(value)
@@ -496,9 +515,23 @@ const ViewTable = () => {
   const [editingRecord, setEditingRecord] = useState(null)
   const [filterModalVisible, setFilterModalVisible] = useState(false)
   const [filterModalColumnKey, setFilterModalColumnKey] = useState('date')
-  const [filterConfig, setFilterConfig] = useState({})
+  const [filterConfig, setFilterConfig] = useState(() => (
+    RecordFilterConfig.from().build()
+  ))
+  const [sortConfig, setSortConfig] = useState(() => RecordSortConfig.byDate('desc').build())
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rowsPerPage, setRowsPerPage] = useState(DEFAULT_ROWS_PER_PAGE)
+  const [pageInput, setPageInput] = useState('1')
+  const [totalRecords, setTotalRecords] = useState(0)
   const [selectMode, setSelectMode] = useState(false)
   const [selectedRecordIds, setSelectedRecordIds] = useState([])
+
+  const totalPages = useMemo(() => {
+    return Math.max(1, Math.ceil(totalRecords / rowsPerPage))
+  }, [totalRecords, rowsPerPage])
+
+  const isFirstPage = currentPage <= 1
+  const isLastPage = currentPage >= totalPages
 
   const categoryOptions = useMemo(() => {
     return Object.entries(categoriesById)
@@ -514,15 +547,35 @@ const ViewTable = () => {
       .sort((left, right) => String(left.value).localeCompare(String(right.value)))
   }, [recipientsById])
 
-  const loadRecords = useCallback(async (config = filterConfig) => {
+  const loadRecords = useCallback(async (
+    nextFilterConfig = filterConfig,
+    nextSortConfig = sortConfig,
+    targetPage = currentPage,
+    targetRowsPerPage = rowsPerPage,
+  ) => {
+    const safeRowsPerPage = normalizePageSize(targetRowsPerPage)
+    const requestedPage = normalizePage(targetPage)
+
     try {
       setLoading(true)
       await initTables()
-      const [rows, categories, recipients] = await Promise.all([
-        fetchRecordsWithFiltersTranxpotter(config),
+      const [count, categories, recipients] = await Promise.all([
+        fetchRecordCountWithFilters(nextFilterConfig),
         fetchAllCategories(),
         fetchAllRecipients(),
       ])
+
+      const safeTotalRecords = Number(count) || 0
+      const safeTotalPages = Math.max(1, Math.ceil(safeTotalRecords / safeRowsPerPage))
+      const finalPage = Math.min(requestedPage, safeTotalPages)
+      const offset = (finalPage - 1) * safeRowsPerPage
+
+      const pagedFilterConfig = RecordFilterConfig
+        .from(nextFilterConfig)
+        .withPagination(safeRowsPerPage, offset)
+        .build()
+
+      const rows = await fetchRecordsWithFilters(pagedFilterConfig, nextSortConfig)
 
       const categoryMap = (categories || []).reduce((acc, item) => {
         acc[item.cid] = item.cname || ''
@@ -537,6 +590,10 @@ const ViewTable = () => {
       setRecords(rows || [])
       setCategoriesById(categoryMap)
       setRecipientsById(recipientMap)
+      setTotalRecords(safeTotalRecords)
+      setRowsPerPage(safeRowsPerPage)
+      setCurrentPage(finalPage)
+      setPageInput(String(finalPage))
       setSelectedRecordIds([])
     } catch (e) {
       console.error('loadRecords failed', e)
@@ -544,7 +601,7 @@ const ViewTable = () => {
     } finally {
       setLoading(false)
     }
-  }, [filterConfig])
+  }, [filterConfig, sortConfig, currentPage, rowsPerPage])
 
   useFocusEffect(
     useCallback(() => {
@@ -601,11 +658,20 @@ const ViewTable = () => {
   }, [])
 
   const handleApplyFilterConfig = useCallback(async (nextConfig) => {
-    const normalizedConfig = nextConfig || {}
-    setFilterConfig(normalizedConfig)
+    const source = nextConfig || {}
+    const nextSortConfig = RecordSortConfig.from(source.sort).build()
+    const nextFilterConfig = RecordFilterConfig
+      .from(source)
+      .withPagination(null, 0)
+      .build()
+
+    setFilterConfig(nextFilterConfig)
+    setSortConfig(nextSortConfig)
+    setCurrentPage(1)
+    setPageInput('1')
     setFilterModalVisible(false)
-    await loadRecords(normalizedConfig)
-  }, [loadRecords])
+    await loadRecords(nextFilterConfig, nextSortConfig, 1, rowsPerPage)
+  }, [loadRecords, rowsPerPage])
 
   const handleSaveUpdate = useCallback(async (payload) => {
     await updateRecord(payload.tid, {
@@ -668,6 +734,29 @@ const ViewTable = () => {
     )
   }, [selectedRecordIds, loadRecords])
 
+  const navigateToPage = useCallback(async (nextPage) => {
+    const normalized = normalizePage(nextPage)
+    const bounded = Math.min(normalized, totalPages)
+    setCurrentPage(bounded)
+    setPageInput(String(bounded))
+    await loadRecords(filterConfig, sortConfig, bounded, rowsPerPage)
+  }, [loadRecords, filterConfig, sortConfig, rowsPerPage, totalPages])
+
+  const handlePageInputSubmit = useCallback(async () => {
+    const numericInput = pageInput.trim() === '' ? 1 : normalizePage(pageInput)
+    const bounded = Math.min(numericInput, totalPages)
+    setPageInput(String(bounded))
+    await navigateToPage(bounded)
+  }, [pageInput, totalPages, navigateToPage])
+
+  const handleRowsPerPageChange = useCallback(async (value) => {
+    const nextRowsPerPage = normalizePageSize(value)
+    setRowsPerPage(nextRowsPerPage)
+    setCurrentPage(1)
+    setPageInput('1')
+    await loadRecords(filterConfig, sortConfig, 1, nextRowsPerPage)
+  }, [loadRecords, filterConfig, sortConfig])
+
   const getCellValue = useCallback((row, columnKey) => {
     if (columnKey === 'category') return categoriesById[row.cid] ?? ''
     if (columnKey === 'recipient') return recipientsById[row.rid] ?? ''
@@ -722,7 +811,7 @@ const ViewTable = () => {
       <RecordsFilterModal
         visible={filterModalVisible}
         activeColumnKey={filterModalColumnKey}
-        initialConfig={filterConfig}
+        initialConfig={{ ...filterConfig, sort: sortConfig }}
         categoryOptions={categoryOptions}
         recipientOptions={recipientOptions}
         onClose={handleCloseFilterModal}
@@ -808,6 +897,65 @@ const ViewTable = () => {
           </ScrollView>
         </ScrollView>
       )}
+
+      <View style={styles.paginationBar}>
+        <Pressable
+          style={[styles.pageButton, isFirstPage && styles.pageButtonDisabled]}
+          onPress={() => navigateToPage(1)}
+          disabled={isFirstPage || loading}
+        >
+          <Text style={styles.pageButtonText}>{'<<'}</Text>
+        </Pressable>
+
+        <Pressable
+          style={[styles.pageButton, isFirstPage && styles.pageButtonDisabled]}
+          onPress={() => navigateToPage(currentPage - 1)}
+          disabled={isFirstPage || loading}
+        >
+          <Text style={styles.pageButtonText}>{'<'}</Text>
+        </Pressable>
+
+        <ThemedTextInput
+          style={styles.pageInput}
+          keyboardType="number-pad"
+          value={pageInput}
+          onChangeText={(value) => setPageInput(String(value || '').replace(/[^0-9]/g, ''))}
+          onSubmitEditing={handlePageInputSubmit}
+          onBlur={handlePageInputSubmit}
+          returnKeyType="done"
+        />
+
+        <Pressable
+          style={[styles.pageButton, isLastPage && styles.pageButtonDisabled]}
+          onPress={() => navigateToPage(currentPage + 1)}
+          disabled={isLastPage || loading}
+        >
+          <Text style={styles.pageButtonText}>{'>'}</Text>
+        </Pressable>
+
+        <Pressable
+          style={[styles.pageButton, isLastPage && styles.pageButtonDisabled]}
+          onPress={() => navigateToPage(totalPages)}
+          disabled={isLastPage || loading}
+        >
+          <Text style={styles.pageButtonText}>{'>>'}</Text>
+        </Pressable>
+
+        {/* <ThemedText style={styles.pageMetaText}>Page {currentPage} / {totalPages}</ThemedText> */}
+
+        {/* <ThemedText style={styles.pageSizeLabel}>Rows:</ThemedText> */}
+        <View style={styles.pageSizeSelectWrap}>
+          <ThemedSelectList
+            key={`rows-${rowsPerPage}`}
+            data={PAGE_SIZE_OPTIONS}
+            setSelected={handleRowsPerPageChange}
+            save="key"
+            search={false}
+            defaultOption={{ key: String(rowsPerPage), value: `${rowsPerPage}/page` }}
+            style={styles.rowsPerPageInput}
+          />
+        </View>
+      </View>
     </ThemedView>
 
   )
@@ -858,6 +1006,66 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     marginTop: 8,
+  },
+  paginationBar: { 
+    marginTop: 10,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#d0d0d0',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // columnGap: 10,
+  },
+  pageNavSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: 8,
+    flexShrink: 1,
+  },
+  pageButton: {
+    minWidth: 36,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderRadius: 6,
+    backgroundColor: Colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pageButtonDisabled: {
+    opacity: 0.45,
+  },
+  pageButtonText: {
+    color: '#fff',
+    fontWeight: '700',
+  },
+  pageInput: {
+    width: 40,
+    textAlign: 'center',
+    minWidth: 40,
+    padding: 10
+  },
+  rowsPerPageInput: {
+    width: 40, 
+    textAlign: "center", 
+    minWidth: 40, 
+    padding: 10
+  }, 
+  pageMetaText: {
+    fontSize: 14,
+    marginLeft: 2,
+  },
+  pageSizeSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    columnGap: 8,
+  },
+  pageSizeLabel: {
+    fontSize: 14,
+  },
+  pageSizeSelectWrap: {
+    minWidth: 50
   },
   verticalScroll: {
     flex: 1,
