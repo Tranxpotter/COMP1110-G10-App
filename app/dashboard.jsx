@@ -1,85 +1,22 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator, Button } from 'react-native';
 import React, { useMemo, useState, useEffect, useCallback } from 'react';
-import { useFocusEffect } from '@react-navigation/native'; // Add this import
+import { useFocusEffect } from '@react-navigation/native';
 import { LineChart, BarChart, PieChart } from "react-native-gifted-charts";
 import PagerView from 'react-native-pager-view';
 import RadioGroup from 'react-native-radio-buttons-group';
-import { fetchAllRecords, initTables } from '../components/dbClient';
-import {MaterialIcons} from '@expo/vector-icons';
-import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import {
+  fetchAllCategories,
+  fetchAllRecipients,
+  fetchRecordsWithFilters,
+  RecordFilterConfig,
+  RecordSortConfig,
+} from '../components/dbClient';
+import RecordsFilterModal from '../components/RecordsFilterModal';
 
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-const initialFilters = [
-  // this is the parent or 'item'
-  {
-    name: 'Categaries',
-    id: 0,
-    // only allow one child selection under this parent
-    singleChildren: true,
-    children: [
-      {
-        name: 'Apple',
-        id: 110,
-      },
-      {
-        name: 'Strawberry',
-        id: 117,
-      },
-      {
-        name: 'Pineapple',
-        id: 113,
-      },
-      {
-        name: 'Banana',
-        id: 114,
-      },
-      {
-        name: 'Watermelon',
-        id: 115,
-      },
-      {
-        name: 'Kiwi fruit',
-        id: 116,
-      },
-    ],
-  },
-  {
-    name: 'Recipients',
-    id: 1,
-    // allow multiple child selections under this parent
-    singleChildren: false,
-    children: [
-      {
-        name: 'Apple',
-        id: 10,
-      },
-      {
-        name: 'Strawberry',
-        id: 17,
-      },
-      {
-        name: 'Pineapple',
-        id: 13,
-      },
-      {
-        name: 'Banana',
-        id: 14,
-      },
-      {
-        name: 'Watermelon',
-        id: 15,
-      },
-      {
-        name: 'Kiwi fruit',
-        id: 16,
-      },
-    ],
-  },
-];
 
 
 const formatRecordsToChartData = (records = []) => {
@@ -105,42 +42,119 @@ const formatRecordsToChartData = (records = []) => {
   return monthly;
 };
 
+const formatYAxisLabel = (value) => {
+  const numericValue = Number(value) || 0;
+  const sign = numericValue < 0 ? '-' : '';
+  const absValue = Math.abs(numericValue);
+
+  if (absValue >= 1000000) {
+    const formatted = (absValue / 1000000).toFixed(absValue >= 10000000 ? 0 : 1);
+    return `${sign}${formatted.replace(/\.0$/, '')}M`;
+  }
+
+  if (absValue >= 10000) {
+    const formatted = (absValue / 1000).toFixed(absValue >= 100000 ? 0 : 1);
+    return `${sign}${formatted.replace(/\.0$/, '')}k`;
+  }
+
+  return `${sign}${absValue}`;
+};
+
+const Y_AXIS_SECTION_COUNT = 4;
+
+const getNiceStepValue = (maxAbsValue) => {
+  const safeValue = Math.max(1, Number(maxAbsValue) || 0);
+  const roughStep = safeValue / Y_AXIS_SECTION_COUNT;
+  const exponent = Math.floor(Math.log10(roughStep));
+  const magnitude = 10 ** exponent;
+  const residual = roughStep / magnitude;
+
+  const niceResidual = residual <= 1 ? 1 : residual <= 2 ? 2 : residual <= 5 ? 5 : 10;
+  return niceResidual * magnitude;
+};
+
 const Dashboard = () => {
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [chartModalVisible, setChartModalVisible] = useState(false);
+  const [filterModalColumnKey, setFilterModalColumnKey] = useState('date');
   const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [items, setItems] = useState(initialFilters);
-
-
-  const addMoreChildren = () => {
-    const updatedItems = [...items];
-    // Find the parent and push new children into its array
-    updatedItems[0].children.push({ name: 'Mango', id: 25 }); 
-    setItems(updatedItems);
-  };
+  const [categoriesById, setCategoriesById] = useState({});
+  const [recipientsById, setRecipientsById] = useState({});
+  const [filterConfig, setFilterConfig] = useState(() => RecordFilterConfig.from().build());
+  const [sortConfig, setSortConfig] = useState(() => RecordSortConfig.byDate('desc').build());
 
   // 1. Move the fetching logic into a reusable function
-  const loadData = useCallback(async () => {
+  const loadData = useCallback(async (
+    nextFilterConfig = filterConfig,
+    nextSortConfig = sortConfig,
+  ) => {
     try {
-      // No need to initTables every time if already done once
-      const records = await fetchAllRecords();
+      const [records, categories, recipients] = await Promise.all([
+        fetchRecordsWithFilters(nextFilterConfig, nextSortConfig),
+        fetchAllCategories(),
+        fetchAllRecipients(),
+      ]);
+
+      const categoryMap = (categories || []).reduce((acc, item) => {
+        acc[item.cid] = item.cname || '';
+        return acc;
+      }, {});
+
+      const recipientMap = (recipients || []).reduce((acc, item) => {
+        acc[item.rid] = item.name || '';
+        return acc;
+      }, {});
+
+      setCategoriesById(categoryMap);
+      setRecipientsById(recipientMap);
       setData(formatRecordsToChartData(records));
     } catch (error) {
       console.error('Dashboard load error', error);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [filterConfig, sortConfig]);
 
-  // 2. Use useFocusEffect instead of useEffect
   // This runs every time the Dashboard screen comes into view
   useFocusEffect(
     useCallback(() => {
       loadData();
     }, [loadData])
   );
+
+  const categoryOptions = useMemo(() => {
+    return Object.entries(categoriesById)
+      .map(([key, value]) => ({ key: String(key), value }))
+      .filter((item) => item.value)
+      .sort((left, right) => String(left.value).localeCompare(String(right.value)));
+  }, [categoriesById]);
+
+  const recipientOptions = useMemo(() => {
+    return Object.entries(recipientsById)
+      .map(([key, value]) => ({ key: String(key), value }))
+      .filter((item) => item.value)
+      .sort((left, right) => String(left.value).localeCompare(String(right.value)));
+  }, [recipientsById]);
+
+  const handleOpenFilterModal = (columnKey = 'date') => {
+    setFilterModalColumnKey(columnKey);
+    setFilterModalVisible(true);
+  };
+
+  const handleCloseFilterModal = () => {
+    setFilterModalVisible(false);
+  };
+
+  const handleApplyFilterConfig = (nextConfig = {}) => {
+    const normalizedFilter = RecordFilterConfig.from(nextConfig).build();
+    const normalizedSort = RecordSortConfig.from(nextConfig.sort || sortConfig).build();
+    setFilterConfig(normalizedFilter);
+    setSortConfig(normalizedSort);
+    setFilterModalVisible(false);
+    loadData(normalizedFilter, normalizedSort);
+  };
 
   
   const charts = useMemo(() => ([
@@ -178,140 +192,6 @@ const Dashboard = () => {
   // Initialize state to 'Line'
   const [selectedId, setSelectedId] = useState('Line');
   const [page2ChartType, setPage2ChartType] = useState('Bar');
-  const [selectedItems, setSelectedItems] = useState([]);
-
-  const singleSelectionParentIds = items
-    .filter(parent => parent.singleChildren)
-    .map(parent => parent.id);
-
-  const childToParentMap = items.reduce((map, parent) => {
-    parent.children?.forEach(child => {
-      map[child.id] = parent.id;
-    });
-    return map;
-  }, {});
-
-  const normalizeSelectedItems = (selectedIds) => {
-    const singleParentSelections = {};
-
-    selectedIds.forEach(id => {
-      const parentId = childToParentMap[id];
-      if (singleSelectionParentIds.includes(parentId)) {
-        singleParentSelections[parentId] = singleParentSelections[parentId] || [];
-        singleParentSelections[parentId].push(id);
-      }
-    });
-
-    return selectedIds.filter(id => {
-      const parentId = childToParentMap[id];
-      if (!singleSelectionParentIds.includes(parentId)) {
-        return true;
-      }
-      const selectedForParent = singleParentSelections[parentId];
-      return selectedForParent[selectedForParent.length - 1] === id;
-    });
-  };
-
-  const onSelectedItemsChange = (items) => {
-    setSelectedItems(normalizeSelectedItems(items));
-  };
-
-  const multiSelectStyles = {
-    modalWrapper: { backgroundColor: 'rgba(0,0,0,0.4)' },
-    selectToggle: {
-      marginTop: 10,
-      padding: 14,
-      width: screenWidth * 0.8 - 60,
-      borderWidth: 1,
-      borderColor: '#0BA5A4',
-      borderRadius: 10,
-      backgroundColor: '#f0fdfa',
-    },
-    selectToggleText: {
-      color: '#0B7285',
-      fontSize: 16,
-    },
-    item: {
-      padding: 14,
-      backgroundColor: '#ffffff',
-    },
-    selectedItem: {
-      backgroundColor: '#d1fae5',
-    },
-    subItem: {
-      paddingLeft: 26,
-      paddingVertical: 12,
-      backgroundColor: '#f8fafc',
-    },
-    selectedSubItem: {
-      backgroundColor: '#c7f0e8',
-    },
-    itemText: {
-      color: '#0f766e',
-      fontSize: 15,
-    },
-    selectedItemText: {
-      color: '#115e59',
-      fontWeight: 'bold',
-    },
-    subItemText: {
-      color: '#164e63',
-      fontSize: 14,
-    },
-    selectedSubItemText: {
-      color: '#0f5662',
-      fontWeight: 'bold',
-    },
-    searchBar: {
-      backgroundColor: '#e0f2fe',
-      borderRadius: 10,
-      marginBottom: 10,
-    },
-    searchTextInput: {
-      color: '#0f172a',
-    },
-    chipsWrapper: {
-      marginTop: 12,
-      flexWrap: 'wrap',
-    },
-    chipContainer: {
-      backgroundColor: '#0BA5A4',
-      borderRadius: 20,
-      paddingHorizontal: 12,
-      paddingVertical: 6,
-      margin: 4,
-    },
-    chipText: {
-      color: '#fff',
-    },
-    cancelButton: {
-      backgroundColor: '#ef4444',
-    },
-    button: {
-      backgroundColor: '#0BA5A4',
-    },
-    confirmText: {
-      color: '#ffffff',
-    },
-    backdrop: {
-      backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    },
-  };
-
-  const multiSelectColors = {
-    primary: '#0BA5A4',
-    success: '#10b981',
-    cancel: '#ef4444',
-    text: '#0f172a',
-    subText: '#475569',
-    selectToggleTextColor: '#0B7285',
-    searchPlaceholderTextColor: '#94a3b8',
-    searchSelectionColor: '#0BA5A4',
-    chipColor: '#0BA5A4',
-    itemBackground: '#ffffff',
-    subItemBackground: '#f8fafc',
-    disabled: '#cbd5e1',
-  };
 
   if (loading) {
     return (
@@ -322,8 +202,9 @@ const Dashboard = () => {
   }
 
   // Dynamic axis and color logic
-  const absMax = Math.max(...data.map(d => Math.abs(d.value)));
-  const yAxisRange = Math.ceil((absMax * 1.2) / 10) * 10;
+  const absMax = data.length > 0 ? Math.max(...data.map(d => Math.abs(d.value))) : 0;
+  const stepValue = getNiceStepValue(absMax);
+  const yAxisRange = stepValue * Y_AXIS_SECTION_COUNT;
   const dynamicData = data.map(item => ({
     ...item,
     frontColor: item.value >= 0 ? '#0BA5A4' : '#d32f2f',
@@ -361,14 +242,18 @@ const Dashboard = () => {
   const chartCommonProps = {
     width: chartWidth,
     height: screenHeight * 0.1,
-    noOfSections: 4,
+    noOfSections: Y_AXIS_SECTION_COUNT,
     maxValue: yAxisRange,
     mostNegativeValue: -yAxisRange,
+    stepValue,
+    negativeStepValue: stepValue,
     disableScroll: true,
     initialSpacing: 10,
-    yAxisLabelWidth: 40,
+    yAxisLabelWidth: 52,
     xAxisLabelsVerticalShift: screenHeight * 0.1,
-    xAxisLabelTextStyle: {fontSize: 12,},
+    xAxisLabelTextStyle: { fontSize: 10 },
+    yAxisTextStyle: { fontSize: 10 },
+    formatYLabel: formatYAxisLabel,
   };
 
   const lineChartProps = {
@@ -483,7 +368,7 @@ const Dashboard = () => {
         </TouchableOpacity>
 
         {/* Right Side: Filter Button */}
-        <TouchableOpacity style={styles.sideButton} onPress={() => setFilterModalVisible(true)}>
+        <TouchableOpacity style={styles.sideButton} onPress={() => handleOpenFilterModal('date')}>
           <Text style={styles.sideButtonText}>Filter</Text>
         </TouchableOpacity>
       </View>
@@ -509,34 +394,15 @@ const Dashboard = () => {
         </TouchableOpacity>
       </Modal>
 
-      {/* --- FILTER MODAL --- */}
-      <Modal animationType="fade" transparent={true} visible={filterModalVisible}>
-        <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={() => setFilterModalVisible(false)}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Filter Data</Text>
-            <Text style={styles.modalSubtitle}>Choose specific months or values to display.</Text>
-            <View>
-              <SectionedMultiSelect
-                items={items}
-                IconRenderer={MaterialIcons}
-                uniqueKey="id"
-                subKey="children"
-                displayKey="name"
-                selectText="Choose some things..."
-                alwaysShowSelectText={true}
-                showDropDowns={true}
-                onSelectedItemsChange={onSelectedItemsChange}
-                selectedItems={selectedItems}
-                styles={multiSelectStyles}
-                colors={multiSelectColors}
-              />
-            </View>
-            <TouchableOpacity style={styles.applyBtn} onPress={() => setFilterModalVisible(false)}>
-              <Text style={styles.applyBtnText}>Apply Filters</Text>
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-      </Modal>
+      <RecordsFilterModal
+        visible={filterModalVisible}
+        activeColumnKey={filterModalColumnKey}
+        initialConfig={{ ...filterConfig, sort: sortConfig }}
+        categoryOptions={categoryOptions}
+        recipientOptions={recipientOptions}
+        onClose={handleCloseFilterModal}
+        onApply={handleApplyFilterConfig}
+      />
     </View>
   );
 }
@@ -589,7 +455,7 @@ const styles = StyleSheet.create({
 
   // Responsive Chart Area
   chartSection: {flex: 3, justifyContent: 'center', alignItems: 'center', zIndex: 1,},
-  chartLabel: { fontSize: 14, color: '#333', marginBottom: 10, fontWeight: '500' },
+  chartLabel: { fontSize: 14, color: '#333', marginTop: 10, fontWeight: '500' },
 
   pieContainer: {
     flexDirection: 'row',
