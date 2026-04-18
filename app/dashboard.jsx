@@ -11,7 +11,7 @@ import {
   RecordFilterConfig,
   RecordSortConfig,
 } from '../components/dbClient';
-import RecordsFilterModal from '../components/RecordsFilterModal';
+import DashboardFilterModal from '../components/DashboardFilterModal';
 import { Colors } from '../constants/Colors';
 
 
@@ -134,7 +134,6 @@ const getDynamicSpacing = (chartWidth, pointsCount) => {
 const Dashboard = () => {
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [chartModalVisible, setChartModalVisible] = useState(false);
-  const [filterModalColumnKey, setFilterModalColumnKey] = useState('date');
   const [currentPage, setCurrentPage] = useState(0);
   const [monthlyData, setMonthlyData] = useState([]);
   const [records, setRecords] = useState([]);
@@ -198,8 +197,7 @@ const Dashboard = () => {
       .sort((left, right) => String(left.value).localeCompare(String(right.value)));
   }, [recipientsById]);
 
-  const handleOpenFilterModal = (columnKey = 'date') => {
-    setFilterModalColumnKey(columnKey);
+  const handleOpenFilterModal = () => {
     setFilterModalVisible(true);
   };
 
@@ -452,7 +450,7 @@ const Dashboard = () => {
         </TouchableOpacity>
 
         {/* Right Side: Filter Button */}
-        <TouchableOpacity style={styles.sideButton} onPress={() => handleOpenFilterModal('date')}>
+        <TouchableOpacity style={styles.sideButton} onPress={handleOpenFilterModal}>
           <Text style={styles.sideButtonText}>Filter</Text>
         </TouchableOpacity>
       </View>
@@ -478,10 +476,9 @@ const Dashboard = () => {
         </TouchableOpacity>
       </Modal>
 
-      <RecordsFilterModal
+      <DashboardFilterModal
         visible={filterModalVisible}
-        activeColumnKey={filterModalColumnKey}
-        initialConfig={{ ...filterConfig, sort: sortConfig }}
+        initialConfig={filterConfig}
         categoryOptions={categoryOptions}
         recipientOptions={recipientOptions}
         onClose={handleCloseFilterModal}
