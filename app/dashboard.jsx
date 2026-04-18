@@ -12,6 +12,7 @@ import {
   RecordSortConfig,
 } from '../components/dbClient';
 import RecordsFilterModal from '../components/RecordsFilterModal';
+import { Colors } from '../constants/Colors';
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -502,7 +503,7 @@ const TableComponent = ({ data, firstColumnTitle = 'Month' }) => {
         </View>
         <ScrollView style={styles.scrollBody}>
           {data.map((item, index) => (
-            <View key={index} style={styles.tableRow}>
+            <View key={index} style={[styles.tableRow, index % 2 === 0 ? styles.evenRow : styles.oddRow]}>
               <Text style={[styles.cell, { flex: 1 }]}>{item.label || item.month}</Text>
               <Text style={[styles.cell, { flex: 2, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: item.value >= 0 ? '#2e7d32' : '#d32f2f' }]}>
                 {item.value >= 0 ? `+$${item.value.toFixed(2)}` : `-$${Math.abs(item.value).toFixed(2)}`}
@@ -524,21 +525,21 @@ const TableComponent = ({ data, firstColumnTitle = 'Month' }) => {
 export default Dashboard;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-  header: { paddingTop: 50, alignItems: 'center' },
-  title: { fontSize: screenHeight * 0.03, fontWeight: 'bold' },
+  container: { flex: 1, backgroundColor: Colors.light.background },
+  header: { paddingTop: 40, paddingHorizontal: 12, alignItems: 'center', marginBottom: 8 },
+  title: { fontSize: 20, fontWeight: '700', color: Colors.light.title },
 
   // Pagination Dots
-  paginationDots: { flexDirection: 'row', marginTop: 10, marginBottom: 10 },
-  dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#ddd', marginHorizontal: 4 },
-  activeDot: { backgroundColor: '#0BA5A4', width: 20 },
+  paginationDots: { flexDirection: 'row', marginTop: 10, marginBottom: 6 },
+  dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#c4cfcb', marginHorizontal: 4 },
+  activeDot: { backgroundColor: Colors.primary, width: 20 },
 
   pagerView: { flex: 1 },
   page: { flex: 1 },
 
   // Responsive Chart Area
   chartSection: {flex: 3, justifyContent: 'center', alignItems: 'center', zIndex: 1,},
-  chartLabel: { fontSize: 14, color: '#333', marginTop: 10, fontWeight: '500' },
+  chartLabel: { fontSize: 14, color: Colors.light.text, marginTop: 10, fontWeight: '600' },
 
   pieContainer: {
     flexDirection: 'row',
@@ -553,31 +554,33 @@ const styles = StyleSheet.create({
   miniChartLabel: {
     fontSize: 12,
     fontWeight: 'bold',
-    color: '#666',
+    color: Colors.light.disabledText,
     marginBottom: 8,
   },
 
   // Responsive Table Area
   tableSection: {flex: 4, paddingHorizontal: '5%', paddingBottom: 10},
-  tableContainer: {flex: 1, borderWidth: 1, borderColor: '#eee', borderRadius: 10, overflow: 'hidden'},
-  tableHeader: {flexDirection: 'row', backgroundColor: '#f9f9f9', borderBottomWidth: 1, borderBottomColor: '#eee'},
+  tableContainer: {flex: 1, borderWidth: 1, borderColor: '#d0d0d0', borderRadius: 10, overflow: 'hidden'},
+  tableHeader: {flexDirection: 'row', backgroundColor: Colors.primary, borderBottomWidth: 1, borderBottomColor: '#d0d0d0'},
   scrollBody: {flex: 1},
-  tableRow: {flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#eee', alignItems: 'center'},
-  columnHeader: { padding: 12, fontWeight: 'bold', fontSize: 14 },
-  cell: { paddingHorizontal: 12, paddingVertical: 10, fontSize: 14 },
-  summaryRow: {flexDirection: 'row', backgroundColor: '#f0fdfa', borderTopWidth: 2, borderTopColor: '#0BA5A4', alignItems: 'center', paddingVertical: 5},
+  tableRow: {flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#d0d0d0', alignItems: 'center'},
+  evenRow: { backgroundColor: '#ffffff' },
+  oddRow: { backgroundColor: '#f5f7fa' },
+  columnHeader: { padding: 12, fontWeight: '700', fontSize: 14, color: '#fff' },
+  cell: { paddingHorizontal: 12, paddingVertical: 10, fontSize: 14, borderRightWidth: 1, borderColor: '#d0d0d0' },
+  summaryRow: {flexDirection: 'row', backgroundColor: '#ffffff', borderTopWidth: 1, borderTopColor: '#d0d0d0', alignItems: 'center', paddingVertical: 5},
 
   // Footer Area
-  footerContainer: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: '5%', paddingBottom: 30, paddingTop: 10},
+  footerContainer: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: '5%', paddingBottom: 30, paddingTop: 10, borderTopWidth: 1, borderTopColor: '#d0d0d0'},
 
-  sideButton: {width: screenWidth*0.4, paddingVertical: 10, borderRadius: 15, borderWidth: 1, borderColor: '#0BA5A4', alignItems: 'center', backgroundColor: '#fff'},
-  sideButtonText: { color: '#0BA5A4', fontWeight: 'bold', fontSize: 13 },
+  sideButton: {width: screenWidth*0.4, paddingVertical: 10, borderRadius: 8, borderWidth: 1, borderColor: Colors.primary, alignItems: 'center', backgroundColor: Colors.primary},
+  sideButtonText: { color: '#fff', fontWeight: '700', fontSize: 13 },
 
   // MODAL STYLES
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', justifyContent: 'center', alignItems: 'center' },
-  modalContent: { backgroundColor: '#fff', width: '80%', padding: 25, borderRadius: 15, alignItems: 'center' },
-  modalTitle: { fontSize: 20, fontWeight: 'bold', marginBottom: 10 },
-  modalSubtitle: { fontSize: 14, color: '#666', marginBottom: 20, textAlign: 'center' },
-  applyBtn: { backgroundColor: '#0BA5A4', paddingVertical: 10, paddingHorizontal: 30, borderRadius: 10, width: '100%' },
-  applyBtnText: { color: '#fff', fontWeight: 'bold', textAlign: 'center' },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.45)', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 14, paddingVertical: 20 },
+  modalContent: { backgroundColor: '#fff', width: '80%', maxWidth: 720, padding: 25, borderRadius: 12, alignItems: 'center' },
+  modalTitle: { fontSize: 20, fontWeight: '700', marginBottom: 10 },
+  modalSubtitle: { fontSize: 14, color: Colors.light.disabledText, marginBottom: 20, textAlign: 'center' },
+  applyBtn: { backgroundColor: Colors.primary, paddingVertical: 10, paddingHorizontal: 30, borderRadius: 8, width: '100%' },
+  applyBtnText: { color: '#fff', fontWeight: '700', textAlign: 'center' },
 });
