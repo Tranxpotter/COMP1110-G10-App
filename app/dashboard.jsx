@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator, Button } from 'react-native';
 import React, { useMemo, useState, useEffect } from 'react';
-import { LineChart, BarChart } from "react-native-gifted-charts";
+import { LineChart, BarChart, PieChart } from "react-native-gifted-charts";
 import PagerView from 'react-native-pager-view';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { fetchAllRecords, initTables } from '../components/dbClient';
@@ -11,14 +11,47 @@ import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const year = 2023;
+const year = 2026;
 
-const items = [
+const initialFilters = [
   // this is the parent or 'item'
   {
-    name: 'Fruits',
+    name: 'Categaries',
     id: 0,
-    // these are the children or 'sub items'
+    // only allow one child selection under this parent
+    singleChildren: true,
+    children: [
+      {
+        name: 'Apple',
+        id: 110,
+      },
+      {
+        name: 'Strawberry',
+        id: 117,
+      },
+      {
+        name: 'Pineapple',
+        id: 113,
+      },
+      {
+        name: 'Banana',
+        id: 114,
+      },
+      {
+        name: 'Watermelon',
+        id: 115,
+      },
+      {
+        name: 'Kiwi fruit',
+        id: 116,
+      },
+    ],
+  },
+  {
+    name: 'Recipients',
+    id: 1,
+    // allow multiple child selections under this parent
+    singleChildren: false,
     children: [
       {
         name: 'Apple',
@@ -46,7 +79,6 @@ const items = [
       },
     ],
   },
-
 ];
 
 
@@ -80,6 +112,15 @@ const Dashboard = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [items, setItems] = useState(initialFilters);
+
+  const addMoreChildren = () => {
+    const updatedItems = [...items];
+    // Find the parent and push new children into its array
+    updatedItems[0].children.push({ name: 'Mango', id: 25 }); 
+    setItems(updatedItems);
+  };
+
   useEffect(() => {
     async function loadData() {
       try {
@@ -96,24 +137,175 @@ const Dashboard = () => {
     loadData();
   }, []);
 
+  
   const charts = useMemo(() => ([
     {
-      id: '1', // acts as primary key, should be unique and non-empty string
-      label: 'Option 1',
-      value: 'option1'
+      id: 'Line', // Used as the key for logic
+      label: 'Line Chart',
+      value: 'Line',
+      color: '#0BA5A4',
+      selected: true, // Default selection
     },
     {
-      id: '2',
-      label: 'Option 2',
-      value: 'option2'
+      id: 'Bar',
+      label: 'Bar Chart',
+      value: 'Bar',
+      color: '#0BA5A4',
     }
   ]), []);
 
-  const [selectedId, setSelectedId] = useState();
+  const page2Charts = useMemo(() => ([
+    {
+      id: 'Bar',
+      label: 'Bar Chart',
+      value: 'Bar',
+      color: '#0BA5A4',
+      selected: true,
+    },
+    {
+      id: 'Pie',
+      label: 'Pie Charts',
+      value: 'Pie',
+      color: '#0BA5A4',
+    }
+  ]), []);
+
+  // Initialize state to 'Line'
+  const [selectedId, setSelectedId] = useState('Line');
+  const [page2ChartType, setPage2ChartType] = useState('Bar');
   const [selectedItems, setSelectedItems] = useState([]);
 
+  const singleSelectionParentIds = items
+    .filter(parent => parent.singleChildren)
+    .map(parent => parent.id);
+
+  const childToParentMap = items.reduce((map, parent) => {
+    parent.children?.forEach(child => {
+      map[child.id] = parent.id;
+    });
+    return map;
+  }, {});
+
+  const normalizeSelectedItems = (selectedIds) => {
+    const singleParentSelections = {};
+
+    selectedIds.forEach(id => {
+      const parentId = childToParentMap[id];
+      if (singleSelectionParentIds.includes(parentId)) {
+        singleParentSelections[parentId] = singleParentSelections[parentId] || [];
+        singleParentSelections[parentId].push(id);
+      }
+    });
+
+    return selectedIds.filter(id => {
+      const parentId = childToParentMap[id];
+      if (!singleSelectionParentIds.includes(parentId)) {
+        return true;
+      }
+      const selectedForParent = singleParentSelections[parentId];
+      return selectedForParent[selectedForParent.length - 1] === id;
+    });
+  };
+
   const onSelectedItemsChange = (items) => {
-    setSelectedItems(items);
+    setSelectedItems(normalizeSelectedItems(items));
+  };
+
+  const multiSelectStyles = {
+    modalWrapper: { backgroundColor: 'rgba(0,0,0,0.4)' },
+    selectToggle: {
+      marginTop: 10,
+      padding: 14,
+      width: screenWidth * 0.8 - 60,
+      borderWidth: 1,
+      borderColor: '#0BA5A4',
+      borderRadius: 10,
+      backgroundColor: '#f0fdfa',
+    },
+    selectToggleText: {
+      color: '#0B7285',
+      fontSize: 16,
+    },
+    item: {
+      padding: 14,
+      backgroundColor: '#ffffff',
+    },
+    selectedItem: {
+      backgroundColor: '#d1fae5',
+    },
+    subItem: {
+      paddingLeft: 26,
+      paddingVertical: 12,
+      backgroundColor: '#f8fafc',
+    },
+    selectedSubItem: {
+      backgroundColor: '#c7f0e8',
+    },
+    itemText: {
+      color: '#0f766e',
+      fontSize: 15,
+    },
+    selectedItemText: {
+      color: '#115e59',
+      fontWeight: 'bold',
+    },
+    subItemText: {
+      color: '#164e63',
+      fontSize: 14,
+    },
+    selectedSubItemText: {
+      color: '#0f5662',
+      fontWeight: 'bold',
+    },
+    searchBar: {
+      backgroundColor: '#e0f2fe',
+      borderRadius: 10,
+      marginBottom: 10,
+    },
+    searchTextInput: {
+      color: '#0f172a',
+    },
+    chipsWrapper: {
+      marginTop: 12,
+      flexWrap: 'wrap',
+    },
+    chipContainer: {
+      backgroundColor: '#0BA5A4',
+      borderRadius: 20,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      margin: 4,
+    },
+    chipText: {
+      color: '#fff',
+    },
+    cancelButton: {
+      backgroundColor: '#ef4444',
+    },
+    button: {
+      backgroundColor: '#0BA5A4',
+    },
+    confirmText: {
+      color: '#ffffff',
+    },
+    backdrop: {
+      backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    },
+  };
+
+  const multiSelectColors = {
+    primary: '#0BA5A4',
+    success: '#10b981',
+    cancel: '#ef4444',
+    text: '#0f172a',
+    subText: '#475569',
+    selectToggleTextColor: '#0B7285',
+    searchPlaceholderTextColor: '#94a3b8',
+    searchSelectionColor: '#0BA5A4',
+    chipColor: '#0BA5A4',
+    itemBackground: '#ffffff',
+    subItemBackground: '#f8fafc',
+    disabled: '#cbd5e1',
   };
 
   if (loading) {
@@ -137,6 +329,105 @@ const Dashboard = () => {
   const numberOfPoints = data.length;
   const dynamicSpacing = (chartWidth - 40) / (numberOfPoints - 1);
 
+  const pieColorPalette = ['#0BA5A4', '#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6', '#f97316', '#7c3aed'];
+  const getSliceColor = (index) => pieColorPalette[index % pieColorPalette.length];
+
+  // Filter for positive values only
+  const incomePieData = data
+    .filter(item => item.value > 0)
+    .map((item, index) => ({
+      value: item.value,
+      color: getSliceColor(index),
+      label: item.month,
+      text: item.month,
+    }));
+
+  // Filter for negative values only (converted to absolute)
+  const spendingPieData = data
+    .filter(item => item.value < 0)
+    .map((item, index) => ({
+      value: Math.abs(item.value),
+      color: getSliceColor(index + incomePieData.length),
+      label: item.month,
+      text: item.month,
+    }));
+
+
+  const chartCommonProps = {
+    width: chartWidth,
+    height: screenHeight * 0.1,
+    noOfSections: 4,
+    maxValue: yAxisRange,
+    mostNegativeValue: -yAxisRange,
+    disableScroll: true,
+    initialSpacing: 10,
+    yAxisLabelWidth: 40,
+    xAxisLabelsVerticalShift: screenHeight * 0.1,
+  };
+
+  const lineChartProps = {
+    ...chartCommonProps,
+    data,
+    color: '#0BA5A4',
+    areaChart: true,
+    startFillColor: '#0BA5A4',
+    startOpacity: 0.1,
+    spacing: dynamicSpacing,
+  };
+
+  const barChartProps = {
+    ...chartCommonProps,
+    data: dynamicData,
+    barWidth: 10,
+    spacing: dynamicSpacing - 10,
+  };
+
+
+
+  const renderChart = () =>
+    selectedId === 'Line' ? <LineChart {...lineChartProps} /> : <BarChart {...barChartProps} />;
+
+  // Example of toggling Page 2 visual style
+  const renderPage2Chart = () => {
+    if (page2ChartType === 'Bar') {
+      return <BarChart {...barChartProps} />;
+    }
+
+    return (
+      <View style={styles.pieContainer}>
+        <View style={styles.pieWrapper}>
+          <Text style={styles.miniChartLabel}>Income Sources</Text>
+          <PieChart
+            data={incomePieData.length > 0 ? incomePieData : [{ value: 1, color: '#eee', text: 'No data' }]}
+            radius={screenWidth * 0.15}
+            innerRadius={screenWidth * 0.08}
+            showText
+            textColor="white"
+            textSize={8}
+          />
+        </View>
+
+        <View style={styles.pieWrapper}>
+          <Text style={styles.miniChartLabel}>Spending Breakdown</Text>
+          <PieChart
+            data={spendingPieData.length > 0 ? spendingPieData : [{ value: 1, color: '#eee', text: 'No data' }]}
+            radius={screenWidth * 0.15}
+            innerRadius={screenWidth * 0.08}
+            showText
+            textColor="white"
+            textSize={8}
+          />
+        </View>
+      </View>
+    );
+  };
+
+  const isPage1 = currentPage === 0;
+  const activePageChartOptions = isPage1 ? charts : page2Charts;
+  const activePageChartSelection = isPage1 ? selectedId : page2ChartType;
+  const activePageChartSetter = isPage1 ? setSelectedId : setPage2ChartType;
+
+
   return (
     <View style={styles.container}>
       {/* HEADER */}
@@ -156,50 +447,23 @@ const Dashboard = () => {
         initialPage={0} 
         onPageSelected={(e) => setCurrentPage(e.nativeEvent.position)}
       >
+        {/* PAGE 1 */}
         <View key="1" style={styles.page}>
           <View style={styles.chartSection}>
-            <Text style={styles.chartLabel}>Spending Trend (Line)</Text>
-            <LineChart 
-              data={data} 
-              color="#0BA5A4" 
-              width={chartWidth}
-              height={screenHeight * 0.1}
-              noOfSections={4}
-              maxValue={yAxisRange}
-              mostNegativeValue={-yAxisRange}
-              areaChart
-              disableScroll={true}
-              initialSpacing={10}
-              startFillColor="#0BA5A4"
-              startOpacity={0.1}
-              yAxisLabelWidth={40}
-              xAxisLabelTextStyle={{fontSize: 12}}
-              xAxisLabelsVerticalShift = {screenHeight * 0.1}
-              spacing={dynamicSpacing}
-            />
+            <Text style={styles.chartLabel}>
+              {selectedId === 'Line' ? 'Spending Trend (Line)' : 'Spending Trend (Bar)'}
+            </Text>
+            {renderChart()}
           </View>
           <TableComponent data={data} />
         </View>
 
-          {/* PAGE 2: BAR CHART DASHBOARD */}
-          <View key="2" style={styles.page}>
-            <View style={styles.chartSection}>
-              <Text style={styles.chartLabel}>Monthly Volume (Bar)</Text>
-              <BarChart 
-                data={dynamicData} 
-                width={chartWidth}
-                height={screenHeight * 0.1}
-                barWidth={10}
-                noOfSections={4}
-                maxValue={yAxisRange}
-                mostNegativeValue={-yAxisRange}
-                initialSpacing={10}
-                yAxisLabelWidth={40}
-                disableScroll={true}
-                xAxisLabelTextStyle={{fontSize: 12}}
-                xAxisLabelsVerticalShift = {screenHeight * 0.1}
-                spacing={dynamicSpacing-10}
-              />
+        <View key="2" style={styles.page}>
+          <View style={styles.chartSection}>
+            <Text style={styles.chartLabel}>
+              {page2ChartType === 'Bar' ? 'Monthly Volume (Bar)' : 'Monthly Volume (Pie)'}
+            </Text>
+            {renderPage2Chart()}
           </View>
           <TableComponent data={data} />
         </View>
@@ -226,11 +490,13 @@ const Dashboard = () => {
             <Text style={styles.modalTitle}>Chart Settings</Text>
             <Text style={styles.modalSubtitle}>Customize how your data is visualized.</Text>
             <RadioGroup 
-              radioButtons={charts} 
-              onPress={setSelectedId}
-              selectedId={selectedId}
+              radioButtons={activePageChartOptions} 
+              onPress={(id) => activePageChartSetter(id)}
+              selectedId={activePageChartSelection}
+              layout="row"
             />
-            <TouchableOpacity style={styles.applyBtn} onPress={() => setChartModalVisible(false)}>
+
+            <TouchableOpacity style={[styles.applyBtn, { marginTop: 20 }]} onPress={() => setChartModalVisible(false)}>
               <Text style={styles.applyBtnText}>Close</Text>
             </TouchableOpacity>
           </View>
@@ -255,43 +521,8 @@ const Dashboard = () => {
                 showDropDowns={true}
                 onSelectedItemsChange={onSelectedItemsChange}
                 selectedItems={selectedItems}
-                styles={{
-                  selectToggle: {
-                    marginTop: 10,
-                    padding: 14,
-                    width: screenWidth * 0.8 - 60,
-                    borderWidth: 1,
-                    borderColor: '#ccc',
-                    borderRadius: 10,
-                    backgroundColor: '#fff'
-                  },
-                  selectToggleText: {
-                    color: '#333',
-                    fontSize: 16
-                  },
-                  searchBar: {
-                    backgroundColor: '#f5f5f5',
-                    borderRadius: 10,
-                    marginBottom: 10
-                  },
-                  searchTextInput: {
-                    color: '#000'
-                  },
-                  chipsWrapper: {
-                    marginTop: 12,
-                    flexWrap: 'wrap'
-                  },
-                  chipContainer: {
-                    backgroundColor: '#E3F2FD',
-                    borderRadius: 20,
-                    paddingHorizontal: 12,
-                    paddingVertical: 6,
-                    margin: 4
-                  },
-                  chipText: {
-                    color: '#0BA5A4'
-                  }
-                }}
+                styles={multiSelectStyles}
+                colors={multiSelectColors}
               />
             </View>
             <TouchableOpacity style={styles.applyBtn} onPress={() => setFilterModalVisible(false)}>
@@ -353,6 +584,23 @@ const styles = StyleSheet.create({
   // Responsive Chart Area
   chartSection: {flex: 3, justifyContent: 'center', alignItems: 'center', zIndex: 1,},
   chartLabel: { fontSize: 14, color: '#333', marginBottom: 10, fontWeight: '500' },
+
+  pieContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    paddingHorizontal: 10,
+  },
+  pieWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  miniChartLabel: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#666',
+    marginBottom: 8,
+  },
 
   // Responsive Table Area
   tableSection: {flex: 4, paddingHorizontal: '5%', paddingBottom: 10},
