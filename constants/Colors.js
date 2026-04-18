@@ -9,15 +9,17 @@ export const Colors = {
 
     dark: {
         text: '#d7e0dd',
+        disabledText: '#858a88', 
         title: '#f7faf9',
         background: '#111817',
         navBackground: '#0d1413',
         iconColor: '#8ba19b',
         iconColorFocused: '#1f8a70',
-        uiBackground: '#1a2321',
+        uiBackground: '#253430',
     },
     light: {
         text: '#3b4a45',
+        disabledText: '#627971', 
         title: '#10211d',
         background: '#f2f7f5',
         navBackground: '#e6f0ec',
