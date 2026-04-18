@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator } from 'react-native';
-import React, { useMemo, useState, useCallback } from 'react';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator, TextInput, Alert, Pressable } from 'react-native';
+import React, { useMemo, useState, useCallback, useRef } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { LineChart, BarChart, PieChart } from 'react-native-gifted-charts';
 import PagerView from 'react-native-pager-view';
@@ -12,6 +12,7 @@ import {
 } from '../components/dbClient';
 import DashboardFilterModal from '../components/DashboardFilterModal';
 import DashboardTrendFilter from '../components/DashboardTrendFilter';
+import ThemedSelectList from '../components/ThemedSelectList';
 import { Colors } from '../constants/Colors';
 
 const screenWidth = Dimensions.get('window').width;
@@ -21,6 +22,10 @@ const PERIOD_COUNT = 12;
 const Y_AXIS_SECTION_COUNT = 4;
 const MAX_CATEGORY_CHART_ITEMS = 11;
 const TREND_COLORS = ['#0BA5A4', '#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6'];
+const PAGE_TYPE_PERIOD_TREND = 'period-trend';
+const PAGE_TYPE_CATEGORY_GROUPS = 'category-groups';
+const MAX_DASHBOARD_PAGES = 10;
+const MAX_PAGE_TITLE_LENGTH = 25;
 
 const formatYAxisLabel = (value) => {
   const numericValue = Number(value) || 0;
@@ -128,32 +133,94 @@ const toTwoRowDateLabel = (date) => {
   return `${year}\n${month}/${day}`;
 };
 
-const toPeriodDefinitions = (records = []) => {
+const resolveTrendEndDate = (filterConfig = {}) => {
+  const dateFilter = filterConfig?.date || {};
+  let candidate = null;
+
+  if (dateFilter.mode === 'between' && dateFilter.betweenEnd) {
+    candidate = toValidDate(dateFilter.betweenEnd);
+  } else if (dateFilter.mode === 'before' && dateFilter.before) {
+    candidate = toValidDate(dateFilter.before);
+  }
+
+  return candidate || new Date();
+};
+
+const toPeriodDefinitions = (records = [], trendConfig = {}, filterConfig = {}) => {
   const validDates = records
     .map((item) => toValidDate(item.date))
     .filter(Boolean)
     .map((item) => item.getTime())
     .sort((a, b) => a - b);
 
+  const endDate = resolveTrendEndDate(filterConfig);
+  const endMs = endDate.getTime();
+
+  const preset = trendConfig?.dayRangePreset || 'auto';
+  if (preset === 'closest7') {
+    const days = 7;
+    return Array.from({ length: days }, (_, index) => {
+      const dayOffset = days - 1 - index;
+      const pointStart = endMs - dayOffset * 24 * 60 * 60 * 1000;
+      const pointEnd = pointStart + 24 * 60 * 60 * 1000 - 1;
+      const startDate = new Date(pointStart);
+      const finalDate = new Date(pointEnd);
+
+      return {
+        startMs: pointStart,
+        endMs: pointEnd,
+        startLabel: toSimpleDateString(startDate),
+        endLabel: toSimpleDateString(finalDate),
+        endChartLabel: toTwoRowDateLabel(finalDate),
+        rangeLabel: `${toSimpleDateString(startDate)}-${toSimpleDateString(finalDate)}`,
+      };
+    });
+  }
+
+  if (preset === 'closest30' || preset === 'closest90') {
+    const days = preset === 'closest30' ? 30 : 90;
+    const startMs = endMs - (days - 1) * 24 * 60 * 60 * 1000;
+    const span = Math.max(1, endMs - startMs + 1);
+
+    return Array.from({ length: PERIOD_COUNT }, (_, index) => {
+      const periodStart = startMs + Math.floor((span * index) / PERIOD_COUNT);
+      const periodEnd = index === PERIOD_COUNT - 1
+        ? endMs
+        : startMs + Math.floor((span * (index + 1)) / PERIOD_COUNT) - 1;
+      const startDate = new Date(periodStart);
+      const finalDate = new Date(periodEnd);
+
+      return {
+        startMs: periodStart,
+        endMs: periodEnd,
+        startLabel: toSimpleDateString(startDate),
+        endLabel: toSimpleDateString(finalDate),
+        endChartLabel: toTwoRowDateLabel(finalDate),
+        rangeLabel: `${toSimpleDateString(startDate)}-${toSimpleDateString(finalDate)}`,
+      };
+    });
+  }
+
   if (validDates.length === 0) {
-    const today = new Date();
+    const startMs = endMs - (PERIOD_COUNT - 1) * 24 * 60 * 60 * 1000;
     return Array.from({ length: PERIOD_COUNT }, () => ({
-      startMs: today.getTime(),
-      endMs: today.getTime(),
-      startLabel: toSimpleDateString(today),
-      endLabel: toSimpleDateString(today),
-      rangeLabel: `${toSimpleDateString(today)}-${toSimpleDateString(today)}`,
+      startMs,
+      endMs,
+      startLabel: toSimpleDateString(new Date(startMs)),
+      endLabel: toSimpleDateString(endDate),
+      endChartLabel: toTwoRowDateLabel(endDate),
+      rangeLabel: `${toSimpleDateString(new Date(startMs))}-${toSimpleDateString(endDate)}`,
     }));
   }
 
   const minMs = validDates[0];
-  const maxMs = validDates[validDates.length - 1];
-  const span = Math.max(1, maxMs - minMs + 1);
+  const rangeEndMs = Math.max(minMs, endMs);
+  const span = Math.max(1, rangeEndMs - minMs + 1);
 
   return Array.from({ length: PERIOD_COUNT }, (_, index) => {
     const startMs = minMs + Math.floor((span * index) / PERIOD_COUNT);
     const endMs = index === PERIOD_COUNT - 1
-      ? maxMs
+      ? rangeEndMs
       : minMs + Math.floor((span * (index + 1)) / PERIOD_COUNT) - 1;
 
     const startDate = new Date(startMs);
@@ -183,8 +250,8 @@ const toPeriodIndex = (dateValue, periods) => {
   return valueMs < periods[0].startMs ? 0 : periods.length - 1;
 };
 
-const buildTrendModel = (records = [], categoriesById = {}, trendConfig = {}) => {
-  const periods = toPeriodDefinitions(records);
+const buildTrendModel = (records = [], categoriesById = {}, trendConfig = {}, filterConfig = {}) => {
+  const periods = toPeriodDefinitions(records, trendConfig, filterConfig);
   const totals = Array.from({ length: periods.length }, () => 0);
 
   const selectedCategoryIds = Array.from(new Set((trendConfig.categoryIds || []).map((item) => String(item)).filter(Boolean)));
@@ -282,17 +349,22 @@ const buildTrendModel = (records = [], categoriesById = {}, trendConfig = {}) =>
 };
 
 const Dashboard = () => {
+  const pagerRef = useRef(null);
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [trendFilterVisible, setTrendFilterVisible] = useState(false);
   const [chartModalVisible, setChartModalVisible] = useState(false);
+  const [addPageModalVisible, setAddPageModalVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
+  const [customPages, setCustomPages] = useState([]);
+  const [newPageType, setNewPageType] = useState(PAGE_TYPE_PERIOD_TREND);
+  const [newPageTitle, setNewPageTitle] = useState('');
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categoriesById, setCategoriesById] = useState({});
   const [recipientsById, setRecipientsById] = useState({});
   const [filterConfig, setFilterConfig] = useState(() => RecordFilterConfig.from().build());
   const [sortConfig, setSortConfig] = useState(() => RecordSortConfig.byDate('desc').build());
-  const [trendConfig, setTrendConfig] = useState({ mode: 'total', chartType: 'line', categoryIds: [] });
+  const [trendConfig, setTrendConfig] = useState({ mode: 'total', chartType: 'line', dayRangePreset: 'auto', categoryIds: [] });
   const [page2ChartType, setPage2ChartType] = useState('Bar');
 
   const loadData = useCallback(async (
@@ -368,9 +440,92 @@ const Dashboard = () => {
       ...prev,
       mode: nextTrendConfig.mode === 'category' ? 'category' : 'total',
       chartType: nextTrendConfig.chartType === 'stackedBar' ? 'stackedBar' : 'line',
+      dayRangePreset: ['auto', 'closest90', 'closest30', 'closest7'].includes(nextTrendConfig.dayRangePreset)
+        ? nextTrendConfig.dayRangePreset
+        : 'auto',
       categoryIds: (nextTrendConfig.categoryIds || []).map((item) => String(item)).filter(Boolean),
     }));
     setTrendFilterVisible(false);
+  };
+
+  const handleAddPage = () => {
+    if (pageDefinitions.length >= MAX_DASHBOARD_PAGES) {
+      Alert.alert('Page Limit Reached', `You can only have up to ${MAX_DASHBOARD_PAGES} pages.`);
+      return;
+    }
+
+    const nextType = newPageType === PAGE_TYPE_CATEGORY_GROUPS ? PAGE_TYPE_CATEGORY_GROUPS : PAGE_TYPE_PERIOD_TREND;
+    const fallbackTitle = nextType === PAGE_TYPE_PERIOD_TREND ? 'Period Trend' : 'Category groups';
+    const inputTitle = (newPageTitle || '').trim();
+
+    if (inputTitle.length > MAX_PAGE_TITLE_LENGTH) {
+      Alert.alert('Title Too Long', `Chart title cannot exceed ${MAX_PAGE_TITLE_LENGTH} characters.`);
+      return;
+    }
+
+    const requestedTitle = inputTitle || fallbackTitle;
+
+    const existingTitles = pageDefinitions.map((page) => String(page.title || '').trim());
+    let uniqueTitle = requestedTitle;
+    let suffix = 1;
+
+    while (existingTitles.includes(uniqueTitle)) {
+      const suffixText = ` (${suffix})`;
+      const baseMaxLength = MAX_PAGE_TITLE_LENGTH - suffixText.length;
+      if (baseMaxLength <= 0) {
+        Alert.alert('Title Conflict', 'Unable to generate a unique title within 25 characters. Please choose a shorter name.');
+        return;
+      }
+
+      const trimmedBase = requestedTitle.slice(0, baseMaxLength).trimEnd();
+      uniqueTitle = `${trimmedBase}${suffixText}`;
+      suffix += 1;
+    }
+
+    const nextPage = {
+      id: `${Date.now()}-${Math.floor(Math.random() * 10000)}`,
+      type: nextType,
+      title: uniqueTitle,
+    };
+
+    setCustomPages((prev) => [...prev, nextPage]);
+    setNewPageType(PAGE_TYPE_PERIOD_TREND);
+    setNewPageTitle('');
+    setAddPageModalVisible(false);
+  };
+
+  const navigateToPage = (index) => {
+    const safeIndex = Math.max(0, Math.min(index, pageDefinitions.length - 1));
+    setCurrentPage(safeIndex);
+    pagerRef.current?.setPage?.(safeIndex);
+  };
+
+  const handleDeleteCurrentPage = () => {
+    if (currentPage < 2) {
+      Alert.alert('Cannot Delete', 'Default page cannot be deleted.');
+      return;
+    }
+
+    Alert.alert(
+      'Delete Page',
+      `Delete page "${pageDefinitions[currentPage]?.title || ''}"?`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => {
+            const pageId = pageDefinitions[currentPage]?.id;
+            setCustomPages((prev) => prev.filter((item) => item.id !== pageId));
+            const nextIndex = Math.max(0, currentPage - 1);
+            setCurrentPage(nextIndex);
+            setTimeout(() => {
+              pagerRef.current?.setPage?.(nextIndex);
+            }, 0);
+          },
+        },
+      ]
+    );
   };
 
   const allCategoryRows = useMemo(() => {
@@ -382,8 +537,22 @@ const Dashboard = () => {
   }, [allCategoryRows]);
 
   const trendModel = useMemo(() => {
-    return buildTrendModel(records, categoriesById, trendConfig);
-  }, [records, categoriesById, trendConfig]);
+    return buildTrendModel(records, categoriesById, trendConfig, filterConfig);
+  }, [records, categoriesById, trendConfig, filterConfig]);
+
+  const pageDefinitions = useMemo(() => {
+    const basePages = [
+      { id: 'base-period', type: PAGE_TYPE_PERIOD_TREND, title: 'Period Trend (default)' },
+      { id: 'base-category', type: PAGE_TYPE_CATEGORY_GROUPS, title: 'Category groups (default)' },
+    ];
+
+    return [...basePages, ...customPages];
+  }, [customPages]);
+
+  const currentPageType = pageDefinitions[currentPage]?.type || PAGE_TYPE_PERIOD_TREND;
+  const chartTitleOptions = useMemo(() => {
+    return pageDefinitions.map((page, index) => ({ key: String(index), value: page.title }));
+  }, [pageDefinitions]);
 
   const page1StepValue = getNiceStepValue(trendModel.maxAbsValue);
   const page1AxisRange = page1StepValue * Y_AXIS_SECTION_COUNT;
@@ -496,7 +665,7 @@ const Dashboard = () => {
 
   const page1StackedBarProps = {
     ...chartCommonProps,
-    xAxisLabelsVerticalShift: screenHeight * 0.2,
+    xAxisLabelsVerticalShift: screenHeight * 0.1,
     stackData: trendModel.stackedBarData,
     maxValue: page1AxisRange,
     mostNegativeValue: -page1AxisRange,
@@ -575,68 +744,103 @@ const Dashboard = () => {
     ? (trendConfig.chartType === 'line' ? 'Trend by Categories (Multi-Line)' : 'Trend by Categories (Stacked Bar)')
     : (trendConfig.chartType === 'line' ? 'Total Trend (Line)' : 'Total Trend (Bar)');
 
+  const renderChartTitleDropdown = () => (
+    <View style={styles.chartTitleDropdown}>
+      <ThemedSelectList
+        key={`chart-page-select-${currentPage}`}
+        data={chartTitleOptions}
+        search={false}
+        floating={true}
+        save="key"
+        setSelected={(value) => navigateToPage(Number(value))}
+        defaultOption={{ key: String(currentPage), value: pageDefinitions[currentPage]?.title || '' }}
+        boxStyles={styles.chartTitleSelectBox}
+        inputStyles={styles.chartTitleSelectInput}
+        dropdownStyles={styles.chartTitleSelectDropdown}
+        dropdownTextStyles={styles.chartTitleSelectDropdownText}
+      />
+    </View>
+  );
+
+  const renderPeriodTrendPage = (pageTitle, pageKey) => (
+    <View key={pageKey} style={styles.page}>
+      <View style={styles.chartSection}>
+        {renderChartTitleDropdown(pageTitle || page1Title)}
+        {renderPage1Chart()}
+      </View>
+      {trendConfig.mode === 'category' && trendModel.legend.length > 0 ? (
+        <View style={styles.legendStrip}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={true}
+            style={styles.legendWrap}
+            contentContainerStyle={styles.legendRow}
+          >
+            {trendModel.legend.map((item) => (
+              <View key={`${pageKey}-${item.key}`} style={styles.legendItem}>
+                <View style={[styles.legendDot, { backgroundColor: item.color }]} />
+                <Text style={styles.legendText}>{item.label}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      ) : null}
+      <TableComponent
+        data={trendModel.tableRows}
+        firstColumnTitle="Period"
+        firstColumnFlex={2.4}
+        amountColumnFlex={1.2}
+      />
+    </View>
+  );
+
+  const renderCategoryGroupsPage = (pageTitle, pageKey) => (
+    <View key={pageKey} style={styles.page}>
+      <View style={styles.chartSection}>
+        {renderChartTitleDropdown(pageTitle || (page2ChartType === 'Bar' ? 'Category Volume (Bar)' : 'Category Volume (Pie)'))}
+        {renderPage2Chart()}
+      </View>
+      <TableComponent data={allCategoryRows} firstColumnTitle="Category" firstColumnFlex={1.4} amountColumnFlex={1.6} />
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Dashboard</Text>
+        <TouchableOpacity style={styles.removePageButton} onPress={handleDeleteCurrentPage}>
+          <Text style={styles.removePageButtonText}>-</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.addPageButton} onPress={() => setAddPageModalVisible(true)}>
+          <Text style={styles.addPageButtonText}>+</Text>
+        </TouchableOpacity>
 
         <View style={styles.paginationDots}>
-          <View style={[styles.dot, currentPage === 0 && styles.activeDot]} />
-          <View style={[styles.dot, currentPage === 1 && styles.activeDot]} />
+          {pageDefinitions.map((page, index) => (
+            <View key={page.id} style={[styles.dot, currentPage === index && styles.activeDot]} />
+          ))}
         </View>
       </View>
 
       <PagerView
+        ref={pagerRef}
         style={styles.pagerView}
         initialPage={0}
         onPageSelected={(e) => setCurrentPage(e.nativeEvent.position)}
       >
-        <View key="1" style={styles.page}>
-          <View style={styles.chartSection}>
-            <Text style={styles.chartLabel}>{page1Title}</Text>
-            {renderPage1Chart()}
-          </View>
-          {trendConfig.mode === 'category' && trendModel.legend.length > 0 ? (
-            <View style={styles.legendStrip}>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={true}
-                style={styles.legendWrap}
-                contentContainerStyle={styles.legendRow}
-              >
-                {trendModel.legend.map((item) => (
-                  <View key={item.key} style={styles.legendItem}>
-                    <View style={[styles.legendDot, { backgroundColor: item.color }]} />
-                    <Text style={styles.legendText}>{item.label}</Text>
-                  </View>
-                ))}
-              </ScrollView>
-            </View>
-          ) : null}
-          <TableComponent
-            data={trendModel.tableRows}
-            firstColumnTitle="Period"
-            firstColumnFlex={2.4}
-            amountColumnFlex={1.2}
-          />
-        </View>
-
-        <View key="2" style={styles.page}>
-          <View style={styles.chartSection}>
-            <Text style={styles.chartLabel}>
-              {page2ChartType === 'Bar' ? 'Category Volume (Bar)' : 'Category Volume (Pie)'}
-            </Text>
-            {renderPage2Chart()}
-          </View>
-          <TableComponent data={allCategoryRows} firstColumnTitle="Category" firstColumnFlex={1.4} amountColumnFlex={1.6} />
-        </View>
+        {pageDefinitions.map((page) => {
+          if (page.type === PAGE_TYPE_CATEGORY_GROUPS) {
+            return renderCategoryGroupsPage(page.title, page.id);
+          }
+          return renderPeriodTrendPage(page.title, page.id);
+        })}
       </PagerView>
 
       <View style={styles.footerContainer}>
         <TouchableOpacity
           style={styles.sideButton}
           onPress={() => {
-            if (currentPage === 0) {
+            if (currentPageType === PAGE_TYPE_PERIOD_TREND) {
               setTrendFilterVisible(true);
             } else {
               setChartModalVisible(true);
@@ -651,9 +855,67 @@ const Dashboard = () => {
         </TouchableOpacity>
       </View>
 
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={addPageModalVisible}
+        statusBarTranslucent={true}
+        presentationStyle="overFullScreen"
+        onRequestClose={() => setAddPageModalVisible(false)}
+      >
+        <Pressable style={styles.modalOverlay} onPress={() => setAddPageModalVisible(false)}>
+          <Pressable style={styles.modalContent} onPress={() => {}}>
+            <View style={styles.modalHeaderRow}>
+              <Text style={styles.modalTitle}>Add Dashboard Page</Text>
+              <TouchableOpacity style={styles.modalCloseButton} onPress={() => setAddPageModalVisible(false)}>
+                <Text style={styles.modalCloseButtonText}>Close</Text>
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.modalSubtitle}>Choose page type and chart title.</Text>
+
+            <View style={styles.modalSection}>
+              <Text style={styles.modalSectionTitle}>Page Type</Text>
+              <View style={styles.optionRow}>
+                <TouchableOpacity
+                  style={[styles.optionButton, newPageType === PAGE_TYPE_PERIOD_TREND && styles.optionButtonActive]}
+                  onPress={() => setNewPageType(PAGE_TYPE_PERIOD_TREND)}
+                >
+                  <Text style={[styles.optionButtonText, newPageType === PAGE_TYPE_PERIOD_TREND && styles.optionButtonTextActive]}>Period Trend</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.optionButton, newPageType === PAGE_TYPE_CATEGORY_GROUPS && styles.optionButtonActive]}
+                  onPress={() => setNewPageType(PAGE_TYPE_CATEGORY_GROUPS)}
+                >
+                  <Text style={[styles.optionButtonText, newPageType === PAGE_TYPE_CATEGORY_GROUPS && styles.optionButtonTextActive]}>Category groups</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={styles.modalSection}>
+              <Text style={styles.modalSectionTitle}>Chart Title</Text>
+              <TextInput
+                style={styles.pageTitleInput}
+                value={newPageTitle}
+                onChangeText={setNewPageTitle}
+                placeholder="Enter chart title"
+              />
+            </View>
+
+            <View style={styles.modalActionRow}>
+              <TouchableOpacity style={[styles.modalActionButton, styles.applyBtn]} onPress={handleAddPage}>
+                <Text style={styles.applyBtnText}>Add Page</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.modalActionButton, styles.cancelBtn]} onPress={() => setAddPageModalVisible(false)}>
+                <Text style={styles.applyBtnText}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+          </Pressable>
+        </Pressable>
+      </Modal>
+
       <Modal animationType="fade" transparent={true} visible={chartModalVisible}>
-        <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={() => setChartModalVisible(false)}>
-          <TouchableOpacity activeOpacity={1} style={styles.modalContent} onPress={() => {}}>
+        <Pressable style={styles.modalOverlay} onPress={() => setChartModalVisible(false)}>
+          <Pressable style={styles.modalContent} onPress={() => {}}>
             <View style={styles.modalHeaderRow}>
               <Text style={styles.modalTitle}>Category Chart Setup</Text>
               <TouchableOpacity style={styles.modalCloseButton} onPress={() => setChartModalVisible(false)}>
@@ -688,8 +950,8 @@ const Dashboard = () => {
                 <Text style={styles.applyBtnText}>Cancel</Text>
               </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-        </TouchableOpacity>
+          </Pressable>
+        </Pressable>
       </Modal>
 
       <DashboardFilterModal
@@ -751,8 +1013,46 @@ export default Dashboard;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.light.background },
-  header: { paddingTop: 40, paddingHorizontal: 12, alignItems: 'center', marginBottom: 0 },
+  header: { paddingTop: 40, paddingHorizontal: 12, alignItems: 'center', marginBottom: 0, position: 'relative' },
   title: { fontSize: 20, fontWeight: '700', color: Colors.light.title },
+  addPageButton: {
+    position: 'absolute',
+    right: 14,
+    top: 36,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: Colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ffffff',
+  },
+  addPageButtonText: {
+    color: '#fff',
+    fontSize: 22,
+    lineHeight: 22,
+    fontWeight: '700',
+  },
+  removePageButton: {
+    position: 'absolute',
+    right: 56,
+    top: 36,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#d32f2f',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ffffff',
+  },
+  removePageButtonText: {
+    color: '#fff',
+    fontSize: 22,
+    lineHeight: 22,
+    fontWeight: '700',
+  },
 
   paginationDots: { flexDirection: 'row', marginTop: 8, marginBottom: 0 },
   dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#c4cfcb', marginHorizontal: 4 },
@@ -763,6 +1063,33 @@ const styles = StyleSheet.create({
 
   chartSection: { flex: 3, justifyContent: 'center', alignItems: 'center', zIndex: 1 },
   chartLabel: { fontSize: 14, color: Colors.light.text, marginTop: 10, fontWeight: '600' },
+  chartTitleDropdown: {
+    width: '92%',
+    marginTop: 10,
+    marginBottom: 2,
+  },
+  chartTitleSelectBox: {
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    backgroundColor: Colors.primary,
+    minHeight: 32,
+    paddingVertical: 5,
+  },
+  chartTitleSelectInput: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 13,
+    lineHeight: 16,
+    paddingVertical: 0,
+  },
+  chartTitleSelectDropdown: {
+    backgroundColor: '#ffffff',
+    top: 34,
+  },
+  chartTitleSelectDropdownText: {
+    color: Colors.light.text,
+  },
   chartHelpText: { marginTop: 12, color: Colors.warning, fontWeight: '600' },
 
   legendStrip: {
@@ -819,23 +1146,34 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 
-  tableSection: { flex: 4, paddingHorizontal: '4%', paddingBottom: 6 },
+  tableSection: { flex: 3.6, paddingHorizontal: '4%', paddingBottom: 4 },
   tableContainer: { flex: 1, borderWidth: 1, borderColor: '#d0d0d0', borderRadius: 10, overflow: 'hidden' },
   tableHeader: { flexDirection: 'row', backgroundColor: Colors.primary, borderBottomWidth: 1, borderBottomColor: '#d0d0d0' },
   scrollBody: { flex: 1 },
   tableRow: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#d0d0d0', alignItems: 'center' },
   evenRow: { backgroundColor: '#ffffff' },
   oddRow: { backgroundColor: '#f5f7fa' },
-  columnHeader: { padding: 12, fontWeight: '700', fontSize: 14, color: '#fff' },
-  cell: { paddingHorizontal: 10, paddingVertical: 10, fontSize: 13, borderRightWidth: 1, borderColor: '#d0d0d0' },
-  summaryRow: { flexDirection: 'row', backgroundColor: '#ffffff', borderTopWidth: 1, borderTopColor: '#d0d0d0', alignItems: 'center', paddingVertical: 5 },
+  columnHeader: { paddingVertical: 9, paddingHorizontal: 10, fontWeight: '700', fontSize: 13, color: '#fff' },
+  cell: { paddingHorizontal: 9, paddingVertical: 7, fontSize: 12, borderRightWidth: 1, borderColor: '#d0d0d0' },
+  summaryRow: { flexDirection: 'row', backgroundColor: '#ffffff', borderTopWidth: 1, borderTopColor: '#d0d0d0', alignItems: 'center', paddingVertical: 3 },
 
   footerContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: '5%', paddingBottom: 8, paddingTop: 10, borderTopWidth: 1, borderTopColor: '#d0d0d0' },
 
   sideButton: { width: screenWidth * 0.4, paddingVertical: 10, borderRadius: 8, borderWidth: 1, borderColor: Colors.primary, alignItems: 'center', backgroundColor: Colors.primary },
   sideButtonText: { color: '#fff', fontWeight: '700', fontSize: 13 },
 
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.45)', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 12, paddingVertical: 18 },
+  modalOverlay: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.45)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 18,
+  },
   modalContent: { backgroundColor: '#fff', width: '100%', maxWidth: 760, maxHeight: '95%', borderRadius: 12, paddingHorizontal: 14, paddingTop: 12, paddingBottom: 16, alignItems: 'stretch' },
   modalHeaderRow: { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
   modalTitle: { fontSize: 20, fontWeight: '700' },
@@ -853,6 +1191,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     marginBottom: 8,
+  },
+  pageTitleInput: {
+    width: '100%',
+    borderWidth: 1,
+    borderColor: '#d0d0d0',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    backgroundColor: '#ffffff',
+    color: Colors.light.text,
   },
   optionRow: {
     width: '100%',

@@ -10,6 +10,7 @@ import ThemedView from './ThemedView'
 const defaultTrendState = () => ({
   mode: 'total',
   chartType: 'line',
+  dayRangePreset: 'auto',
   selectedCandidateId: '',
   categoryIds: [],
 })
@@ -41,6 +42,7 @@ const DashboardTrendFilter = ({
     setTrendState({
       mode: source.mode === 'category' ? 'category' : 'total',
       chartType: source.chartType === 'stackedBar' ? 'stackedBar' : 'line',
+      dayRangePreset: ['auto', 'closest90', 'closest30', 'closest7'].includes(source.dayRangePreset) ? source.dayRangePreset : 'auto',
       selectedCandidateId: '',
       categoryIds: normalizeIds(source.categoryIds),
     })
@@ -91,6 +93,7 @@ const DashboardTrendFilter = ({
     onApply?.({
       mode: trendState.mode,
       chartType: trendState.chartType,
+      dayRangePreset: trendState.dayRangePreset,
       categoryIds: trendState.mode === 'category' ? normalizeIds(trendState.categoryIds) : [],
     })
   }
@@ -155,6 +158,44 @@ const DashboardTrendFilter = ({
                 >
                   <Text style={[styles.optionButtonText, trendState.chartType === 'stackedBar' && styles.optionButtonTextActive]}>
                     Stacked Bar
+                  </Text>
+                </ThemedButton>
+              </View>
+            </View>
+
+            <View style={styles.section}>
+              <ThemedText style={styles.sectionTitle}>Day Range</ThemedText>
+              <View style={styles.optionRow}>
+                <ThemedButton
+                  style={[styles.optionButton, trendState.dayRangePreset === 'closest90' && styles.optionButtonActive]}
+                  onPress={() => setTrendState((prev) => ({ ...prev, dayRangePreset: 'closest90' }))}
+                >
+                  <Text style={[styles.optionButtonText, trendState.dayRangePreset === 'closest90' && styles.optionButtonTextActive]}>
+                    Closest 90 Days
+                  </Text>
+                </ThemedButton>
+                <ThemedButton
+                  style={[styles.optionButton, trendState.dayRangePreset === 'closest30' && styles.optionButtonActive]}
+                  onPress={() => setTrendState((prev) => ({ ...prev, dayRangePreset: 'closest30' }))}
+                >
+                  <Text style={[styles.optionButtonText, trendState.dayRangePreset === 'closest30' && styles.optionButtonTextActive]}>
+                    Closest 30 Days
+                  </Text>
+                </ThemedButton>
+                <ThemedButton
+                  style={[styles.optionButton, trendState.dayRangePreset === 'closest7' && styles.optionButtonActive]}
+                  onPress={() => setTrendState((prev) => ({ ...prev, dayRangePreset: 'closest7' }))}
+                >
+                  <Text style={[styles.optionButtonText, trendState.dayRangePreset === 'closest7' && styles.optionButtonTextActive]}>
+                    Closest 7 Days
+                  </Text>
+                </ThemedButton>
+                <ThemedButton
+                  style={[styles.optionButton, trendState.dayRangePreset === 'auto' && styles.optionButtonActive]}
+                  onPress={() => setTrendState((prev) => ({ ...prev, dayRangePreset: 'auto' }))}
+                >
+                  <Text style={[styles.optionButtonText, trendState.dayRangePreset === 'auto' && styles.optionButtonTextActive]}>
+                    Auto (Filtered Range)
                   </Text>
                 </ThemedButton>
               </View>
