@@ -145,7 +145,7 @@ const CsvUploader = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { padding: 16 },
+  // container: { padding: 16 },
   fileName: { marginTop: 12, fontSize: 14 },
 });
 
