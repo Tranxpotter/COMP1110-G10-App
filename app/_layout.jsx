@@ -65,6 +65,19 @@ const TabsLayout = () => {
           />
         ) }}
       />
+      <Tabs.Screen
+        name="alerts"
+        options={{
+          title: 'Alerts',
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              size={24}
+              name={focused ? 'notifications' : 'notifications-outline'}
+              color={focused ? theme.iconColorFocused : theme.iconColor}
+            />
+          ),
+        }}
+      />
         
     </Tabs>
   )
