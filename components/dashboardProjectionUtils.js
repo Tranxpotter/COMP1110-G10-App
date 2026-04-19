@@ -288,7 +288,16 @@ const buildSavingsDebtModel = (records, projectionConfig) => {
     if (mode === 'categories') {
       const categoryId = String(record?.cid || '')
       if (!includeCategorySet.has(categoryId)) return
-      monthlyNetByKey[monthKey] = safeRound2((monthlyNetByKey[monthKey] || 0) + getSignedAmount(record))
+
+      const transactionType = String(record?.type || '').toLowerCase()
+      const amountMagnitude = Math.abs(toNumber(record?.amount, 0))
+      const savingsContribution = transactionType === 'spending'
+        ? amountMagnitude
+        : transactionType === 'income'
+          ? -amountMagnitude
+          : 0
+
+      monthlyNetByKey[monthKey] = safeRound2((monthlyNetByKey[monthKey] || 0) + savingsContribution)
       return
     }
 
@@ -296,10 +305,7 @@ const buildSavingsDebtModel = (records, projectionConfig) => {
   })
 
   const actualMonthlyNet = actualMonths.map((date) => monthlyNetByKey[toMonthKey(date)] || 0)
-  const lineFit = toLinearFit(actualMonthlyNet)
-
   const futureMonths = Array.from({ length: horizon }, (_, index) => new Date(currentMonth.getFullYear(), currentMonth.getMonth() + index + 1, 1))
-  const futureNet = futureMonths.map((_, index) => estimateLineValue(lineFit, actualMonthlyNet.length + index + 1))
 
   const labels = [...actualMonths, ...futureMonths].map((date) => toMonthChartLabel(date))
 
@@ -310,29 +316,59 @@ const buildSavingsDebtModel = (records, projectionConfig) => {
     cumulativeActual.push(safeRound2(runningActual))
   }
 
-  const cumulativeProjected = []
-  let runningProjected = cumulativeActual[cumulativeActual.length - 1] || 0
-  for (let index = 0; index < futureNet.length; index += 1) {
-    runningProjected += futureNet[index]
-    cumulativeProjected.push(safeRound2(runningProjected))
+  const currentMonthNet = actualMonthlyNet[actualMonthlyNet.length - 1] || 0
+  const shouldIncludeCurrentMonth = Math.abs(currentMonthNet) > 0
+  const regressionSeries = shouldIncludeCurrentMonth
+    ? cumulativeActual
+    : cumulativeActual.slice(0, -1)
+
+  const cumulativeLineFit = toLinearFit(regressionSeries)
+  const slopePerMonth = Number.isFinite(cumulativeLineFit?.slope) ? cumulativeLineFit.slope : 0
+
+  const previousMonthCumulative = regressionSeries[regressionSeries.length - 1] || 0
+  const projectedCurrentMonthCumulative = estimateLineValue(cumulativeLineFit, regressionSeries.length + 1)
+  const projectedCurrentMonthNet = safeRound2(projectedCurrentMonthCumulative - previousMonthCumulative)
+
+  const displayMonthlyNet = [...actualMonthlyNet]
+  if (!shouldIncludeCurrentMonth) {
+    displayMonthlyNet[displayMonthlyNet.length - 1] = projectedCurrentMonthNet
   }
 
-  const actualValues = labels.map((_, index) => (index < actualMonths.length ? cumulativeActual[index] : null))
+  const displayCumulativeActual = []
+  let runningDisplayCumulative = 0
+  for (let index = 0; index < displayMonthlyNet.length; index += 1) {
+    runningDisplayCumulative += displayMonthlyNet[index]
+    displayCumulativeActual.push(safeRound2(runningDisplayCumulative))
+  }
+
+  const startingCumulative = displayCumulativeActual[displayCumulativeActual.length - 1] || 0
+
+  const cumulativeProjected = []
+  for (let index = 0; index < futureMonths.length; index += 1) {
+    cumulativeProjected.push(safeRound2(startingCumulative + slopePerMonth * (index + 1)))
+  }
+
+  const futureNet = cumulativeProjected.map((value, index) => {
+    const previous = index === 0 ? startingCumulative : cumulativeProjected[index - 1]
+    return safeRound2(value - previous)
+  })
+
+  const actualValues = labels.map((_, index) => (index < actualMonths.length ? displayCumulativeActual[index] : null))
   const projectedValues = labels.map((_, index) => {
     if (index < actualMonths.length - 1) return null
-    if (index === actualMonths.length - 1) return cumulativeActual[cumulativeActual.length - 1] || 0
+    if (index === actualMonths.length - 1) return displayCumulativeActual[displayCumulativeActual.length - 1] || 0
     const futureIndex = index - actualMonths.length
     return cumulativeProjected[futureIndex]
   })
 
   const tableRows = labels.map((label, index) => {
-    const monthlyActual = index < actualMonths.length ? actualMonthlyNet[index] : null
+    const monthlyActual = index < actualMonths.length ? displayMonthlyNet[index] : null
     const monthlyProjected = index >= actualMonths.length ? futureNet[index - actualMonths.length] : null
     return {
       period: label.replace('\n', '/'),
       monthlyActual,
       monthlyProjected,
-      cumulative: index < actualMonths.length ? cumulativeActual[index] : cumulativeProjected[index - actualMonths.length],
+      cumulative: index < actualMonths.length ? displayCumulativeActual[index] : cumulativeProjected[index - actualMonths.length],
     }
   })
 
@@ -356,7 +392,7 @@ const buildSavingsDebtModel = (records, projectionConfig) => {
       rows: tableRows,
       summary: {
         label: 'End-of-horizon projected cumulative',
-        value: cumulativeProjected[cumulativeProjected.length - 1] ?? cumulativeActual[cumulativeActual.length - 1] ?? 0,
+        value: cumulativeProjected[cumulativeProjected.length - 1] ?? displayCumulativeActual[displayCumulativeActual.length - 1] ?? 0,
       },
     },
   }
@@ -382,40 +418,52 @@ const buildYearlyBillsModel = (records, projectionConfig) => {
   })
 
   const currentMonth = startOfMonth(new Date())
+  const currentMonthKey = toMonthKey(currentMonth)
   const actualMonths = toMonthSequence(currentMonth, 12)
   const futureMonths = Array.from({ length: horizon }, (_, index) => new Date(currentMonth.getFullYear(), currentMonth.getMonth() + index + 1, 1))
 
   const actualValuesOnly = actualMonths.map((date) => monthlyBillsByKey[toMonthKey(date)] || 0)
 
-  const projectedMonthly = futureMonths.map((date) => {
+  const predictionBillsByKey = { ...monthlyBillsByKey }
+  delete predictionBillsByKey[currentMonthKey]
+
+  const estimateSeasonalValue = (date) => {
     const referenceDate = new Date(date.getFullYear() - 1, date.getMonth(), 1)
     const referenceKey = toMonthKey(referenceDate)
 
-    if (Number.isFinite(monthlyBillsByKey[referenceKey])) {
-      return safeRound2(monthlyBillsByKey[referenceKey])
+    if (Number.isFinite(predictionBillsByKey[referenceKey])) {
+      return safeRound2(predictionBillsByKey[referenceKey])
     }
 
-    const sameMonthValues = Object.entries(monthlyBillsByKey)
+    const sameMonthValues = Object.entries(predictionBillsByKey)
       .filter(([monthKey]) => parseMonthKey(monthKey)?.getMonth() === date.getMonth())
       .map(([, value]) => toNumber(value, 0))
 
     if (sameMonthValues.length === 0) return 0
     const average = sameMonthValues.reduce((sum, value) => sum + value, 0) / sameMonthValues.length
     return safeRound2(average)
-  })
+  }
+
+  const projectedCurrentMonthValue = estimateSeasonalValue(currentMonth)
+  const displayActualValuesOnly = [...actualValuesOnly]
+  if ((displayActualValuesOnly[displayActualValuesOnly.length - 1] || 0) === 0) {
+    displayActualValuesOnly[displayActualValuesOnly.length - 1] = projectedCurrentMonthValue
+  }
+
+  const projectedMonthly = futureMonths.map((date) => estimateSeasonalValue(date))
 
   const labels = [...actualMonths, ...futureMonths].map((date) => toMonthChartLabel(date))
 
-  const actualValues = labels.map((_, index) => (index < actualMonths.length ? actualValuesOnly[index] : null))
+  const actualValues = labels.map((_, index) => (index < actualMonths.length ? displayActualValuesOnly[index] : null))
   const projectedValues = labels.map((_, index) => {
     if (index < actualMonths.length - 1) return null
-    if (index === actualMonths.length - 1) return actualValuesOnly[actualValuesOnly.length - 1] || 0
+    if (index === actualMonths.length - 1) return displayActualValuesOnly[displayActualValuesOnly.length - 1] || 0
     return projectedMonthly[index - actualMonths.length]
   })
 
   const tableRows = labels.map((label, index) => ({
     period: label.replace('\n', '/'),
-    actual: index < actualMonths.length ? actualValuesOnly[index] : null,
+    actual: index < actualMonths.length ? displayActualValuesOnly[index] : null,
     projected: index >= actualMonths.length ? projectedMonthly[index - actualMonths.length] : null,
   }))
 
@@ -469,19 +517,23 @@ const buildSubscriptionModel = (records, projectionConfig) => {
   const previousMonthTotal = monthlySpendByKey[previousMonthKey] || 0
   const actualMonths = toMonthSequence(currentMonth, 12)
   const actualMonthlySpend = actualMonths.map((date) => monthlySpendByKey[toMonthKey(date)] || 0)
+  const displayMonthlySpend = [...actualMonthlySpend]
+  if ((displayMonthlySpend[displayMonthlySpend.length - 1] || 0) === 0) {
+    displayMonthlySpend[displayMonthlySpend.length - 1] = previousMonthTotal
+  }
 
   const futureMonths = Array.from({ length: horizon }, (_, index) => new Date(currentMonth.getFullYear(), currentMonth.getMonth() + index + 1, 1))
   const projectedMonthlySpend = futureMonths.map(() => previousMonthTotal)
 
-  const cumulativeActual = []
-  let runningActual = 0
-  for (let index = 0; index < actualMonthlySpend.length; index += 1) {
-    runningActual += actualMonthlySpend[index]
-    cumulativeActual.push(safeRound2(runningActual))
+  const cumulativeDisplayActual = []
+  let runningDisplayActual = 0
+  for (let index = 0; index < displayMonthlySpend.length; index += 1) {
+    runningDisplayActual += displayMonthlySpend[index]
+    cumulativeDisplayActual.push(safeRound2(runningDisplayActual))
   }
 
   const cumulativeProjected = []
-  let runningProjected = cumulativeActual[cumulativeActual.length - 1] || 0
+  let runningProjected = cumulativeDisplayActual[cumulativeDisplayActual.length - 1] || 0
   for (let index = 0; index < projectedMonthlySpend.length; index += 1) {
     runningProjected += projectedMonthlySpend[index]
     cumulativeProjected.push(safeRound2(runningProjected))
@@ -489,18 +541,18 @@ const buildSubscriptionModel = (records, projectionConfig) => {
 
   const labels = [...actualMonths, ...futureMonths].map((date) => toMonthChartLabel(date))
 
-  const actualValues = labels.map((_, index) => (index < actualMonths.length ? cumulativeActual[index] : null))
+  const actualValues = labels.map((_, index) => (index < actualMonths.length ? cumulativeDisplayActual[index] : null))
   const projectedValues = labels.map((_, index) => {
     if (index < actualMonths.length - 1) return null
-    if (index === actualMonths.length - 1) return cumulativeActual[cumulativeActual.length - 1] || 0
+    if (index === actualMonths.length - 1) return cumulativeDisplayActual[cumulativeDisplayActual.length - 1] || 0
     return cumulativeProjected[index - actualMonths.length]
   })
 
   const tableRows = labels.map((label, index) => ({
     period: label.replace('\n', '/'),
-    monthlyActual: index < actualMonths.length ? actualMonthlySpend[index] : null,
+    monthlyActual: index < actualMonths.length ? displayMonthlySpend[index] : null,
     monthlyProjected: index >= actualMonths.length ? projectedMonthlySpend[index - actualMonths.length] : null,
-    cumulative: index < actualMonths.length ? cumulativeActual[index] : cumulativeProjected[index - actualMonths.length],
+    cumulative: index < actualMonths.length ? cumulativeDisplayActual[index] : cumulativeProjected[index - actualMonths.length],
   }))
 
   return {
@@ -523,7 +575,7 @@ const buildSubscriptionModel = (records, projectionConfig) => {
       rows: tableRows,
       summary: {
         label: 'End-of-horizon projected cumulative',
-        value: cumulativeProjected[cumulativeProjected.length - 1] ?? cumulativeActual[cumulativeActual.length - 1] ?? 0,
+        value: cumulativeProjected[cumulativeProjected.length - 1] ?? cumulativeDisplayActual[cumulativeDisplayActual.length - 1] ?? 0,
       },
     },
   }
