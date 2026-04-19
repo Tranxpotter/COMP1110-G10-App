@@ -45,6 +45,7 @@ const defaultTrendConfig = () => ({
   mode: 'total',
   chartType: 'line',
   dayRangePreset: 'auto',
+  dayRangeShift: 0,
   categoryIds: [],
   showRegressionLine: true,
 });
@@ -74,6 +75,7 @@ const normalizePageConfig = (source = {}, pageType = PAGE_TYPE_PERIOD_TREND) => 
       dayRangePreset: ['auto', 'closest90', 'closest30', 'closest7'].includes(source?.trendConfig?.dayRangePreset)
         ? source.trendConfig.dayRangePreset
         : 'auto',
+      dayRangeShift: Math.max(0, Math.trunc(Number(source?.trendConfig?.dayRangeShift) || 0)),
       categoryIds: (source?.trendConfig?.categoryIds || []).map((item) => String(item)).filter(Boolean),
       showRegressionLine: source?.trendConfig?.showRegressionLine !== false,
     },
@@ -216,16 +218,20 @@ const toPeriodDefinitions = (records = [], trendConfig = {}, filterConfig = {}) 
     .map((item) => item.getTime())
     .sort((a, b) => a - b);
 
-  const endDate = resolveTrendEndDate(filterConfig);
-  const endMs = endDate.getTime();
+  const nowMs = new Date().getTime();
+  const baseEndMs = Math.min(resolveTrendEndDate(filterConfig).getTime(), nowMs);
+  const dayMs = 24 * 60 * 60 * 1000;
 
   const preset = trendConfig?.dayRangePreset || 'auto';
+  const dayRangeShift = Math.max(0, Math.trunc(Number(trendConfig?.dayRangeShift) || 0));
+
   if (preset === 'closest7') {
     const days = 7;
+    const endMs = baseEndMs - dayRangeShift * days * dayMs;
     return Array.from({ length: days }, (_, index) => {
       const dayOffset = days - 1 - index;
-      const pointStart = endMs - dayOffset * 24 * 60 * 60 * 1000;
-      const pointEnd = pointStart + 24 * 60 * 60 * 1000 - 1;
+      const pointStart = endMs - dayOffset * dayMs;
+      const pointEnd = pointStart + dayMs - 1;
       const startDate = new Date(pointStart);
       const finalDate = new Date(pointEnd);
 
@@ -242,7 +248,8 @@ const toPeriodDefinitions = (records = [], trendConfig = {}, filterConfig = {}) 
 
   if (preset === 'closest30' || preset === 'closest90') {
     const days = preset === 'closest30' ? 30 : 90;
-    const startMs = endMs - (days - 1) * 24 * 60 * 60 * 1000;
+    const endMs = baseEndMs - dayRangeShift * days * dayMs;
+    const startMs = endMs - (days - 1) * dayMs;
     const span = Math.max(1, endMs - startMs + 1);
 
     return Array.from({ length: PERIOD_COUNT }, (_, index) => {
@@ -265,19 +272,20 @@ const toPeriodDefinitions = (records = [], trendConfig = {}, filterConfig = {}) 
   }
 
   if (validDates.length === 0) {
-    const startMs = endMs - (PERIOD_COUNT - 1) * 24 * 60 * 60 * 1000;
+    const endMs = baseEndMs;
+    const startMs = endMs - (PERIOD_COUNT - 1) * dayMs;
     return Array.from({ length: PERIOD_COUNT }, () => ({
       startMs,
       endMs,
       startLabel: toSimpleDateString(new Date(startMs)),
-      endLabel: toSimpleDateString(endDate),
-      endChartLabel: toTwoRowDateLabel(endDate),
-      rangeLabel: `${toSimpleDateString(new Date(startMs))}-${toSimpleDateString(endDate)}`,
+      endLabel: toSimpleDateString(new Date(endMs)),
+      endChartLabel: toTwoRowDateLabel(new Date(endMs)),
+      rangeLabel: `${toSimpleDateString(new Date(startMs))}-${toSimpleDateString(new Date(endMs))}`,
     }));
   }
 
   const minMs = validDates[0];
-  const rangeEndMs = Math.max(minMs, endMs);
+  const rangeEndMs = Math.max(minMs, baseEndMs);
   const span = Math.max(1, rangeEndMs - minMs + 1);
 
   return Array.from({ length: PERIOD_COUNT }, (_, index) => {
@@ -682,6 +690,7 @@ const Dashboard = () => {
       dayRangePreset: ['auto', 'closest90', 'closest30', 'closest7'].includes(nextTrendConfig.dayRangePreset)
         ? nextTrendConfig.dayRangePreset
         : 'auto',
+      dayRangeShift: 0,
       categoryIds: (nextTrendConfig.categoryIds || []).map((item) => String(item)).filter(Boolean),
       showRegressionLine: nextTrendConfig.showRegressionLine !== false,
     };
@@ -916,7 +925,7 @@ const Dashboard = () => {
     disableScroll: true,
     initialSpacing: 8,
     yAxisLabelWidth: 40,
-    xAxisLabelsVerticalShift: screenHeight * 0.1,
+    xAxisLabelsVerticalShift: 0,
     xAxisTextNumberOfLines: 2,
     xAxisLabelsHeight: 30,
     labelsExtraHeight: 2,
@@ -989,7 +998,7 @@ const Dashboard = () => {
 
   const page1StackedBarProps = {
     ...chartCommonProps,
-    xAxisLabelsVerticalShift: screenHeight * 0.1,
+    xAxisLabelsVerticalShift: 0,
     stackData: trendModel.stackedBarData,
     maxValue: page1AxisRange,
     mostNegativeValue: -page1AxisRange,
@@ -1020,16 +1029,63 @@ const Dashboard = () => {
     spacing: getDynamicSpacing(chartWidth, projectionModel.pointsCount),
   };
 
+  const isShiftablePreset = ['closest90', 'closest30', 'closest7'].includes(trendConfig.dayRangePreset);
+  const trendWindowRangeLabel = trendModel.periods.length > 0
+    ? `${trendModel.periods[0].startLabel} - ${trendModel.periods[trendModel.periods.length - 1].endLabel}`
+    : 'No period range';
+
+  const shiftTrendWindow = (delta) => {
+    if (!isShiftablePreset) return;
+
+    setTrendConfig((prevTrend) => {
+      const currentShift = Math.max(0, Math.trunc(Number(prevTrend.dayRangeShift) || 0));
+      const nextShift = currentShift + delta;
+
+      if (nextShift < 0) {
+        Alert.alert('Latest Window Reached', 'You cannot go later than the current date range.');
+        return prevTrend;
+      }
+
+      const nextTrendConfig = {
+        ...prevTrend,
+        dayRangeShift: nextShift,
+      };
+
+      updatePageConfig(currentPageData.id, currentPageType, (prevPageConfig) => ({
+        ...prevPageConfig,
+        trendConfig: nextTrendConfig,
+      }));
+
+      return nextTrendConfig;
+    });
+  };
+
   const filterSignature = JSON.stringify(filterConfig || {});
 
   const totalSeries = (trendModel.totalLineData || []).map((point) => Number(point?.value || 0).toFixed(4)).join('|');
   const regressionSeries = (trendModel.regressionLineData || []).map((point) => Number(point?.value || 0).toFixed(4)).join('|');
-  const totalLineChartKey = `total-line-${currentPageId}-${trendConfig.dayRangePreset}-${filterSignature}-${totalSeries}-${regressionSeries}`;
+  const totalLineChartKey = `total-line-${currentPageId}-${trendConfig.dayRangePreset}-${trendConfig.dayRangeShift}-${filterSignature}-${totalSeries}-${regressionSeries}`;
 
   const seriesSignature = (trendModel.multiLineDataSet || [])
     .map((series) => (series?.data || []).map((point) => Number(point?.value || 0).toFixed(4)).join('|'))
     .join('||');
-  const categoryLineChartKey = `category-line-${currentPageId}-${trendConfig.dayRangePreset}-${filterSignature}-${seriesSignature}`;
+  const categoryLineChartKey = `category-line-${currentPageId}-${trendConfig.dayRangePreset}-${trendConfig.dayRangeShift}-${filterSignature}-${seriesSignature}`;
+
+  const renderTrendRangeNavigator = () => {
+    if (!isShiftablePreset) return null;
+
+    return (
+      <View style={styles.trendRangeNavigator}>
+        <TouchableOpacity style={styles.trendRangeNavButton} onPress={() => shiftTrendWindow(1)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+          <Text style={styles.trendRangeNavButtonText}>{'<'}</Text>
+        </TouchableOpacity>
+        <Text style={styles.trendRangeLabel}>{trendWindowRangeLabel}</Text>
+        <TouchableOpacity style={styles.trendRangeNavButton} onPress={() => shiftTrendWindow(-1)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+          <Text style={styles.trendRangeNavButtonText}>{'>'}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   const renderPage1Chart = () => {
     if (trendConfig.mode === 'category') {
@@ -1155,6 +1211,7 @@ const Dashboard = () => {
       <View style={styles.chartSection}>
         {renderChartTitleDropdown(pageTitle || page1Title)}
         {renderPage1Chart()}
+        {renderTrendRangeNavigator()}
       </View>
       {trendConfig.mode === 'category' ? renderLegend(trendModel.legend, pageKey) : null}
       <TableComponent
@@ -1645,13 +1702,48 @@ const styles = StyleSheet.create({
     color: Colors.light.text,
   },
   chartHelpText: { marginTop: 12, color: Colors.warning, fontWeight: '600' },
+  trendRangeNavigator: {
+    width: '92%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 4,
+    marginTop: -25,
+    marginBottom: 5,
+    zIndex: 5,
+    elevation: 5,
+  },
+  trendRangeNavButton: {
+    width: 34,
+    height: 26,
+    borderRadius: 6,
+    backgroundColor: Colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 6,
+    elevation: 6,
+  },
+  trendRangeNavButtonText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 15,
+    lineHeight: 16,
+  },
+  trendRangeLabel: {
+    flex: 1,
+    textAlign: 'center',
+    color: Colors.light.disabledText,
+    fontSize: 12,
+    fontWeight: '600',
+    paddingHorizontal: 8,
+  },
 
   legendStrip: {
     minHeight: 38,
     justifyContent: 'center',
     paddingHorizontal: '4%',
     marginTop: 2,
-    marginBottom: 2,
+    marginBottom: 0,
   },
 
   legendWrap: {
@@ -1718,7 +1810,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 
-  tableSection: { flex: 3.6, paddingHorizontal: '4%', paddingBottom: 4 },
+  tableSection: { flex: 3.65, paddingHorizontal: '4%', paddingBottom: 4 },
   tableContainer: { flex: 1, borderWidth: 1, borderColor: '#d0d0d0', borderRadius: 10, overflow: 'hidden' },
   tableHeader: { flexDirection: 'row', backgroundColor: Colors.primary, borderBottomWidth: 1, borderBottomColor: '#d0d0d0' },
   scrollBody: { flex: 1 },
