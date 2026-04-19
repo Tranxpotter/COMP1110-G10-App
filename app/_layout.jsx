@@ -26,7 +26,6 @@ const TabsLayout = () => {
     <Tabs 
       screenOptions={{ headerShown: false, tabBarStyle: {
         backgroundColor: theme.navBackground, 
-        paddingTop: 10, 
         paddingBottom: insets.bottom,
       }, 
       tabBarActiveTintColor: theme.iconColorFocused, 
@@ -64,6 +63,19 @@ const TabsLayout = () => {
             color={focused ? theme.iconColorFocused : theme.iconColor}
           />
         ) }}
+      />
+      <Tabs.Screen
+        name="alerts"
+        options={{
+          title: 'Alerts',
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              size={24}
+              name={focused ? 'notifications' : 'notifications-outline'}
+              color={focused ? theme.iconColorFocused : theme.iconColor}
+            />
+          ),
+        }}
       />
         
     </Tabs>
