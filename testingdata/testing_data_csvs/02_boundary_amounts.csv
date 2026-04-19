@@ -1,0 +1,13 @@
+AMOUNT,CNAME,DATE,TYPE,CURRENCY,DESCRIPTION,RNAME
+0.00,Education,2024-06-15,spending,HKD,Boundary test: raw=0.0,Popular Bookstore
+0.01,Bonus,2024-06-15,income,HKD,Boundary test: raw=0.01,Cathay Pacific
+0.00,Transport,2024-06-15,spending,HKD,Boundary test: raw=0.001,Uber HK
+-1.00,Subscriptions,2024-06-15,spending,HKD,Boundary test: raw=-1.0,ChatGPT Plus
+-9999.99,Education,2024-06-15,spending,HKD,Boundary test: raw=-9999.99,Udemy
+999999999.99,Bonus,2024-06-15,income,HKD,Boundary test: raw=999999999.99,HK Government
+1000000000000.00,Healthcare,2024-06-15,spending,HKD,Boundary test: raw=1000000000000.0,Dr. Chan Clinic
+-0.00,Transport,2024-06-15,spending,HKD,Boundary test: raw=-0.0,Citybus
+0.01,Insurance,2024-06-15,spending,HKD,Boundary test: raw=0.005,Manulife
+100000000.00,Insurance,2024-06-15,spending,HKD,Boundary test: raw=100000000.0,Zurich Insurance
+-100000000.00,Insurance,2024-06-15,spending,HKD,Boundary test: raw=-100000000.0,FWD
+0.30,Utilities,2024-06-15,spending,HKD,Boundary test: raw=0.30000000000000004,PCCW

@@ -1,0 +1,1275 @@
+AMOUNT,CNAME,DATE,TYPE,CURRENCY,DESCRIPTION,RNAME
+50000.0,Initial Balance,2024-09-30,income,HKD,Opening balance,Bank Account
+11000.0,Rent,2024-10-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2024-10-01,income,HKD,Monthly salary,TechCorp HK
+683.81,Subscriptions,2024-10-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+179.0,Subscriptions,2024-10-01,spending,HKD,Adobe CC subscription,Adobe CC
+444.17,Dining,2024-10-02,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+164.98,Transport,2024-10-02,spending,HKD,MTR,MTR
+543.56,Groceries,2024-10-03,spending,HKD,ParknShop,ParknShop
+57.64,Subscriptions,2024-10-03,spending,HKD,Spotify subscription,Spotify
+376.03,Dining,2024-10-04,spending,HKD,Dinner - Foodpanda,Foodpanda
+114.79,Transport,2024-10-04,spending,HKD,Uber,Uber
+149.68,Transport,2024-10-04,spending,HKD,Uber,Uber
+92.99,Subscriptions,2024-10-05,spending,HKD,Netflix subscription,Netflix
+442.75,Other,2024-10-06,spending,HKD,HSBC Credit Card,HSBC Credit Card
+156.0,Subscriptions,2024-10-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+115.52,Transport,2024-10-06,spending,HKD,Uber,Uber
+409.1,Other,2024-10-07,spending,HKD,HSBC Credit Card,HSBC Credit Card
+78.04,Subscriptions,2024-10-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+474.08,Dining,2024-10-08,spending,HKD,Dinner - Foodpanda,Foodpanda
+74.59,Subscriptions,2024-10-08,spending,HKD,Disney+ subscription,Disney+
+466.97,Dining,2024-10-09,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+569.0,Groceries,2024-10-09,spending,HKD,Wellcome,Wellcome
+439.82,Dining,2024-10-10,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+442.17,Other,2024-10-10,spending,HKD,HSBC Credit Card,HSBC Credit Card
+852.0,Shopping,2024-10-10,spending,HKD,Apple Store,Apple Store
+38.89,Subscriptions,2024-10-10,spending,HKD,HBO GO subscription,HBO GO
+183.69,Transport,2024-10-10,spending,HKD,MTR,MTR
+176.72,Transport,2024-10-10,spending,HKD,Uber,Uber
+54.84,Subscriptions,2024-10-11,spending,HKD,Calm subscription,Calm
+322.99,Dining,2024-10-12,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+47.78,Subscriptions,2024-10-12,spending,HKD,Viu subscription,Viu
+142.61,Transport,2024-10-12,spending,HKD,MTR,MTR
+507.11,Groceries,2024-10-13,spending,HKD,Wellcome,Wellcome
+408.26,Other,2024-10-14,spending,HKD,Octopus Reload,Octopus Reload
+78.81,Subscriptions,2024-10-14,spending,HKD,Notion subscription,Notion
+513.83,Dining,2024-10-15,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+67.72,Subscriptions,2024-10-15,spending,HKD,Apple TV+ subscription,Apple TV+
+537.78,Groceries,2024-10-16,spending,HKD,ParknShop,ParknShop
+920.9,Shopping,2024-10-16,spending,HKD,Lane Crawford,Lane Crawford
+54.95,Subscriptions,2024-10-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+386.46,Dining,2024-10-17,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+78.69,Subscriptions,2024-10-18,spending,HKD,Dropbox subscription,Dropbox
+430.93,Other,2024-10-20,spending,HKD,HSBC Credit Card,HSBC Credit Card
+58.44,Subscriptions,2024-10-20,spending,HKD,Apple Music subscription,Apple Music
+166.06,Transport,2024-10-21,spending,HKD,MTR,MTR
+124.73,Transport,2024-10-21,spending,HKD,MTR,MTR
+160.67,Transport,2024-10-21,spending,HKD,MTR,MTR
+131.84,Transport,2024-10-21,spending,HKD,MTR,MTR
+159.11,Transport,2024-10-21,spending,HKD,Uber,Uber
+267.44,Dining,2024-10-22,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+614.21,Groceries,2024-10-22,spending,HKD,ParknShop,ParknShop
+77.24,Subscriptions,2024-10-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+814.7,Shopping,2024-10-23,spending,HKD,Lane Crawford,Lane Crawford
+175.23,Transport,2024-10-23,spending,HKD,MTR,MTR
+403.11,Dining,2024-10-24,spending,HKD,Dinner - Deliveroo,Deliveroo
+624.04,Other,2024-10-24,spending,HKD,7-Eleven,7-Eleven
+442.74,Other,2024-10-25,spending,HKD,7-Eleven,7-Eleven
+28.51,Subscriptions,2024-10-25,spending,HKD,1Password subscription,1Password
+402.56,Dining,2024-10-27,spending,HKD,Dinner - Foodpanda,Foodpanda
+302.54,Dining,2024-10-27,spending,HKD,Dinner - Foodpanda,Foodpanda
+1212.4,Shopping,2024-10-27,spending,HKD,Uniqlo,Uniqlo
+117.69,Transport,2024-10-27,spending,HKD,MTR,MTR
+129.55,Transport,2024-10-28,spending,HKD,MTR,MTR
+159.61,Transport,2024-10-30,spending,HKD,Uber,Uber
+428.35,Groceries,2024-10-31,spending,HKD,CitySuper,CitySuper
+127.52,Transport,2024-10-31,spending,HKD,Uber,Uber
+11000.0,Rent,2024-11-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2024-11-01,income,HKD,Monthly salary,TechCorp HK
+778.19,Shopping,2024-11-01,spending,HKD,HKTVmall,HKTVmall
+670.41,Subscriptions,2024-11-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+177.33,Subscriptions,2024-11-01,spending,HKD,Adobe CC subscription,Adobe CC
+94.83,Transport,2024-11-01,spending,HKD,Uber,Uber
+380.0,Groceries,2024-11-02,spending,HKD,CitySuper,CitySuper
+134.63,Transport,2024-11-02,spending,HKD,MTR,MTR
+56.91,Subscriptions,2024-11-03,spending,HKD,Spotify subscription,Spotify
+616.65,Shopping,2024-11-04,spending,HKD,Uniqlo,Uniqlo
+130.37,Transport,2024-11-04,spending,HKD,Uber,Uber
+231.09,Dining,2024-11-05,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+92.75,Subscriptions,2024-11-05,spending,HKD,Netflix subscription,Netflix
+220.47,Dining,2024-11-06,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+638.47,Shopping,2024-11-06,spending,HKD,Uniqlo,Uniqlo
+154.84,Subscriptions,2024-11-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+408.73,Dining,2024-11-07,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+394.68,Dining,2024-11-07,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+392.75,Dining,2024-11-07,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+420.58,Groceries,2024-11-07,spending,HKD,ParknShop,ParknShop
+78.46,Subscriptions,2024-11-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+110.09,Transport,2024-11-07,spending,HKD,MTR,MTR
+629.82,Other,2024-11-08,spending,HKD,7-Eleven,7-Eleven
+74.19,Subscriptions,2024-11-08,spending,HKD,Disney+ subscription,Disney+
+107.16,Transport,2024-11-08,spending,HKD,MTR,MTR
+272.61,Dining,2024-11-10,spending,HKD,Dinner - Deliveroo,Deliveroo
+249.63,Dining,2024-11-10,spending,HKD,Dinner - Deliveroo,Deliveroo
+38.69,Subscriptions,2024-11-10,spending,HKD,HBO GO subscription,HBO GO
+55.72,Subscriptions,2024-11-11,spending,HKD,Calm subscription,Calm
+173.81,Transport,2024-11-11,spending,HKD,Uber,Uber
+48.59,Subscriptions,2024-11-12,spending,HKD,Viu subscription,Viu
+319.07,Dining,2024-11-13,spending,HKD,Dinner - Deliveroo,Deliveroo
+666.23,Other,2024-11-13,spending,HKD,7-Eleven,7-Eleven
+118.41,Transport,2024-11-13,spending,HKD,Uber,Uber
+77.24,Subscriptions,2024-11-14,spending,HKD,Notion subscription,Notion
+67.69,Subscriptions,2024-11-15,spending,HKD,Apple TV+ subscription,Apple TV+
+161.31,Transport,2024-11-15,spending,HKD,Uber,Uber
+640.85,Other,2024-11-16,spending,HKD,HSBC Credit Card,HSBC Credit Card
+55.4,Subscriptions,2024-11-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+421.96,Groceries,2024-11-17,spending,HKD,CitySuper,CitySuper
+131.86,Transport,2024-11-17,spending,HKD,Uber,Uber
+77.37,Subscriptions,2024-11-18,spending,HKD,Dropbox subscription,Dropbox
+683.55,Groceries,2024-11-19,spending,HKD,CitySuper,CitySuper
+57.42,Subscriptions,2024-11-20,spending,HKD,Apple Music subscription,Apple Music
+164.95,Transport,2024-11-20,spending,HKD,MTR,MTR
+495.97,Groceries,2024-11-21,spending,HKD,ParknShop,ParknShop
+164.27,Transport,2024-11-21,spending,HKD,MTR,MTR
+146.53,Transport,2024-11-21,spending,HKD,Uber,Uber
+78.62,Subscriptions,2024-11-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+161.2,Transport,2024-11-22,spending,HKD,MTR,MTR
+100.29,Transport,2024-11-22,spending,HKD,Uber,Uber
+340.64,Dining,2024-11-23,spending,HKD,Dinner - Foodpanda,Foodpanda
+458.1,Other,2024-11-23,spending,HKD,Octopus Reload,Octopus Reload
+854.65,Shopping,2024-11-23,spending,HKD,Lane Crawford,Lane Crawford
+387.84,Dining,2024-11-24,spending,HKD,Dinner - Foodpanda,Foodpanda
+348.48,Dining,2024-11-24,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+409.34,Groceries,2024-11-24,spending,HKD,Wellcome,Wellcome
+357.3,Dining,2024-11-25,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+804.99,Other,2024-11-25,spending,HKD,7-Eleven,7-Eleven
+27.84,Subscriptions,2024-11-25,spending,HKD,1Password subscription,1Password
+324.02,Dining,2024-11-26,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+178.3,Transport,2024-11-26,spending,HKD,MTR,MTR
+175.48,Transport,2024-11-26,spending,HKD,Uber,Uber
+388.61,Groceries,2024-11-27,spending,HKD,Wellcome,Wellcome
+335.7,Dining,2024-11-28,spending,HKD,Dinner - Deliveroo,Deliveroo
+912.04,Shopping,2024-11-29,spending,HKD,Lane Crawford,Lane Crawford
+216.99,Dining,2024-11-30,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+148.02,Transport,2024-11-30,spending,HKD,MTR,MTR
+98.49,Transport,2024-11-30,spending,HKD,Uber,Uber
+455.19,Dining,2024-12-01,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+11000.0,Rent,2024-12-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2024-12-01,income,HKD,Monthly salary,TechCorp HK
+676.16,Subscriptions,2024-12-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+177.46,Subscriptions,2024-12-01,spending,HKD,Adobe CC subscription,Adobe CC
+532.47,Dining,2024-12-02,spending,HKD,Dinner - Foodpanda,Foodpanda
+591.57,Dining,2024-12-03,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+58.89,Subscriptions,2024-12-03,spending,HKD,Spotify subscription,Spotify
+95.19,Transport,2024-12-03,spending,HKD,MTR,MTR
+160.48,Transport,2024-12-03,spending,HKD,Uber,Uber
+407.28,Groceries,2024-12-04,spending,HKD,CitySuper,CitySuper
+876.81,Other,2024-12-05,spending,HKD,HSBC Credit Card,HSBC Credit Card
+92.7,Subscriptions,2024-12-05,spending,HKD,Netflix subscription,Netflix
+156.53,Subscriptions,2024-12-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+77.25,Subscriptions,2024-12-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+72.73,Subscriptions,2024-12-08,spending,HKD,Disney+ subscription,Disney+
+501.55,Groceries,2024-12-10,spending,HKD,ParknShop,ParknShop
+521.12,Other,2024-12-10,spending,HKD,7-Eleven,7-Eleven
+38.31,Subscriptions,2024-12-10,spending,HKD,HBO GO subscription,HBO GO
+131.92,Transport,2024-12-10,spending,HKD,MTR,MTR
+150.15,Transport,2024-12-10,spending,HKD,Uber,Uber
+1095.24,Shopping,2024-12-11,spending,HKD,Uniqlo,Uniqlo
+55.28,Subscriptions,2024-12-11,spending,HKD,Calm subscription,Calm
+528.74,Other,2024-12-12,spending,HKD,Octopus Reload,Octopus Reload
+837.16,Shopping,2024-12-12,spending,HKD,Lane Crawford,Lane Crawford
+49.0,Subscriptions,2024-12-12,spending,HKD,Viu subscription,Viu
+102.47,Transport,2024-12-12,spending,HKD,MTR,MTR
+710.76,Groceries,2024-12-13,spending,HKD,Wellcome,Wellcome
+402.11,Groceries,2024-12-13,spending,HKD,Wellcome,Wellcome
+140.98,Transport,2024-12-13,spending,HKD,MTR,MTR
+971.79,Shopping,2024-12-14,spending,HKD,Apple Store,Apple Store
+78.24,Subscriptions,2024-12-14,spending,HKD,Notion subscription,Notion
+68.28,Subscriptions,2024-12-15,spending,HKD,Apple TV+ subscription,Apple TV+
+55.67,Subscriptions,2024-12-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+78.95,Subscriptions,2024-12-18,spending,HKD,Dropbox subscription,Dropbox
+124.08,Transport,2024-12-18,spending,HKD,Uber,Uber
+172.89,Transport,2024-12-18,spending,HKD,Uber,Uber
+164.99,Transport,2024-12-19,spending,HKD,MTR,MTR
+387.53,Dining,2024-12-20,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+57.52,Subscriptions,2024-12-20,spending,HKD,Apple Music subscription,Apple Music
+729.07,Other,2024-12-21,spending,HKD,HSBC Credit Card,HSBC Credit Card
+175.2,Transport,2024-12-21,spending,HKD,MTR,MTR
+188.07,Transport,2024-12-21,spending,HKD,MTR,MTR
+186.27,Transport,2024-12-21,spending,HKD,Uber,Uber
+340.97,Dining,2024-12-22,spending,HKD,Dinner - Deliveroo,Deliveroo
+895.81,Shopping,2024-12-22,spending,HKD,HKTVmall,HKTVmall
+77.45,Subscriptions,2024-12-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+464.43,Dining,2024-12-23,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+111.32,Transport,2024-12-23,spending,HKD,Uber,Uber
+135.35,Transport,2024-12-24,spending,HKD,MTR,MTR
+533.78,Dining,2024-12-25,spending,HKD,Dinner - Deliveroo,Deliveroo
+27.92,Subscriptions,2024-12-25,spending,HKD,1Password subscription,1Password
+159.53,Transport,2024-12-25,spending,HKD,MTR,MTR
+513.6,Dining,2024-12-26,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+508.64,Dining,2024-12-27,spending,HKD,Dinner - Foodpanda,Foodpanda
+732.03,Groceries,2024-12-27,spending,HKD,ParknShop,ParknShop
+161.69,Transport,2024-12-27,spending,HKD,MTR,MTR
+471.82,Dining,2024-12-29,spending,HKD,Dinner - Deliveroo,Deliveroo
+544.27,Other,2024-12-29,spending,HKD,7-Eleven,7-Eleven
+446.27,Groceries,2024-12-30,spending,HKD,ParknShop,ParknShop
+139.43,Transport,2024-12-30,spending,HKD,Uber,Uber
+420.18,Dining,2025-01-01,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+11000.0,Rent,2025-01-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2025-01-01,income,HKD,Monthly salary,TechCorp HK
+687.63,Subscriptions,2025-01-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+174.72,Subscriptions,2025-01-01,spending,HKD,Adobe CC subscription,Adobe CC
+298.77,Other,2025-01-02,spending,HKD,HSBC Credit Card,HSBC Credit Card
+231.98,Dining,2025-01-03,spending,HKD,Dinner - Deliveroo,Deliveroo
+290.85,Other,2025-01-03,spending,HKD,7-Eleven,7-Eleven
+58.68,Subscriptions,2025-01-03,spending,HKD,Spotify subscription,Spotify
+107.43,Transport,2025-01-03,spending,HKD,Uber,Uber
+141.92,Transport,2025-01-04,spending,HKD,MTR,MTR
+409.58,Dining,2025-01-05,spending,HKD,Dinner - Foodpanda,Foodpanda
+628.79,Groceries,2025-01-05,spending,HKD,ParknShop,ParknShop
+93.58,Subscriptions,2025-01-05,spending,HKD,Netflix subscription,Netflix
+142.68,Transport,2025-01-05,spending,HKD,MTR,MTR
+152.77,Transport,2025-01-05,spending,HKD,MTR,MTR
+297.92,Dining,2025-01-06,spending,HKD,Dinner - Deliveroo,Deliveroo
+156.44,Subscriptions,2025-01-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+220.77,Dining,2025-01-07,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+78.35,Subscriptions,2025-01-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+88.62,Transport,2025-01-07,spending,HKD,Uber,Uber
+72.71,Subscriptions,2025-01-08,spending,HKD,Disney+ subscription,Disney+
+82.82,Transport,2025-01-08,spending,HKD,MTR,MTR
+119.72,Transport,2025-01-08,spending,HKD,MTR,MTR
+144.3,Transport,2025-01-08,spending,HKD,MTR,MTR
+95.86,Transport,2025-01-09,spending,HKD,Uber,Uber
+360.48,Dining,2025-01-10,spending,HKD,Dinner - Foodpanda,Foodpanda
+38.59,Subscriptions,2025-01-10,spending,HKD,HBO GO subscription,HBO GO
+598.85,Groceries,2025-01-11,spending,HKD,ParknShop,ParknShop
+55.46,Subscriptions,2025-01-11,spending,HKD,Calm subscription,Calm
+555.08,Groceries,2025-01-12,spending,HKD,Wellcome,Wellcome
+363.78,Other,2025-01-12,spending,HKD,HSBC Credit Card,HSBC Credit Card
+48.37,Subscriptions,2025-01-12,spending,HKD,Viu subscription,Viu
+343.05,Dining,2025-01-13,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+399.91,Groceries,2025-01-13,spending,HKD,Wellcome,Wellcome
+482.84,Other,2025-01-13,spending,HKD,HSBC Credit Card,HSBC Credit Card
+147.12,Transport,2025-01-13,spending,HKD,Uber,Uber
+917.43,Shopping,2025-01-14,spending,HKD,Lane Crawford,Lane Crawford
+78.74,Subscriptions,2025-01-14,spending,HKD,Notion subscription,Notion
+67.93,Subscriptions,2025-01-15,spending,HKD,Apple TV+ subscription,Apple TV+
+55.6,Subscriptions,2025-01-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+125.24,Transport,2025-01-16,spending,HKD,Uber,Uber
+422.68,Dining,2025-01-17,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+372.44,Other,2025-01-17,spending,HKD,7-Eleven,7-Eleven
+1014.83,Shopping,2025-01-18,spending,HKD,Apple Store,Apple Store
+78.52,Subscriptions,2025-01-18,spending,HKD,Dropbox subscription,Dropbox
+374.28,Dining,2025-01-19,spending,HKD,Dinner - Deliveroo,Deliveroo
+246.97,Dining,2025-01-19,spending,HKD,Dinner - Foodpanda,Foodpanda
+355.85,Groceries,2025-01-20,spending,HKD,Wellcome,Wellcome
+59.12,Subscriptions,2025-01-20,spending,HKD,Apple Music subscription,Apple Music
+126.43,Transport,2025-01-21,spending,HKD,MTR,MTR
+84.53,Transport,2025-01-21,spending,HKD,MTR,MTR
+239.76,Dining,2025-01-22,spending,HKD,Dinner - Foodpanda,Foodpanda
+504.3,Other,2025-01-22,spending,HKD,HSBC Credit Card,HSBC Credit Card
+78.03,Subscriptions,2025-01-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+921.07,Shopping,2025-01-23,spending,HKD,Uniqlo,Uniqlo
+115.89,Transport,2025-01-23,spending,HKD,MTR,MTR
+372.34,Dining,2025-01-24,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+317.19,Dining,2025-01-25,spending,HKD,Dinner - Foodpanda,Foodpanda
+27.41,Subscriptions,2025-01-25,spending,HKD,1Password subscription,1Password
+661.52,Groceries,2025-01-26,spending,HKD,Wellcome,Wellcome
+266.87,Other,2025-01-27,spending,HKD,HSBC Credit Card,HSBC Credit Card
+142.15,Transport,2025-01-27,spending,HKD,MTR,MTR
+311.12,Other,2025-01-28,spending,HKD,HSBC Credit Card,HSBC Credit Card
+93.2,Transport,2025-01-28,spending,HKD,MTR,MTR
+122.49,Transport,2025-01-28,spending,HKD,Uber,Uber
+946.67,Shopping,2025-01-29,spending,HKD,Apple Store,Apple Store
+85.14,Transport,2025-01-29,spending,HKD,MTR,MTR
+117.84,Transport,2025-01-29,spending,HKD,MTR,MTR
+99.09,Transport,2025-01-29,spending,HKD,MTR,MTR
+283.97,Dining,2025-01-30,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+164.78,Transport,2025-01-30,spending,HKD,Uber,Uber
+258.85,Dining,2025-01-31,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+309.02,Other,2025-01-31,spending,HKD,HSBC Credit Card,HSBC Credit Card
+472.27,Groceries,2025-02-01,spending,HKD,CitySuper,CitySuper
+11000.0,Rent,2025-02-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2025-02-01,income,HKD,Monthly salary,TechCorp HK
+674.37,Subscriptions,2025-02-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+177.72,Subscriptions,2025-02-01,spending,HKD,Adobe CC subscription,Adobe CC
+358.66,Dining,2025-02-03,spending,HKD,Dinner - Deliveroo,Deliveroo
+57.69,Subscriptions,2025-02-03,spending,HKD,Spotify subscription,Spotify
+208.58,Transport,2025-02-04,spending,HKD,Uber,Uber
+346.36,Other,2025-02-05,spending,HKD,Octopus Reload,Octopus Reload
+94.11,Subscriptions,2025-02-05,spending,HKD,Netflix subscription,Netflix
+218.16,Transport,2025-02-05,spending,HKD,MTR,MTR
+449.54,Dining,2025-02-06,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+488.71,Other,2025-02-06,spending,HKD,HSBC Credit Card,HSBC Credit Card
+155.64,Subscriptions,2025-02-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+308.95,Other,2025-02-07,spending,HKD,HSBC Credit Card,HSBC Credit Card
+79.49,Subscriptions,2025-02-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+74.23,Subscriptions,2025-02-08,spending,HKD,Disney+ subscription,Disney+
+38.78,Subscriptions,2025-02-10,spending,HKD,HBO GO subscription,HBO GO
+115.25,Transport,2025-02-10,spending,HKD,Uber,Uber
+56.07,Subscriptions,2025-02-11,spending,HKD,Calm subscription,Calm
+181.19,Transport,2025-02-11,spending,HKD,MTR,MTR
+514.13,Dining,2025-02-12,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+375.18,Dining,2025-02-12,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+1267.51,Shopping,2025-02-12,spending,HKD,HKTVmall,HKTVmall
+47.77,Subscriptions,2025-02-12,spending,HKD,Viu subscription,Viu
+431.08,Other,2025-02-13,spending,HKD,7-Eleven,7-Eleven
+273.66,Other,2025-02-13,spending,HKD,HSBC Credit Card,HSBC Credit Card
+643.44,Groceries,2025-02-14,spending,HKD,ParknShop,ParknShop
+78.0,Subscriptions,2025-02-14,spending,HKD,Notion subscription,Notion
+178.88,Transport,2025-02-14,spending,HKD,Uber,Uber
+68.04,Subscriptions,2025-02-15,spending,HKD,Apple TV+ subscription,Apple TV+
+322.14,Dining,2025-02-16,spending,HKD,Dinner - Foodpanda,Foodpanda
+388.27,Other,2025-02-16,spending,HKD,HSBC Credit Card,HSBC Credit Card
+54.49,Subscriptions,2025-02-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+186.03,Transport,2025-02-16,spending,HKD,MTR,MTR
+362.16,Groceries,2025-02-17,spending,HKD,Wellcome,Wellcome
+435.46,Dining,2025-02-18,spending,HKD,Dinner - Deliveroo,Deliveroo
+938.1,Shopping,2025-02-18,spending,HKD,Lane Crawford,Lane Crawford
+1594.39,Shopping,2025-02-18,spending,HKD,Uniqlo,Uniqlo
+78.17,Subscriptions,2025-02-18,spending,HKD,Dropbox subscription,Dropbox
+501.68,Dining,2025-02-19,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+163.6,Transport,2025-02-19,spending,HKD,Uber,Uber
+58.43,Subscriptions,2025-02-20,spending,HKD,Apple Music subscription,Apple Music
+428.14,Groceries,2025-02-21,spending,HKD,ParknShop,ParknShop
+406.52,Dining,2025-02-22,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+632.67,Groceries,2025-02-22,spending,HKD,Wellcome,Wellcome
+494.15,Other,2025-02-22,spending,HKD,7-Eleven,7-Eleven
+79.9,Subscriptions,2025-02-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+191.88,Transport,2025-02-22,spending,HKD,MTR,MTR
+134.33,Transport,2025-02-22,spending,HKD,MTR,MTR
+163.77,Transport,2025-02-23,spending,HKD,MTR,MTR
+306.06,Dining,2025-02-24,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+171.43,Transport,2025-02-24,spending,HKD,MTR,MTR
+28.41,Subscriptions,2025-02-25,spending,HKD,1Password subscription,1Password
+108.28,Transport,2025-02-25,spending,HKD,MTR,MTR
+148.32,Transport,2025-02-25,spending,HKD,MTR,MTR
+204.34,Transport,2025-02-25,spending,HKD,Uber,Uber
+288.18,Dining,2025-02-26,spending,HKD,Dinner - Foodpanda,Foodpanda
+437.18,Dining,2025-02-27,spending,HKD,Dinner - Deliveroo,Deliveroo
+468.82,Other,2025-02-27,spending,HKD,HSBC Credit Card,HSBC Credit Card
+125.96,Transport,2025-02-27,spending,HKD,Uber,Uber
+405.27,Dining,2025-02-28,spending,HKD,Dinner - Deliveroo,Deliveroo
+661.32,Groceries,2025-02-28,spending,HKD,CitySuper,CitySuper
+353.48,Groceries,2025-03-01,spending,HKD,Wellcome,Wellcome
+11000.0,Rent,2025-03-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2025-03-01,income,HKD,Monthly salary,TechCorp HK
+682.59,Subscriptions,2025-03-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+177.87,Subscriptions,2025-03-01,spending,HKD,Adobe CC subscription,Adobe CC
+178.78,Transport,2025-03-01,spending,HKD,MTR,MTR
+177.77,Transport,2025-03-01,spending,HKD,Uber,Uber
+56.9,Subscriptions,2025-03-03,spending,HKD,Spotify subscription,Spotify
+488.14,Dining,2025-03-04,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+136.0,Transport,2025-03-04,spending,HKD,Uber,Uber
+1292.07,Shopping,2025-03-05,spending,HKD,Apple Store,Apple Store
+1384.36,Shopping,2025-03-05,spending,HKD,Lane Crawford,Lane Crawford
+94.95,Subscriptions,2025-03-05,spending,HKD,Netflix subscription,Netflix
+153.67,Subscriptions,2025-03-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+77.02,Subscriptions,2025-03-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+626.71,Other,2025-03-08,spending,HKD,7-Eleven,7-Eleven
+73.33,Subscriptions,2025-03-08,spending,HKD,Disney+ subscription,Disney+
+162.35,Transport,2025-03-08,spending,HKD,Uber,Uber
+191.44,Transport,2025-03-09,spending,HKD,MTR,MTR
+526.38,Dining,2025-03-10,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+37.73,Subscriptions,2025-03-10,spending,HKD,HBO GO subscription,HBO GO
+433.42,Dining,2025-03-11,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+652.09,Other,2025-03-11,spending,HKD,Octopus Reload,Octopus Reload
+54.45,Subscriptions,2025-03-11,spending,HKD,Calm subscription,Calm
+383.21,Dining,2025-03-12,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+374.09,Dining,2025-03-12,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+48.07,Subscriptions,2025-03-12,spending,HKD,Viu subscription,Viu
+477.81,Groceries,2025-03-13,spending,HKD,ParknShop,ParknShop
+113.07,Transport,2025-03-13,spending,HKD,Uber,Uber
+655.86,Other,2025-03-14,spending,HKD,HSBC Credit Card,HSBC Credit Card
+77.63,Subscriptions,2025-03-14,spending,HKD,Notion subscription,Notion
+108.62,Transport,2025-03-14,spending,HKD,MTR,MTR
+495.85,Dining,2025-03-15,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+310.41,Groceries,2025-03-15,spending,HKD,Wellcome,Wellcome
+67.84,Subscriptions,2025-03-15,spending,HKD,Apple TV+ subscription,Apple TV+
+147.07,Transport,2025-03-15,spending,HKD,MTR,MTR
+54.73,Subscriptions,2025-03-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+286.21,Dining,2025-03-17,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+449.69,Groceries,2025-03-17,spending,HKD,CitySuper,CitySuper
+99.9,Transport,2025-03-17,spending,HKD,MTR,MTR
+395.46,Dining,2025-03-18,spending,HKD,Dinner - Deliveroo,Deliveroo
+833.47,Other,2025-03-18,spending,HKD,7-Eleven,7-Eleven
+77.65,Subscriptions,2025-03-18,spending,HKD,Dropbox subscription,Dropbox
+184.69,Transport,2025-03-18,spending,HKD,Uber,Uber
+155.41,Transport,2025-03-18,spending,HKD,Uber,Uber
+372.43,Dining,2025-03-19,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+190.28,Transport,2025-03-19,spending,HKD,MTR,MTR
+101.27,Transport,2025-03-19,spending,HKD,Uber,Uber
+257.13,Groceries,2025-03-20,spending,HKD,ParknShop,ParknShop
+57.68,Subscriptions,2025-03-20,spending,HKD,Apple Music subscription,Apple Music
+532.7,Dining,2025-03-22,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+512.12,Dining,2025-03-22,spending,HKD,Dinner - Foodpanda,Foodpanda
+79.42,Subscriptions,2025-03-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+160.86,Transport,2025-03-23,spending,HKD,MTR,MTR
+28.13,Subscriptions,2025-03-25,spending,HKD,1Password subscription,1Password
+130.93,Transport,2025-03-25,spending,HKD,Uber,Uber
+431.87,Other,2025-03-26,spending,HKD,Octopus Reload,Octopus Reload
+159.99,Transport,2025-03-26,spending,HKD,MTR,MTR
+101.57,Transport,2025-03-27,spending,HKD,MTR,MTR
+469.16,Groceries,2025-03-28,spending,HKD,ParknShop,ParknShop
+514.99,Groceries,2025-03-28,spending,HKD,Wellcome,Wellcome
+1123.57,Shopping,2025-03-30,spending,HKD,Apple Store,Apple Store
+367.34,Groceries,2025-03-31,spending,HKD,ParknShop,ParknShop
+448.69,Dining,2025-04-01,spending,HKD,Dinner - Deliveroo,Deliveroo
+463.6,Groceries,2025-04-01,spending,HKD,ParknShop,ParknShop
+456.71,Other,2025-04-01,spending,HKD,HSBC Credit Card,HSBC Credit Card
+11000.0,Rent,2025-04-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2025-04-01,income,HKD,Monthly salary,TechCorp HK
+675.99,Subscriptions,2025-04-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+177.62,Subscriptions,2025-04-01,spending,HKD,Adobe CC subscription,Adobe CC
+157.86,Transport,2025-04-01,spending,HKD,Uber,Uber
+450.96,Dining,2025-04-02,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+304.52,Other,2025-04-02,spending,HKD,HSBC Credit Card,HSBC Credit Card
+306.21,Dining,2025-04-03,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+295.81,Dining,2025-04-03,spending,HKD,Dinner - Deliveroo,Deliveroo
+362.02,Dining,2025-04-03,spending,HKD,Dinner - Deliveroo,Deliveroo
+58.04,Subscriptions,2025-04-03,spending,HKD,Spotify subscription,Spotify
+155.98,Transport,2025-04-03,spending,HKD,MTR,MTR
+487.53,Dining,2025-04-04,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+127.34,Transport,2025-04-04,spending,HKD,Uber,Uber
+128.05,Transport,2025-04-04,spending,HKD,Uber,Uber
+92.16,Subscriptions,2025-04-05,spending,HKD,Netflix subscription,Netflix
+156.48,Subscriptions,2025-04-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+77.96,Subscriptions,2025-04-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+292.38,Dining,2025-04-08,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+73.89,Subscriptions,2025-04-08,spending,HKD,Disney+ subscription,Disney+
+130.32,Transport,2025-04-08,spending,HKD,Uber,Uber
+93.93,Transport,2025-04-09,spending,HKD,MTR,MTR
+38.9,Subscriptions,2025-04-10,spending,HKD,HBO GO subscription,HBO GO
+113.43,Transport,2025-04-10,spending,HKD,Uber,Uber
+54.34,Subscriptions,2025-04-11,spending,HKD,Calm subscription,Calm
+48.09,Subscriptions,2025-04-12,spending,HKD,Viu subscription,Viu
+317.58,Dining,2025-04-13,spending,HKD,Dinner - Deliveroo,Deliveroo
+186.18,Transport,2025-04-13,spending,HKD,Uber,Uber
+375.6,Dining,2025-04-14,spending,HKD,Dinner - Foodpanda,Foodpanda
+585.94,Other,2025-04-14,spending,HKD,Octopus Reload,Octopus Reload
+77.59,Subscriptions,2025-04-14,spending,HKD,Notion subscription,Notion
+496.48,Groceries,2025-04-15,spending,HKD,CitySuper,CitySuper
+485.44,Groceries,2025-04-15,spending,HKD,ParknShop,ParknShop
+68.93,Subscriptions,2025-04-15,spending,HKD,Apple TV+ subscription,Apple TV+
+559.26,Shopping,2025-04-16,spending,HKD,Lane Crawford,Lane Crawford
+54.35,Subscriptions,2025-04-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+453.29,Dining,2025-04-17,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+432.43,Groceries,2025-04-17,spending,HKD,ParknShop,ParknShop
+77.34,Subscriptions,2025-04-18,spending,HKD,Dropbox subscription,Dropbox
+155.4,Transport,2025-04-18,spending,HKD,Uber,Uber
+129.49,Transport,2025-04-18,spending,HKD,Uber,Uber
+555.18,Other,2025-04-19,spending,HKD,HSBC Credit Card,HSBC Credit Card
+57.74,Subscriptions,2025-04-20,spending,HKD,Apple Music subscription,Apple Music
+181.93,Transport,2025-04-20,spending,HKD,MTR,MTR
+255.4,Dining,2025-04-22,spending,HKD,Dinner - Deliveroo,Deliveroo
+380.47,Dining,2025-04-22,spending,HKD,Dinner - Deliveroo,Deliveroo
+77.65,Subscriptions,2025-04-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+100.91,Transport,2025-04-22,spending,HKD,Uber,Uber
+394.16,Other,2025-04-25,spending,HKD,HSBC Credit Card,HSBC Credit Card
+321.57,Other,2025-04-25,spending,HKD,Octopus Reload,Octopus Reload
+27.99,Subscriptions,2025-04-25,spending,HKD,1Password subscription,1Password
+105.16,Transport,2025-04-25,spending,HKD,Uber,Uber
+769.54,Shopping,2025-04-26,spending,HKD,Apple Store,Apple Store
+765.01,Shopping,2025-04-26,spending,HKD,Uniqlo,Uniqlo
+131.16,Transport,2025-04-26,spending,HKD,MTR,MTR
+374.07,Dining,2025-04-27,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+889.87,Shopping,2025-04-27,spending,HKD,Lane Crawford,Lane Crawford
+816.32,Shopping,2025-04-27,spending,HKD,Uniqlo,Uniqlo
+154.82,Transport,2025-04-28,spending,HKD,MTR,MTR
+150.58,Transport,2025-04-29,spending,HKD,Uber,Uber
+530.37,Groceries,2025-04-30,spending,HKD,CitySuper,CitySuper
+791.68,Groceries,2025-04-30,spending,HKD,CitySuper,CitySuper
+581.91,Other,2025-04-30,spending,HKD,7-Eleven,7-Eleven
+168.2,Transport,2025-04-30,spending,HKD,MTR,MTR
+129.26,Transport,2025-04-30,spending,HKD,Uber,Uber
+452.37,Groceries,2025-05-01,spending,HKD,CitySuper,CitySuper
+702.42,Other,2025-05-01,spending,HKD,7-Eleven,7-Eleven
+11000.0,Rent,2025-05-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2025-05-01,income,HKD,Monthly salary,TechCorp HK
+672.18,Subscriptions,2025-05-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+179.53,Subscriptions,2025-05-01,spending,HKD,Adobe CC subscription,Adobe CC
+307.42,Dining,2025-05-02,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+353.62,Dining,2025-05-02,spending,HKD,Dinner - Deliveroo,Deliveroo
+58.88,Subscriptions,2025-05-03,spending,HKD,Spotify subscription,Spotify
+164.78,Transport,2025-05-03,spending,HKD,MTR,MTR
+250.9,Groceries,2025-05-04,spending,HKD,CitySuper,CitySuper
+94.64,Subscriptions,2025-05-05,spending,HKD,Netflix subscription,Netflix
+157.14,Subscriptions,2025-05-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+177.5,Transport,2025-05-06,spending,HKD,MTR,MTR
+127.97,Transport,2025-05-06,spending,HKD,MTR,MTR
+389.15,Dining,2025-05-07,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+75.55,Subscriptions,2025-05-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+73.2,Subscriptions,2025-05-08,spending,HKD,Disney+ subscription,Disney+
+110.59,Transport,2025-05-08,spending,HKD,MTR,MTR
+670.93,Other,2025-05-09,spending,HKD,HSBC Credit Card,HSBC Credit Card
+154.34,Subscriptions,2025-05-09,spending,HKD,Perplexity Pro subscription,Perplexity Pro
+135.25,Transport,2025-05-09,spending,HKD,MTR,MTR
+638.57,Other,2025-05-10,spending,HKD,Octopus Reload,Octopus Reload
+621.71,Shopping,2025-05-10,spending,HKD,HKTVmall,HKTVmall
+39.27,Subscriptions,2025-05-10,spending,HKD,HBO GO subscription,HBO GO
+167.47,Transport,2025-05-10,spending,HKD,MTR,MTR
+461.9,Dining,2025-05-11,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+690.95,Other,2025-05-11,spending,HKD,HSBC Credit Card,HSBC Credit Card
+55.17,Subscriptions,2025-05-11,spending,HKD,Calm subscription,Calm
+49.26,Subscriptions,2025-05-12,spending,HKD,Viu subscription,Viu
+281.79,Dining,2025-05-13,spending,HKD,Dinner - Foodpanda,Foodpanda
+601.97,Shopping,2025-05-13,spending,HKD,Lane Crawford,Lane Crawford
+497.13,Other,2025-05-14,spending,HKD,Octopus Reload,Octopus Reload
+610.13,Shopping,2025-05-14,spending,HKD,HKTVmall,HKTVmall
+77.41,Subscriptions,2025-05-14,spending,HKD,Notion subscription,Notion
+170.63,Transport,2025-05-14,spending,HKD,Uber,Uber
+67.64,Subscriptions,2025-05-15,spending,HKD,Apple TV+ subscription,Apple TV+
+371.62,Groceries,2025-05-16,spending,HKD,ParknShop,ParknShop
+55.62,Subscriptions,2025-05-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+138.17,Transport,2025-05-16,spending,HKD,MTR,MTR
+449.67,Groceries,2025-05-17,spending,HKD,ParknShop,ParknShop
+497.06,Shopping,2025-05-17,spending,HKD,HKTVmall,HKTVmall
+239.62,Subscriptions,2025-05-17,spending,HKD,Midjourney subscription,Midjourney
+490.0,Dining,2025-05-18,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+78.06,Subscriptions,2025-05-18,spending,HKD,Dropbox subscription,Dropbox
+500.92,Dining,2025-05-20,spending,HKD,Dinner - Deliveroo,Deliveroo
+806.69,Shopping,2025-05-20,spending,HKD,Uniqlo,Uniqlo
+58.67,Subscriptions,2025-05-20,spending,HKD,Apple Music subscription,Apple Music
+133.48,Transport,2025-05-20,spending,HKD,Uber,Uber
+362.54,Dining,2025-05-22,spending,HKD,Dinner - Deliveroo,Deliveroo
+306.94,Dining,2025-05-22,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+78.05,Subscriptions,2025-05-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+159.53,Transport,2025-05-23,spending,HKD,Uber,Uber
+503.51,Groceries,2025-05-24,spending,HKD,ParknShop,ParknShop
+147.94,Transport,2025-05-24,spending,HKD,Uber,Uber
+435.58,Dining,2025-05-25,spending,HKD,Dinner - Deliveroo,Deliveroo
+27.84,Subscriptions,2025-05-25,spending,HKD,1Password subscription,1Password
+109.42,Transport,2025-05-25,spending,HKD,MTR,MTR
+124.04,Transport,2025-05-26,spending,HKD,Uber,Uber
+270.63,Groceries,2025-05-27,spending,HKD,ParknShop,ParknShop
+476.92,Groceries,2025-05-27,spending,HKD,Wellcome,Wellcome
+443.36,Dining,2025-05-29,spending,HKD,Dinner - Deliveroo,Deliveroo
+466.78,Dining,2025-05-29,spending,HKD,Dinner - Foodpanda,Foodpanda
+662.44,Shopping,2025-05-29,spending,HKD,HKTVmall,HKTVmall
+170.25,Transport,2025-05-29,spending,HKD,Uber,Uber
+158.58,Transport,2025-05-30,spending,HKD,MTR,MTR
+424.37,Groceries,2025-05-31,spending,HKD,ParknShop,ParknShop
+144.04,Transport,2025-05-31,spending,HKD,MTR,MTR
+160.35,Transport,2025-05-31,spending,HKD,Uber,Uber
+292.75,Groceries,2025-06-01,spending,HKD,ParknShop,ParknShop
+11000.0,Rent,2025-06-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2025-06-01,income,HKD,Monthly salary,TechCorp HK
+684.93,Subscriptions,2025-06-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+178.52,Subscriptions,2025-06-01,spending,HKD,Adobe CC subscription,Adobe CC
+364.37,Groceries,2025-06-03,spending,HKD,Wellcome,Wellcome
+57.99,Subscriptions,2025-06-03,spending,HKD,Spotify subscription,Spotify
+190.92,Transport,2025-06-03,spending,HKD,Uber,Uber
+427.75,Groceries,2025-06-05,spending,HKD,CitySuper,CitySuper
+395.6,Groceries,2025-06-05,spending,HKD,ParknShop,ParknShop
+94.76,Subscriptions,2025-06-05,spending,HKD,Netflix subscription,Netflix
+195.67,Transport,2025-06-05,spending,HKD,MTR,MTR
+460.37,Dining,2025-06-06,spending,HKD,Dinner - Foodpanda,Foodpanda
+659.52,Other,2025-06-06,spending,HKD,7-Eleven,7-Eleven
+152.7,Subscriptions,2025-06-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+508.37,Dining,2025-06-07,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+78.4,Subscriptions,2025-06-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+578.21,Dining,2025-06-08,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+72.82,Subscriptions,2025-06-08,spending,HKD,Disney+ subscription,Disney+
+399.18,Dining,2025-06-09,spending,HKD,Dinner - Deliveroo,Deliveroo
+275.01,Groceries,2025-06-09,spending,HKD,ParknShop,ParknShop
+156.04,Subscriptions,2025-06-09,spending,HKD,Perplexity Pro subscription,Perplexity Pro
+39.03,Subscriptions,2025-06-10,spending,HKD,HBO GO subscription,HBO GO
+118.48,Transport,2025-06-10,spending,HKD,Uber,Uber
+259.84,Groceries,2025-06-11,spending,HKD,ParknShop,ParknShop
+856.13,Other,2025-06-11,spending,HKD,Octopus Reload,Octopus Reload
+55.05,Subscriptions,2025-06-11,spending,HKD,Calm subscription,Calm
+652.58,Other,2025-06-12,spending,HKD,HSBC Credit Card,HSBC Credit Card
+47.93,Subscriptions,2025-06-12,spending,HKD,Viu subscription,Viu
+138.97,Transport,2025-06-12,spending,HKD,MTR,MTR
+516.18,Other,2025-06-13,spending,HKD,Octopus Reload,Octopus Reload
+78.14,Subscriptions,2025-06-14,spending,HKD,Notion subscription,Notion
+126.38,Transport,2025-06-14,spending,HKD,Uber,Uber
+448.38,Groceries,2025-06-15,spending,HKD,CitySuper,CitySuper
+67.95,Subscriptions,2025-06-15,spending,HKD,Apple TV+ subscription,Apple TV+
+54.24,Subscriptions,2025-06-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+166.28,Transport,2025-06-16,spending,HKD,MTR,MTR
+116.46,Transport,2025-06-16,spending,HKD,Uber,Uber
+362.66,Dining,2025-06-17,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+499.33,Shopping,2025-06-17,spending,HKD,Apple Store,Apple Store
+241.1,Subscriptions,2025-06-17,spending,HKD,Midjourney subscription,Midjourney
+214.12,Transport,2025-06-17,spending,HKD,Uber,Uber
+592.4,Dining,2025-06-18,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+78.56,Subscriptions,2025-06-18,spending,HKD,Dropbox subscription,Dropbox
+115.56,Transport,2025-06-18,spending,HKD,MTR,MTR
+108.99,Transport,2025-06-18,spending,HKD,Uber,Uber
+128.11,Transport,2025-06-18,spending,HKD,Uber,Uber
+406.13,Dining,2025-06-19,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+515.59,Other,2025-06-19,spending,HKD,7-Eleven,7-Eleven
+549.26,Shopping,2025-06-19,spending,HKD,Lane Crawford,Lane Crawford
+624.12,Shopping,2025-06-19,spending,HKD,Lane Crawford,Lane Crawford
+315.36,Dining,2025-06-20,spending,HKD,Dinner - Deliveroo,Deliveroo
+58.39,Subscriptions,2025-06-20,spending,HKD,Apple Music subscription,Apple Music
+193.3,Transport,2025-06-20,spending,HKD,Uber,Uber
+299.5,Groceries,2025-06-22,spending,HKD,Wellcome,Wellcome
+77.11,Subscriptions,2025-06-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+165.53,Transport,2025-06-22,spending,HKD,MTR,MTR
+170.14,Transport,2025-06-24,spending,HKD,MTR,MTR
+28.16,Subscriptions,2025-06-25,spending,HKD,1Password subscription,1Password
+186.27,Transport,2025-06-25,spending,HKD,Uber,Uber
+334.84,Dining,2025-06-27,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+476.32,Shopping,2025-06-27,spending,HKD,Uniqlo,Uniqlo
+164.84,Transport,2025-06-27,spending,HKD,MTR,MTR
+436.81,Groceries,2025-06-28,spending,HKD,CitySuper,CitySuper
+820.38,Shopping,2025-06-28,spending,HKD,Apple Store,Apple Store
+485.99,Dining,2025-06-29,spending,HKD,Dinner - Deliveroo,Deliveroo
+830.6,Shopping,2025-06-29,spending,HKD,HKTVmall,HKTVmall
+356.49,Dining,2025-06-30,spending,HKD,Dinner - Deliveroo,Deliveroo
+11000.0,Rent,2025-07-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2025-07-01,income,HKD,Monthly salary,TechCorp HK
+677.92,Subscriptions,2025-07-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+178.25,Subscriptions,2025-07-01,spending,HKD,Adobe CC subscription,Adobe CC
+85.78,Transport,2025-07-01,spending,HKD,Uber,Uber
+146.87,Transport,2025-07-01,spending,HKD,Uber,Uber
+246.99,Other,2025-07-03,spending,HKD,Octopus Reload,Octopus Reload
+59.16,Subscriptions,2025-07-03,spending,HKD,Spotify subscription,Spotify
+82.82,Transport,2025-07-03,spending,HKD,MTR,MTR
+91.96,Subscriptions,2025-07-05,spending,HKD,Netflix subscription,Netflix
+401.65,Dining,2025-07-06,spending,HKD,Dinner - Deliveroo,Deliveroo
+328.54,Dining,2025-07-06,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+154.6,Subscriptions,2025-07-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+120.56,Transport,2025-07-06,spending,HKD,MTR,MTR
+299.55,Other,2025-07-07,spending,HKD,7-Eleven,7-Eleven
+78.27,Subscriptions,2025-07-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+82.25,Transport,2025-07-07,spending,HKD,Uber,Uber
+72.53,Subscriptions,2025-07-08,spending,HKD,Disney+ subscription,Disney+
+470.57,Dining,2025-07-09,spending,HKD,Dinner - Foodpanda,Foodpanda
+157.27,Subscriptions,2025-07-09,spending,HKD,Perplexity Pro subscription,Perplexity Pro
+115.04,Transport,2025-07-09,spending,HKD,Uber,Uber
+349.9,Dining,2025-07-10,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+465.31,Dining,2025-07-10,spending,HKD,Dinner - Foodpanda,Foodpanda
+38.74,Subscriptions,2025-07-10,spending,HKD,HBO GO subscription,HBO GO
+54.69,Subscriptions,2025-07-11,spending,HKD,Calm subscription,Calm
+133.5,Transport,2025-07-11,spending,HKD,MTR,MTR
+152.09,Transport,2025-07-11,spending,HKD,Uber,Uber
+424.35,Dining,2025-07-12,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+47.89,Subscriptions,2025-07-12,spending,HKD,Viu subscription,Viu
+416.35,Dining,2025-07-13,spending,HKD,Dinner - Foodpanda,Foodpanda
+314.06,Dining,2025-07-13,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+402.17,Groceries,2025-07-13,spending,HKD,ParknShop,ParknShop
+263.8,Groceries,2025-07-13,spending,HKD,ParknShop,ParknShop
+730.5,Shopping,2025-07-13,spending,HKD,Lane Crawford,Lane Crawford
+78.84,Subscriptions,2025-07-14,spending,HKD,Notion subscription,Notion
+430.23,Groceries,2025-07-15,spending,HKD,CitySuper,CitySuper
+275.65,Groceries,2025-07-15,spending,HKD,ParknShop,ParknShop
+245.14,Groceries,2025-07-15,spending,HKD,Wellcome,Wellcome
+296.63,Other,2025-07-15,spending,HKD,7-Eleven,7-Eleven
+901.45,Shopping,2025-07-15,spending,HKD,HKTVmall,HKTVmall
+67.23,Subscriptions,2025-07-15,spending,HKD,Apple TV+ subscription,Apple TV+
+92.9,Transport,2025-07-15,spending,HKD,Uber,Uber
+55.46,Subscriptions,2025-07-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+146.19,Transport,2025-07-16,spending,HKD,MTR,MTR
+242.14,Subscriptions,2025-07-17,spending,HKD,Midjourney subscription,Midjourney
+103.63,Transport,2025-07-17,spending,HKD,MTR,MTR
+410.03,Dining,2025-07-18,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+77.18,Subscriptions,2025-07-18,spending,HKD,Dropbox subscription,Dropbox
+123.64,Transport,2025-07-19,spending,HKD,MTR,MTR
+112.77,Transport,2025-07-19,spending,HKD,Uber,Uber
+132.19,Transport,2025-07-19,spending,HKD,Uber,Uber
+479.19,Dining,2025-07-20,spending,HKD,Dinner - Foodpanda,Foodpanda
+244.46,Other,2025-07-20,spending,HKD,Octopus Reload,Octopus Reload
+1077.82,Shopping,2025-07-20,spending,HKD,Apple Store,Apple Store
+1090.23,Shopping,2025-07-20,spending,HKD,Uniqlo,Uniqlo
+57.35,Subscriptions,2025-07-20,spending,HKD,Apple Music subscription,Apple Music
+151.94,Transport,2025-07-20,spending,HKD,Uber,Uber
+147.55,Transport,2025-07-20,spending,HKD,Uber,Uber
+90.06,Transport,2025-07-20,spending,HKD,Uber,Uber
+461.92,Groceries,2025-07-21,spending,HKD,Wellcome,Wellcome
+78.66,Subscriptions,2025-07-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+469.98,Dining,2025-07-23,spending,HKD,Dinner - Deliveroo,Deliveroo
+365.34,Other,2025-07-23,spending,HKD,7-Eleven,7-Eleven
+388.63,Other,2025-07-23,spending,HKD,Octopus Reload,Octopus Reload
+127.98,Transport,2025-07-24,spending,HKD,MTR,MTR
+147.9,Transport,2025-07-24,spending,HKD,Uber,Uber
+28.12,Subscriptions,2025-07-25,spending,HKD,1Password subscription,1Password
+270.08,Dining,2025-07-26,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+418.83,Groceries,2025-07-26,spending,HKD,Wellcome,Wellcome
+461.52,Other,2025-07-27,spending,HKD,Octopus Reload,Octopus Reload
+101.71,Transport,2025-07-27,spending,HKD,MTR,MTR
+307.05,Groceries,2025-07-28,spending,HKD,CitySuper,CitySuper
+414.49,Other,2025-07-28,spending,HKD,HSBC Credit Card,HSBC Credit Card
+102.64,Transport,2025-07-28,spending,HKD,Uber,Uber
+395.21,Groceries,2025-07-30,spending,HKD,CitySuper,CitySuper
+482.38,Other,2025-07-30,spending,HKD,Octopus Reload,Octopus Reload
+596.4,Dining,2025-08-01,spending,HKD,Dinner - Deliveroo,Deliveroo
+11000.0,Rent,2025-08-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2025-08-01,income,HKD,Monthly salary,TechCorp HK
+674.44,Subscriptions,2025-08-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+178.26,Subscriptions,2025-08-01,spending,HKD,Adobe CC subscription,Adobe CC
+59.13,Subscriptions,2025-08-03,spending,HKD,Spotify subscription,Spotify
+339.98,Dining,2025-08-04,spending,HKD,Dinner - Foodpanda,Foodpanda
+524.68,Groceries,2025-08-04,spending,HKD,CitySuper,CitySuper
+148.74,Transport,2025-08-04,spending,HKD,MTR,MTR
+425.9,Dining,2025-08-05,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+1581.6,Shopping,2025-08-05,spending,HKD,Lane Crawford,Lane Crawford
+94.41,Subscriptions,2025-08-05,spending,HKD,Netflix subscription,Netflix
+96.77,Transport,2025-08-05,spending,HKD,Uber,Uber
+441.19,Dining,2025-08-06,spending,HKD,Dinner - Deliveroo,Deliveroo
+156.57,Subscriptions,2025-08-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+173.84,Transport,2025-08-06,spending,HKD,Uber,Uber
+526.74,Groceries,2025-08-07,spending,HKD,Wellcome,Wellcome
+77.83,Subscriptions,2025-08-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+72.76,Subscriptions,2025-08-08,spending,HKD,Disney+ subscription,Disney+
+156.72,Subscriptions,2025-08-09,spending,HKD,Perplexity Pro subscription,Perplexity Pro
+126.05,Transport,2025-08-09,spending,HKD,Uber,Uber
+510.5,Dining,2025-08-10,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+38.92,Subscriptions,2025-08-10,spending,HKD,HBO GO subscription,HBO GO
+170.2,Transport,2025-08-10,spending,HKD,MTR,MTR
+162.13,Transport,2025-08-10,spending,HKD,Uber,Uber
+55.15,Subscriptions,2025-08-11,spending,HKD,Calm subscription,Calm
+295.77,Groceries,2025-08-12,spending,HKD,Wellcome,Wellcome
+47.62,Subscriptions,2025-08-12,spending,HKD,Viu subscription,Viu
+171.87,Transport,2025-08-12,spending,HKD,MTR,MTR
+102.04,Transport,2025-08-13,spending,HKD,MTR,MTR
+85.53,Transport,2025-08-13,spending,HKD,Uber,Uber
+363.89,Other,2025-08-14,spending,HKD,7-Eleven,7-Eleven
+77.63,Subscriptions,2025-08-14,spending,HKD,Notion subscription,Notion
+476.92,Groceries,2025-08-15,spending,HKD,CitySuper,CitySuper
+501.37,Groceries,2025-08-15,spending,HKD,CitySuper,CitySuper
+544.76,Other,2025-08-15,spending,HKD,7-Eleven,7-Eleven
+669.72,Other,2025-08-15,spending,HKD,HSBC Credit Card,HSBC Credit Card
+68.28,Subscriptions,2025-08-15,spending,HKD,Apple TV+ subscription,Apple TV+
+90.9,Transport,2025-08-15,spending,HKD,MTR,MTR
+157.0,Transport,2025-08-15,spending,HKD,MTR,MTR
+416.12,Dining,2025-08-16,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+54.81,Subscriptions,2025-08-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+683.62,Other,2025-08-17,spending,HKD,7-Eleven,7-Eleven
+240.93,Subscriptions,2025-08-17,spending,HKD,Midjourney subscription,Midjourney
+148.46,Transport,2025-08-17,spending,HKD,Uber,Uber
+77.64,Subscriptions,2025-08-18,spending,HKD,Dropbox subscription,Dropbox
+489.83,Dining,2025-08-19,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+1429.75,Shopping,2025-08-19,spending,HKD,Apple Store,Apple Store
+87.05,Transport,2025-08-19,spending,HKD,MTR,MTR
+292.94,Groceries,2025-08-20,spending,HKD,Wellcome,Wellcome
+58.66,Subscriptions,2025-08-20,spending,HKD,Apple Music subscription,Apple Music
+620.05,Dining,2025-08-21,spending,HKD,Dinner - Foodpanda,Foodpanda
+168.41,Transport,2025-08-21,spending,HKD,MTR,MTR
+290.9,Groceries,2025-08-22,spending,HKD,ParknShop,ParknShop
+551.72,Other,2025-08-22,spending,HKD,Octopus Reload,Octopus Reload
+79.22,Subscriptions,2025-08-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+104.87,Transport,2025-08-22,spending,HKD,MTR,MTR
+136.11,Transport,2025-08-23,spending,HKD,MTR,MTR
+386.28,Other,2025-08-24,spending,HKD,Octopus Reload,Octopus Reload
+788.65,Shopping,2025-08-24,spending,HKD,Apple Store,Apple Store
+28.16,Subscriptions,2025-08-25,spending,HKD,1Password subscription,1Password
+290.67,Groceries,2025-08-27,spending,HKD,Wellcome,Wellcome
+367.32,Dining,2025-08-28,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+123.67,Transport,2025-08-28,spending,HKD,Uber,Uber
+592.71,Dining,2025-08-30,spending,HKD,Dinner - Deliveroo,Deliveroo
+109.59,Transport,2025-08-30,spending,HKD,Uber,Uber
+136.78,Transport,2025-08-31,spending,HKD,Uber,Uber
+11000.0,Rent,2025-09-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2025-09-01,income,HKD,Monthly salary,TechCorp HK
+680.23,Subscriptions,2025-09-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+176.53,Subscriptions,2025-09-01,spending,HKD,Adobe CC subscription,Adobe CC
+613.58,Shopping,2025-09-02,spending,HKD,Lane Crawford,Lane Crawford
+57.66,Subscriptions,2025-09-03,spending,HKD,Spotify subscription,Spotify
+98.35,Transport,2025-09-03,spending,HKD,Uber,Uber
+119.09,Transport,2025-09-03,spending,HKD,Uber,Uber
+300.18,Groceries,2025-09-04,spending,HKD,ParknShop,ParknShop
+395.16,Groceries,2025-09-04,spending,HKD,Wellcome,Wellcome
+308.12,Other,2025-09-04,spending,HKD,Octopus Reload,Octopus Reload
+93.35,Subscriptions,2025-09-05,spending,HKD,Netflix subscription,Netflix
+159.68,Transport,2025-09-05,spending,HKD,Uber,Uber
+157.68,Subscriptions,2025-09-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+415.26,Groceries,2025-09-07,spending,HKD,Wellcome,Wellcome
+77.56,Subscriptions,2025-09-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+115.1,Transport,2025-09-07,spending,HKD,MTR,MTR
+224.77,Dining,2025-09-08,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+291.59,Dining,2025-09-08,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+418.89,Dining,2025-09-08,spending,HKD,Dinner - Deliveroo,Deliveroo
+308.41,Dining,2025-09-08,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+302.84,Groceries,2025-09-08,spending,HKD,CitySuper,CitySuper
+73.23,Subscriptions,2025-09-08,spending,HKD,Disney+ subscription,Disney+
+161.75,Transport,2025-09-08,spending,HKD,MTR,MTR
+82.77,Transport,2025-09-08,spending,HKD,Uber,Uber
+155.45,Subscriptions,2025-09-09,spending,HKD,Perplexity Pro subscription,Perplexity Pro
+113.41,Transport,2025-09-09,spending,HKD,MTR,MTR
+296.64,Groceries,2025-09-10,spending,HKD,CitySuper,CitySuper
+328.91,Other,2025-09-10,spending,HKD,7-Eleven,7-Eleven
+307.84,Other,2025-09-10,spending,HKD,HSBC Credit Card,HSBC Credit Card
+39.39,Subscriptions,2025-09-10,spending,HKD,HBO GO subscription,HBO GO
+157.2,Transport,2025-09-10,spending,HKD,Uber,Uber
+403.82,Groceries,2025-09-11,spending,HKD,ParknShop,ParknShop
+54.89,Subscriptions,2025-09-11,spending,HKD,Calm subscription,Calm
+147.24,Transport,2025-09-11,spending,HKD,MTR,MTR
+461.75,Other,2025-09-12,spending,HKD,Octopus Reload,Octopus Reload
+48.18,Subscriptions,2025-09-12,spending,HKD,Viu subscription,Viu
+115.12,Transport,2025-09-12,spending,HKD,MTR,MTR
+137.17,Transport,2025-09-12,spending,HKD,Uber,Uber
+372.64,Dining,2025-09-13,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+282.06,Subscriptions,2025-09-13,spending,HKD,LinkedIn Premium subscription,LinkedIn Premium
+357.84,Dining,2025-09-14,spending,HKD,Dinner - Deliveroo,Deliveroo
+79.04,Subscriptions,2025-09-14,spending,HKD,Notion subscription,Notion
+151.96,Transport,2025-09-14,spending,HKD,Uber,Uber
+401.68,Dining,2025-09-15,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+67.58,Subscriptions,2025-09-15,spending,HKD,Apple TV+ subscription,Apple TV+
+84.71,Transport,2025-09-15,spending,HKD,MTR,MTR
+55.43,Subscriptions,2025-09-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+152.36,Transport,2025-09-16,spending,HKD,Uber,Uber
+383.31,Other,2025-09-17,spending,HKD,7-Eleven,7-Eleven
+243.13,Subscriptions,2025-09-17,spending,HKD,Midjourney subscription,Midjourney
+989.2,Shopping,2025-09-18,spending,HKD,Uniqlo,Uniqlo
+80.06,Subscriptions,2025-09-18,spending,HKD,Dropbox subscription,Dropbox
+442.63,Groceries,2025-09-19,spending,HKD,ParknShop,ParknShop
+1071.03,Shopping,2025-09-19,spending,HKD,Apple Store,Apple Store
+1126.19,Shopping,2025-09-19,spending,HKD,Uniqlo,Uniqlo
+94.4,Transport,2025-09-19,spending,HKD,Uber,Uber
+57.94,Subscriptions,2025-09-20,spending,HKD,Apple Music subscription,Apple Music
+348.03,Dining,2025-09-21,spending,HKD,Dinner - Deliveroo,Deliveroo
+85.72,Transport,2025-09-21,spending,HKD,MTR,MTR
+76.91,Subscriptions,2025-09-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+81.47,Transport,2025-09-22,spending,HKD,MTR,MTR
+224.46,Dining,2025-09-23,spending,HKD,Dinner - Foodpanda,Foodpanda
+369.55,Dining,2025-09-24,spending,HKD,Dinner - Deliveroo,Deliveroo
+163.16,Transport,2025-09-24,spending,HKD,Uber,Uber
+409.83,Dining,2025-09-25,spending,HKD,Dinner - Deliveroo,Deliveroo
+27.8,Subscriptions,2025-09-25,spending,HKD,1Password subscription,1Password
+82.42,Transport,2025-09-25,spending,HKD,MTR,MTR
+268.48,Dining,2025-09-26,spending,HKD,Dinner - Foodpanda,Foodpanda
+376.44,Dining,2025-09-26,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+417.74,Groceries,2025-09-26,spending,HKD,CitySuper,CitySuper
+405.23,Other,2025-09-26,spending,HKD,HSBC Credit Card,HSBC Credit Card
+427.4,Dining,2025-09-27,spending,HKD,Dinner - Deliveroo,Deliveroo
+611.84,Other,2025-09-28,spending,HKD,Octopus Reload,Octopus Reload
+84.35,Transport,2025-09-29,spending,HKD,Uber,Uber
+225.74,Groceries,2025-09-30,spending,HKD,ParknShop,ParknShop
+393.0,Other,2025-09-30,spending,HKD,HSBC Credit Card,HSBC Credit Card
+112.57,Transport,2025-09-30,spending,HKD,Uber,Uber
+444.05,Dining,2025-10-01,spending,HKD,Dinner - Foodpanda,Foodpanda
+388.58,Groceries,2025-10-01,spending,HKD,Wellcome,Wellcome
+11000.0,Rent,2025-10-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2025-10-01,income,HKD,Monthly salary,TechCorp HK
+682.95,Subscriptions,2025-10-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+177.26,Subscriptions,2025-10-01,spending,HKD,Adobe CC subscription,Adobe CC
+306.86,Groceries,2025-10-03,spending,HKD,ParknShop,ParknShop
+58.14,Subscriptions,2025-10-03,spending,HKD,Spotify subscription,Spotify
+442.48,Dining,2025-10-04,spending,HKD,Dinner - Foodpanda,Foodpanda
+388.78,Dining,2025-10-04,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+91.94,Subscriptions,2025-10-05,spending,HKD,Netflix subscription,Netflix
+355.56,Dining,2025-10-06,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+259.27,Groceries,2025-10-06,spending,HKD,ParknShop,ParknShop
+158.1,Subscriptions,2025-10-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+146.37,Transport,2025-10-06,spending,HKD,MTR,MTR
+140.72,Transport,2025-10-06,spending,HKD,MTR,MTR
+146.01,Transport,2025-10-06,spending,HKD,Uber,Uber
+390.07,Dining,2025-10-07,spending,HKD,Dinner - Deliveroo,Deliveroo
+266.37,Other,2025-10-07,spending,HKD,7-Eleven,7-Eleven
+78.03,Subscriptions,2025-10-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+163.72,Transport,2025-10-07,spending,HKD,MTR,MTR
+179.32,Transport,2025-10-07,spending,HKD,Uber,Uber
+73.11,Subscriptions,2025-10-08,spending,HKD,Disney+ subscription,Disney+
+430.21,Other,2025-10-09,spending,HKD,7-Eleven,7-Eleven
+157.31,Subscriptions,2025-10-09,spending,HKD,Perplexity Pro subscription,Perplexity Pro
+204.14,Transport,2025-10-09,spending,HKD,Uber,Uber
+383.36,Groceries,2025-10-10,spending,HKD,CitySuper,CitySuper
+424.87,Groceries,2025-10-10,spending,HKD,ParknShop,ParknShop
+38.58,Subscriptions,2025-10-10,spending,HKD,HBO GO subscription,HBO GO
+384.59,Dining,2025-10-11,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+431.79,Other,2025-10-11,spending,HKD,HSBC Credit Card,HSBC Credit Card
+55.22,Subscriptions,2025-10-11,spending,HKD,Calm subscription,Calm
+368.26,Other,2025-10-12,spending,HKD,7-Eleven,7-Eleven
+48.6,Subscriptions,2025-10-12,spending,HKD,Viu subscription,Viu
+322.81,Dining,2025-10-13,spending,HKD,Dinner - Foodpanda,Foodpanda
+281.49,Subscriptions,2025-10-13,spending,HKD,LinkedIn Premium subscription,LinkedIn Premium
+286.14,Dining,2025-10-14,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+78.29,Subscriptions,2025-10-14,spending,HKD,Notion subscription,Notion
+68.08,Subscriptions,2025-10-15,spending,HKD,Apple TV+ subscription,Apple TV+
+129.01,Transport,2025-10-15,spending,HKD,Uber,Uber
+249.36,Dining,2025-10-16,spending,HKD,Dinner - Foodpanda,Foodpanda
+344.93,Other,2025-10-16,spending,HKD,Octopus Reload,Octopus Reload
+55.27,Subscriptions,2025-10-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+139.46,Transport,2025-10-16,spending,HKD,MTR,MTR
+1402.5,Shopping,2025-10-17,spending,HKD,Lane Crawford,Lane Crawford
+241.22,Subscriptions,2025-10-17,spending,HKD,Midjourney subscription,Midjourney
+77.63,Subscriptions,2025-10-18,spending,HKD,Dropbox subscription,Dropbox
+406.95,Groceries,2025-10-19,spending,HKD,ParknShop,ParknShop
+273.2,Other,2025-10-19,spending,HKD,HSBC Credit Card,HSBC Credit Card
+946.66,Shopping,2025-10-19,spending,HKD,HKTVmall,HKTVmall
+166.1,Transport,2025-10-19,spending,HKD,Uber,Uber
+307.86,Dining,2025-10-20,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+383.78,Groceries,2025-10-20,spending,HKD,ParknShop,ParknShop
+1450.84,Shopping,2025-10-20,spending,HKD,Apple Store,Apple Store
+58.22,Subscriptions,2025-10-20,spending,HKD,Apple Music subscription,Apple Music
+359.58,Groceries,2025-10-22,spending,HKD,Wellcome,Wellcome
+77.35,Subscriptions,2025-10-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+189.58,Transport,2025-10-22,spending,HKD,Uber,Uber
+382.59,Dining,2025-10-23,spending,HKD,Dinner - Foodpanda,Foodpanda
+394.26,Other,2025-10-24,spending,HKD,7-Eleven,7-Eleven
+347.04,Other,2025-10-25,spending,HKD,HSBC Credit Card,HSBC Credit Card
+28.25,Subscriptions,2025-10-25,spending,HKD,1Password subscription,1Password
+171.85,Transport,2025-10-27,spending,HKD,MTR,MTR
+185.32,Transport,2025-10-27,spending,HKD,Uber,Uber
+410.2,Dining,2025-10-29,spending,HKD,Dinner - Foodpanda,Foodpanda
+286.75,Groceries,2025-10-29,spending,HKD,CitySuper,CitySuper
+214.07,Transport,2025-10-29,spending,HKD,Uber,Uber
+435.51,Dining,2025-10-30,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+146.96,Transport,2025-10-30,spending,HKD,MTR,MTR
+177.39,Transport,2025-10-30,spending,HKD,MTR,MTR
+343.93,Other,2025-10-31,spending,HKD,HSBC Credit Card,HSBC Credit Card
+11000.0,Rent,2025-11-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2025-11-01,income,HKD,Monthly salary,TechCorp HK
+678.59,Subscriptions,2025-11-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+178.55,Subscriptions,2025-11-01,spending,HKD,Adobe CC subscription,Adobe CC
+146.83,Transport,2025-11-01,spending,HKD,Uber,Uber
+646.51,Dining,2025-11-02,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+518.81,Other,2025-11-03,spending,HKD,7-Eleven,7-Eleven
+414.01,Other,2025-11-03,spending,HKD,Octopus Reload,Octopus Reload
+59.96,Subscriptions,2025-11-03,spending,HKD,Spotify subscription,Spotify
+384.77,Dining,2025-11-04,spending,HKD,Dinner - Foodpanda,Foodpanda
+418.45,Groceries,2025-11-04,spending,HKD,Wellcome,Wellcome
+109.23,Transport,2025-11-04,spending,HKD,MTR,MTR
+102.47,Transport,2025-11-04,spending,HKD,Uber,Uber
+529.04,Dining,2025-11-05,spending,HKD,Dinner - Deliveroo,Deliveroo
+91.72,Subscriptions,2025-11-05,spending,HKD,Netflix subscription,Netflix
+156.93,Subscriptions,2025-11-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+716.59,Dining,2025-11-07,spending,HKD,Dinner - Deliveroo,Deliveroo
+77.63,Subscriptions,2025-11-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+74.36,Subscriptions,2025-11-08,spending,HKD,Disney+ subscription,Disney+
+93.53,Transport,2025-11-08,spending,HKD,MTR,MTR
+148.5,Transport,2025-11-08,spending,HKD,MTR,MTR
+146.65,Transport,2025-11-08,spending,HKD,Uber,Uber
+472.76,Other,2025-11-09,spending,HKD,Octopus Reload,Octopus Reload
+156.57,Subscriptions,2025-11-09,spending,HKD,Perplexity Pro subscription,Perplexity Pro
+169.93,Transport,2025-11-09,spending,HKD,MTR,MTR
+124.79,Transport,2025-11-09,spending,HKD,Uber,Uber
+1357.95,Shopping,2025-11-10,spending,HKD,HKTVmall,HKTVmall
+39.52,Subscriptions,2025-11-10,spending,HKD,HBO GO subscription,HBO GO
+110.37,Transport,2025-11-10,spending,HKD,Uber,Uber
+55.12,Subscriptions,2025-11-11,spending,HKD,Calm subscription,Calm
+117.15,Transport,2025-11-11,spending,HKD,MTR,MTR
+359.87,Dining,2025-11-12,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+48.56,Subscriptions,2025-11-12,spending,HKD,Viu subscription,Viu
+276.34,Subscriptions,2025-11-13,spending,HKD,LinkedIn Premium subscription,LinkedIn Premium
+353.65,Dining,2025-11-14,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+545.75,Groceries,2025-11-14,spending,HKD,CitySuper,CitySuper
+77.26,Subscriptions,2025-11-14,spending,HKD,Notion subscription,Notion
+562.63,Dining,2025-11-15,spending,HKD,Dinner - Foodpanda,Foodpanda
+537.01,Other,2025-11-15,spending,HKD,7-Eleven,7-Eleven
+811.23,Shopping,2025-11-15,spending,HKD,Uniqlo,Uniqlo
+67.81,Subscriptions,2025-11-15,spending,HKD,Apple TV+ subscription,Apple TV+
+86.71,Transport,2025-11-15,spending,HKD,MTR,MTR
+55.72,Subscriptions,2025-11-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+93.25,Transport,2025-11-16,spending,HKD,MTR,MTR
+591.61,Groceries,2025-11-17,spending,HKD,ParknShop,ParknShop
+476.57,Groceries,2025-11-17,spending,HKD,Wellcome,Wellcome
+240.74,Subscriptions,2025-11-17,spending,HKD,Midjourney subscription,Midjourney
+77.17,Subscriptions,2025-11-18,spending,HKD,Dropbox subscription,Dropbox
+138.03,Transport,2025-11-18,spending,HKD,MTR,MTR
+138.25,Transport,2025-11-18,spending,HKD,MTR,MTR
+470.97,Groceries,2025-11-19,spending,HKD,Wellcome,Wellcome
+58.58,Subscriptions,2025-11-20,spending,HKD,Apple Music subscription,Apple Music
+94.34,Transport,2025-11-20,spending,HKD,MTR,MTR
+696.65,Groceries,2025-11-21,spending,HKD,ParknShop,ParknShop
+174.27,Transport,2025-11-21,spending,HKD,MTR,MTR
+293.13,Other,2025-11-22,spending,HKD,HSBC Credit Card,HSBC Credit Card
+844.09,Shopping,2025-11-22,spending,HKD,Lane Crawford,Lane Crawford
+78.84,Subscriptions,2025-11-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+156.44,Transport,2025-11-22,spending,HKD,MTR,MTR
+97.97,Transport,2025-11-22,spending,HKD,Uber,Uber
+434.97,Other,2025-11-24,spending,HKD,7-Eleven,7-Eleven
+529.31,Other,2025-11-24,spending,HKD,Octopus Reload,Octopus Reload
+28.25,Subscriptions,2025-11-25,spending,HKD,1Password subscription,1Password
+137.21,Transport,2025-11-25,spending,HKD,MTR,MTR
+114.08,Transport,2025-11-26,spending,HKD,Uber,Uber
+406.59,Dining,2025-11-28,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+786.73,Shopping,2025-11-28,spending,HKD,Lane Crawford,Lane Crawford
+413.01,Dining,2025-11-29,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+427.33,Dining,2025-11-29,spending,HKD,Dinner - Deliveroo,Deliveroo
+251.08,Dining,2025-12-01,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+254.63,Groceries,2025-12-01,spending,HKD,CitySuper,CitySuper
+11000.0,Rent,2025-12-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2025-12-01,income,HKD,Monthly salary,TechCorp HK
+628.97,Shopping,2025-12-01,spending,HKD,HKTVmall,HKTVmall
+678.54,Subscriptions,2025-12-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+177.45,Subscriptions,2025-12-01,spending,HKD,Adobe CC subscription,Adobe CC
+386.18,Groceries,2025-12-02,spending,HKD,Wellcome,Wellcome
+177.58,Transport,2025-12-02,spending,HKD,Uber,Uber
+408.35,Dining,2025-12-03,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+57.7,Subscriptions,2025-12-03,spending,HKD,Spotify subscription,Spotify
+447.3,Other,2025-12-04,spending,HKD,HSBC Credit Card,HSBC Credit Card
+416.04,Dining,2025-12-05,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+392.18,Dining,2025-12-05,spending,HKD,Dinner - Deliveroo,Deliveroo
+95.26,Subscriptions,2025-12-05,spending,HKD,Netflix subscription,Netflix
+134.72,Transport,2025-12-05,spending,HKD,MTR,MTR
+254.97,Dining,2025-12-06,spending,HKD,Dinner - Deliveroo,Deliveroo
+350.27,Other,2025-12-06,spending,HKD,Octopus Reload,Octopus Reload
+156.51,Subscriptions,2025-12-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+98.77,Transport,2025-12-06,spending,HKD,MTR,MTR
+276.89,Groceries,2025-12-07,spending,HKD,Wellcome,Wellcome
+444.18,Other,2025-12-07,spending,HKD,7-Eleven,7-Eleven
+78.26,Subscriptions,2025-12-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+117.27,Transport,2025-12-07,spending,HKD,MTR,MTR
+418.13,Dining,2025-12-08,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+74.14,Subscriptions,2025-12-08,spending,HKD,Disney+ subscription,Disney+
+155.22,Transport,2025-12-08,spending,HKD,Uber,Uber
+143.46,Transport,2025-12-08,spending,HKD,Uber,Uber
+215.5,Dining,2025-12-09,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+373.84,Groceries,2025-12-09,spending,HKD,ParknShop,ParknShop
+156.87,Subscriptions,2025-12-09,spending,HKD,Perplexity Pro subscription,Perplexity Pro
+116.98,Transport,2025-12-09,spending,HKD,Uber,Uber
+39.42,Subscriptions,2025-12-10,spending,HKD,HBO GO subscription,HBO GO
+156.21,Transport,2025-12-10,spending,HKD,MTR,MTR
+309.77,Dining,2025-12-11,spending,HKD,Dinner - Foodpanda,Foodpanda
+55.0,Subscriptions,2025-12-11,spending,HKD,Calm subscription,Calm
+278.67,Dining,2025-12-12,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+369.68,Other,2025-12-12,spending,HKD,Octopus Reload,Octopus Reload
+47.8,Subscriptions,2025-12-12,spending,HKD,Viu subscription,Viu
+384.94,Dining,2025-12-13,spending,HKD,Dinner - Deliveroo,Deliveroo
+279.24,Subscriptions,2025-12-13,spending,HKD,LinkedIn Premium subscription,LinkedIn Premium
+78.64,Subscriptions,2025-12-14,spending,HKD,Notion subscription,Notion
+108.59,Transport,2025-12-14,spending,HKD,Uber,Uber
+68.72,Subscriptions,2025-12-15,spending,HKD,Apple TV+ subscription,Apple TV+
+55.86,Subscriptions,2025-12-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+500.25,Groceries,2025-12-17,spending,HKD,ParknShop,ParknShop
+326.26,Other,2025-12-17,spending,HKD,7-Eleven,7-Eleven
+240.65,Subscriptions,2025-12-17,spending,HKD,Midjourney subscription,Midjourney
+236.58,Dining,2025-12-18,spending,HKD,Dinner - Deliveroo,Deliveroo
+864.08,Shopping,2025-12-18,spending,HKD,Apple Store,Apple Store
+78.56,Subscriptions,2025-12-18,spending,HKD,Dropbox subscription,Dropbox
+122.15,Transport,2025-12-18,spending,HKD,Uber,Uber
+312.56,Other,2025-12-19,spending,HKD,HSBC Credit Card,HSBC Credit Card
+706.09,Shopping,2025-12-19,spending,HKD,Uniqlo,Uniqlo
+98.45,Subscriptions,2025-12-19,spending,HKD,Audible subscription,Audible
+102.64,Transport,2025-12-19,spending,HKD,MTR,MTR
+213.45,Dining,2025-12-20,spending,HKD,Dinner - Deliveroo,Deliveroo
+407.49,Groceries,2025-12-20,spending,HKD,CitySuper,CitySuper
+57.65,Subscriptions,2025-12-20,spending,HKD,Apple Music subscription,Apple Music
+292.54,Groceries,2025-12-21,spending,HKD,ParknShop,ParknShop
+98.93,Subscriptions,2025-12-21,spending,HKD,Headspace subscription,Headspace
+152.01,Transport,2025-12-21,spending,HKD,Uber,Uber
+300.94,Other,2025-12-22,spending,HKD,Octopus Reload,Octopus Reload
+76.91,Subscriptions,2025-12-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+282.47,Dining,2025-12-23,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+420.06,Dining,2025-12-24,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+315.39,Other,2025-12-24,spending,HKD,HSBC Credit Card,HSBC Credit Card
+27.83,Subscriptions,2025-12-25,spending,HKD,1Password subscription,1Password
+173.15,Transport,2025-12-25,spending,HKD,MTR,MTR
+371.88,Groceries,2025-12-27,spending,HKD,Wellcome,Wellcome
+336.31,Groceries,2025-12-27,spending,HKD,Wellcome,Wellcome
+333.42,Other,2025-12-27,spending,HKD,HSBC Credit Card,HSBC Credit Card
+100.93,Transport,2025-12-27,spending,HKD,MTR,MTR
+107.49,Transport,2025-12-28,spending,HKD,MTR,MTR
+98.54,Transport,2025-12-28,spending,HKD,MTR,MTR
+169.93,Transport,2025-12-28,spending,HKD,Uber,Uber
+317.79,Dining,2025-12-29,spending,HKD,Dinner - Foodpanda,Foodpanda
+778.17,Shopping,2025-12-29,spending,HKD,Lane Crawford,Lane Crawford
+822.69,Shopping,2025-12-29,spending,HKD,Lane Crawford,Lane Crawford
+147.27,Transport,2025-12-30,spending,HKD,MTR,MTR
+117.09,Transport,2025-12-31,spending,HKD,MTR,MTR
+11000.0,Rent,2026-01-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2026-01-01,income,HKD,Monthly salary,TechCorp HK
+687.17,Subscriptions,2026-01-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+182.36,Subscriptions,2026-01-01,spending,HKD,Adobe CC subscription,Adobe CC
+113.24,Transport,2026-01-01,spending,HKD,MTR,MTR
+388.1,Dining,2026-01-02,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+217.83,Dining,2026-01-02,spending,HKD,Dinner - Foodpanda,Foodpanda
+356.0,Dining,2026-01-03,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+409.95,Other,2026-01-03,spending,HKD,7-Eleven,7-Eleven
+598.96,Other,2026-01-03,spending,HKD,HSBC Credit Card,HSBC Credit Card
+539.72,Shopping,2026-01-03,spending,HKD,Uniqlo,Uniqlo
+58.68,Subscriptions,2026-01-03,spending,HKD,Spotify subscription,Spotify
+101.3,Transport,2026-01-03,spending,HKD,MTR,MTR
+385.38,Dining,2026-01-04,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+517.62,Shopping,2026-01-04,spending,HKD,Lane Crawford,Lane Crawford
+103.73,Transport,2026-01-04,spending,HKD,MTR,MTR
+93.41,Subscriptions,2026-01-05,spending,HKD,Netflix subscription,Netflix
+191.15,Transport,2026-01-05,spending,HKD,MTR,MTR
+148.99,Transport,2026-01-05,spending,HKD,MTR,MTR
+189.05,Transport,2026-01-05,spending,HKD,MTR,MTR
+170.62,Transport,2026-01-05,spending,HKD,Uber,Uber
+154.35,Subscriptions,2026-01-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+361.61,Dining,2026-01-07,spending,HKD,Dinner - Foodpanda,Foodpanda
+289.73,Dining,2026-01-07,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+462.69,Groceries,2026-01-07,spending,HKD,CitySuper,CitySuper
+77.46,Subscriptions,2026-01-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+322.32,Dining,2026-01-08,spending,HKD,Dinner - Deliveroo,Deliveroo
+447.72,Other,2026-01-08,spending,HKD,HSBC Credit Card,HSBC Credit Card
+72.33,Subscriptions,2026-01-08,spending,HKD,Disney+ subscription,Disney+
+157.07,Subscriptions,2026-01-09,spending,HKD,Perplexity Pro subscription,Perplexity Pro
+188.49,Transport,2026-01-09,spending,HKD,Uber,Uber
+580.57,Other,2026-01-10,spending,HKD,Octopus Reload,Octopus Reload
+39.22,Subscriptions,2026-01-10,spending,HKD,HBO GO subscription,HBO GO
+54.96,Subscriptions,2026-01-11,spending,HKD,Calm subscription,Calm
+47.92,Subscriptions,2026-01-12,spending,HKD,Viu subscription,Viu
+307.16,Dining,2026-01-13,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+282.68,Subscriptions,2026-01-13,spending,HKD,LinkedIn Premium subscription,LinkedIn Premium
+78.19,Subscriptions,2026-01-14,spending,HKD,Notion subscription,Notion
+67.58,Subscriptions,2026-01-15,spending,HKD,Apple TV+ subscription,Apple TV+
+136.51,Transport,2026-01-15,spending,HKD,Uber,Uber
+420.4,Groceries,2026-01-16,spending,HKD,CitySuper,CitySuper
+55.4,Subscriptions,2026-01-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+149.72,Transport,2026-01-16,spending,HKD,Uber,Uber
+220.39,Dining,2026-01-17,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+241.93,Subscriptions,2026-01-17,spending,HKD,Midjourney subscription,Midjourney
+115.47,Transport,2026-01-17,spending,HKD,MTR,MTR
+77.03,Subscriptions,2026-01-18,spending,HKD,Dropbox subscription,Dropbox
+179.03,Transport,2026-01-18,spending,HKD,MTR,MTR
+381.2,Dining,2026-01-19,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+386.92,Dining,2026-01-19,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+312.38,Groceries,2026-01-19,spending,HKD,Wellcome,Wellcome
+691.08,Shopping,2026-01-19,spending,HKD,Lane Crawford,Lane Crawford
+98.31,Subscriptions,2026-01-19,spending,HKD,Audible subscription,Audible
+288.39,Dining,2026-01-20,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+287.29,Dining,2026-01-20,spending,HKD,Dinner - Deliveroo,Deliveroo
+381.44,Dining,2026-01-20,spending,HKD,Dinner - Foodpanda,Foodpanda
+59.61,Subscriptions,2026-01-20,spending,HKD,Apple Music subscription,Apple Music
+99.04,Subscriptions,2026-01-21,spending,HKD,Headspace subscription,Headspace
+187.85,Transport,2026-01-21,spending,HKD,Uber,Uber
+448.9,Groceries,2026-01-22,spending,HKD,CitySuper,CitySuper
+78.87,Subscriptions,2026-01-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+130.79,Transport,2026-01-23,spending,HKD,MTR,MTR
+173.78,Transport,2026-01-23,spending,HKD,Uber,Uber
+273.6,Groceries,2026-01-24,spending,HKD,Wellcome,Wellcome
+701.97,Shopping,2026-01-24,spending,HKD,Lane Crawford,Lane Crawford
+679.65,Shopping,2026-01-24,spending,HKD,Uniqlo,Uniqlo
+533.21,Other,2026-01-25,spending,HKD,HSBC Credit Card,HSBC Credit Card
+28.2,Subscriptions,2026-01-25,spending,HKD,1Password subscription,1Password
+106.23,Transport,2026-01-25,spending,HKD,MTR,MTR
+396.38,Groceries,2026-01-27,spending,HKD,ParknShop,ParknShop
+313.32,Groceries,2026-01-27,spending,HKD,ParknShop,ParknShop
+629.59,Other,2026-01-28,spending,HKD,HSBC Credit Card,HSBC Credit Card
+114.04,Transport,2026-01-28,spending,HKD,MTR,MTR
+331.09,Groceries,2026-01-29,spending,HKD,CitySuper,CitySuper
+241.24,Groceries,2026-01-29,spending,HKD,Wellcome,Wellcome
+226.24,Dining,2026-01-30,spending,HKD,Dinner - Foodpanda,Foodpanda
+669.96,Shopping,2026-01-30,spending,HKD,Uniqlo,Uniqlo
+11000.0,Rent,2026-02-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2026-02-01,income,HKD,Monthly salary,TechCorp HK
+584.99,Shopping,2026-02-01,spending,HKD,Uniqlo,Uniqlo
+679.41,Subscriptions,2026-02-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+179.02,Subscriptions,2026-02-01,spending,HKD,Adobe CC subscription,Adobe CC
+178.69,Transport,2026-02-01,spending,HKD,Uber,Uber
+531.9,Shopping,2026-02-02,spending,HKD,Apple Store,Apple Store
+98.34,Subscriptions,2026-02-02,spending,HKD,Canva Pro subscription,Canva Pro
+540.01,Shopping,2026-02-03,spending,HKD,HKTVmall,HKTVmall
+58.31,Subscriptions,2026-02-03,spending,HKD,Spotify subscription,Spotify
+135.84,Transport,2026-02-03,spending,HKD,MTR,MTR
+157.72,Transport,2026-02-03,spending,HKD,Uber,Uber
+67.85,Subscriptions,2026-02-04,spending,HKD,NYT Digital subscription,NYT Digital
+193.71,Transport,2026-02-04,spending,HKD,MTR,MTR
+189.19,Transport,2026-02-04,spending,HKD,MTR,MTR
+190.54,Transport,2026-02-04,spending,HKD,Uber,Uber
+752.49,Other,2026-02-05,spending,HKD,7-Eleven,7-Eleven
+92.32,Subscriptions,2026-02-05,spending,HKD,Netflix subscription,Netflix
+155.1,Subscriptions,2026-02-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+324.24,Groceries,2026-02-07,spending,HKD,ParknShop,ParknShop
+77.78,Subscriptions,2026-02-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+112.91,Transport,2026-02-07,spending,HKD,MTR,MTR
+591.48,Dining,2026-02-08,spending,HKD,Dinner - Deliveroo,Deliveroo
+393.28,Groceries,2026-02-08,spending,HKD,Wellcome,Wellcome
+71.67,Subscriptions,2026-02-08,spending,HKD,Disney+ subscription,Disney+
+344.05,Groceries,2026-02-09,spending,HKD,Wellcome,Wellcome
+159.16,Subscriptions,2026-02-09,spending,HKD,Perplexity Pro subscription,Perplexity Pro
+174.15,Transport,2026-02-09,spending,HKD,Uber,Uber
+602.77,Other,2026-02-10,spending,HKD,HSBC Credit Card,HSBC Credit Card
+38.96,Subscriptions,2026-02-10,spending,HKD,HBO GO subscription,HBO GO
+339.56,Dining,2026-02-11,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+447.88,Dining,2026-02-11,spending,HKD,Dinner - Deliveroo,Deliveroo
+54.13,Subscriptions,2026-02-11,spending,HKD,Calm subscription,Calm
+138.61,Transport,2026-02-11,spending,HKD,MTR,MTR
+140.82,Transport,2026-02-11,spending,HKD,Uber,Uber
+48.88,Subscriptions,2026-02-12,spending,HKD,Viu subscription,Viu
+197.88,Transport,2026-02-12,spending,HKD,Uber,Uber
+482.8,Dining,2026-02-13,spending,HKD,Dinner - Deliveroo,Deliveroo
+281.49,Subscriptions,2026-02-13,spending,HKD,LinkedIn Premium subscription,LinkedIn Premium
+122.88,Transport,2026-02-13,spending,HKD,MTR,MTR
+107.55,Transport,2026-02-13,spending,HKD,MTR,MTR
+78.44,Subscriptions,2026-02-14,spending,HKD,Notion subscription,Notion
+421.46,Dining,2026-02-15,spending,HKD,Dinner - Deliveroo,Deliveroo
+467.2,Groceries,2026-02-15,spending,HKD,Wellcome,Wellcome
+70.71,Subscriptions,2026-02-15,spending,HKD,Apple TV+ subscription,Apple TV+
+426.69,Groceries,2026-02-16,spending,HKD,ParknShop,ParknShop
+55.35,Subscriptions,2026-02-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+391.49,Dining,2026-02-17,spending,HKD,Dinner - Foodpanda,Foodpanda
+235.08,Subscriptions,2026-02-17,spending,HKD,Midjourney subscription,Midjourney
+530.31,Other,2026-02-18,spending,HKD,7-Eleven,7-Eleven
+76.71,Subscriptions,2026-02-18,spending,HKD,Dropbox subscription,Dropbox
+98.42,Subscriptions,2026-02-19,spending,HKD,Audible subscription,Audible
+196.52,Transport,2026-02-19,spending,HKD,MTR,MTR
+749.37,Other,2026-02-20,spending,HKD,HSBC Credit Card,HSBC Credit Card
+58.53,Subscriptions,2026-02-20,spending,HKD,Apple Music subscription,Apple Music
+492.26,Groceries,2026-02-21,spending,HKD,CitySuper,CitySuper
+453.61,Groceries,2026-02-21,spending,HKD,Wellcome,Wellcome
+98.95,Subscriptions,2026-02-21,spending,HKD,Headspace subscription,Headspace
+77.47,Subscriptions,2026-02-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+162.82,Transport,2026-02-22,spending,HKD,MTR,MTR
+203.36,Subscriptions,2026-02-23,spending,HKD,Claude Pro subscription,Claude Pro
+121.17,Subscriptions,2026-02-24,spending,HKD,GitHub Copilot subscription,GitHub Copilot
+443.75,Dining,2026-02-25,spending,HKD,Dinner - Deliveroo,Deliveroo
+461.74,Dining,2026-02-25,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+298.66,Groceries,2026-02-25,spending,HKD,ParknShop,ParknShop
+662.16,Shopping,2026-02-25,spending,HKD,HKTVmall,HKTVmall
+28.31,Subscriptions,2026-02-25,spending,HKD,1Password subscription,1Password
+673.49,Dining,2026-02-26,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+108.67,Subscriptions,2026-02-26,spending,HKD,Grammarly Premium subscription,Grammarly Premium
+546.37,Dining,2026-02-27,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+746.74,Shopping,2026-02-27,spending,HKD,HKTVmall,HKTVmall
+107.08,Subscriptions,2026-02-27,spending,HKD,Microsoft 365 subscription,Microsoft 365
+100.19,Transport,2026-02-27,spending,HKD,Uber,Uber
+565.05,Other,2026-02-28,spending,HKD,7-Eleven,7-Eleven
+734.21,Shopping,2026-02-28,spending,HKD,HKTVmall,HKTVmall
+11000.0,Rent,2026-03-01,spending,HKD,Monthly rent,Landlord
+45000.0,Salary,2026-03-01,income,HKD,Monthly salary,TechCorp HK
+679.89,Subscriptions,2026-03-01,spending,HKD,24 Hour Fitness subscription,24 Hour Fitness
+176.72,Subscriptions,2026-03-01,spending,HKD,Adobe CC subscription,Adobe CC
+97.57,Subscriptions,2026-03-02,spending,HKD,Canva Pro subscription,Canva Pro
+139.57,Transport,2026-03-02,spending,HKD,MTR,MTR
+58.25,Subscriptions,2026-03-03,spending,HKD,Spotify subscription,Spotify
+372.82,Groceries,2026-03-04,spending,HKD,CitySuper,CitySuper
+312.81,Groceries,2026-03-04,spending,HKD,CitySuper,CitySuper
+68.15,Subscriptions,2026-03-04,spending,HKD,NYT Digital subscription,NYT Digital
+425.0,Other,2026-03-05,spending,HKD,7-Eleven,7-Eleven
+92.09,Subscriptions,2026-03-05,spending,HKD,Netflix subscription,Netflix
+156.91,Subscriptions,2026-03-06,spending,HKD,ChatGPT Plus subscription,ChatGPT Plus
+688.47,Shopping,2026-03-07,spending,HKD,HKTVmall,HKTVmall
+76.81,Subscriptions,2026-03-07,spending,HKD,YouTube Premium subscription,YouTube Premium
+170.07,Transport,2026-03-07,spending,HKD,MTR,MTR
+130.51,Transport,2026-03-07,spending,HKD,MTR,MTR
+73.73,Subscriptions,2026-03-08,spending,HKD,Disney+ subscription,Disney+
+158.11,Subscriptions,2026-03-09,spending,HKD,Perplexity Pro subscription,Perplexity Pro
+360.28,Dining,2026-03-10,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+39.52,Subscriptions,2026-03-10,spending,HKD,HBO GO subscription,HBO GO
+166.27,Transport,2026-03-10,spending,HKD,MTR,MTR
+147.01,Transport,2026-03-10,spending,HKD,Uber,Uber
+436.41,Groceries,2026-03-11,spending,HKD,CitySuper,CitySuper
+449.34,Other,2026-03-11,spending,HKD,HSBC Credit Card,HSBC Credit Card
+55.11,Subscriptions,2026-03-11,spending,HKD,Calm subscription,Calm
+112.53,Transport,2026-03-11,spending,HKD,MTR,MTR
+144.38,Transport,2026-03-11,spending,HKD,MTR,MTR
+48.45,Subscriptions,2026-03-12,spending,HKD,Viu subscription,Viu
+122.45,Transport,2026-03-12,spending,HKD,MTR,MTR
+84.87,Transport,2026-03-12,spending,HKD,Uber,Uber
+417.02,Other,2026-03-13,spending,HKD,7-Eleven,7-Eleven
+277.33,Subscriptions,2026-03-13,spending,HKD,LinkedIn Premium subscription,LinkedIn Premium
+89.38,Transport,2026-03-13,spending,HKD,MTR,MTR
+79.02,Subscriptions,2026-03-14,spending,HKD,Notion subscription,Notion
+517.32,Dining,2026-03-15,spending,HKD,Dinner - Foodpanda,Foodpanda
+68.53,Subscriptions,2026-03-15,spending,HKD,Apple TV+ subscription,Apple TV+
+91.8,Transport,2026-03-15,spending,HKD,MTR,MTR
+173.01,Transport,2026-03-15,spending,HKD,MTR,MTR
+171.0,Transport,2026-03-15,spending,HKD,MTR,MTR
+55.13,Subscriptions,2026-03-16,spending,HKD,Duolingo Plus subscription,Duolingo Plus
+437.76,Dining,2026-03-17,spending,HKD,Dinner - Foodpanda,Foodpanda
+528.73,Dining,2026-03-17,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+586.39,Groceries,2026-03-17,spending,HKD,Wellcome,Wellcome
+241.16,Subscriptions,2026-03-17,spending,HKD,Midjourney subscription,Midjourney
+155.96,Transport,2026-03-17,spending,HKD,MTR,MTR
+77.25,Subscriptions,2026-03-18,spending,HKD,Dropbox subscription,Dropbox
+101.49,Transport,2026-03-18,spending,HKD,Uber,Uber
+473.38,Shopping,2026-03-19,spending,HKD,Lane Crawford,Lane Crawford
+98.9,Subscriptions,2026-03-19,spending,HKD,Audible subscription,Audible
+375.99,Dining,2026-03-20,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+59.09,Subscriptions,2026-03-20,spending,HKD,Apple Music subscription,Apple Music
+99.9,Subscriptions,2026-03-21,spending,HKD,Headspace subscription,Headspace
+127.91,Transport,2026-03-21,spending,HKD,Uber,Uber
+312.0,Dining,2026-03-22,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+625.12,Other,2026-03-22,spending,HKD,Octopus Reload,Octopus Reload
+77.66,Subscriptions,2026-03-22,spending,HKD,iCloud 2TB subscription,iCloud 2TB
+376.77,Groceries,2026-03-23,spending,HKD,ParknShop,ParknShop
+203.04,Subscriptions,2026-03-23,spending,HKD,Claude Pro subscription,Claude Pro
+335.38,Dining,2026-03-24,spending,HKD,Dinner - Cafe de Coral,Cafe de Coral
+120.29,Subscriptions,2026-03-24,spending,HKD,GitHub Copilot subscription,GitHub Copilot
+651.17,Other,2026-03-25,spending,HKD,7-Eleven,7-Eleven
+498.51,Shopping,2026-03-25,spending,HKD,HKTVmall,HKTVmall
+27.85,Subscriptions,2026-03-25,spending,HKD,1Password subscription,1Password
+114.5,Transport,2026-03-25,spending,HKD,MTR,MTR
+151.75,Transport,2026-03-25,spending,HKD,MTR,MTR
+107.91,Subscriptions,2026-03-26,spending,HKD,Grammarly Premium subscription,Grammarly Premium
+105.54,Transport,2026-03-26,spending,HKD,MTR,MTR
+390.19,Dining,2026-03-27,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+742.22,Shopping,2026-03-27,spending,HKD,Apple Store,Apple Store
+108.28,Subscriptions,2026-03-27,spending,HKD,Microsoft 365 subscription,Microsoft 365
+632.35,Other,2026-03-28,spending,HKD,HSBC Credit Card,HSBC Credit Card
+536.96,Groceries,2026-03-29,spending,HKD,CitySuper,CitySuper
+469.54,Dining,2026-03-30,spending,HKD,Dinner - Foodpanda,Foodpanda
+620.57,Shopping,2026-03-30,spending,HKD,Lane Crawford,Lane Crawford
+538.35,Dining,2026-03-31,spending,HKD,Dinner - Foodpanda,Foodpanda
+534.45,Dining,2026-03-31,spending,HKD,Dinner - Tim Ho Wan,Tim Ho Wan
+577.86,Groceries,2026-03-31,spending,HKD,CitySuper,CitySuper
+776.84,Shopping,2026-03-31,spending,HKD,Apple Store,Apple Store

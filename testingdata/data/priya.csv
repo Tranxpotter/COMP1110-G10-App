@@ -1,0 +1,733 @@
+AMOUNT,CNAME,DATE,TYPE,CURRENCY,DESCRIPTION,RNAME
+80000.0,Initial Balance,2024-09-30,income,HKD,Opening balance,Bank Account
+406.59,Dining,2024-10-01,spending,HKD,Meal - Maxim's,Maxim's
+10000.0,Rent,2024-10-01,spending,HKD,Monthly rent,Landlord
+131.57,Transport,2024-10-01,spending,HKD,Citybus,Citybus
+493.88,Groceries,2024-10-03,spending,HKD,Wellcome,Wellcome
+526.87,Other,2024-10-03,spending,HKD,7-Eleven,7-Eleven
+405.6,Dining,2024-10-04,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+455.94,Groceries,2024-10-07,spending,HKD,Wellcome,Wellcome
+130.3,Transport,2024-10-08,spending,HKD,MTR,MTR
+646.83,Utilities,2024-10-08,spending,HKD,Electricity bill,CLP Power
+390.42,Groceries,2024-10-09,spending,HKD,ParknShop,ParknShop
+297.59,Other,2024-10-09,spending,HKD,Lane Crawford,Lane Crawford
+192.49,Utilities,2024-10-10,spending,HKD,Gas bill,Towngas
+623.5,Groceries,2024-10-11,spending,HKD,Wellcome,Wellcome
+397.75,Dining,2024-10-13,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+214.18,Transport,2024-10-14,spending,HKD,MTR,MTR
+530.19,Groceries,2024-10-15,spending,HKD,Wellcome,Wellcome
+476.69,Dining,2024-10-16,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+505.51,Groceries,2024-10-16,spending,HKD,ParknShop,ParknShop
+417.72,Groceries,2024-10-16,spending,HKD,Wellcome,Wellcome
+214.81,Transport,2024-10-16,spending,HKD,MTR,MTR
+142.85,Transport,2024-10-17,spending,HKD,MTR,MTR
+510.87,Groceries,2024-10-19,spending,HKD,ParknShop,ParknShop
+193.6,Transport,2024-10-19,spending,HKD,Citybus,Citybus
+513.4,Dining,2024-10-20,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+138.27,Transport,2024-10-21,spending,HKD,MTR,MTR
+537.67,Dining,2024-10-22,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+149.94,Transport,2024-10-23,spending,HKD,Citybus,Citybus
+405.62,Dining,2024-10-25,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+571.99,Groceries,2024-10-25,spending,HKD,ParknShop,ParknShop
+178.43,Transport,2024-10-25,spending,HKD,Citybus,Citybus
+356.68,Dining,2024-10-26,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+800.0,Entertainment,2024-10-26,spending,HKD,Netflix,Netflix
+179.21,Transport,2024-10-26,spending,HKD,Citybus,Citybus
+375.53,Other,2024-10-27,spending,HKD,Lane Crawford,Lane Crawford
+2000.0,Investment,2024-10-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2024-10-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2024-10-28,spending,HKD,Auto-transfer to savings,Mox Bank
+182.89,Transport,2024-10-28,spending,HKD,MTR,MTR
+143.96,Transport,2024-10-29,spending,HKD,MTR,MTR
+10000.0,Rent,2024-11-01,spending,HKD,Monthly rent,Landlord
+126.86,Transport,2024-11-01,spending,HKD,Citybus,Citybus
+171.44,Transport,2024-11-03,spending,HKD,MTR,MTR
+557.42,Dining,2024-11-08,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+412.34,Dining,2024-11-08,spending,HKD,Meal - Maxim's,Maxim's
+728.93,Utilities,2024-11-08,spending,HKD,Electricity bill,CLP Power
+573.56,Groceries,2024-11-10,spending,HKD,Wellcome,Wellcome
+181.45,Utilities,2024-11-10,spending,HKD,Gas bill,Towngas
+817.69,Groceries,2024-11-11,spending,HKD,ParknShop,ParknShop
+456.77,Other,2024-11-12,spending,HKD,Lane Crawford,Lane Crawford
+131.11,Transport,2024-11-12,spending,HKD,Citybus,Citybus
+153.22,Transport,2024-11-13,spending,HKD,MTR,MTR
+584.88,Dining,2024-11-14,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+176.13,Transport,2024-11-14,spending,HKD,Citybus,Citybus
+404.9,Other,2024-11-15,spending,HKD,7-Eleven,7-Eleven
+586.83,Groceries,2024-11-16,spending,HKD,Wellcome,Wellcome
+158.85,Transport,2024-11-16,spending,HKD,MTR,MTR
+800.0,Entertainment,2024-11-17,spending,HKD,Broadway Cinema,Broadway Cinema
+462.39,Groceries,2024-11-17,spending,HKD,ParknShop,ParknShop
+147.93,Transport,2024-11-18,spending,HKD,MTR,MTR
+140.52,Transport,2024-11-19,spending,HKD,Citybus,Citybus
+90.68,Transport,2024-11-21,spending,HKD,Citybus,Citybus
+864.55,Groceries,2024-11-22,spending,HKD,Wellcome,Wellcome
+640.33,Dining,2024-11-23,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+163.07,Transport,2024-11-23,spending,HKD,Citybus,Citybus
+706.39,Groceries,2024-11-24,spending,HKD,ParknShop,ParknShop
+338.34,Other,2024-11-24,spending,HKD,7-Eleven,7-Eleven
+159.62,Transport,2024-11-26,spending,HKD,Citybus,Citybus
+116.07,Transport,2024-11-26,spending,HKD,MTR,MTR
+2000.0,Investment,2024-11-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2024-11-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2024-11-28,spending,HKD,Auto-transfer to savings,Mox Bank
+174.04,Transport,2024-11-28,spending,HKD,MTR,MTR
+609.15,Dining,2024-11-29,spending,HKD,Meal - Maxim's,Maxim's
+90.45,Transport,2024-11-29,spending,HKD,Citybus,Citybus
+339.7,Dining,2024-11-30,spending,HKD,Meal - Maxim's,Maxim's
+356.18,Dining,2024-11-30,spending,HKD,Meal - Maxim's,Maxim's
+488.59,Groceries,2024-11-30,spending,HKD,ParknShop,ParknShop
+10000.0,Rent,2024-12-01,spending,HKD,Monthly rent,Landlord
+519.52,Groceries,2024-12-02,spending,HKD,ParknShop,ParknShop
+142.96,Transport,2024-12-03,spending,HKD,MTR,MTR
+505.97,Dining,2024-12-04,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+119.38,Transport,2024-12-04,spending,HKD,Citybus,Citybus
+100.12,Transport,2024-12-04,spending,HKD,Citybus,Citybus
+80.79,Transport,2024-12-06,spending,HKD,MTR,MTR
+563.02,Dining,2024-12-08,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+598.21,Utilities,2024-12-08,spending,HKD,Electricity bill,CLP Power
+596.37,Groceries,2024-12-09,spending,HKD,ParknShop,ParknShop
+435.22,Groceries,2024-12-09,spending,HKD,Wellcome,Wellcome
+176.65,Utilities,2024-12-10,spending,HKD,Gas bill,Towngas
+522.9,Dining,2024-12-11,spending,HKD,Meal - Maxim's,Maxim's
+516.83,Dining,2024-12-11,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+109.38,Transport,2024-12-12,spending,HKD,Citybus,Citybus
+397.69,Groceries,2024-12-13,spending,HKD,Wellcome,Wellcome
+305.85,Other,2024-12-14,spending,HKD,7-Eleven,7-Eleven
+608.25,Dining,2024-12-15,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+97.94,Transport,2024-12-15,spending,HKD,MTR,MTR
+132.3,Transport,2024-12-16,spending,HKD,MTR,MTR
+506.14,Other,2024-12-19,spending,HKD,Lane Crawford,Lane Crawford
+419.0,Entertainment,2024-12-20,spending,HKD,Netflix,Netflix
+100.05,Transport,2024-12-20,spending,HKD,MTR,MTR
+341.01,Dining,2024-12-21,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+381.0,Entertainment,2024-12-21,spending,HKD,Netflix,Netflix
+683.54,Groceries,2024-12-21,spending,HKD,Wellcome,Wellcome
+366.53,Groceries,2024-12-22,spending,HKD,ParknShop,ParknShop
+155.02,Transport,2024-12-22,spending,HKD,Citybus,Citybus
+92.54,Transport,2024-12-24,spending,HKD,Citybus,Citybus
+121.4,Transport,2024-12-24,spending,HKD,Citybus,Citybus
+456.11,Groceries,2024-12-25,spending,HKD,Wellcome,Wellcome
+132.96,Transport,2024-12-26,spending,HKD,Citybus,Citybus
+78.64,Transport,2024-12-27,spending,HKD,MTR,MTR
+2000.0,Investment,2024-12-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2024-12-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2024-12-28,spending,HKD,Auto-transfer to savings,Mox Bank
+126.09,Transport,2024-12-28,spending,HKD,Citybus,Citybus
+442.01,Dining,2024-12-29,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+506.52,Groceries,2024-12-29,spending,HKD,Wellcome,Wellcome
+160.18,Transport,2024-12-29,spending,HKD,MTR,MTR
+138.77,Transport,2024-12-30,spending,HKD,MTR,MTR
+538.5,Groceries,2024-12-31,spending,HKD,Wellcome,Wellcome
+388.01,Other,2024-12-31,spending,HKD,7-Eleven,7-Eleven
+111.48,Transport,2024-12-31,spending,HKD,Citybus,Citybus
+605.12,Dining,2025-01-01,spending,HKD,Meal - Maxim's,Maxim's
+331.82,Dining,2025-01-01,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+10000.0,Rent,2025-01-01,spending,HKD,Monthly rent,Landlord
+141.84,Transport,2025-01-02,spending,HKD,Citybus,Citybus
+449.48,Groceries,2025-01-03,spending,HKD,Wellcome,Wellcome
+127.7,Transport,2025-01-03,spending,HKD,Citybus,Citybus
+129.02,Transport,2025-01-04,spending,HKD,Citybus,Citybus
+397.95,Groceries,2025-01-07,spending,HKD,Wellcome,Wellcome
+307.89,Groceries,2025-01-07,spending,HKD,Wellcome,Wellcome
+316.96,Other,2025-01-07,spending,HKD,Lane Crawford,Lane Crawford
+325.66,Other,2025-01-08,spending,HKD,Lane Crawford,Lane Crawford
+662.03,Utilities,2025-01-08,spending,HKD,Electricity bill,CLP Power
+800.0,Entertainment,2025-01-09,spending,HKD,Netflix,Netflix
+105.9,Transport,2025-01-09,spending,HKD,MTR,MTR
+191.82,Utilities,2025-01-10,spending,HKD,Gas bill,Towngas
+136.16,Transport,2025-01-11,spending,HKD,Citybus,Citybus
+580.12,Dining,2025-01-15,spending,HKD,Meal - Maxim's,Maxim's
+352.67,Dining,2025-01-17,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+162.02,Transport,2025-01-17,spending,HKD,Citybus,Citybus
+148.0,Transport,2025-01-17,spending,HKD,MTR,MTR
+568.77,Groceries,2025-01-18,spending,HKD,ParknShop,ParknShop
+141.29,Transport,2025-01-18,spending,HKD,Citybus,Citybus
+140.62,Transport,2025-01-18,spending,HKD,Citybus,Citybus
+499.88,Groceries,2025-01-19,spending,HKD,Wellcome,Wellcome
+100.25,Transport,2025-01-19,spending,HKD,MTR,MTR
+111.42,Transport,2025-01-20,spending,HKD,Citybus,Citybus
+533.75,Dining,2025-01-21,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+552.52,Dining,2025-01-21,spending,HKD,Meal - Maxim's,Maxim's
+532.38,Groceries,2025-01-22,spending,HKD,Wellcome,Wellcome
+421.79,Groceries,2025-01-23,spending,HKD,Wellcome,Wellcome
+144.82,Transport,2025-01-23,spending,HKD,MTR,MTR
+160.9,Transport,2025-01-23,spending,HKD,MTR,MTR
+100.86,Transport,2025-01-24,spending,HKD,Citybus,Citybus
+544.0,Dining,2025-01-27,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+2000.0,Investment,2025-01-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2025-01-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2025-01-28,spending,HKD,Auto-transfer to savings,Mox Bank
+427.72,Groceries,2025-01-29,spending,HKD,ParknShop,ParknShop
+316.9,Groceries,2025-01-29,spending,HKD,Wellcome,Wellcome
+325.4,Other,2025-01-29,spending,HKD,Lane Crawford,Lane Crawford
+149.21,Transport,2025-01-29,spending,HKD,MTR,MTR
+577.25,Groceries,2025-01-30,spending,HKD,Wellcome,Wellcome
+231.99,Other,2025-01-30,spending,HKD,Lane Crawford,Lane Crawford
+556.04,Dining,2025-02-01,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+557.16,Groceries,2025-02-01,spending,HKD,ParknShop,ParknShop
+10000.0,Rent,2025-02-01,spending,HKD,Monthly rent,Landlord
+110.57,Transport,2025-02-01,spending,HKD,Citybus,Citybus
+108.59,Transport,2025-02-01,spending,HKD,MTR,MTR
+121.74,Transport,2025-02-01,spending,HKD,MTR,MTR
+337.78,Dining,2025-02-02,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+655.12,Groceries,2025-02-02,spending,HKD,ParknShop,ParknShop
+465.05,Groceries,2025-02-02,spending,HKD,ParknShop,ParknShop
+425.9,Entertainment,2025-02-04,spending,HKD,Broadway Cinema,Broadway Cinema
+554.49,Groceries,2025-02-04,spending,HKD,Wellcome,Wellcome
+128.38,Transport,2025-02-05,spending,HKD,Citybus,Citybus
+99.4,Transport,2025-02-05,spending,HKD,MTR,MTR
+394.27,Dining,2025-02-06,spending,HKD,Meal - Maxim's,Maxim's
+513.37,Groceries,2025-02-06,spending,HKD,Wellcome,Wellcome
+130.87,Transport,2025-02-07,spending,HKD,MTR,MTR
+191.91,Other,2025-02-08,spending,HKD,7-Eleven,7-Eleven
+157.54,Transport,2025-02-08,spending,HKD,Citybus,Citybus
+103.91,Transport,2025-02-08,spending,HKD,Citybus,Citybus
+606.2,Utilities,2025-02-08,spending,HKD,Electricity bill,CLP Power
+527.57,Dining,2025-02-09,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+164.96,Utilities,2025-02-10,spending,HKD,Gas bill,Towngas
+636.97,Groceries,2025-02-11,spending,HKD,Wellcome,Wellcome
+511.01,Dining,2025-02-12,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+374.1,Entertainment,2025-02-12,spending,HKD,Netflix,Netflix
+133.19,Transport,2025-02-12,spending,HKD,Citybus,Citybus
+106.28,Transport,2025-02-12,spending,HKD,MTR,MTR
+146.87,Transport,2025-02-12,spending,HKD,MTR,MTR
+301.36,Other,2025-02-13,spending,HKD,7-Eleven,7-Eleven
+284.53,Dining,2025-02-14,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+458.13,Dining,2025-02-20,spending,HKD,Meal - Maxim's,Maxim's
+430.67,Dining,2025-02-21,spending,HKD,Meal - Maxim's,Maxim's
+659.56,Groceries,2025-02-22,spending,HKD,Wellcome,Wellcome
+373.47,Other,2025-02-22,spending,HKD,7-Eleven,7-Eleven
+125.17,Transport,2025-02-23,spending,HKD,MTR,MTR
+99.69,Transport,2025-02-23,spending,HKD,MTR,MTR
+166.29,Transport,2025-02-23,spending,HKD,MTR,MTR
+166.51,Transport,2025-02-24,spending,HKD,Citybus,Citybus
+458.29,Groceries,2025-02-27,spending,HKD,Wellcome,Wellcome
+95.02,Transport,2025-02-27,spending,HKD,MTR,MTR
+2000.0,Investment,2025-02-28,spending,HKD,Monthly DCA,IBKR
+333.26,Other,2025-02-28,spending,HKD,Lane Crawford,Lane Crawford
+40000.0,Salary,2025-02-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2025-02-28,spending,HKD,Auto-transfer to savings,Mox Bank
+10000.0,Rent,2025-03-01,spending,HKD,Monthly rent,Landlord
+306.37,Dining,2025-03-02,spending,HKD,Meal - Maxim's,Maxim's
+133.96,Transport,2025-03-02,spending,HKD,Citybus,Citybus
+116.66,Transport,2025-03-02,spending,HKD,Citybus,Citybus
+388.77,Entertainment,2025-03-03,spending,HKD,Netflix,Netflix
+525.51,Groceries,2025-03-03,spending,HKD,ParknShop,ParknShop
+341.71,Dining,2025-03-04,spending,HKD,Meal - Maxim's,Maxim's
+118.43,Transport,2025-03-04,spending,HKD,Citybus,Citybus
+175.37,Transport,2025-03-06,spending,HKD,Citybus,Citybus
+337.63,Dining,2025-03-07,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+525.14,Groceries,2025-03-07,spending,HKD,Wellcome,Wellcome
+219.45,Transport,2025-03-08,spending,HKD,MTR,MTR
+607.09,Utilities,2025-03-08,spending,HKD,Electricity bill,CLP Power
+411.76,Groceries,2025-03-09,spending,HKD,Wellcome,Wellcome
+738.51,Other,2025-03-10,spending,HKD,Lane Crawford,Lane Crawford
+199.78,Utilities,2025-03-10,spending,HKD,Gas bill,Towngas
+393.8,Groceries,2025-03-12,spending,HKD,Wellcome,Wellcome
+151.34,Transport,2025-03-13,spending,HKD,Citybus,Citybus
+439.64,Dining,2025-03-14,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+450.98,Dining,2025-03-14,spending,HKD,Meal - Maxim's,Maxim's
+159.12,Transport,2025-03-14,spending,HKD,MTR,MTR
+579.65,Groceries,2025-03-15,spending,HKD,Wellcome,Wellcome
+593.37,Groceries,2025-03-18,spending,HKD,Wellcome,Wellcome
+461.49,Other,2025-03-18,spending,HKD,Lane Crawford,Lane Crawford
+411.23,Entertainment,2025-03-19,spending,HKD,Broadway Cinema,Broadway Cinema
+575.11,Groceries,2025-03-19,spending,HKD,ParknShop,ParknShop
+194.43,Transport,2025-03-19,spending,HKD,MTR,MTR
+484.81,Dining,2025-03-21,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+181.69,Transport,2025-03-23,spending,HKD,Citybus,Citybus
+259.08,Dining,2025-03-26,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+486.84,Dining,2025-03-26,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+388.24,Groceries,2025-03-26,spending,HKD,Wellcome,Wellcome
+392.92,Dining,2025-03-27,spending,HKD,Meal - Maxim's,Maxim's
+507.42,Groceries,2025-03-27,spending,HKD,Wellcome,Wellcome
+237.14,Transport,2025-03-27,spending,HKD,Citybus,Citybus
+2000.0,Investment,2025-03-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2025-03-28,income,HKD,Monthly salary,Pacific Asset Management
+80000.0,Salary,2025-03-28,income,HKD,Year-end bonus,Pacific Asset Management
+4500.0,Savings,2025-03-28,spending,HKD,Auto-transfer to savings,Mox Bank
+162.65,Transport,2025-03-29,spending,HKD,Citybus,Citybus
+149.76,Transport,2025-03-29,spending,HKD,Citybus,Citybus
+10000.0,Rent,2025-04-01,spending,HKD,Monthly rent,Landlord
+365.97,Dining,2025-04-03,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+547.81,Groceries,2025-04-03,spending,HKD,ParknShop,ParknShop
+141.62,Transport,2025-04-03,spending,HKD,Citybus,Citybus
+193.03,Transport,2025-04-03,spending,HKD,MTR,MTR
+636.93,Groceries,2025-04-04,spending,HKD,ParknShop,ParknShop
+865.74,Groceries,2025-04-04,spending,HKD,ParknShop,ParknShop
+513.63,Dining,2025-04-05,spending,HKD,Meal - Maxim's,Maxim's
+133.07,Transport,2025-04-05,spending,HKD,Citybus,Citybus
+563.45,Groceries,2025-04-06,spending,HKD,Wellcome,Wellcome
+254.97,Other,2025-04-07,spending,HKD,Lane Crawford,Lane Crawford
+154.84,Transport,2025-04-07,spending,HKD,MTR,MTR
+642.48,Utilities,2025-04-08,spending,HKD,Electricity bill,CLP Power
+692.98,Groceries,2025-04-10,spending,HKD,Wellcome,Wellcome
+412.55,Other,2025-04-10,spending,HKD,Lane Crawford,Lane Crawford
+174.53,Utilities,2025-04-10,spending,HKD,Gas bill,Towngas
+800.0,Entertainment,2025-04-11,spending,HKD,Broadway Cinema,Broadway Cinema
+521.42,Dining,2025-04-13,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+216.95,Other,2025-04-13,spending,HKD,7-Eleven,7-Eleven
+164.8,Transport,2025-04-14,spending,HKD,Citybus,Citybus
+189.29,Transport,2025-04-14,spending,HKD,Citybus,Citybus
+123.96,Transport,2025-04-15,spending,HKD,Citybus,Citybus
+548.87,Groceries,2025-04-16,spending,HKD,Wellcome,Wellcome
+102.97,Transport,2025-04-16,spending,HKD,Citybus,Citybus
+623.57,Dining,2025-04-17,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+644.21,Groceries,2025-04-17,spending,HKD,Wellcome,Wellcome
+149.7,Transport,2025-04-21,spending,HKD,Citybus,Citybus
+555.37,Dining,2025-04-23,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+486.1,Dining,2025-04-25,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+182.27,Transport,2025-04-25,spending,HKD,Citybus,Citybus
+165.94,Transport,2025-04-25,spending,HKD,Citybus,Citybus
+133.21,Transport,2025-04-25,spending,HKD,MTR,MTR
+433.94,Dining,2025-04-27,spending,HKD,Meal - Maxim's,Maxim's
+315.53,Other,2025-04-27,spending,HKD,7-Eleven,7-Eleven
+2000.0,Investment,2025-04-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2025-04-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2025-04-28,spending,HKD,Auto-transfer to savings,Mox Bank
+165.3,Transport,2025-04-30,spending,HKD,Citybus,Citybus
+10000.0,Rent,2025-05-01,spending,HKD,Monthly rent,Landlord
+499.07,Groceries,2025-05-02,spending,HKD,ParknShop,ParknShop
+145.22,Transport,2025-05-02,spending,HKD,MTR,MTR
+733.42,Groceries,2025-05-04,spending,HKD,ParknShop,ParknShop
+334.74,Other,2025-05-04,spending,HKD,Lane Crawford,Lane Crawford
+235.49,Other,2025-05-05,spending,HKD,Lane Crawford,Lane Crawford
+135.7,Transport,2025-05-06,spending,HKD,MTR,MTR
+465.01,Dining,2025-05-07,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+269.71,Transport,2025-05-07,spending,HKD,MTR,MTR
+131.41,Transport,2025-05-08,spending,HKD,MTR,MTR
+154.49,Transport,2025-05-08,spending,HKD,MTR,MTR
+634.32,Utilities,2025-05-08,spending,HKD,Electricity bill,CLP Power
+134.91,Transport,2025-05-10,spending,HKD,Citybus,Citybus
+199.27,Utilities,2025-05-10,spending,HKD,Gas bill,Towngas
+535.1,Dining,2025-05-11,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+376.55,Dining,2025-05-13,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+160.15,Transport,2025-05-13,spending,HKD,Citybus,Citybus
+581.66,Dining,2025-05-15,spending,HKD,Meal - Maxim's,Maxim's
+538.34,Dining,2025-05-15,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+226.53,Other,2025-05-16,spending,HKD,Lane Crawford,Lane Crawford
+403.23,Other,2025-05-17,spending,HKD,Lane Crawford,Lane Crawford
+498.53,Groceries,2025-05-19,spending,HKD,ParknShop,ParknShop
+763.64,Groceries,2025-05-19,spending,HKD,ParknShop,ParknShop
+155.68,Transport,2025-05-19,spending,HKD,MTR,MTR
+377.73,Dining,2025-05-21,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+164.17,Transport,2025-05-24,spending,HKD,Citybus,Citybus
+806.78,Groceries,2025-05-25,spending,HKD,Wellcome,Wellcome
+800.0,Entertainment,2025-05-28,spending,HKD,Netflix,Netflix
+2000.0,Investment,2025-05-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2025-05-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2025-05-28,spending,HKD,Auto-transfer to savings,Mox Bank
+142.15,Transport,2025-05-28,spending,HKD,MTR,MTR
+611.49,Groceries,2025-05-29,spending,HKD,ParknShop,ParknShop
+228.11,Transport,2025-05-29,spending,HKD,MTR,MTR
+625.62,Dining,2025-05-30,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+178.3,Transport,2025-05-30,spending,HKD,MTR,MTR
+587.07,Groceries,2025-05-31,spending,HKD,ParknShop,ParknShop
+10000.0,Rent,2025-06-01,spending,HKD,Monthly rent,Landlord
+167.81,Transport,2025-06-02,spending,HKD,MTR,MTR
+285.32,Other,2025-06-04,spending,HKD,7-Eleven,7-Eleven
+126.31,Transport,2025-06-05,spending,HKD,MTR,MTR
+331.81,Other,2025-06-06,spending,HKD,7-Eleven,7-Eleven
+189.05,Transport,2025-06-06,spending,HKD,MTR,MTR
+460.48,Dining,2025-06-07,spending,HKD,Meal - Maxim's,Maxim's
+619.36,Utilities,2025-06-08,spending,HKD,Electricity bill,CLP Power
+392.14,Groceries,2025-06-09,spending,HKD,ParknShop,ParknShop
+135.24,Transport,2025-06-09,spending,HKD,Citybus,Citybus
+193.91,Transport,2025-06-09,spending,HKD,MTR,MTR
+184.38,Utilities,2025-06-10,spending,HKD,Gas bill,Towngas
+563.2,Dining,2025-06-11,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+287.38,Entertainment,2025-06-11,spending,HKD,Netflix,Netflix
+410.53,Groceries,2025-06-12,spending,HKD,ParknShop,ParknShop
+511.08,Groceries,2025-06-12,spending,HKD,ParknShop,ParknShop
+417.06,Groceries,2025-06-13,spending,HKD,Wellcome,Wellcome
+653.81,Dining,2025-06-15,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+647.82,Groceries,2025-06-15,spending,HKD,ParknShop,ParknShop
+196.63,Transport,2025-06-15,spending,HKD,MTR,MTR
+134.49,Transport,2025-06-16,spending,HKD,Citybus,Citybus
+174.91,Transport,2025-06-16,spending,HKD,MTR,MTR
+121.48,Transport,2025-06-19,spending,HKD,Citybus,Citybus
+647.42,Dining,2025-06-20,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+512.62,Entertainment,2025-06-20,spending,HKD,Netflix,Netflix
+604.08,Dining,2025-06-21,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+648.35,Groceries,2025-06-22,spending,HKD,ParknShop,ParknShop
+420.75,Groceries,2025-06-22,spending,HKD,Wellcome,Wellcome
+111.82,Transport,2025-06-22,spending,HKD,Citybus,Citybus
+350.4,Other,2025-06-23,spending,HKD,Lane Crawford,Lane Crawford
+147.23,Transport,2025-06-23,spending,HKD,Citybus,Citybus
+541.87,Groceries,2025-06-24,spending,HKD,Wellcome,Wellcome
+181.2,Transport,2025-06-24,spending,HKD,Citybus,Citybus
+510.4,Groceries,2025-06-27,spending,HKD,Wellcome,Wellcome
+571.01,Dining,2025-06-28,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+2000.0,Investment,2025-06-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2025-06-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2025-06-28,spending,HKD,Auto-transfer to savings,Mox Bank
+232.46,Other,2025-06-30,spending,HKD,Lane Crawford,Lane Crawford
+119.93,Transport,2025-06-30,spending,HKD,MTR,MTR
+10000.0,Rent,2025-07-01,spending,HKD,Monthly rent,Landlord
+117.08,Transport,2025-07-01,spending,HKD,Citybus,Citybus
+178.08,Transport,2025-07-04,spending,HKD,Citybus,Citybus
+312.38,Groceries,2025-07-05,spending,HKD,ParknShop,ParknShop
+540.9,Groceries,2025-07-06,spending,HKD,Wellcome,Wellcome
+153.71,Transport,2025-07-06,spending,HKD,Citybus,Citybus
+414.75,Groceries,2025-07-07,spending,HKD,ParknShop,ParknShop
+348.47,Groceries,2025-07-07,spending,HKD,Wellcome,Wellcome
+672.59,Dining,2025-07-08,spending,HKD,Meal - Maxim's,Maxim's
+574.07,Groceries,2025-07-08,spending,HKD,ParknShop,ParknShop
+149.75,Transport,2025-07-08,spending,HKD,Citybus,Citybus
+719.59,Utilities,2025-07-08,spending,HKD,Electricity bill,CLP Power
+648.79,Dining,2025-07-10,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+169.15,Utilities,2025-07-10,spending,HKD,Gas bill,Towngas
+446.36,Groceries,2025-07-12,spending,HKD,Wellcome,Wellcome
+141.97,Transport,2025-07-12,spending,HKD,MTR,MTR
+172.71,Transport,2025-07-15,spending,HKD,Citybus,Citybus
+405.17,Groceries,2025-07-16,spending,HKD,Wellcome,Wellcome
+205.6,Transport,2025-07-16,spending,HKD,MTR,MTR
+471.44,Entertainment,2025-07-17,spending,HKD,Netflix,Netflix
+545.55,Dining,2025-07-19,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+337.92,Groceries,2025-07-19,spending,HKD,ParknShop,ParknShop
+635.6,Other,2025-07-20,spending,HKD,7-Eleven,7-Eleven
+148.08,Transport,2025-07-20,spending,HKD,Citybus,Citybus
+478.22,Dining,2025-07-21,spending,HKD,Meal - Maxim's,Maxim's
+158.04,Transport,2025-07-22,spending,HKD,Citybus,Citybus
+100.23,Transport,2025-07-22,spending,HKD,MTR,MTR
+482.79,Dining,2025-07-24,spending,HKD,Meal - Maxim's,Maxim's
+573.52,Groceries,2025-07-24,spending,HKD,Wellcome,Wellcome
+328.56,Entertainment,2025-07-26,spending,HKD,Netflix,Netflix
+546.47,Groceries,2025-07-26,spending,HKD,Wellcome,Wellcome
+169.63,Transport,2025-07-26,spending,HKD,Citybus,Citybus
+2000.0,Investment,2025-07-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2025-07-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2025-07-28,spending,HKD,Auto-transfer to savings,Mox Bank
+200.62,Transport,2025-07-28,spending,HKD,Citybus,Citybus
+564.4,Other,2025-07-30,spending,HKD,7-Eleven,7-Eleven
+104.5,Transport,2025-07-30,spending,HKD,Citybus,Citybus
+672.05,Dining,2025-07-31,spending,HKD,Meal - Maxim's,Maxim's
+10000.0,Rent,2025-08-01,spending,HKD,Monthly rent,Landlord
+183.98,Transport,2025-08-01,spending,HKD,MTR,MTR
+178.08,Transport,2025-08-02,spending,HKD,MTR,MTR
+177.44,Transport,2025-08-05,spending,HKD,MTR,MTR
+139.79,Transport,2025-08-05,spending,HKD,MTR,MTR
+806.26,Dining,2025-08-07,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+105.77,Transport,2025-08-07,spending,HKD,MTR,MTR
+161.63,Transport,2025-08-08,spending,HKD,MTR,MTR
+96.48,Transport,2025-08-08,spending,HKD,MTR,MTR
+729.99,Utilities,2025-08-08,spending,HKD,Electricity bill,CLP Power
+742.09,Dining,2025-08-09,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+513.52,Groceries,2025-08-09,spending,HKD,Wellcome,Wellcome
+174.79,Utilities,2025-08-10,spending,HKD,Gas bill,Towngas
+108.71,Transport,2025-08-11,spending,HKD,MTR,MTR
+725.79,Dining,2025-08-13,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+486.36,Groceries,2025-08-13,spending,HKD,Wellcome,Wellcome
+160.86,Transport,2025-08-13,spending,HKD,MTR,MTR
+475.8,Dining,2025-08-17,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+572.74,Groceries,2025-08-17,spending,HKD,Wellcome,Wellcome
+123.28,Transport,2025-08-18,spending,HKD,Citybus,Citybus
+94.39,Transport,2025-08-18,spending,HKD,Citybus,Citybus
+473.11,Other,2025-08-20,spending,HKD,Lane Crawford,Lane Crawford
+750.05,Dining,2025-08-21,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+291.19,Other,2025-08-23,spending,HKD,Lane Crawford,Lane Crawford
+458.94,Groceries,2025-08-26,spending,HKD,ParknShop,ParknShop
+435.7,Other,2025-08-27,spending,HKD,Lane Crawford,Lane Crawford
+96.05,Transport,2025-08-27,spending,HKD,Citybus,Citybus
+800.0,Entertainment,2025-08-28,spending,HKD,Netflix,Netflix
+2000.0,Investment,2025-08-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2025-08-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2025-08-28,spending,HKD,Auto-transfer to savings,Mox Bank
+110.5,Transport,2025-08-28,spending,HKD,MTR,MTR
+561.68,Groceries,2025-08-29,spending,HKD,Wellcome,Wellcome
+118.4,Transport,2025-08-29,spending,HKD,Citybus,Citybus
+388.26,Groceries,2025-08-30,spending,HKD,ParknShop,ParknShop
+515.36,Groceries,2025-08-30,spending,HKD,Wellcome,Wellcome
+413.89,Groceries,2025-08-31,spending,HKD,ParknShop,ParknShop
+589.26,Groceries,2025-08-31,spending,HKD,ParknShop,ParknShop
+144.65,Transport,2025-08-31,spending,HKD,MTR,MTR
+464.68,Dining,2025-09-01,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+10000.0,Rent,2025-09-01,spending,HKD,Monthly rent,Landlord
+358.46,Other,2025-09-02,spending,HKD,7-Eleven,7-Eleven
+522.0,Other,2025-09-03,spending,HKD,Lane Crawford,Lane Crawford
+133.17,Transport,2025-09-03,spending,HKD,Citybus,Citybus
+490.74,Groceries,2025-09-04,spending,HKD,Wellcome,Wellcome
+157.31,Transport,2025-09-04,spending,HKD,MTR,MTR
+800.0,Entertainment,2025-09-05,spending,HKD,Broadway Cinema,Broadway Cinema
+85.82,Transport,2025-09-05,spending,HKD,MTR,MTR
+128.66,Transport,2025-09-05,spending,HKD,MTR,MTR
+534.4,Dining,2025-09-06,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+154.82,Transport,2025-09-06,spending,HKD,MTR,MTR
+301.83,Dining,2025-09-07,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+301.11,Dining,2025-09-08,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+620.01,Utilities,2025-09-08,spending,HKD,Electricity bill,CLP Power
+179.13,Utilities,2025-09-10,spending,HKD,Gas bill,Towngas
+371.01,Groceries,2025-09-11,spending,HKD,Wellcome,Wellcome
+396.03,Groceries,2025-09-13,spending,HKD,ParknShop,ParknShop
+299.07,Groceries,2025-09-13,spending,HKD,ParknShop,ParknShop
+157.45,Transport,2025-09-13,spending,HKD,Citybus,Citybus
+128.44,Transport,2025-09-13,spending,HKD,MTR,MTR
+88.64,Transport,2025-09-15,spending,HKD,MTR,MTR
+324.74,Groceries,2025-09-16,spending,HKD,ParknShop,ParknShop
+100.65,Transport,2025-09-16,spending,HKD,Citybus,Citybus
+325.86,Dining,2025-09-17,spending,HKD,Meal - Maxim's,Maxim's
+155.3,Transport,2025-09-17,spending,HKD,Citybus,Citybus
+370.23,Dining,2025-09-18,spending,HKD,Meal - Maxim's,Maxim's
+112.58,Transport,2025-09-19,spending,HKD,Citybus,Citybus
+436.39,Dining,2025-09-21,spending,HKD,Meal - Maxim's,Maxim's
+425.34,Groceries,2025-09-21,spending,HKD,Wellcome,Wellcome
+457.4,Dining,2025-09-22,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+145.72,Transport,2025-09-22,spending,HKD,Citybus,Citybus
+77.73,Transport,2025-09-22,spending,HKD,MTR,MTR
+455.88,Groceries,2025-09-23,spending,HKD,Wellcome,Wellcome
+140.77,Transport,2025-09-23,spending,HKD,MTR,MTR
+88.32,Transport,2025-09-24,spending,HKD,Citybus,Citybus
+577.53,Groceries,2025-09-25,spending,HKD,Wellcome,Wellcome
+602.45,Groceries,2025-09-26,spending,HKD,ParknShop,ParknShop
+557.21,Groceries,2025-09-26,spending,HKD,ParknShop,ParknShop
+144.6,Transport,2025-09-26,spending,HKD,Citybus,Citybus
+319.54,Other,2025-09-27,spending,HKD,Lane Crawford,Lane Crawford
+2000.0,Investment,2025-09-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2025-09-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2025-09-28,spending,HKD,Auto-transfer to savings,Mox Bank
+308.11,Dining,2025-09-29,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+10000.0,Rent,2025-10-01,spending,HKD,Monthly rent,Landlord
+134.48,Transport,2025-10-01,spending,HKD,Citybus,Citybus
+781.26,Groceries,2025-10-02,spending,HKD,Wellcome,Wellcome
+113.13,Transport,2025-10-02,spending,HKD,Citybus,Citybus
+91.69,Transport,2025-10-02,spending,HKD,Citybus,Citybus
+743.55,Dining,2025-10-03,spending,HKD,Meal - Maxim's,Maxim's
+540.61,Other,2025-10-05,spending,HKD,7-Eleven,7-Eleven
+86.88,Transport,2025-10-05,spending,HKD,MTR,MTR
+127.34,Transport,2025-10-06,spending,HKD,MTR,MTR
+475.72,Groceries,2025-10-07,spending,HKD,Wellcome,Wellcome
+140.45,Transport,2025-10-07,spending,HKD,Citybus,Citybus
+678.71,Utilities,2025-10-08,spending,HKD,Electricity bill,CLP Power
+516.49,Groceries,2025-10-09,spending,HKD,ParknShop,ParknShop
+468.9,Groceries,2025-10-10,spending,HKD,Wellcome,Wellcome
+194.49,Utilities,2025-10-10,spending,HKD,Gas bill,Towngas
+415.48,Groceries,2025-10-11,spending,HKD,Wellcome,Wellcome
+142.67,Transport,2025-10-12,spending,HKD,MTR,MTR
+628.14,Dining,2025-10-13,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+806.94,Dining,2025-10-14,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+125.12,Transport,2025-10-14,spending,HKD,Citybus,Citybus
+148.23,Transport,2025-10-14,spending,HKD,MTR,MTR
+133.85,Transport,2025-10-15,spending,HKD,MTR,MTR
+491.62,Groceries,2025-10-16,spending,HKD,ParknShop,ParknShop
+397.48,Entertainment,2025-10-17,spending,HKD,Broadway Cinema,Broadway Cinema
+282.29,Other,2025-10-19,spending,HKD,7-Eleven,7-Eleven
+814.82,Dining,2025-10-20,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+584.75,Groceries,2025-10-20,spending,HKD,Wellcome,Wellcome
+94.13,Transport,2025-10-20,spending,HKD,Citybus,Citybus
+140.47,Transport,2025-10-21,spending,HKD,MTR,MTR
+100.74,Transport,2025-10-22,spending,HKD,Citybus,Citybus
+121.56,Transport,2025-10-24,spending,HKD,MTR,MTR
+506.56,Dining,2025-10-25,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+765.79,Groceries,2025-10-26,spending,HKD,Wellcome,Wellcome
+154.82,Transport,2025-10-26,spending,HKD,MTR,MTR
+2000.0,Investment,2025-10-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2025-10-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2025-10-28,spending,HKD,Auto-transfer to savings,Mox Bank
+377.1,Other,2025-10-30,spending,HKD,Lane Crawford,Lane Crawford
+402.52,Entertainment,2025-10-31,spending,HKD,Broadway Cinema,Broadway Cinema
+144.43,Transport,2025-10-31,spending,HKD,MTR,MTR
+800.0,Entertainment,2025-11-01,spending,HKD,Netflix,Netflix
+621.27,Groceries,2025-11-01,spending,HKD,Wellcome,Wellcome
+10000.0,Rent,2025-11-01,spending,HKD,Monthly rent,Landlord
+144.24,Transport,2025-11-02,spending,HKD,MTR,MTR
+850.5,Groceries,2025-11-03,spending,HKD,Wellcome,Wellcome
+175.72,Transport,2025-11-03,spending,HKD,MTR,MTR
+544.81,Dining,2025-11-05,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+680.78,Groceries,2025-11-06,spending,HKD,ParknShop,ParknShop
+130.58,Transport,2025-11-06,spending,HKD,Citybus,Citybus
+143.16,Transport,2025-11-06,spending,HKD,Citybus,Citybus
+230.47,Other,2025-11-07,spending,HKD,Lane Crawford,Lane Crawford
+111.87,Transport,2025-11-08,spending,HKD,Citybus,Citybus
+709.29,Utilities,2025-11-08,spending,HKD,Electricity bill,CLP Power
+677.97,Dining,2025-11-10,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+607.51,Groceries,2025-11-10,spending,HKD,ParknShop,ParknShop
+177.89,Utilities,2025-11-10,spending,HKD,Gas bill,Towngas
+626.13,Dining,2025-11-11,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+407.75,Other,2025-11-11,spending,HKD,Lane Crawford,Lane Crawford
+500.57,Dining,2025-11-13,spending,HKD,Meal - Maxim's,Maxim's
+345.79,Other,2025-11-13,spending,HKD,7-Eleven,7-Eleven
+175.9,Transport,2025-11-14,spending,HKD,Citybus,Citybus
+146.97,Transport,2025-11-15,spending,HKD,Citybus,Citybus
+106.97,Transport,2025-11-16,spending,HKD,Citybus,Citybus
+626.32,Groceries,2025-11-19,spending,HKD,Wellcome,Wellcome
+215.98,Other,2025-11-19,spending,HKD,Lane Crawford,Lane Crawford
+173.17,Transport,2025-11-20,spending,HKD,MTR,MTR
+525.72,Groceries,2025-11-22,spending,HKD,Wellcome,Wellcome
+185.39,Transport,2025-11-22,spending,HKD,Citybus,Citybus
+120.54,Transport,2025-11-22,spending,HKD,MTR,MTR
+587.9,Groceries,2025-11-24,spending,HKD,Wellcome,Wellcome
+506.7,Dining,2025-11-26,spending,HKD,Meal - Maxim's,Maxim's
+134.57,Transport,2025-11-26,spending,HKD,Citybus,Citybus
+119.53,Transport,2025-11-27,spending,HKD,Citybus,Citybus
+2000.0,Investment,2025-11-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2025-11-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2025-11-28,spending,HKD,Auto-transfer to savings,Mox Bank
+131.38,Transport,2025-11-28,spending,HKD,MTR,MTR
+643.83,Dining,2025-11-30,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+10000.0,Rent,2025-12-01,spending,HKD,Monthly rent,Landlord
+168.48,Transport,2025-12-01,spending,HKD,MTR,MTR
+94.9,Transport,2025-12-01,spending,HKD,MTR,MTR
+115.31,Transport,2025-12-03,spending,HKD,Citybus,Citybus
+625.56,Dining,2025-12-04,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+142.66,Transport,2025-12-05,spending,HKD,MTR,MTR
+625.41,Utilities,2025-12-08,spending,HKD,Electricity bill,CLP Power
+327.17,Groceries,2025-12-09,spending,HKD,ParknShop,ParknShop
+578.53,Groceries,2025-12-09,spending,HKD,Wellcome,Wellcome
+544.27,Groceries,2025-12-10,spending,HKD,Wellcome,Wellcome
+176.45,Utilities,2025-12-10,spending,HKD,Gas bill,Towngas
+307.51,Groceries,2025-12-11,spending,HKD,ParknShop,ParknShop
+120.72,Transport,2025-12-11,spending,HKD,Citybus,Citybus
+562.99,Dining,2025-12-14,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+143.09,Transport,2025-12-14,spending,HKD,Citybus,Citybus
+498.94,Dining,2025-12-15,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+800.0,Entertainment,2025-12-15,spending,HKD,Netflix,Netflix
+316.18,Groceries,2025-12-15,spending,HKD,ParknShop,ParknShop
+97.78,Transport,2025-12-15,spending,HKD,Citybus,Citybus
+151.97,Transport,2025-12-16,spending,HKD,Citybus,Citybus
+556.56,Dining,2025-12-17,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+176.53,Transport,2025-12-17,spending,HKD,MTR,MTR
+309.03,Other,2025-12-18,spending,HKD,7-Eleven,7-Eleven
+542.46,Groceries,2025-12-19,spending,HKD,ParknShop,ParknShop
+96.61,Transport,2025-12-19,spending,HKD,MTR,MTR
+551.04,Dining,2025-12-20,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+122.67,Transport,2025-12-20,spending,HKD,Citybus,Citybus
+101.01,Transport,2025-12-20,spending,HKD,MTR,MTR
+704.91,Dining,2025-12-21,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+401.96,Groceries,2025-12-21,spending,HKD,Wellcome,Wellcome
+147.18,Transport,2025-12-21,spending,HKD,MTR,MTR
+607.63,Groceries,2025-12-22,spending,HKD,Wellcome,Wellcome
+125.27,Transport,2025-12-22,spending,HKD,MTR,MTR
+483.13,Groceries,2025-12-23,spending,HKD,ParknShop,ParknShop
+391.16,Groceries,2025-12-24,spending,HKD,Wellcome,Wellcome
+303.97,Other,2025-12-25,spending,HKD,7-Eleven,7-Eleven
+93.64,Transport,2025-12-27,spending,HKD,MTR,MTR
+2000.0,Investment,2025-12-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2025-12-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2025-12-28,spending,HKD,Auto-transfer to savings,Mox Bank
+102.19,Transport,2025-12-29,spending,HKD,Citybus,Citybus
+587.0,Other,2025-12-30,spending,HKD,Lane Crawford,Lane Crawford
+318.54,Other,2026-01-01,spending,HKD,Lane Crawford,Lane Crawford
+10000.0,Rent,2026-01-01,spending,HKD,Monthly rent,Landlord
+487.69,Dining,2026-01-02,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+556.03,Dining,2026-01-02,spending,HKD,Meal - Maxim's,Maxim's
+574.57,Groceries,2026-01-02,spending,HKD,Wellcome,Wellcome
+132.14,Transport,2026-01-02,spending,HKD,Citybus,Citybus
+214.07,Other,2026-01-04,spending,HKD,Lane Crawford,Lane Crawford
+106.49,Transport,2026-01-04,spending,HKD,MTR,MTR
+94.5,Transport,2026-01-06,spending,HKD,MTR,MTR
+120.34,Transport,2026-01-07,spending,HKD,Citybus,Citybus
+111.56,Transport,2026-01-08,spending,HKD,Citybus,Citybus
+665.59,Utilities,2026-01-08,spending,HKD,Electricity bill,CLP Power
+137.09,Transport,2026-01-09,spending,HKD,Citybus,Citybus
+175.01,Utilities,2026-01-10,spending,HKD,Gas bill,Towngas
+323.18,Groceries,2026-01-11,spending,HKD,Wellcome,Wellcome
+126.67,Transport,2026-01-12,spending,HKD,Citybus,Citybus
+800.0,Entertainment,2026-01-13,spending,HKD,Netflix,Netflix
+89.81,Transport,2026-01-13,spending,HKD,MTR,MTR
+550.02,Groceries,2026-01-14,spending,HKD,ParknShop,ParknShop
+333.64,Other,2026-01-14,spending,HKD,7-Eleven,7-Eleven
+154.18,Transport,2026-01-14,spending,HKD,MTR,MTR
+648.38,Groceries,2026-01-16,spending,HKD,ParknShop,ParknShop
+139.69,Transport,2026-01-16,spending,HKD,Citybus,Citybus
+450.43,Groceries,2026-01-17,spending,HKD,ParknShop,ParknShop
+148.5,Transport,2026-01-17,spending,HKD,Citybus,Citybus
+333.75,Other,2026-01-18,spending,HKD,Lane Crawford,Lane Crawford
+533.35,Groceries,2026-01-19,spending,HKD,ParknShop,ParknShop
+132.33,Transport,2026-01-19,spending,HKD,MTR,MTR
+369.69,Dining,2026-01-20,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+99.51,Transport,2026-01-23,spending,HKD,Citybus,Citybus
+156.2,Transport,2026-01-23,spending,HKD,Citybus,Citybus
+493.02,Dining,2026-01-24,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+100.69,Transport,2026-01-26,spending,HKD,Citybus,Citybus
+468.62,Groceries,2026-01-27,spending,HKD,ParknShop,ParknShop
+537.11,Dining,2026-01-28,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+2000.0,Investment,2026-01-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2026-01-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2026-01-28,spending,HKD,Auto-transfer to savings,Mox Bank
+536.85,Dining,2026-01-29,spending,HKD,Meal - Maxim's,Maxim's
+519.62,Dining,2026-01-30,spending,HKD,Meal - Maxim's,Maxim's
+503.05,Groceries,2026-01-30,spending,HKD,ParknShop,ParknShop
+448.39,Groceries,2026-01-31,spending,HKD,ParknShop,ParknShop
+150.3,Transport,2026-01-31,spending,HKD,Citybus,Citybus
+815.61,Groceries,2026-02-01,spending,HKD,Wellcome,Wellcome
+10000.0,Rent,2026-02-01,spending,HKD,Monthly rent,Landlord
+747.53,Dining,2026-02-03,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+493.27,Groceries,2026-02-04,spending,HKD,ParknShop,ParknShop
+831.77,Groceries,2026-02-06,spending,HKD,ParknShop,ParknShop
+146.41,Transport,2026-02-06,spending,HKD,MTR,MTR
+91.66,Transport,2026-02-08,spending,HKD,MTR,MTR
+138.43,Transport,2026-02-08,spending,HKD,MTR,MTR
+643.08,Utilities,2026-02-08,spending,HKD,Electricity bill,CLP Power
+381.72,Entertainment,2026-02-09,spending,HKD,Broadway Cinema,Broadway Cinema
+116.75,Transport,2026-02-09,spending,HKD,MTR,MTR
+183.37,Utilities,2026-02-10,spending,HKD,Gas bill,Towngas
+128.74,Transport,2026-02-11,spending,HKD,MTR,MTR
+418.28,Entertainment,2026-02-12,spending,HKD,Netflix,Netflix
+139.55,Transport,2026-02-13,spending,HKD,Citybus,Citybus
+135.74,Transport,2026-02-13,spending,HKD,MTR,MTR
+110.41,Transport,2026-02-14,spending,HKD,Citybus,Citybus
+727.4,Other,2026-02-15,spending,HKD,7-Eleven,7-Eleven
+425.19,Groceries,2026-02-16,spending,HKD,ParknShop,ParknShop
+687.13,Groceries,2026-02-17,spending,HKD,ParknShop,ParknShop
+108.13,Transport,2026-02-17,spending,HKD,Citybus,Citybus
+825.74,Groceries,2026-02-18,spending,HKD,ParknShop,ParknShop
+472.6,Other,2026-02-18,spending,HKD,7-Eleven,7-Eleven
+118.53,Transport,2026-02-18,spending,HKD,Citybus,Citybus
+110.62,Transport,2026-02-20,spending,HKD,Citybus,Citybus
+129.14,Transport,2026-02-21,spending,HKD,Citybus,Citybus
+160.57,Transport,2026-02-22,spending,HKD,MTR,MTR
+141.02,Transport,2026-02-23,spending,HKD,MTR,MTR
+421.3,Groceries,2026-02-24,spending,HKD,Wellcome,Wellcome
+695.62,Dining,2026-02-25,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+935.8,Dining,2026-02-26,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+564.18,Dining,2026-02-27,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+89.78,Transport,2026-02-27,spending,HKD,Citybus,Citybus
+556.88,Dining,2026-02-28,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+2000.0,Investment,2026-02-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2026-02-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2026-02-28,spending,HKD,Auto-transfer to savings,Mox Bank
+134.53,Transport,2026-02-28,spending,HKD,Citybus,Citybus
+484.9,Entertainment,2026-03-01,spending,HKD,Broadway Cinema,Broadway Cinema
+329.5,Other,2026-03-01,spending,HKD,7-Eleven,7-Eleven
+10000.0,Rent,2026-03-01,spending,HKD,Monthly rent,Landlord
+315.1,Entertainment,2026-03-02,spending,HKD,Netflix,Netflix
+107.35,Transport,2026-03-02,spending,HKD,Citybus,Citybus
+489.22,Groceries,2026-03-03,spending,HKD,ParknShop,ParknShop
+128.7,Transport,2026-03-03,spending,HKD,MTR,MTR
+622.51,Dining,2026-03-04,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+136.75,Transport,2026-03-04,spending,HKD,Citybus,Citybus
+134.73,Transport,2026-03-04,spending,HKD,MTR,MTR
+145.96,Transport,2026-03-06,spending,HKD,Citybus,Citybus
+93.28,Transport,2026-03-07,spending,HKD,Citybus,Citybus
+142.63,Transport,2026-03-08,spending,HKD,MTR,MTR
+615.92,Utilities,2026-03-08,spending,HKD,Electricity bill,CLP Power
+179.48,Utilities,2026-03-10,spending,HKD,Gas bill,Towngas
+457.67,Dining,2026-03-12,spending,HKD,Meal - Maxim's,Maxim's
+105.64,Transport,2026-03-13,spending,HKD,MTR,MTR
+131.4,Transport,2026-03-14,spending,HKD,MTR,MTR
+548.7,Groceries,2026-03-15,spending,HKD,ParknShop,ParknShop
+469.51,Groceries,2026-03-15,spending,HKD,Wellcome,Wellcome
+79.52,Transport,2026-03-15,spending,HKD,Citybus,Citybus
+470.25,Dining,2026-03-17,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+544.84,Dining,2026-03-17,spending,HKD,Meal - Tim Ho Wan,Tim Ho Wan
+119.04,Transport,2026-03-17,spending,HKD,Citybus,Citybus
+633.09,Groceries,2026-03-20,spending,HKD,ParknShop,ParknShop
+762.28,Groceries,2026-03-20,spending,HKD,Wellcome,Wellcome
+404.26,Groceries,2026-03-21,spending,HKD,ParknShop,ParknShop
+83.89,Transport,2026-03-21,spending,HKD,Citybus,Citybus
+442.69,Other,2026-03-22,spending,HKD,Lane Crawford,Lane Crawford
+122.68,Transport,2026-03-23,spending,HKD,MTR,MTR
+466.93,Dining,2026-03-25,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+509.17,Dining,2026-03-25,spending,HKD,Meal - Kam's Roast Goose,Kam's Roast Goose
+427.81,Other,2026-03-25,spending,HKD,7-Eleven,7-Eleven
+102.19,Transport,2026-03-25,spending,HKD,MTR,MTR
+94.9,Transport,2026-03-26,spending,HKD,Citybus,Citybus
+428.63,Dining,2026-03-28,spending,HKD,Meal - Maxim's,Maxim's
+2000.0,Investment,2026-03-28,spending,HKD,Monthly DCA,IBKR
+40000.0,Salary,2026-03-28,income,HKD,Monthly salary,Pacific Asset Management
+4500.0,Savings,2026-03-28,spending,HKD,Auto-transfer to savings,Mox Bank
+127.11,Transport,2026-03-29,spending,HKD,Citybus,Citybus
+144.22,Transport,2026-03-29,spending,HKD,MTR,MTR
+788.9,Groceries,2026-03-30,spending,HKD,Wellcome,Wellcome
+404.03,Groceries,2026-03-31,spending,HKD,ParknShop,ParknShop
