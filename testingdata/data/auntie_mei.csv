@@ -1,0 +1,917 @@
+AMOUNT,CNAME,DATE,TYPE,CURRENCY,DESCRIPTION,RNAME
+10000.0,Rent,2024-10-01,spending,HKD,Monthly rent,Landlord
+505.66,Groceries,2024-10-02,spending,HKD,Groceries at Wellcome,Wellcome
+110.36,Transport,2024-10-02,spending,HKD,MTR,MTR
+569.36,Groceries,2024-10-04,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+548.01,Groceries,2024-10-04,spending,HKD,Groceries at Wellcome,Wellcome
+90.16,Transport,2024-10-04,spending,HKD,Octopus Reload,Octopus Reload
+97.24,Transport,2024-10-04,spending,HKD,Octopus Reload,Octopus Reload
+307.3,Groceries,2024-10-05,spending,HKD,Groceries at Wellcome,Wellcome
+1759.55,Kids,2024-10-05,spending,HKD,Tuition fee,Kumon
+1217.53,Kids,2024-10-05,spending,HKD,Tuition fee,Modern Education
+538.86,Groceries,2024-10-06,spending,HKD,Groceries at ParknShop,ParknShop
+86.71,Transport,2024-10-06,spending,HKD,MTR,MTR
+96.01,Transport,2024-10-07,spending,HKD,MTR,MTR
+645.03,Utilities,2024-10-08,spending,HKD,Electricity bill,CLP Power
+116.32,Transport,2024-10-10,spending,HKD,Citybus,Citybus
+95.11,Transport,2024-10-10,spending,HKD,MTR,MTR
+110.98,Transport,2024-10-10,spending,HKD,Octopus Reload,Octopus Reload
+201.64,Utilities,2024-10-10,spending,HKD,Gas bill,Towngas
+567.13,Dining,2024-10-12,spending,HKD,Lunch - Café de Coral,Café de Coral
+400.0,Entertainment,2024-10-12,spending,HKD,Broadway Cinema,Broadway Cinema
+127.09,Transport,2024-10-12,spending,HKD,Octopus Reload,Octopus Reload
+219.91,Utilities,2024-10-12,spending,HKD,Broadband,HKBN
+74.94,Transport,2024-10-14,spending,HKD,MTR,MTR
+28000.0,Salary,2024-10-15,income,HKD,Monthly salary,Hospital Authority
+128.9,Transport,2024-10-17,spending,HKD,Citybus,Citybus
+548.6,Groceries,2024-10-18,spending,HKD,Groceries at ParknShop,ParknShop
+442.19,Groceries,2024-10-19,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+377.25,Groceries,2024-10-19,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+381.0,Kids,2024-10-19,spending,HKD,Kids - Modern Education,Modern Education
+200.61,Kids,2024-10-19,spending,HKD,Kids - School Fees,School Fees
+115.89,Transport,2024-10-19,spending,HKD,MTR,MTR
+1583.8,Insurance,2024-10-20,spending,HKD,Life insurance,AIA Insurance
+130.47,Transport,2024-10-20,spending,HKD,MTR,MTR
+137.09,Transport,2024-10-21,spending,HKD,MTR,MTR
+100.72,Transport,2024-10-21,spending,HKD,MTR,MTR
+412.29,Groceries,2024-10-22,spending,HKD,Groceries at Wellcome,Wellcome
+569.01,Groceries,2024-10-23,spending,HKD,Groceries at Wellcome,Wellcome
+434.72,Groceries,2024-10-24,spending,HKD,Groceries at ParknShop,ParknShop
+324.18,Dining,2024-10-25,spending,HKD,Lunch - Maxim's,Maxim's
+508.69,Dining,2024-10-26,spending,HKD,Lunch - Maxim's,Maxim's
+118.46,Transport,2024-10-26,spending,HKD,Citybus,Citybus
+142.26,Transport,2024-10-26,spending,HKD,Octopus Reload,Octopus Reload
+244.76,Kids,2024-10-27,spending,HKD,Kids - School Fees,School Fees
+84.01,Transport,2024-10-27,spending,HKD,Octopus Reload,Octopus Reload
+348.3,Kids,2024-10-28,spending,HKD,Kids - Kumon,Kumon
+143.31,Transport,2024-10-28,spending,HKD,Citybus,Citybus
+93.99,Transport,2024-10-28,spending,HKD,Citybus,Citybus
+346.75,Groceries,2024-10-29,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+381.31,Kids,2024-10-31,spending,HKD,Kids - Kumon,Kumon
+244.01,Kids,2024-10-31,spending,HKD,Kids - Kumon,Kumon
+391.02,Groceries,2024-11-01,spending,HKD,Groceries at ParknShop,ParknShop
+10000.0,Rent,2024-11-01,spending,HKD,Monthly rent,Landlord
+318.73,Dining,2024-11-04,spending,HKD,Lunch - Fairwood,Fairwood
+436.49,Groceries,2024-11-04,spending,HKD,Groceries at Wellcome,Wellcome
+1787.99,Kids,2024-11-05,spending,HKD,Tuition fee,Kumon
+1218.61,Kids,2024-11-05,spending,HKD,Tuition fee,Modern Education
+453.27,Groceries,2024-11-06,spending,HKD,Groceries at ParknShop,ParknShop
+469.82,Groceries,2024-11-07,spending,HKD,Groceries at ParknShop,ParknShop
+149.4,Transport,2024-11-07,spending,HKD,Citybus,Citybus
+527.23,Groceries,2024-11-08,spending,HKD,Groceries at ParknShop,ParknShop
+227.16,Kids,2024-11-08,spending,HKD,Kids - Eugene Baby,Eugene Baby
+322.59,Kids,2024-11-08,spending,HKD,Kids - Eugene Baby,Eugene Baby
+164.05,Transport,2024-11-08,spending,HKD,Citybus,Citybus
+142.61,Transport,2024-11-08,spending,HKD,MTR,MTR
+120.01,Transport,2024-11-08,spending,HKD,Octopus Reload,Octopus Reload
+613.73,Utilities,2024-11-08,spending,HKD,Electricity bill,CLP Power
+400.0,Entertainment,2024-11-09,spending,HKD,Broadway Cinema,Broadway Cinema
+451.88,Groceries,2024-11-10,spending,HKD,Groceries at Wellcome,Wellcome
+158.92,Transport,2024-11-10,spending,HKD,Octopus Reload,Octopus Reload
+174.57,Utilities,2024-11-10,spending,HKD,Gas bill,Towngas
+491.0,Groceries,2024-11-11,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+493.71,Groceries,2024-11-11,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+195.28,Kids,2024-11-11,spending,HKD,Kids - Eugene Baby,Eugene Baby
+175.51,Transport,2024-11-11,spending,HKD,Citybus,Citybus
+287.1,Kids,2024-11-12,spending,HKD,Kids - Kumon,Kumon
+218.83,Utilities,2024-11-12,spending,HKD,Broadband,HKBN
+520.78,Groceries,2024-11-13,spending,HKD,Groceries at ParknShop,ParknShop
+188.99,Transport,2024-11-14,spending,HKD,Citybus,Citybus
+130.39,Transport,2024-11-14,spending,HKD,Octopus Reload,Octopus Reload
+28000.0,Salary,2024-11-15,income,HKD,Monthly salary,Hospital Authority
+191.12,Dining,2024-11-16,spending,HKD,Lunch - Maxim's,Maxim's
+110.69,Transport,2024-11-16,spending,HKD,MTR,MTR
+329.59,Dining,2024-11-18,spending,HKD,Lunch - Café de Coral,Café de Coral
+283.82,Kids,2024-11-18,spending,HKD,Kids - Modern Education,Modern Education
+1566.62,Insurance,2024-11-20,spending,HKD,Life insurance,AIA Insurance
+123.21,Transport,2024-11-21,spending,HKD,Octopus Reload,Octopus Reload
+159.37,Transport,2024-11-21,spending,HKD,Octopus Reload,Octopus Reload
+282.46,Kids,2024-11-23,spending,HKD,Kids - Eugene Baby,Eugene Baby
+140.15,Transport,2024-11-23,spending,HKD,Citybus,Citybus
+118.62,Transport,2024-11-23,spending,HKD,MTR,MTR
+614.24,Groceries,2024-11-24,spending,HKD,Groceries at Wellcome,Wellcome
+363.09,Groceries,2024-11-24,spending,HKD,Groceries at Wellcome,Wellcome
+201.58,Kids,2024-11-24,spending,HKD,Kids - Eugene Baby,Eugene Baby
+387.47,Groceries,2024-11-25,spending,HKD,Groceries at ParknShop,ParknShop
+230.88,Dining,2024-11-27,spending,HKD,Lunch - Fairwood,Fairwood
+195.51,Transport,2024-11-27,spending,HKD,MTR,MTR
+122.57,Transport,2024-11-27,spending,HKD,Octopus Reload,Octopus Reload
+329.68,Dining,2024-11-29,spending,HKD,Lunch - Fairwood,Fairwood
+493.12,Groceries,2024-12-01,spending,HKD,Groceries at ParknShop,ParknShop
+10000.0,Rent,2024-12-01,spending,HKD,Monthly rent,Landlord
+535.65,Groceries,2024-12-02,spending,HKD,Groceries at Wellcome,Wellcome
+82.85,Transport,2024-12-03,spending,HKD,Citybus,Citybus
+102.91,Transport,2024-12-03,spending,HKD,Octopus Reload,Octopus Reload
+352.19,Dining,2024-12-04,spending,HKD,Lunch - Fairwood,Fairwood
+1803.08,Kids,2024-12-05,spending,HKD,Tuition fee,Kumon
+1161.33,Kids,2024-12-05,spending,HKD,Tuition fee,Modern Education
+214.7,Dining,2024-12-06,spending,HKD,Lunch - Maxim's,Maxim's
+139.3,Transport,2024-12-07,spending,HKD,MTR,MTR
+531.29,Utilities,2024-12-08,spending,HKD,Electricity bill,CLP Power
+461.98,Groceries,2024-12-09,spending,HKD,Groceries at Wellcome,Wellcome
+559.37,Groceries,2024-12-10,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+183.04,Utilities,2024-12-10,spending,HKD,Gas bill,Towngas
+465.9,Groceries,2024-12-12,spending,HKD,Groceries at Wellcome,Wellcome
+220.58,Utilities,2024-12-12,spending,HKD,Broadband,HKBN
+359.06,Dining,2024-12-14,spending,HKD,Lunch - Café de Coral,Café de Coral
+392.12,Groceries,2024-12-14,spending,HKD,Groceries at Wellcome,Wellcome
+88.57,Transport,2024-12-14,spending,HKD,Citybus,Citybus
+28000.0,Salary,2024-12-15,income,HKD,Monthly salary,Hospital Authority
+145.84,Transport,2024-12-16,spending,HKD,MTR,MTR
+375.18,Groceries,2024-12-17,spending,HKD,Groceries at ParknShop,ParknShop
+87.74,Transport,2024-12-17,spending,HKD,Citybus,Citybus
+151.38,Transport,2024-12-17,spending,HKD,Citybus,Citybus
+122.43,Transport,2024-12-17,spending,HKD,Octopus Reload,Octopus Reload
+507.66,Groceries,2024-12-18,spending,HKD,Groceries at Wellcome,Wellcome
+527.12,Groceries,2024-12-19,spending,HKD,Groceries at Wellcome,Wellcome
+1586.09,Insurance,2024-12-20,spending,HKD,Life insurance,AIA Insurance
+96.12,Transport,2024-12-20,spending,HKD,Octopus Reload,Octopus Reload
+87.75,Transport,2024-12-20,spending,HKD,Octopus Reload,Octopus Reload
+135.86,Transport,2024-12-20,spending,HKD,Octopus Reload,Octopus Reload
+419.68,Groceries,2024-12-21,spending,HKD,Groceries at Wellcome,Wellcome
+540.31,Groceries,2024-12-22,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+115.46,Transport,2024-12-22,spending,HKD,Citybus,Citybus
+400.0,Entertainment,2024-12-24,spending,HKD,YouTube TV,YouTube TV
+152.9,Transport,2024-12-25,spending,HKD,Citybus,Citybus
+77.68,Transport,2024-12-26,spending,HKD,Citybus,Citybus
+154.76,Transport,2024-12-27,spending,HKD,Citybus,Citybus
+503.7,Kids,2024-12-28,spending,HKD,Kids - School Fees,School Fees
+131.31,Transport,2024-12-28,spending,HKD,Citybus,Citybus
+78.93,Transport,2024-12-28,spending,HKD,MTR,MTR
+223.76,Dining,2024-12-29,spending,HKD,Lunch - Fairwood,Fairwood
+423.3,Kids,2024-12-29,spending,HKD,Kids - Kumon,Kumon
+250.29,Dining,2024-12-30,spending,HKD,Lunch - Maxim's,Maxim's
+502.35,Kids,2024-12-30,spending,HKD,Kids - Modern Education,Modern Education
+370.64,Kids,2024-12-30,spending,HKD,Kids - School Fees,School Fees
+110.14,Transport,2024-12-30,spending,HKD,Octopus Reload,Octopus Reload
+321.92,Groceries,2024-12-31,spending,HKD,Groceries at ParknShop,ParknShop
+138.08,Transport,2024-12-31,spending,HKD,MTR,MTR
+324.55,Kids,2025-01-01,spending,HKD,Kids - Eugene Baby,Eugene Baby
+10000.0,Rent,2025-01-01,spending,HKD,Monthly rent,Landlord
+344.55,Groceries,2025-01-02,spending,HKD,Groceries at Wellcome,Wellcome
+125.16,Transport,2025-01-03,spending,HKD,Citybus,Citybus
+139.03,Transport,2025-01-03,spending,HKD,Octopus Reload,Octopus Reload
+461.02,Kids,2025-01-04,spending,HKD,Kids - Eugene Baby,Eugene Baby
+422.55,Groceries,2025-01-05,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+1786.93,Kids,2025-01-05,spending,HKD,Tuition fee,Kumon
+1188.39,Kids,2025-01-05,spending,HKD,Tuition fee,Modern Education
+427.79,Groceries,2025-01-06,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+503.6,Dining,2025-01-08,spending,HKD,Lunch - Fairwood,Fairwood
+113.37,Transport,2025-01-08,spending,HKD,Octopus Reload,Octopus Reload
+130.07,Transport,2025-01-08,spending,HKD,Octopus Reload,Octopus Reload
+652.84,Utilities,2025-01-08,spending,HKD,Electricity bill,CLP Power
+175.66,Utilities,2025-01-10,spending,HKD,Gas bill,Towngas
+516.56,Kids,2025-01-11,spending,HKD,Kids - Kumon,Kumon
+241.76,Groceries,2025-01-12,spending,HKD,Groceries at Wellcome,Wellcome
+220.06,Utilities,2025-01-12,spending,HKD,Broadband,HKBN
+454.49,Dining,2025-01-14,spending,HKD,Lunch - Fairwood,Fairwood
+28000.0,Salary,2025-01-15,income,HKD,Monthly salary,Hospital Authority
+193.47,Transport,2025-01-15,spending,HKD,Citybus,Citybus
+152.07,Transport,2025-01-15,spending,HKD,Octopus Reload,Octopus Reload
+497.87,Kids,2025-01-16,spending,HKD,Kids - Eugene Baby,Eugene Baby
+400.0,Entertainment,2025-01-17,spending,HKD,Broadway Cinema,Broadway Cinema
+320.89,Groceries,2025-01-17,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+121.36,Transport,2025-01-17,spending,HKD,Citybus,Citybus
+131.26,Transport,2025-01-17,spending,HKD,Octopus Reload,Octopus Reload
+414.06,Groceries,2025-01-18,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+340.65,Groceries,2025-01-18,spending,HKD,Groceries at Wellcome,Wellcome
+138.9,Transport,2025-01-19,spending,HKD,MTR,MTR
+247.77,Groceries,2025-01-20,spending,HKD,Groceries at ParknShop,ParknShop
+1590.26,Insurance,2025-01-20,spending,HKD,Life insurance,AIA Insurance
+143.47,Transport,2025-01-20,spending,HKD,MTR,MTR
+441.9,Dining,2025-01-21,spending,HKD,Lunch - Café de Coral,Café de Coral
+389.19,Groceries,2025-01-21,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+413.99,Groceries,2025-01-23,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+190.44,Transport,2025-01-23,spending,HKD,Citybus,Citybus
+149.18,Transport,2025-01-23,spending,HKD,MTR,MTR
+175.67,Transport,2025-01-24,spending,HKD,MTR,MTR
+424.89,Groceries,2025-01-26,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+433.54,Groceries,2025-01-27,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+306.32,Groceries,2025-01-28,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+152.06,Transport,2025-01-28,spending,HKD,Octopus Reload,Octopus Reload
+237.03,Groceries,2025-01-29,spending,HKD,Groceries at ParknShop,ParknShop
+144.49,Transport,2025-01-29,spending,HKD,MTR,MTR
+307.75,Groceries,2025-01-30,spending,HKD,Groceries at Wellcome,Wellcome
+327.29,Groceries,2025-01-31,spending,HKD,Groceries at ParknShop,ParknShop
+437.13,Groceries,2025-02-01,spending,HKD,Groceries at ParknShop,ParknShop
+10000.0,Rent,2025-02-01,spending,HKD,Monthly rent,Landlord
+245.3,Groceries,2025-02-02,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+137.09,Transport,2025-02-02,spending,HKD,Octopus Reload,Octopus Reload
+117.82,Transport,2025-02-03,spending,HKD,Citybus,Citybus
+314.89,Kids,2025-02-04,spending,HKD,Kids - School Fees,School Fees
+1791.12,Kids,2025-02-05,spending,HKD,Tuition fee,Kumon
+1209.82,Kids,2025-02-05,spending,HKD,Tuition fee,Modern Education
+314.56,Kids,2025-02-05,spending,HKD,Kids - School Fees,School Fees
+127.58,Transport,2025-02-05,spending,HKD,Octopus Reload,Octopus Reload
+316.69,Dining,2025-02-08,spending,HKD,Lunch - Café de Coral,Café de Coral
+104.94,Transport,2025-02-08,spending,HKD,MTR,MTR
+627.14,Utilities,2025-02-08,spending,HKD,Electricity bill,CLP Power
+405.26,Groceries,2025-02-10,spending,HKD,Groceries at Wellcome,Wellcome
+196.35,Transport,2025-02-10,spending,HKD,Octopus Reload,Octopus Reload
+174.79,Utilities,2025-02-10,spending,HKD,Gas bill,Towngas
+269.41,Groceries,2025-02-11,spending,HKD,Groceries at ParknShop,ParknShop
+413.54,Groceries,2025-02-12,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+401.22,Groceries,2025-02-12,spending,HKD,Groceries at Wellcome,Wellcome
+219.23,Utilities,2025-02-12,spending,HKD,Broadband,HKBN
+492.84,Groceries,2025-02-13,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+129.11,Transport,2025-02-13,spending,HKD,MTR,MTR
+101.28,Transport,2025-02-14,spending,HKD,Citybus,Citybus
+28000.0,Salary,2025-02-15,income,HKD,Monthly salary,Hospital Authority
+143.93,Transport,2025-02-16,spending,HKD,Citybus,Citybus
+175.4,Transport,2025-02-17,spending,HKD,Octopus Reload,Octopus Reload
+301.67,Kids,2025-02-18,spending,HKD,Kids - School Fees,School Fees
+128.5,Transport,2025-02-18,spending,HKD,Citybus,Citybus
+104.29,Transport,2025-02-18,spending,HKD,Octopus Reload,Octopus Reload
+461.45,Groceries,2025-02-19,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+1624.71,Insurance,2025-02-20,spending,HKD,Life insurance,AIA Insurance
+490.57,Groceries,2025-02-21,spending,HKD,Groceries at ParknShop,ParknShop
+347.45,Groceries,2025-02-21,spending,HKD,Groceries at Wellcome,Wellcome
+278.91,Groceries,2025-02-22,spending,HKD,Groceries at ParknShop,ParknShop
+488.15,Groceries,2025-02-23,spending,HKD,Groceries at ParknShop,ParknShop
+269.58,Kids,2025-02-24,spending,HKD,Kids - Eugene Baby,Eugene Baby
+155.39,Transport,2025-02-24,spending,HKD,Citybus,Citybus
+111.1,Transport,2025-02-24,spending,HKD,Citybus,Citybus
+183.77,Transport,2025-02-24,spending,HKD,MTR,MTR
+400.0,Entertainment,2025-02-25,spending,HKD,Broadway Cinema,Broadway Cinema
+397.76,Groceries,2025-02-25,spending,HKD,Groceries at ParknShop,ParknShop
+124.24,Transport,2025-02-25,spending,HKD,Octopus Reload,Octopus Reload
+619.11,Dining,2025-02-27,spending,HKD,Lunch - Fairwood,Fairwood
+471.01,Groceries,2025-02-27,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+159.22,Transport,2025-02-27,spending,HKD,Octopus Reload,Octopus Reload
+464.2,Dining,2025-02-28,spending,HKD,Lunch - Maxim's,Maxim's
+296.37,Kids,2025-02-28,spending,HKD,Kids - Eugene Baby,Eugene Baby
+302.94,Kids,2025-02-28,spending,HKD,Kids - Kumon,Kumon
+10000.0,Rent,2025-03-01,spending,HKD,Monthly rent,Landlord
+138.37,Transport,2025-03-01,spending,HKD,Citybus,Citybus
+476.96,Groceries,2025-03-02,spending,HKD,Groceries at ParknShop,ParknShop
+457.82,Groceries,2025-03-03,spending,HKD,Groceries at Wellcome,Wellcome
+113.12,Transport,2025-03-03,spending,HKD,Octopus Reload,Octopus Reload
+93.32,Transport,2025-03-03,spending,HKD,Octopus Reload,Octopus Reload
+400.0,Entertainment,2025-03-04,spending,HKD,Broadway Cinema,Broadway Cinema
+345.34,Groceries,2025-03-04,spending,HKD,Groceries at ParknShop,ParknShop
+352.36,Kids,2025-03-04,spending,HKD,Kids - Kumon,Kumon
+486.17,Groceries,2025-03-05,spending,HKD,Groceries at ParknShop,ParknShop
+1830.82,Kids,2025-03-05,spending,HKD,Tuition fee,Kumon
+1228.84,Kids,2025-03-05,spending,HKD,Tuition fee,Modern Education
+128.45,Transport,2025-03-06,spending,HKD,Citybus,Citybus
+362.16,Dining,2025-03-07,spending,HKD,Lunch - Café de Coral,Café de Coral
+314.61,Dining,2025-03-07,spending,HKD,Lunch - Fairwood,Fairwood
+480.31,Groceries,2025-03-07,spending,HKD,Groceries at ParknShop,ParknShop
+91.49,Transport,2025-03-07,spending,HKD,Citybus,Citybus
+656.67,Utilities,2025-03-08,spending,HKD,Electricity bill,CLP Power
+440.67,Groceries,2025-03-09,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+84.35,Transport,2025-03-10,spending,HKD,Citybus,Citybus
+180.95,Utilities,2025-03-10,spending,HKD,Gas bill,Towngas
+464.78,Groceries,2025-03-11,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+394.15,Kids,2025-03-11,spending,HKD,Kids - School Fees,School Fees
+440.56,Kids,2025-03-12,spending,HKD,Kids - Modern Education,Modern Education
+217.74,Utilities,2025-03-12,spending,HKD,Broadband,HKBN
+317.43,Groceries,2025-03-13,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+394.61,Groceries,2025-03-13,spending,HKD,Groceries at ParknShop,ParknShop
+479.22,Groceries,2025-03-15,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+28000.0,Salary,2025-03-15,income,HKD,Monthly salary,Hospital Authority
+118.22,Transport,2025-03-16,spending,HKD,Citybus,Citybus
+612.92,Kids,2025-03-19,spending,HKD,Kids - School Fees,School Fees
+108.63,Transport,2025-03-19,spending,HKD,Citybus,Citybus
+89.25,Transport,2025-03-19,spending,HKD,MTR,MTR
+1629.8,Insurance,2025-03-20,spending,HKD,Life insurance,AIA Insurance
+127.13,Transport,2025-03-20,spending,HKD,MTR,MTR
+260.98,Groceries,2025-03-21,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+115.79,Transport,2025-03-21,spending,HKD,Octopus Reload,Octopus Reload
+135.85,Transport,2025-03-21,spending,HKD,Octopus Reload,Octopus Reload
+335.14,Groceries,2025-03-22,spending,HKD,Groceries at ParknShop,ParknShop
+147.86,Transport,2025-03-23,spending,HKD,MTR,MTR
+374.17,Groceries,2025-03-24,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+88.38,Transport,2025-03-24,spending,HKD,Citybus,Citybus
+119.12,Transport,2025-03-26,spending,HKD,Citybus,Citybus
+125.79,Transport,2025-03-27,spending,HKD,Citybus,Citybus
+123.75,Transport,2025-03-29,spending,HKD,MTR,MTR
+342.58,Dining,2025-03-30,spending,HKD,Lunch - Café de Coral,Café de Coral
+380.64,Dining,2025-03-30,spending,HKD,Lunch - Fairwood,Fairwood
+286.42,Groceries,2025-03-31,spending,HKD,Groceries at Wellcome,Wellcome
+111.75,Transport,2025-03-31,spending,HKD,Citybus,Citybus
+139.38,Transport,2025-03-31,spending,HKD,Octopus Reload,Octopus Reload
+399.4,Groceries,2025-04-01,spending,HKD,Groceries at Wellcome,Wellcome
+10000.0,Rent,2025-04-01,spending,HKD,Monthly rent,Landlord
+1809.15,Kids,2025-04-05,spending,HKD,Tuition fee,Kumon
+1195.96,Kids,2025-04-05,spending,HKD,Tuition fee,Modern Education
+135.07,Transport,2025-04-05,spending,HKD,Octopus Reload,Octopus Reload
+458.09,Groceries,2025-04-06,spending,HKD,Groceries at ParknShop,ParknShop
+131.68,Transport,2025-04-06,spending,HKD,Citybus,Citybus
+477.98,Dining,2025-04-07,spending,HKD,Lunch - Maxim's,Maxim's
+590.29,Dining,2025-04-07,spending,HKD,Lunch - Maxim's,Maxim's
+128.88,Transport,2025-04-07,spending,HKD,Octopus Reload,Octopus Reload
+349.47,Groceries,2025-04-08,spending,HKD,Groceries at ParknShop,ParknShop
+306.38,Groceries,2025-04-08,spending,HKD,Groceries at Wellcome,Wellcome
+619.0,Utilities,2025-04-08,spending,HKD,Electricity bill,CLP Power
+331.73,Dining,2025-04-09,spending,HKD,Lunch - Fairwood,Fairwood
+321.32,Kids,2025-04-09,spending,HKD,Kids - School Fees,School Fees
+154.89,Transport,2025-04-09,spending,HKD,Citybus,Citybus
+178.53,Utilities,2025-04-10,spending,HKD,Gas bill,Towngas
+413.15,Groceries,2025-04-12,spending,HKD,Groceries at ParknShop,ParknShop
+85.54,Transport,2025-04-12,spending,HKD,Octopus Reload,Octopus Reload
+217.78,Utilities,2025-04-12,spending,HKD,Broadband,HKBN
+435.0,Groceries,2025-04-13,spending,HKD,Groceries at Wellcome,Wellcome
+297.52,Groceries,2025-04-14,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+28000.0,Salary,2025-04-15,income,HKD,Monthly salary,Hospital Authority
+405.08,Kids,2025-04-16,spending,HKD,Kids - School Fees,School Fees
+80.02,Transport,2025-04-16,spending,HKD,MTR,MTR
+400.0,Entertainment,2025-04-18,spending,HKD,Broadway Cinema,Broadway Cinema
+458.88,Groceries,2025-04-18,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+1588.94,Insurance,2025-04-20,spending,HKD,Life insurance,AIA Insurance
+109.75,Transport,2025-04-20,spending,HKD,Citybus,Citybus
+119.23,Transport,2025-04-21,spending,HKD,Citybus,Citybus
+429.6,Groceries,2025-04-22,spending,HKD,Groceries at Wellcome,Wellcome
+161.8,Transport,2025-04-22,spending,HKD,MTR,MTR
+114.0,Transport,2025-04-23,spending,HKD,Octopus Reload,Octopus Reload
+437.91,Groceries,2025-04-24,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+475.08,Groceries,2025-04-24,spending,HKD,Groceries at ParknShop,ParknShop
+147.76,Transport,2025-04-24,spending,HKD,Citybus,Citybus
+450.91,Groceries,2025-04-25,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+144.17,Transport,2025-04-26,spending,HKD,MTR,MTR
+110.92,Transport,2025-04-26,spending,HKD,Octopus Reload,Octopus Reload
+123.9,Transport,2025-04-26,spending,HKD,Octopus Reload,Octopus Reload
+271.9,Kids,2025-04-27,spending,HKD,Kids - School Fees,School Fees
+100.3,Transport,2025-04-28,spending,HKD,Citybus,Citybus
+397.87,Groceries,2025-04-29,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+318.23,Kids,2025-04-29,spending,HKD,Kids - Eugene Baby,Eugene Baby
+153.65,Transport,2025-04-29,spending,HKD,MTR,MTR
+290.73,Groceries,2025-04-30,spending,HKD,Groceries at Wellcome,Wellcome
+483.47,Kids,2025-04-30,spending,HKD,Kids - Modern Education,Modern Education
+82.19,Transport,2025-04-30,spending,HKD,Citybus,Citybus
+116.25,Transport,2025-04-30,spending,HKD,Octopus Reload,Octopus Reload
+450.42,Groceries,2025-05-01,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+10000.0,Rent,2025-05-01,spending,HKD,Monthly rent,Landlord
+134.42,Transport,2025-05-01,spending,HKD,Octopus Reload,Octopus Reload
+108.08,Transport,2025-05-02,spending,HKD,MTR,MTR
+148.27,Transport,2025-05-03,spending,HKD,Octopus Reload,Octopus Reload
+128.79,Transport,2025-05-03,spending,HKD,Octopus Reload,Octopus Reload
+136.95,Transport,2025-05-04,spending,HKD,MTR,MTR
+328.68,Groceries,2025-05-05,spending,HKD,Groceries at Wellcome,Wellcome
+1792.99,Kids,2025-05-05,spending,HKD,Tuition fee,Kumon
+1227.01,Kids,2025-05-05,spending,HKD,Tuition fee,Modern Education
+251.61,Kids,2025-05-06,spending,HKD,Kids - Modern Education,Modern Education
+148.37,Transport,2025-05-06,spending,HKD,Octopus Reload,Octopus Reload
+389.63,Groceries,2025-05-07,spending,HKD,Groceries at ParknShop,ParknShop
+464.62,Groceries,2025-05-08,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+325.15,Groceries,2025-05-08,spending,HKD,Groceries at ParknShop,ParknShop
+643.47,Utilities,2025-05-08,spending,HKD,Electricity bill,CLP Power
+284.53,Dining,2025-05-09,spending,HKD,Lunch - Maxim's,Maxim's
+132.49,Transport,2025-05-09,spending,HKD,MTR,MTR
+308.6,Dining,2025-05-10,spending,HKD,Lunch - Maxim's,Maxim's
+99.44,Transport,2025-05-10,spending,HKD,Citybus,Citybus
+123.02,Transport,2025-05-10,spending,HKD,Octopus Reload,Octopus Reload
+181.59,Utilities,2025-05-10,spending,HKD,Gas bill,Towngas
+381.03,Groceries,2025-05-11,spending,HKD,Groceries at Wellcome,Wellcome
+249.14,Dining,2025-05-12,spending,HKD,Lunch - Maxim's,Maxim's
+221.59,Utilities,2025-05-12,spending,HKD,Broadband,HKBN
+379.67,Groceries,2025-05-13,spending,HKD,Groceries at Wellcome,Wellcome
+460.66,Kids,2025-05-13,spending,HKD,Kids - Eugene Baby,Eugene Baby
+292.09,Kids,2025-05-13,spending,HKD,Kids - Kumon,Kumon
+28000.0,Salary,2025-05-15,income,HKD,Monthly salary,Hospital Authority
+101.93,Transport,2025-05-15,spending,HKD,Citybus,Citybus
+104.08,Transport,2025-05-15,spending,HKD,MTR,MTR
+197.7,Entertainment,2025-05-16,spending,HKD,Broadway Cinema,Broadway Cinema
+151.57,Transport,2025-05-16,spending,HKD,Octopus Reload,Octopus Reload
+347.13,Groceries,2025-05-18,spending,HKD,Groceries at ParknShop,ParknShop
+144.21,Transport,2025-05-18,spending,HKD,MTR,MTR
+381.89,Groceries,2025-05-19,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+370.74,Groceries,2025-05-19,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+330.41,Kids,2025-05-19,spending,HKD,Kids - Kumon,Kumon
+91.66,Transport,2025-05-19,spending,HKD,MTR,MTR
+114.64,Transport,2025-05-19,spending,HKD,Octopus Reload,Octopus Reload
+172.02,Dining,2025-05-20,spending,HKD,Lunch - Maxim's,Maxim's
+1622.45,Insurance,2025-05-20,spending,HKD,Life insurance,AIA Insurance
+453.17,Groceries,2025-05-21,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+271.89,Groceries,2025-05-21,spending,HKD,Groceries at Wellcome,Wellcome
+254.68,Groceries,2025-05-22,spending,HKD,Groceries at Wellcome,Wellcome
+202.43,Dining,2025-05-24,spending,HKD,Lunch - Maxim's,Maxim's
+296.57,Groceries,2025-05-24,spending,HKD,Groceries at Wellcome,Wellcome
+183.27,Dining,2025-05-25,spending,HKD,Lunch - Maxim's,Maxim's
+465.24,Kids,2025-05-25,spending,HKD,Kids - School Fees,School Fees
+152.74,Transport,2025-05-25,spending,HKD,Octopus Reload,Octopus Reload
+504.75,Groceries,2025-05-26,spending,HKD,Groceries at Wellcome,Wellcome
+92.08,Transport,2025-05-28,spending,HKD,Octopus Reload,Octopus Reload
+202.3,Entertainment,2025-05-29,spending,HKD,Broadway Cinema,Broadway Cinema
+87.26,Transport,2025-05-30,spending,HKD,Octopus Reload,Octopus Reload
+10000.0,Rent,2025-06-01,spending,HKD,Monthly rent,Landlord
+400.0,Entertainment,2025-06-03,spending,HKD,Broadway Cinema,Broadway Cinema
+579.11,Kids,2025-06-03,spending,HKD,Kids - Eugene Baby,Eugene Baby
+125.61,Transport,2025-06-03,spending,HKD,Citybus,Citybus
+390.78,Groceries,2025-06-04,spending,HKD,Groceries at Wellcome,Wellcome
+247.66,Dining,2025-06-05,spending,HKD,Lunch - Café de Coral,Café de Coral
+1818.35,Kids,2025-06-05,spending,HKD,Tuition fee,Kumon
+1193.66,Kids,2025-06-05,spending,HKD,Tuition fee,Modern Education
+415.04,Groceries,2025-06-06,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+474.68,Kids,2025-06-06,spending,HKD,Kids - Eugene Baby,Eugene Baby
+773.55,Utilities,2025-06-08,spending,HKD,Electricity bill,CLP Power
+144.15,Transport,2025-06-09,spending,HKD,Octopus Reload,Octopus Reload
+178.69,Utilities,2025-06-10,spending,HKD,Gas bill,Towngas
+299.86,Kids,2025-06-11,spending,HKD,Kids - Modern Education,Modern Education
+299.63,Groceries,2025-06-12,spending,HKD,Groceries at ParknShop,ParknShop
+446.35,Kids,2025-06-12,spending,HKD,Kids - Eugene Baby,Eugene Baby
+104.52,Transport,2025-06-12,spending,HKD,Citybus,Citybus
+220.93,Utilities,2025-06-12,spending,HKD,Broadband,HKBN
+285.71,Groceries,2025-06-13,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+122.53,Transport,2025-06-13,spending,HKD,Octopus Reload,Octopus Reload
+137.13,Transport,2025-06-13,spending,HKD,Octopus Reload,Octopus Reload
+28000.0,Salary,2025-06-15,income,HKD,Monthly salary,Hospital Authority
+135.97,Transport,2025-06-15,spending,HKD,Octopus Reload,Octopus Reload
+279.09,Dining,2025-06-16,spending,HKD,Lunch - Maxim's,Maxim's
+509.33,Groceries,2025-06-16,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+487.18,Groceries,2025-06-17,spending,HKD,Groceries at Wellcome,Wellcome
+164.54,Dining,2025-06-18,spending,HKD,Lunch - Fairwood,Fairwood
+427.32,Groceries,2025-06-18,spending,HKD,Groceries at Wellcome,Wellcome
+397.32,Groceries,2025-06-19,spending,HKD,Groceries at Wellcome,Wellcome
+149.25,Transport,2025-06-19,spending,HKD,MTR,MTR
+303.18,Dining,2025-06-20,spending,HKD,Lunch - Café de Coral,Café de Coral
+1598.68,Insurance,2025-06-20,spending,HKD,Life insurance,AIA Insurance
+97.9,Transport,2025-06-20,spending,HKD,MTR,MTR
+194.0,Dining,2025-06-21,spending,HKD,Lunch - Café de Coral,Café de Coral
+464.05,Groceries,2025-06-21,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+158.12,Transport,2025-06-22,spending,HKD,Octopus Reload,Octopus Reload
+140.06,Transport,2025-06-23,spending,HKD,Citybus,Citybus
+130.22,Transport,2025-06-23,spending,HKD,Citybus,Citybus
+118.42,Transport,2025-06-23,spending,HKD,MTR,MTR
+136.38,Transport,2025-06-24,spending,HKD,Citybus,Citybus
+128.44,Transport,2025-06-24,spending,HKD,Octopus Reload,Octopus Reload
+93.31,Transport,2025-06-24,spending,HKD,Octopus Reload,Octopus Reload
+356.08,Groceries,2025-06-25,spending,HKD,Groceries at ParknShop,ParknShop
+532.94,Groceries,2025-06-25,spending,HKD,Groceries at Wellcome,Wellcome
+211.52,Dining,2025-06-26,spending,HKD,Lunch - Café de Coral,Café de Coral
+128.41,Transport,2025-06-28,spending,HKD,MTR,MTR
+149.57,Transport,2025-06-28,spending,HKD,MTR,MTR
+497.25,Groceries,2025-06-29,spending,HKD,Groceries at ParknShop,ParknShop
+537.36,Groceries,2025-06-30,spending,HKD,Groceries at ParknShop,ParknShop
+164.94,Entertainment,2025-07-01,spending,HKD,Broadway Cinema,Broadway Cinema
+376.09,Groceries,2025-07-01,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+278.85,Groceries,2025-07-01,spending,HKD,Groceries at Wellcome,Wellcome
+10000.0,Rent,2025-07-01,spending,HKD,Monthly rent,Landlord
+91.53,Transport,2025-07-02,spending,HKD,Citybus,Citybus
+144.96,Transport,2025-07-04,spending,HKD,MTR,MTR
+494.97,Groceries,2025-07-05,spending,HKD,Groceries at ParknShop,ParknShop
+1779.78,Kids,2025-07-05,spending,HKD,Tuition fee,Kumon
+1156.0,Kids,2025-07-05,spending,HKD,Tuition fee,Modern Education
+371.49,Dining,2025-07-08,spending,HKD,Lunch - Fairwood,Fairwood
+462.24,Groceries,2025-07-08,spending,HKD,Groceries at Wellcome,Wellcome
+321.61,Kids,2025-07-08,spending,HKD,Kids - Modern Education,Modern Education
+143.97,Transport,2025-07-08,spending,HKD,MTR,MTR
+980.0,Utilities,2025-07-08,spending,HKD,Electricity bill,CLP Power
+124.6,Transport,2025-07-09,spending,HKD,Citybus,Citybus
+370.24,Groceries,2025-07-10,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+139.14,Transport,2025-07-10,spending,HKD,MTR,MTR
+163.15,Utilities,2025-07-10,spending,HKD,Gas bill,Towngas
+72.83,Transport,2025-07-12,spending,HKD,Citybus,Citybus
+214.72,Utilities,2025-07-12,spending,HKD,Broadband,HKBN
+315.24,Groceries,2025-07-13,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+338.84,Groceries,2025-07-13,spending,HKD,Groceries at Wellcome,Wellcome
+502.1,Groceries,2025-07-15,spending,HKD,Groceries at ParknShop,ParknShop
+302.6,Kids,2025-07-15,spending,HKD,Kids - Eugene Baby,Eugene Baby
+28000.0,Salary,2025-07-15,income,HKD,Monthly salary,Hospital Authority
+252.79,Kids,2025-07-16,spending,HKD,Kids - Modern Education,Modern Education
+338.02,Dining,2025-07-17,spending,HKD,Lunch - Maxim's,Maxim's
+93.44,Transport,2025-07-17,spending,HKD,Citybus,Citybus
+84.94,Transport,2025-07-17,spending,HKD,Citybus,Citybus
+133.22,Transport,2025-07-18,spending,HKD,Citybus,Citybus
+304.19,Groceries,2025-07-19,spending,HKD,Groceries at Wellcome,Wellcome
+1599.79,Insurance,2025-07-20,spending,HKD,Life insurance,AIA Insurance
+90.89,Transport,2025-07-20,spending,HKD,Citybus,Citybus
+301.66,Groceries,2025-07-21,spending,HKD,Groceries at Wellcome,Wellcome
+394.72,Groceries,2025-07-21,spending,HKD,Groceries at Wellcome,Wellcome
+345.11,Groceries,2025-07-21,spending,HKD,Groceries at Wellcome,Wellcome
+237.82,Kids,2025-07-21,spending,HKD,Kids - School Fees,School Fees
+90.91,Transport,2025-07-21,spending,HKD,Octopus Reload,Octopus Reload
+247.73,Kids,2025-07-22,spending,HKD,Kids - Eugene Baby,Eugene Baby
+437.45,Kids,2025-07-22,spending,HKD,Kids - School Fees,School Fees
+354.76,Dining,2025-07-23,spending,HKD,Lunch - Fairwood,Fairwood
+103.67,Transport,2025-07-24,spending,HKD,MTR,MTR
+104.25,Transport,2025-07-24,spending,HKD,Octopus Reload,Octopus Reload
+425.6,Groceries,2025-07-25,spending,HKD,Groceries at ParknShop,ParknShop
+131.98,Transport,2025-07-25,spending,HKD,Citybus,Citybus
+126.09,Transport,2025-07-25,spending,HKD,MTR,MTR
+113.69,Transport,2025-07-25,spending,HKD,Octopus Reload,Octopus Reload
+335.73,Dining,2025-07-27,spending,HKD,Lunch - Maxim's,Maxim's
+235.06,Entertainment,2025-07-28,spending,HKD,Broadway Cinema,Broadway Cinema
+86.09,Transport,2025-07-28,spending,HKD,MTR,MTR
+70.64,Transport,2025-07-28,spending,HKD,Octopus Reload,Octopus Reload
+412.13,Groceries,2025-07-29,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+278.02,Groceries,2025-07-30,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+81.63,Transport,2025-07-30,spending,HKD,MTR,MTR
+100.08,Transport,2025-07-31,spending,HKD,MTR,MTR
+71.45,Transport,2025-07-31,spending,HKD,MTR,MTR
+323.77,Groceries,2025-08-01,spending,HKD,Groceries at ParknShop,ParknShop
+330.5,Groceries,2025-08-01,spending,HKD,Groceries at Wellcome,Wellcome
+10000.0,Rent,2025-08-01,spending,HKD,Monthly rent,Landlord
+455.78,Groceries,2025-08-02,spending,HKD,Groceries at ParknShop,ParknShop
+274.45,Dining,2025-08-03,spending,HKD,Lunch - Café de Coral,Café de Coral
+213.46,Kids,2025-08-03,spending,HKD,Kids - Eugene Baby,Eugene Baby
+89.5,Transport,2025-08-03,spending,HKD,Octopus Reload,Octopus Reload
+246.63,Dining,2025-08-04,spending,HKD,Lunch - Fairwood,Fairwood
+201.21,Entertainment,2025-08-05,spending,HKD,YouTube TV,YouTube TV
+1811.96,Kids,2025-08-05,spending,HKD,Tuition fee,Kumon
+245.38,Kids,2025-08-05,spending,HKD,Kids - Kumon,Kumon
+1194.69,Kids,2025-08-05,spending,HKD,Tuition fee,Modern Education
+307.23,Groceries,2025-08-06,spending,HKD,Groceries at ParknShop,ParknShop
+403.65,Groceries,2025-08-06,spending,HKD,Groceries at Wellcome,Wellcome
+340.04,Groceries,2025-08-07,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+179.08,Transport,2025-08-07,spending,HKD,Octopus Reload,Octopus Reload
+298.32,Kids,2025-08-08,spending,HKD,Kids - School Fees,School Fees
+128.75,Transport,2025-08-08,spending,HKD,Citybus,Citybus
+764.66,Utilities,2025-08-08,spending,HKD,Electricity bill,CLP Power
+129.26,Transport,2025-08-09,spending,HKD,MTR,MTR
+3500.0,Kids,2025-08-10,spending,HKD,Emergency dental,HK Dental Clinic
+111.92,Transport,2025-08-10,spending,HKD,Octopus Reload,Octopus Reload
+167.6,Utilities,2025-08-10,spending,HKD,Gas bill,Towngas
+321.7,Dining,2025-08-11,spending,HKD,Lunch - Fairwood,Fairwood
+1500.0,Groceries,2025-08-12,spending,HKD,Big groceries run,ParknShop
+218.3,Utilities,2025-08-12,spending,HKD,Broadband,HKBN
+307.45,Groceries,2025-08-13,spending,HKD,Groceries at ParknShop,ParknShop
+270.84,Kids,2025-08-13,spending,HKD,Kids - School Fees,School Fees
+410.15,Groceries,2025-08-14,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+467.42,Groceries,2025-08-14,spending,HKD,Groceries at Wellcome,Wellcome
+142.33,Transport,2025-08-14,spending,HKD,Citybus,Citybus
+117.53,Transport,2025-08-14,spending,HKD,MTR,MTR
+28000.0,Salary,2025-08-15,income,HKD,Monthly salary,Hospital Authority
+287.44,Kids,2025-08-16,spending,HKD,Kids - Eugene Baby,Eugene Baby
+281.81,Dining,2025-08-19,spending,HKD,Lunch - Maxim's,Maxim's
+423.55,Groceries,2025-08-19,spending,HKD,Groceries at ParknShop,ParknShop
+176.82,Transport,2025-08-19,spending,HKD,MTR,MTR
+1593.53,Insurance,2025-08-20,spending,HKD,Life insurance,AIA Insurance
+95.09,Transport,2025-08-20,spending,HKD,MTR,MTR
+402.62,Groceries,2025-08-21,spending,HKD,Groceries at ParknShop,ParknShop
+483.56,Groceries,2025-08-23,spending,HKD,Groceries at Wellcome,Wellcome
+94.15,Transport,2025-08-23,spending,HKD,MTR,MTR
+198.79,Entertainment,2025-08-24,spending,HKD,Broadway Cinema,Broadway Cinema
+194.32,Kids,2025-08-24,spending,HKD,Kids - School Fees,School Fees
+311.74,Groceries,2025-08-25,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+296.74,Groceries,2025-08-25,spending,HKD,Groceries at Wellcome,Wellcome
+156.3,Transport,2025-08-26,spending,HKD,Octopus Reload,Octopus Reload
+123.37,Transport,2025-08-27,spending,HKD,Octopus Reload,Octopus Reload
+335.79,Groceries,2025-08-28,spending,HKD,Groceries at Wellcome,Wellcome
+290.25,Kids,2025-08-28,spending,HKD,Kids - School Fees,School Fees
+121.34,Transport,2025-08-28,spending,HKD,MTR,MTR
+112.5,Transport,2025-08-28,spending,HKD,Octopus Reload,Octopus Reload
+88.62,Transport,2025-08-28,spending,HKD,Octopus Reload,Octopus Reload
+132.98,Transport,2025-08-30,spending,HKD,Citybus,Citybus
+275.41,Dining,2025-08-31,spending,HKD,Lunch - Maxim's,Maxim's
+112.5,Transport,2025-08-31,spending,HKD,Octopus Reload,Octopus Reload
+87.96,Transport,2025-08-31,spending,HKD,Octopus Reload,Octopus Reload
+10000.0,Rent,2025-09-01,spending,HKD,Monthly rent,Landlord
+343.27,Groceries,2025-09-02,spending,HKD,Groceries at Wellcome,Wellcome
+200.97,Dining,2025-09-03,spending,HKD,Lunch - Fairwood,Fairwood
+270.04,Kids,2025-09-03,spending,HKD,Kids - Kumon,Kumon
+142.02,Transport,2025-09-03,spending,HKD,Citybus,Citybus
+118.33,Transport,2025-09-03,spending,HKD,MTR,MTR
+225.46,Dining,2025-09-04,spending,HKD,Lunch - Café de Coral,Café de Coral
+391.88,Groceries,2025-09-05,spending,HKD,Groceries at ParknShop,ParknShop
+374.36,Groceries,2025-09-05,spending,HKD,Groceries at ParknShop,ParknShop
+256.31,Groceries,2025-09-05,spending,HKD,Groceries at ParknShop,ParknShop
+1826.42,Kids,2025-09-05,spending,HKD,Tuition fee,Kumon
+1208.21,Kids,2025-09-05,spending,HKD,Tuition fee,Modern Education
+169.24,Transport,2025-09-05,spending,HKD,MTR,MTR
+317.52,Kids,2025-09-06,spending,HKD,Kids - Modern Education,Modern Education
+125.47,Transport,2025-09-06,spending,HKD,Citybus,Citybus
+124.85,Transport,2025-09-07,spending,HKD,Citybus,Citybus
+358.1,Groceries,2025-09-08,spending,HKD,Groceries at Wellcome,Wellcome
+280.21,Kids,2025-09-08,spending,HKD,Kids - School Fees,School Fees
+633.69,Utilities,2025-09-08,spending,HKD,Electricity bill,CLP Power
+320.73,Groceries,2025-09-09,spending,HKD,Groceries at ParknShop,ParknShop
+251.21,Dining,2025-09-10,spending,HKD,Lunch - Café de Coral,Café de Coral
+138.77,Transport,2025-09-10,spending,HKD,Citybus,Citybus
+175.01,Utilities,2025-09-10,spending,HKD,Gas bill,Towngas
+386.17,Groceries,2025-09-12,spending,HKD,Groceries at Wellcome,Wellcome
+219.46,Utilities,2025-09-12,spending,HKD,Broadband,HKBN
+411.64,Groceries,2025-09-13,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+216.8,Dining,2025-09-14,spending,HKD,Lunch - Maxim's,Maxim's
+287.21,Groceries,2025-09-14,spending,HKD,Groceries at ParknShop,ParknShop
+28000.0,Salary,2025-09-15,income,HKD,Monthly salary,Hospital Authority
+150.79,Transport,2025-09-15,spending,HKD,MTR,MTR
+306.95,Groceries,2025-09-16,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+417.47,Groceries,2025-09-16,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+293.03,Groceries,2025-09-16,spending,HKD,Groceries at ParknShop,ParknShop
+317.42,Groceries,2025-09-16,spending,HKD,Groceries at ParknShop,ParknShop
+175.48,Transport,2025-09-17,spending,HKD,Octopus Reload,Octopus Reload
+265.23,Groceries,2025-09-19,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+122.32,Transport,2025-09-19,spending,HKD,Citybus,Citybus
+112.45,Transport,2025-09-19,spending,HKD,Octopus Reload,Octopus Reload
+1611.31,Insurance,2025-09-20,spending,HKD,Life insurance,AIA Insurance
+163.6,Transport,2025-09-20,spending,HKD,Citybus,Citybus
+130.39,Transport,2025-09-20,spending,HKD,Citybus,Citybus
+407.67,Groceries,2025-09-22,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+159.54,Kids,2025-09-22,spending,HKD,Kids - Kumon,Kumon
+110.16,Transport,2025-09-22,spending,HKD,Citybus,Citybus
+284.59,Kids,2025-09-23,spending,HKD,Kids - Modern Education,Modern Education
+271.41,Dining,2025-09-25,spending,HKD,Lunch - Fairwood,Fairwood
+400.0,Entertainment,2025-09-27,spending,HKD,YouTube TV,YouTube TV
+462.56,Groceries,2025-09-27,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+200.65,Kids,2025-09-28,spending,HKD,Kids - Kumon,Kumon
+160.32,Transport,2025-09-29,spending,HKD,Citybus,Citybus
+105.47,Transport,2025-09-29,spending,HKD,MTR,MTR
+234.16,Dining,2025-09-30,spending,HKD,Lunch - Café de Coral,Café de Coral
+287.46,Kids,2025-09-30,spending,HKD,Kids - Modern Education,Modern Education
+150.32,Transport,2025-09-30,spending,HKD,Octopus Reload,Octopus Reload
+10000.0,Rent,2025-10-01,spending,HKD,Monthly rent,Landlord
+100.27,Transport,2025-10-01,spending,HKD,Octopus Reload,Octopus Reload
+356.78,Groceries,2025-10-02,spending,HKD,Groceries at ParknShop,ParknShop
+325.56,Groceries,2025-10-03,spending,HKD,Groceries at ParknShop,ParknShop
+145.51,Transport,2025-10-04,spending,HKD,Citybus,Citybus
+619.16,Groceries,2025-10-05,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+1842.11,Kids,2025-10-05,spending,HKD,Tuition fee,Kumon
+1184.73,Kids,2025-10-05,spending,HKD,Tuition fee,Modern Education
+312.43,Groceries,2025-10-06,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+463.94,Kids,2025-10-07,spending,HKD,Kids - Kumon,Kumon
+419.02,Kids,2025-10-08,spending,HKD,Kids - Eugene Baby,Eugene Baby
+139.91,Transport,2025-10-08,spending,HKD,Citybus,Citybus
+171.28,Transport,2025-10-08,spending,HKD,Citybus,Citybus
+578.84,Utilities,2025-10-08,spending,HKD,Electricity bill,CLP Power
+197.86,Utilities,2025-10-10,spending,HKD,Gas bill,Towngas
+217.65,Utilities,2025-10-12,spending,HKD,Broadband,HKBN
+141.13,Transport,2025-10-13,spending,HKD,Octopus Reload,Octopus Reload
+399.25,Dining,2025-10-14,spending,HKD,Lunch - Café de Coral,Café de Coral
+564.22,Groceries,2025-10-15,spending,HKD,Groceries at Wellcome,Wellcome
+28000.0,Salary,2025-10-15,income,HKD,Monthly salary,Hospital Authority
+344.48,Groceries,2025-10-17,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+111.36,Transport,2025-10-17,spending,HKD,Octopus Reload,Octopus Reload
+274.35,Dining,2025-10-18,spending,HKD,Lunch - Fairwood,Fairwood
+503.68,Groceries,2025-10-18,spending,HKD,Groceries at ParknShop,ParknShop
+599.94,Groceries,2025-10-18,spending,HKD,Groceries at ParknShop,ParknShop
+372.49,Groceries,2025-10-18,spending,HKD,Groceries at Wellcome,Wellcome
+115.13,Transport,2025-10-18,spending,HKD,MTR,MTR
+434.54,Dining,2025-10-20,spending,HKD,Lunch - Maxim's,Maxim's
+1624.68,Insurance,2025-10-20,spending,HKD,Life insurance,AIA Insurance
+193.35,Transport,2025-10-20,spending,HKD,Octopus Reload,Octopus Reload
+462.48,Groceries,2025-10-21,spending,HKD,Groceries at ParknShop,ParknShop
+453.26,Groceries,2025-10-21,spending,HKD,Groceries at Wellcome,Wellcome
+408.37,Kids,2025-10-21,spending,HKD,Kids - Modern Education,Modern Education
+148.7,Transport,2025-10-21,spending,HKD,Citybus,Citybus
+173.31,Transport,2025-10-22,spending,HKD,Octopus Reload,Octopus Reload
+146.15,Transport,2025-10-23,spending,HKD,Citybus,Citybus
+374.21,Groceries,2025-10-24,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+164.38,Transport,2025-10-24,spending,HKD,MTR,MTR
+400.0,Entertainment,2025-10-25,spending,HKD,Broadway Cinema,Broadway Cinema
+121.27,Transport,2025-10-26,spending,HKD,Octopus Reload,Octopus Reload
+508.68,Kids,2025-10-27,spending,HKD,Kids - Kumon,Kumon
+291.87,Dining,2025-10-28,spending,HKD,Lunch - Café de Coral,Café de Coral
+149.44,Transport,2025-10-28,spending,HKD,Citybus,Citybus
+311.32,Groceries,2025-10-29,spending,HKD,Groceries at Wellcome,Wellcome
+178.8,Transport,2025-10-29,spending,HKD,Octopus Reload,Octopus Reload
+411.12,Groceries,2025-11-01,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+10000.0,Rent,2025-11-01,spending,HKD,Monthly rent,Landlord
+79.9,Transport,2025-11-01,spending,HKD,Octopus Reload,Octopus Reload
+331.56,Groceries,2025-11-02,spending,HKD,Groceries at ParknShop,ParknShop
+329.3,Kids,2025-11-03,spending,HKD,Kids - Modern Education,Modern Education
+87.13,Transport,2025-11-03,spending,HKD,MTR,MTR
+147.95,Transport,2025-11-04,spending,HKD,Citybus,Citybus
+116.79,Transport,2025-11-04,spending,HKD,Octopus Reload,Octopus Reload
+1786.69,Kids,2025-11-05,spending,HKD,Tuition fee,Kumon
+1203.09,Kids,2025-11-05,spending,HKD,Tuition fee,Modern Education
+293.02,Kids,2025-11-06,spending,HKD,Kids - Modern Education,Modern Education
+130.39,Transport,2025-11-06,spending,HKD,Octopus Reload,Octopus Reload
+653.57,Utilities,2025-11-08,spending,HKD,Electricity bill,CLP Power
+291.79,Groceries,2025-11-09,spending,HKD,Groceries at ParknShop,ParknShop
+410.02,Groceries,2025-11-10,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+135.3,Transport,2025-11-10,spending,HKD,Citybus,Citybus
+200.03,Utilities,2025-11-10,spending,HKD,Gas bill,Towngas
+423.75,Groceries,2025-11-11,spending,HKD,Groceries at Wellcome,Wellcome
+215.87,Utilities,2025-11-12,spending,HKD,Broadband,HKBN
+232.52,Entertainment,2025-11-13,spending,HKD,YouTube TV,YouTube TV
+329.86,Groceries,2025-11-13,spending,HKD,Groceries at Wellcome,Wellcome
+83.1,Transport,2025-11-13,spending,HKD,Citybus,Citybus
+112.33,Transport,2025-11-13,spending,HKD,MTR,MTR
+115.66,Transport,2025-11-13,spending,HKD,Octopus Reload,Octopus Reload
+359.34,Groceries,2025-11-14,spending,HKD,Groceries at ParknShop,ParknShop
+446.05,Kids,2025-11-15,spending,HKD,Kids - Modern Education,Modern Education
+28000.0,Salary,2025-11-15,income,HKD,Monthly salary,Hospital Authority
+138.66,Transport,2025-11-15,spending,HKD,Octopus Reload,Octopus Reload
+454.8,Dining,2025-11-16,spending,HKD,Lunch - Maxim's,Maxim's
+410.97,Groceries,2025-11-16,spending,HKD,Groceries at Wellcome,Wellcome
+141.5,Transport,2025-11-16,spending,HKD,MTR,MTR
+435.41,Dining,2025-11-17,spending,HKD,Lunch - Fairwood,Fairwood
+110.29,Transport,2025-11-18,spending,HKD,Citybus,Citybus
+153.13,Transport,2025-11-18,spending,HKD,Citybus,Citybus
+292.04,Groceries,2025-11-19,spending,HKD,Groceries at Wellcome,Wellcome
+331.53,Groceries,2025-11-20,spending,HKD,Groceries at Wellcome,Wellcome
+332.87,Groceries,2025-11-20,spending,HKD,Groceries at Wellcome,Wellcome
+1606.66,Insurance,2025-11-20,spending,HKD,Life insurance,AIA Insurance
+361.96,Kids,2025-11-20,spending,HKD,Kids - Eugene Baby,Eugene Baby
+88.12,Transport,2025-11-22,spending,HKD,MTR,MTR
+167.48,Entertainment,2025-11-24,spending,HKD,Broadway Cinema,Broadway Cinema
+149.15,Transport,2025-11-24,spending,HKD,Citybus,Citybus
+437.43,Groceries,2025-11-25,spending,HKD,Groceries at ParknShop,ParknShop
+96.24,Transport,2025-11-25,spending,HKD,Octopus Reload,Octopus Reload
+472.1,Groceries,2025-11-26,spending,HKD,Groceries at Wellcome,Wellcome
+81.65,Transport,2025-11-27,spending,HKD,Octopus Reload,Octopus Reload
+509.79,Dining,2025-11-28,spending,HKD,Lunch - Fairwood,Fairwood
+96.98,Transport,2025-11-28,spending,HKD,Octopus Reload,Octopus Reload
+135.7,Transport,2025-11-28,spending,HKD,Octopus Reload,Octopus Reload
+370.18,Groceries,2025-11-29,spending,HKD,Groceries at Wellcome,Wellcome
+369.67,Kids,2025-11-29,spending,HKD,Kids - Eugene Baby,Eugene Baby
+395.42,Groceries,2025-11-30,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+10000.0,Rent,2025-12-01,spending,HKD,Monthly rent,Landlord
+135.92,Transport,2025-12-01,spending,HKD,Citybus,Citybus
+106.32,Transport,2025-12-01,spending,HKD,MTR,MTR
+414.92,Dining,2025-12-02,spending,HKD,Lunch - Maxim's,Maxim's
+79.86,Transport,2025-12-02,spending,HKD,MTR,MTR
+400.0,Entertainment,2025-12-04,spending,HKD,Broadway Cinema,Broadway Cinema
+83.4,Transport,2025-12-04,spending,HKD,Octopus Reload,Octopus Reload
+1845.5,Kids,2025-12-05,spending,HKD,Tuition fee,Kumon
+1205.25,Kids,2025-12-05,spending,HKD,Tuition fee,Modern Education
+464.87,Groceries,2025-12-06,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+423.85,Groceries,2025-12-06,spending,HKD,Groceries at Wellcome,Wellcome
+253.98,Dining,2025-12-07,spending,HKD,Lunch - Fairwood,Fairwood
+590.68,Groceries,2025-12-07,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+114.6,Transport,2025-12-08,spending,HKD,Citybus,Citybus
+654.89,Utilities,2025-12-08,spending,HKD,Electricity bill,CLP Power
+119.69,Transport,2025-12-09,spending,HKD,MTR,MTR
+113.63,Transport,2025-12-10,spending,HKD,MTR,MTR
+174.6,Utilities,2025-12-10,spending,HKD,Gas bill,Towngas
+218.09,Utilities,2025-12-12,spending,HKD,Broadband,HKBN
+296.56,Dining,2025-12-13,spending,HKD,Lunch - Café de Coral,Café de Coral
+379.25,Groceries,2025-12-13,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+307.05,Groceries,2025-12-13,spending,HKD,Groceries at ParknShop,ParknShop
+361.86,Groceries,2025-12-15,spending,HKD,Groceries at Wellcome,Wellcome
+28000.0,Salary,2025-12-15,income,HKD,Monthly salary,Hospital Authority
+134.8,Transport,2025-12-15,spending,HKD,MTR,MTR
+109.27,Transport,2025-12-17,spending,HKD,Octopus Reload,Octopus Reload
+530.76,Groceries,2025-12-18,spending,HKD,Groceries at Wellcome,Wellcome
+307.32,Kids,2025-12-19,spending,HKD,Kids - School Fees,School Fees
+130.64,Transport,2025-12-19,spending,HKD,Citybus,Citybus
+158.73,Transport,2025-12-19,spending,HKD,Citybus,Citybus
+1585.63,Insurance,2025-12-20,spending,HKD,Life insurance,AIA Insurance
+302.53,Kids,2025-12-21,spending,HKD,Kids - School Fees,School Fees
+434.55,Dining,2025-12-22,spending,HKD,Lunch - Café de Coral,Café de Coral
+363.17,Kids,2025-12-22,spending,HKD,Kids - Eugene Baby,Eugene Baby
+129.39,Transport,2025-12-22,spending,HKD,Octopus Reload,Octopus Reload
+350.94,Kids,2025-12-23,spending,HKD,Kids - Eugene Baby,Eugene Baby
+143.26,Transport,2025-12-24,spending,HKD,Citybus,Citybus
+498.36,Groceries,2025-12-25,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+289.98,Kids,2025-12-26,spending,HKD,Kids - Kumon,Kumon
+120.55,Transport,2025-12-26,spending,HKD,MTR,MTR
+121.15,Transport,2025-12-27,spending,HKD,MTR,MTR
+503.68,Groceries,2025-12-28,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+517.07,Groceries,2025-12-29,spending,HKD,Groceries at ParknShop,ParknShop
+286.5,Groceries,2025-12-29,spending,HKD,Groceries at ParknShop,ParknShop
+102.53,Transport,2025-12-29,spending,HKD,Citybus,Citybus
+88.64,Transport,2025-12-29,spending,HKD,Octopus Reload,Octopus Reload
+322.64,Groceries,2025-12-30,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+186.06,Kids,2025-12-30,spending,HKD,Kids - School Fees,School Fees
+109.8,Transport,2025-12-30,spending,HKD,MTR,MTR
+413.42,Groceries,2025-12-31,spending,HKD,Groceries at Wellcome,Wellcome
+97.82,Transport,2025-12-31,spending,HKD,MTR,MTR
+267.58,Kids,2026-01-01,spending,HKD,Kids - Eugene Baby,Eugene Baby
+10000.0,Rent,2026-01-01,spending,HKD,Monthly rent,Landlord
+144.63,Transport,2026-01-01,spending,HKD,Octopus Reload,Octopus Reload
+131.4,Transport,2026-01-01,spending,HKD,Octopus Reload,Octopus Reload
+303.85,Groceries,2026-01-02,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+108.0,Transport,2026-01-02,spending,HKD,MTR,MTR
+1804.34,Kids,2026-01-05,spending,HKD,Tuition fee,Kumon
+1202.48,Kids,2026-01-05,spending,HKD,Tuition fee,Modern Education
+314.6,Dining,2026-01-06,spending,HKD,Lunch - Fairwood,Fairwood
+152.94,Transport,2026-01-06,spending,HKD,MTR,MTR
+400.0,Entertainment,2026-01-07,spending,HKD,Broadway Cinema,Broadway Cinema
+162.65,Transport,2026-01-08,spending,HKD,Citybus,Citybus
+583.75,Utilities,2026-01-08,spending,HKD,Electricity bill,CLP Power
+279.51,Kids,2026-01-10,spending,HKD,Kids - Kumon,Kumon
+164.18,Utilities,2026-01-10,spending,HKD,Gas bill,Towngas
+319.91,Kids,2026-01-11,spending,HKD,Kids - Kumon,Kumon
+131.02,Transport,2026-01-11,spending,HKD,Citybus,Citybus
+487.03,Groceries,2026-01-12,spending,HKD,Groceries at ParknShop,ParknShop
+221.05,Utilities,2026-01-12,spending,HKD,Broadband,HKBN
+216.05,Dining,2026-01-13,spending,HKD,Lunch - Café de Coral,Café de Coral
+253.42,Groceries,2026-01-14,spending,HKD,Groceries at ParknShop,ParknShop
+242.58,Kids,2026-01-14,spending,HKD,Kids - Eugene Baby,Eugene Baby
+175.66,Transport,2026-01-14,spending,HKD,Citybus,Citybus
+176.72,Dining,2026-01-15,spending,HKD,Lunch - Café de Coral,Café de Coral
+28000.0,Salary,2026-01-15,income,HKD,Monthly salary,Hospital Authority
+139.52,Transport,2026-01-15,spending,HKD,Octopus Reload,Octopus Reload
+103.06,Transport,2026-01-16,spending,HKD,Citybus,Citybus
+127.15,Transport,2026-01-17,spending,HKD,MTR,MTR
+179.29,Transport,2026-01-18,spending,HKD,Citybus,Citybus
+219.85,Dining,2026-01-19,spending,HKD,Lunch - Café de Coral,Café de Coral
+472.25,Groceries,2026-01-19,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+465.72,Groceries,2026-01-19,spending,HKD,Groceries at Wellcome,Wellcome
+251.93,Groceries,2026-01-20,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+450.78,Groceries,2026-01-20,spending,HKD,Groceries at Wellcome,Wellcome
+1597.18,Insurance,2026-01-20,spending,HKD,Life insurance,AIA Insurance
+165.71,Transport,2026-01-20,spending,HKD,Octopus Reload,Octopus Reload
+319.09,Groceries,2026-01-22,spending,HKD,Groceries at Wellcome,Wellcome
+260.16,Dining,2026-01-23,spending,HKD,Lunch - Café de Coral,Café de Coral
+397.65,Kids,2026-01-23,spending,HKD,Kids - School Fees,School Fees
+488.74,Groceries,2026-01-24,spending,HKD,Groceries at ParknShop,ParknShop
+351.48,Groceries,2026-01-25,spending,HKD,Groceries at ParknShop,ParknShop
+212.61,Dining,2026-01-26,spending,HKD,Lunch - Maxim's,Maxim's
+346.51,Groceries,2026-01-26,spending,HKD,Groceries at Wellcome,Wellcome
+250.03,Groceries,2026-01-26,spending,HKD,Groceries at Wellcome,Wellcome
+118.44,Transport,2026-01-27,spending,HKD,Octopus Reload,Octopus Reload
+292.76,Kids,2026-01-28,spending,HKD,Kids - Eugene Baby,Eugene Baby
+193.31,Transport,2026-01-29,spending,HKD,Octopus Reload,Octopus Reload
+452.58,Groceries,2026-01-30,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+278.37,Groceries,2026-01-30,spending,HKD,Groceries at Wellcome,Wellcome
+428.23,Groceries,2026-01-31,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+167.22,Transport,2026-01-31,spending,HKD,Octopus Reload,Octopus Reload
+339.44,Groceries,2026-02-01,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+328.18,Groceries,2026-02-01,spending,HKD,Groceries at ParknShop,ParknShop
+10000.0,Rent,2026-02-01,spending,HKD,Monthly rent,Landlord
+150.45,Transport,2026-02-01,spending,HKD,Octopus Reload,Octopus Reload
+400.0,Entertainment,2026-02-02,spending,HKD,YouTube TV,YouTube TV
+357.62,Groceries,2026-02-03,spending,HKD,Groceries at ParknShop,ParknShop
+145.01,Transport,2026-02-03,spending,HKD,MTR,MTR
+377.14,Groceries,2026-02-04,spending,HKD,Groceries at Wellcome,Wellcome
+368.88,Dining,2026-02-05,spending,HKD,Lunch - Café de Coral,Café de Coral
+1803.22,Kids,2026-02-05,spending,HKD,Tuition fee,Kumon
+1180.68,Kids,2026-02-05,spending,HKD,Tuition fee,Modern Education
+102.03,Transport,2026-02-05,spending,HKD,Octopus Reload,Octopus Reload
+97.12,Transport,2026-02-07,spending,HKD,MTR,MTR
+95.68,Transport,2026-02-07,spending,HKD,MTR,MTR
+629.43,Utilities,2026-02-08,spending,HKD,Electricity bill,CLP Power
+473.35,Groceries,2026-02-09,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+444.02,Groceries,2026-02-10,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+171.8,Utilities,2026-02-10,spending,HKD,Gas bill,Towngas
+253.1,Groceries,2026-02-12,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+217.81,Utilities,2026-02-12,spending,HKD,Broadband,HKBN
+353.68,Kids,2026-02-13,spending,HKD,Kids - Kumon,Kumon
+95.99,Transport,2026-02-14,spending,HKD,Citybus,Citybus
+248.32,Groceries,2026-02-15,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+28000.0,Salary,2026-02-15,income,HKD,Monthly salary,Hospital Authority
+118.11,Transport,2026-02-15,spending,HKD,MTR,MTR
+147.9,Transport,2026-02-15,spending,HKD,Octopus Reload,Octopus Reload
+348.94,Dining,2026-02-16,spending,HKD,Lunch - Fairwood,Fairwood
+189.56,Kids,2026-02-16,spending,HKD,Kids - Kumon,Kumon
+323.76,Kids,2026-02-16,spending,HKD,Kids - Modern Education,Modern Education
+79.48,Transport,2026-02-16,spending,HKD,Octopus Reload,Octopus Reload
+244.99,Kids,2026-02-17,spending,HKD,Kids - Modern Education,Modern Education
+80.76,Transport,2026-02-17,spending,HKD,Citybus,Citybus
+132.11,Transport,2026-02-18,spending,HKD,Octopus Reload,Octopus Reload
+1608.41,Insurance,2026-02-20,spending,HKD,Life insurance,AIA Insurance
+377.14,Groceries,2026-02-21,spending,HKD,Groceries at ParknShop,ParknShop
+91.98,Transport,2026-02-21,spending,HKD,Citybus,Citybus
+138.54,Transport,2026-02-21,spending,HKD,Octopus Reload,Octopus Reload
+78.19,Transport,2026-02-22,spending,HKD,Citybus,Citybus
+100.58,Transport,2026-02-22,spending,HKD,Octopus Reload,Octopus Reload
+410.1,Groceries,2026-02-23,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+191.39,Kids,2026-02-23,spending,HKD,Kids - Eugene Baby,Eugene Baby
+101.82,Transport,2026-02-23,spending,HKD,Citybus,Citybus
+86.64,Transport,2026-02-23,spending,HKD,MTR,MTR
+359.14,Dining,2026-02-24,spending,HKD,Lunch - Fairwood,Fairwood
+457.0,Groceries,2026-02-24,spending,HKD,Groceries at Wellcome,Wellcome
+467.61,Groceries,2026-02-25,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+284.8,Kids,2026-02-25,spending,HKD,Kids - School Fees,School Fees
+350.18,Groceries,2026-02-26,spending,HKD,Groceries at ParknShop,ParknShop
+126.11,Transport,2026-02-26,spending,HKD,Octopus Reload,Octopus Reload
+323.04,Dining,2026-02-27,spending,HKD,Lunch - Fairwood,Fairwood
+153.46,Transport,2026-02-27,spending,HKD,Octopus Reload,Octopus Reload
+414.08,Groceries,2026-02-28,spending,HKD,Groceries at ParknShop,ParknShop
+302.7,Groceries,2026-02-28,spending,HKD,Groceries at ParknShop,ParknShop
+211.82,Kids,2026-02-28,spending,HKD,Kids - School Fees,School Fees
+78.04,Transport,2026-02-28,spending,HKD,Octopus Reload,Octopus Reload
+391.86,Dining,2026-03-01,spending,HKD,Lunch - Maxim's,Maxim's
+10000.0,Rent,2026-03-01,spending,HKD,Monthly rent,Landlord
+202.06,Entertainment,2026-03-02,spending,HKD,YouTube TV,YouTube TV
+382.01,Groceries,2026-03-02,spending,HKD,Groceries at ParknShop,ParknShop
+338.53,Kids,2026-03-02,spending,HKD,Kids - Modern Education,Modern Education
+147.29,Transport,2026-03-02,spending,HKD,MTR,MTR
+113.21,Transport,2026-03-02,spending,HKD,Octopus Reload,Octopus Reload
+104.15,Transport,2026-03-03,spending,HKD,MTR,MTR
+256.03,Kids,2026-03-04,spending,HKD,Kids - Modern Education,Modern Education
+1805.12,Kids,2026-03-05,spending,HKD,Tuition fee,Kumon
+1201.02,Kids,2026-03-05,spending,HKD,Tuition fee,Modern Education
+437.02,Groceries,2026-03-06,spending,HKD,Groceries at ParknShop,ParknShop
+118.44,Transport,2026-03-06,spending,HKD,MTR,MTR
+328.03,Groceries,2026-03-08,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+514.94,Groceries,2026-03-08,spending,HKD,Groceries at ParknShop,ParknShop
+140.96,Transport,2026-03-08,spending,HKD,Citybus,Citybus
+620.17,Utilities,2026-03-08,spending,HKD,Electricity bill,CLP Power
+193.59,Dining,2026-03-09,spending,HKD,Lunch - Café de Coral,Café de Coral
+346.52,Groceries,2026-03-09,spending,HKD,Groceries at ParknShop,ParknShop
+78.76,Transport,2026-03-09,spending,HKD,Citybus,Citybus
+197.94,Entertainment,2026-03-10,spending,HKD,Broadway Cinema,Broadway Cinema
+200.34,Utilities,2026-03-10,spending,HKD,Gas bill,Towngas
+293.57,Dining,2026-03-11,spending,HKD,Lunch - Café de Coral,Café de Coral
+130.96,Transport,2026-03-11,spending,HKD,MTR,MTR
+123.08,Transport,2026-03-11,spending,HKD,Octopus Reload,Octopus Reload
+216.71,Utilities,2026-03-12,spending,HKD,Broadband,HKBN
+433.28,Groceries,2026-03-14,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+278.11,Kids,2026-03-15,spending,HKD,Kids - School Fees,School Fees
+28000.0,Salary,2026-03-15,income,HKD,Monthly salary,Hospital Authority
+288.77,Dining,2026-03-16,spending,HKD,Lunch - Maxim's,Maxim's
+159.09,Transport,2026-03-17,spending,HKD,Citybus,Citybus
+159.65,Transport,2026-03-17,spending,HKD,Octopus Reload,Octopus Reload
+1603.97,Insurance,2026-03-20,spending,HKD,Life insurance,AIA Insurance
+93.82,Transport,2026-03-20,spending,HKD,Citybus,Citybus
+134.26,Transport,2026-03-20,spending,HKD,Octopus Reload,Octopus Reload
+157.96,Transport,2026-03-21,spending,HKD,Octopus Reload,Octopus Reload
+548.94,Groceries,2026-03-22,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+327.88,Kids,2026-03-22,spending,HKD,Kids - Eugene Baby,Eugene Baby
+396.64,Groceries,2026-03-23,spending,HKD,Groceries at ParknShop,ParknShop
+327.78,Kids,2026-03-23,spending,HKD,Kids - Modern Education,Modern Education
+151.04,Transport,2026-03-23,spending,HKD,MTR,MTR
+135.73,Transport,2026-03-23,spending,HKD,Octopus Reload,Octopus Reload
+595.22,Groceries,2026-03-24,spending,HKD,Groceries at ParknShop,ParknShop
+271.67,Kids,2026-03-24,spending,HKD,Kids - Kumon,Kumon
+140.12,Transport,2026-03-24,spending,HKD,MTR,MTR
+232.22,Dining,2026-03-26,spending,HKD,Lunch - Café de Coral,Café de Coral
+585.65,Groceries,2026-03-26,spending,HKD,Groceries at DCH Food Mart,DCH Food Mart
+428.15,Groceries,2026-03-28,spending,HKD,Groceries at Wellcome,Wellcome
+1500.0,Other,2026-03-28,income,HKD,Utility refund,HKBN
+603.59,Groceries,2026-03-29,spending,HKD,Groceries at ParknShop,ParknShop
+111.49,Transport,2026-03-31,spending,HKD,MTR,MTR

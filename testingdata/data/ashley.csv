@@ -1,0 +1,1442 @@
+AMOUNT,CNAME,DATE,TYPE,CURRENCY,DESCRIPTION,RNAME
+44.18,Dining,2024-10-01,spending,HKD,Morning coffee,Starbucks
+250.4,Other,2024-10-01,spending,HKD,Convenience - Circle K,Circle K
+3000.0,Rent,2024-10-01,spending,HKD,Monthly rent,Landlord
+47.22,Dining,2024-10-02,spending,HKD,Morning coffee,Starbucks
+42.07,Dining,2024-10-02,spending,HKD,Morning coffee,Starbucks
+686.48,Dining,2024-10-03,spending,HKD,Food - Keeta,Keeta
+1116.31,Shopping,2024-10-03,spending,HKD,Purchase - ZARA,ZARA
+40.89,Dining,2024-10-04,spending,HKD,Morning coffee,Starbucks
+96.51,Transport,2024-10-04,spending,HKD,MTR,MTR
+127.46,Transport,2024-10-04,spending,HKD,MTR,MTR
+94.03,Entertainment,2024-10-05,spending,HKD,Netflix subscription,Netflix
+1180.31,Shopping,2024-10-05,spending,HKD,Purchase - ZARA,ZARA
+38.72,Dining,2024-10-06,spending,HKD,Morning coffee,Starbucks
+38.37,Dining,2024-10-07,spending,HKD,Morning coffee,Starbucks
+378.77,Dining,2024-10-08,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+42.59,Dining,2024-10-08,spending,HKD,Morning coffee,Starbucks
+57.26,Entertainment,2024-10-08,spending,HKD,Spotify subscription,Spotify
+134.48,Transport,2024-10-08,spending,HKD,MTR,MTR
+574.38,Dining,2024-10-09,spending,HKD,Food - Foodpanda,Foodpanda
+684.32,Dining,2024-10-09,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+39.12,Dining,2024-10-10,spending,HKD,Morning coffee,Starbucks
+41.3,Dining,2024-10-10,spending,HKD,Morning coffee,Starbucks
+181.74,Other,2024-10-10,spending,HKD,Convenience - 7-Eleven,7-Eleven
+40.53,Dining,2024-10-11,spending,HKD,Morning coffee,Starbucks
+44.3,Dining,2024-10-11,spending,HKD,Morning coffee,Starbucks
+135.93,Transport,2024-10-11,spending,HKD,Uber,Uber
+40.09,Dining,2024-10-12,spending,HKD,Morning coffee,Starbucks
+73.47,Entertainment,2024-10-12,spending,HKD,Disney+ subscription,Disney+
+46.47,Dining,2024-10-13,spending,HKD,Morning coffee,Starbucks
+116.4,Transport,2024-10-13,spending,HKD,HKTaxi,HKTaxi
+390.45,Dining,2024-10-14,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+133.38,Transport,2024-10-14,spending,HKD,MTR,MTR
+92.83,Transport,2024-10-15,spending,HKD,Uber,Uber
+398.64,Dining,2024-10-16,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+42.81,Dining,2024-10-17,spending,HKD,Morning coffee,Starbucks
+44.49,Dining,2024-10-17,spending,HKD,Morning coffee,Starbucks
+148.3,Transport,2024-10-17,spending,HKD,MTR,MTR
+86.61,Transport,2024-10-17,spending,HKD,Uber,Uber
+379.65,Dining,2024-10-18,spending,HKD,Food - Keeta,Keeta
+77.06,Entertainment,2024-10-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+82.38,Transport,2024-10-18,spending,HKD,Uber,Uber
+44.62,Dining,2024-10-19,spending,HKD,Morning coffee,Starbucks
+154.78,Transport,2024-10-19,spending,HKD,MTR,MTR
+87.2,Transport,2024-10-20,spending,HKD,MTR,MTR
+233.61,Other,2024-10-21,spending,HKD,Convenience - Circle K,Circle K
+42.39,Dining,2024-10-22,spending,HKD,Morning coffee,Starbucks
+58.62,Entertainment,2024-10-22,spending,HKD,Apple subscription,Apple
+147.22,Transport,2024-10-22,spending,HKD,MTR,MTR
+42.39,Dining,2024-10-23,spending,HKD,Morning coffee,Starbucks
+1423.61,Shopping,2024-10-23,spending,HKD,Purchase - Uniqlo,Uniqlo
+147.0,Transport,2024-10-23,spending,HKD,MTR,MTR
+234.25,Other,2024-10-24,spending,HKD,Convenience - Circle K,Circle K
+129.63,Transport,2024-10-24,spending,HKD,MTR,MTR
+79.72,Transport,2024-10-24,spending,HKD,Uber,Uber
+118.47,Transport,2024-10-25,spending,HKD,MTR,MTR
+434.12,Dining,2024-10-27,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+517.13,Dining,2024-10-28,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+47.6,Dining,2024-10-28,spending,HKD,Morning coffee,Starbucks
+38.22,Dining,2024-10-28,spending,HKD,Morning coffee,Starbucks
+104.72,Transport,2024-10-28,spending,HKD,HKTaxi,HKTaxi
+76.98,Transport,2024-10-28,spending,HKD,HKTaxi,HKTaxi
+637.6,Dining,2024-10-29,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+1479.77,Shopping,2024-10-29,spending,HKD,Purchase - Uniqlo,Uniqlo
+578.46,Dining,2024-10-30,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+20000.0,Salary,2024-10-31,income,HKD,Monthly salary,Design Studio HK
+371.85,Dining,2024-11-01,spending,HKD,Food - % Arabica,% Arabica
+41.64,Dining,2024-11-01,spending,HKD,Morning coffee,Starbucks
+3000.0,Rent,2024-11-01,spending,HKD,Monthly rent,Landlord
+75.02,Transport,2024-11-01,spending,HKD,HKTaxi,HKTaxi
+62.11,Transport,2024-11-02,spending,HKD,HKTaxi,HKTaxi
+84.98,Transport,2024-11-02,spending,HKD,MTR,MTR
+82.85,Transport,2024-11-02,spending,HKD,MTR,MTR
+561.33,Dining,2024-11-04,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+188.52,Other,2024-11-04,spending,HKD,Convenience - 7-Eleven,7-Eleven
+255.91,Other,2024-11-04,spending,HKD,Convenience - ATM,ATM
+94.55,Entertainment,2024-11-05,spending,HKD,Netflix subscription,Netflix
+45.98,Dining,2024-11-06,spending,HKD,Morning coffee,Starbucks
+47.02,Dining,2024-11-06,spending,HKD,Morning coffee,Starbucks
+1287.94,Shopping,2024-11-06,spending,HKD,Purchase - Taobao,Taobao
+94.43,Transport,2024-11-06,spending,HKD,Uber,Uber
+387.18,Dining,2024-11-07,spending,HKD,Food - Foodpanda,Foodpanda
+46.04,Dining,2024-11-08,spending,HKD,Morning coffee,Starbucks
+58.23,Entertainment,2024-11-08,spending,HKD,Spotify subscription,Spotify
+437.71,Dining,2024-11-09,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+45.57,Dining,2024-11-09,spending,HKD,Morning coffee,Starbucks
+38.14,Dining,2024-11-10,spending,HKD,Morning coffee,Starbucks
+68.03,Transport,2024-11-10,spending,HKD,MTR,MTR
+73.64,Transport,2024-11-10,spending,HKD,Uber,Uber
+47.15,Dining,2024-11-11,spending,HKD,Morning coffee,Starbucks
+39.46,Dining,2024-11-11,spending,HKD,Morning coffee,Starbucks
+94.41,Transport,2024-11-11,spending,HKD,HKTaxi,HKTaxi
+441.79,Dining,2024-11-12,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+43.83,Dining,2024-11-12,spending,HKD,Morning coffee,Starbucks
+74.16,Entertainment,2024-11-12,spending,HKD,Disney+ subscription,Disney+
+44.2,Dining,2024-11-13,spending,HKD,Morning coffee,Starbucks
+62.28,Transport,2024-11-13,spending,HKD,MTR,MTR
+106.46,Transport,2024-11-13,spending,HKD,Uber,Uber
+108.77,Transport,2024-11-15,spending,HKD,MTR,MTR
+69.97,Transport,2024-11-15,spending,HKD,MTR,MTR
+384.83,Dining,2024-11-16,spending,HKD,Food - Foodpanda,Foodpanda
+44.92,Dining,2024-11-16,spending,HKD,Morning coffee,Starbucks
+85.79,Transport,2024-11-16,spending,HKD,MTR,MTR
+341.94,Dining,2024-11-17,spending,HKD,Food - % Arabica,% Arabica
+43.93,Dining,2024-11-17,spending,HKD,Morning coffee,Starbucks
+353.37,Dining,2024-11-18,spending,HKD,Food - Foodpanda,Foodpanda
+535.65,Dining,2024-11-18,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+44.74,Dining,2024-11-18,spending,HKD,Morning coffee,Starbucks
+78.99,Entertainment,2024-11-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+84.52,Transport,2024-11-18,spending,HKD,HKTaxi,HKTaxi
+435.12,Dining,2024-11-19,spending,HKD,Food - % Arabica,% Arabica
+432.23,Dining,2024-11-19,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+150.67,Other,2024-11-19,spending,HKD,Convenience - Circle K,Circle K
+45.98,Dining,2024-11-20,spending,HKD,Morning coffee,Starbucks
+851.82,Shopping,2024-11-20,spending,HKD,Purchase - Apple Store,Apple Store
+71.55,Transport,2024-11-20,spending,HKD,MTR,MTR
+40.22,Dining,2024-11-21,spending,HKD,Morning coffee,Starbucks
+38.52,Dining,2024-11-22,spending,HKD,Morning coffee,Starbucks
+41.51,Dining,2024-11-22,spending,HKD,Morning coffee,Starbucks
+57.37,Entertainment,2024-11-22,spending,HKD,Apple subscription,Apple
+478.62,Dining,2024-11-23,spending,HKD,Food - Keeta,Keeta
+69.24,Transport,2024-11-23,spending,HKD,Uber,Uber
+46.52,Dining,2024-11-24,spending,HKD,Morning coffee,Starbucks
+1029.53,Shopping,2024-11-24,spending,HKD,Purchase - HKTVmall,HKTVmall
+836.49,Shopping,2024-11-25,spending,HKD,Purchase - HKTVmall,HKTVmall
+76.63,Transport,2024-11-25,spending,HKD,Uber,Uber
+40.53,Dining,2024-11-26,spending,HKD,Morning coffee,Starbucks
+138.52,Other,2024-11-26,spending,HKD,Convenience - 7-Eleven,7-Eleven
+414.38,Dining,2024-11-27,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+166.38,Other,2024-11-27,spending,HKD,Convenience - Circle K,Circle K
+98.74,Transport,2024-11-27,spending,HKD,HKTaxi,HKTaxi
+40.61,Dining,2024-11-28,spending,HKD,Morning coffee,Starbucks
+74.55,Transport,2024-11-28,spending,HKD,HKTaxi,HKTaxi
+99.83,Transport,2024-11-28,spending,HKD,MTR,MTR
+106.72,Transport,2024-11-28,spending,HKD,MTR,MTR
+45.66,Dining,2024-11-29,spending,HKD,Morning coffee,Starbucks
+39.61,Dining,2024-11-29,spending,HKD,Morning coffee,Starbucks
+20000.0,Salary,2024-11-29,income,HKD,Monthly salary,Design Studio HK
+1194.21,Shopping,2024-11-29,spending,HKD,Purchase - ZARA,ZARA
+96.56,Transport,2024-11-29,spending,HKD,HKTaxi,HKTaxi
+69.37,Transport,2024-11-29,spending,HKD,Uber,Uber
+98.89,Transport,2024-11-30,spending,HKD,HKTaxi,HKTaxi
+96.42,Transport,2024-11-30,spending,HKD,MTR,MTR
+88.27,Transport,2024-11-30,spending,HKD,MTR,MTR
+44.0,Dining,2024-12-01,spending,HKD,Morning coffee,Starbucks
+3000.0,Rent,2024-12-01,spending,HKD,Monthly rent,Landlord
+1052.02,Shopping,2024-12-01,spending,HKD,Purchase - Apple Store,Apple Store
+105.71,Transport,2024-12-01,spending,HKD,MTR,MTR
+99.26,Transport,2024-12-02,spending,HKD,MTR,MTR
+44.15,Dining,2024-12-03,spending,HKD,Morning coffee,Starbucks
+127.93,Other,2024-12-03,spending,HKD,Convenience - 7-Eleven,7-Eleven
+844.36,Shopping,2024-12-03,spending,HKD,Purchase - Uniqlo,Uniqlo
+306.66,Dining,2024-12-04,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+118.57,Transport,2024-12-04,spending,HKD,HKTaxi,HKTaxi
+41.71,Dining,2024-12-05,spending,HKD,Morning coffee,Starbucks
+43.24,Dining,2024-12-05,spending,HKD,Morning coffee,Starbucks
+93.27,Entertainment,2024-12-05,spending,HKD,Netflix subscription,Netflix
+95.82,Transport,2024-12-05,spending,HKD,Uber,Uber
+323.88,Dining,2024-12-06,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+46.17,Dining,2024-12-06,spending,HKD,Morning coffee,Starbucks
+85.39,Transport,2024-12-06,spending,HKD,HKTaxi,HKTaxi
+84.45,Transport,2024-12-07,spending,HKD,HKTaxi,HKTaxi
+112.58,Transport,2024-12-07,spending,HKD,MTR,MTR
+58.07,Entertainment,2024-12-08,spending,HKD,Spotify subscription,Spotify
+456.73,Dining,2024-12-09,spending,HKD,Food - Keeta,Keeta
+43.94,Dining,2024-12-09,spending,HKD,Morning coffee,Starbucks
+40.31,Dining,2024-12-09,spending,HKD,Morning coffee,Starbucks
+197.81,Shopping,2024-12-09,spending,HKD,late-night order - Taobao,Taobao
+152.98,Transport,2024-12-09,spending,HKD,MTR,MTR
+45.77,Dining,2024-12-10,spending,HKD,Morning coffee,Starbucks
+298.72,Shopping,2024-12-10,spending,HKD,late-night order - Taobao,Taobao
+251.99,Shopping,2024-12-11,spending,HKD,late-night order - Taobao,Taobao
+280.64,Shopping,2024-12-11,spending,HKD,late-night order - Taobao,Taobao
+96.36,Transport,2024-12-11,spending,HKD,HKTaxi,HKTaxi
+40.29,Dining,2024-12-12,spending,HKD,Morning coffee,Starbucks
+72.37,Entertainment,2024-12-12,spending,HKD,Disney+ subscription,Disney+
+321.0,Shopping,2024-12-12,spending,HKD,late-night order - HKTVmall,HKTVmall
+257.34,Shopping,2024-12-12,spending,HKD,late-night order - Taobao,Taobao
+136.96,Transport,2024-12-12,spending,HKD,Uber,Uber
+128.37,Transport,2024-12-12,spending,HKD,Uber,Uber
+146.44,Other,2024-12-13,spending,HKD,Convenience - Circle K,Circle K
+242.96,Other,2024-12-14,spending,HKD,Convenience - Circle K,Circle K
+192.5,Shopping,2024-12-14,spending,HKD,late-night order - HKTVmall,HKTVmall
+47.42,Dining,2024-12-15,spending,HKD,Morning coffee,Starbucks
+43.65,Dining,2024-12-15,spending,HKD,Morning coffee,Starbucks
+42.43,Dining,2024-12-17,spending,HKD,Morning coffee,Starbucks
+87.03,Transport,2024-12-17,spending,HKD,Uber,Uber
+504.81,Dining,2024-12-18,spending,HKD,Food - Foodpanda,Foodpanda
+42.07,Dining,2024-12-18,spending,HKD,Morning coffee,Starbucks
+40.94,Dining,2024-12-18,spending,HKD,Morning coffee,Starbucks
+45.16,Dining,2024-12-18,spending,HKD,Morning coffee,Starbucks
+78.17,Entertainment,2024-12-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+512.3,Dining,2024-12-20,spending,HKD,Food - % Arabica,% Arabica
+343.96,Dining,2024-12-21,spending,HKD,Food - % Arabica,% Arabica
+573.36,Shopping,2024-12-21,spending,HKD,Purchase - Taobao,Taobao
+83.99,Transport,2024-12-21,spending,HKD,Uber,Uber
+40.07,Dining,2024-12-22,spending,HKD,Morning coffee,Starbucks
+57.66,Entertainment,2024-12-22,spending,HKD,Apple subscription,Apple
+151.81,Other,2024-12-22,spending,HKD,Convenience - Circle K,Circle K
+40.6,Dining,2024-12-23,spending,HKD,Morning coffee,Starbucks
+46.19,Dining,2024-12-23,spending,HKD,Morning coffee,Starbucks
+38.73,Dining,2024-12-24,spending,HKD,Morning coffee,Starbucks
+137.41,Transport,2024-12-24,spending,HKD,Uber,Uber
+46.43,Dining,2024-12-25,spending,HKD,Morning coffee,Starbucks
+81.63,Transport,2024-12-25,spending,HKD,Uber,Uber
+482.71,Dining,2024-12-26,spending,HKD,Food - % Arabica,% Arabica
+230.87,Other,2024-12-26,spending,HKD,Convenience - Circle K,Circle K
+930.25,Shopping,2024-12-26,spending,HKD,Purchase - HKTVmall,HKTVmall
+121.34,Transport,2024-12-26,spending,HKD,HKTaxi,HKTaxi
+587.29,Dining,2024-12-27,spending,HKD,Food - Keeta,Keeta
+296.51,Dining,2024-12-27,spending,HKD,Food - Keeta,Keeta
+425.76,Dining,2024-12-27,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+47.01,Dining,2024-12-29,spending,HKD,Morning coffee,Starbucks
+42.08,Dining,2024-12-29,spending,HKD,Morning coffee,Starbucks
+85.47,Transport,2024-12-29,spending,HKD,MTR,MTR
+433.78,Dining,2024-12-30,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+105.09,Transport,2024-12-30,spending,HKD,Uber,Uber
+491.0,Dining,2024-12-31,spending,HKD,Food - Keeta,Keeta
+368.6,Dining,2024-12-31,spending,HKD,Food - Keeta,Keeta
+44.32,Dining,2024-12-31,spending,HKD,Morning coffee,Starbucks
+20000.0,Salary,2024-12-31,income,HKD,Monthly salary,Design Studio HK
+128.59,Transport,2024-12-31,spending,HKD,Uber,Uber
+153.01,Transport,2024-12-31,spending,HKD,Uber,Uber
+759.74,Dining,2025-01-01,spending,HKD,Food - % Arabica,% Arabica
+3000.0,Rent,2025-01-01,spending,HKD,Monthly rent,Landlord
+73.46,Transport,2025-01-01,spending,HKD,MTR,MTR
+760.26,Dining,2025-01-02,spending,HKD,Food - % Arabica,% Arabica
+450.55,Dining,2025-01-02,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+87.14,Transport,2025-01-02,spending,HKD,HKTaxi,HKTaxi
+119.1,Transport,2025-01-03,spending,HKD,MTR,MTR
+117.32,Transport,2025-01-03,spending,HKD,Uber,Uber
+716.22,Dining,2025-01-04,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+71.22,Transport,2025-01-04,spending,HKD,HKTaxi,HKTaxi
+120.22,Transport,2025-01-04,spending,HKD,MTR,MTR
+42.93,Dining,2025-01-05,spending,HKD,Morning coffee,Starbucks
+44.86,Dining,2025-01-05,spending,HKD,Morning coffee,Starbucks
+92.5,Entertainment,2025-01-05,spending,HKD,Netflix subscription,Netflix
+118.64,Transport,2025-01-05,spending,HKD,MTR,MTR
+43.81,Dining,2025-01-06,spending,HKD,Morning coffee,Starbucks
+273.29,Other,2025-01-06,spending,HKD,Convenience - Circle K,Circle K
+41.34,Dining,2025-01-07,spending,HKD,Morning coffee,Starbucks
+42.57,Dining,2025-01-08,spending,HKD,Morning coffee,Starbucks
+57.58,Entertainment,2025-01-08,spending,HKD,Spotify subscription,Spotify
+60.6,Transport,2025-01-08,spending,HKD,HKTaxi,HKTaxi
+63.67,Transport,2025-01-08,spending,HKD,Uber,Uber
+38.6,Dining,2025-01-09,spending,HKD,Morning coffee,Starbucks
+43.24,Dining,2025-01-09,spending,HKD,Morning coffee,Starbucks
+249.1,Other,2025-01-09,spending,HKD,Convenience - 7-Eleven,7-Eleven
+71.89,Transport,2025-01-09,spending,HKD,Uber,Uber
+190.65,Other,2025-01-10,spending,HKD,Convenience - ATM,ATM
+41.85,Dining,2025-01-12,spending,HKD,Morning coffee,Starbucks
+73.52,Entertainment,2025-01-12,spending,HKD,Disney+ subscription,Disney+
+114.57,Transport,2025-01-12,spending,HKD,HKTaxi,HKTaxi
+79.51,Transport,2025-01-12,spending,HKD,HKTaxi,HKTaxi
+371.77,Dining,2025-01-13,spending,HKD,Food - Keeta,Keeta
+42.96,Dining,2025-01-13,spending,HKD,Morning coffee,Starbucks
+41.32,Dining,2025-01-13,spending,HKD,Morning coffee,Starbucks
+40.81,Dining,2025-01-13,spending,HKD,Morning coffee,Starbucks
+1257.59,Shopping,2025-01-13,spending,HKD,Purchase - ZARA,ZARA
+186.96,Other,2025-01-14,spending,HKD,Convenience - ATM,ATM
+46.13,Dining,2025-01-16,spending,HKD,Morning coffee,Starbucks
+43.62,Dining,2025-01-16,spending,HKD,Morning coffee,Starbucks
+96.14,Transport,2025-01-16,spending,HKD,MTR,MTR
+104.79,Transport,2025-01-16,spending,HKD,Uber,Uber
+47.12,Dining,2025-01-17,spending,HKD,Morning coffee,Starbucks
+1109.69,Shopping,2025-01-17,spending,HKD,Purchase - HKTVmall,HKTVmall
+109.47,Transport,2025-01-17,spending,HKD,MTR,MTR
+86.54,Transport,2025-01-17,spending,HKD,Uber,Uber
+78.45,Entertainment,2025-01-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+547.37,Dining,2025-01-19,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+38.98,Dining,2025-01-20,spending,HKD,Morning coffee,Starbucks
+107.13,Transport,2025-01-20,spending,HKD,MTR,MTR
+100.97,Transport,2025-01-21,spending,HKD,HKTaxi,HKTaxi
+547.26,Dining,2025-01-22,spending,HKD,Food - Keeta,Keeta
+58.84,Entertainment,2025-01-22,spending,HKD,Apple subscription,Apple
+1243.64,Shopping,2025-01-23,spending,HKD,Purchase - Taobao,Taobao
+100.85,Transport,2025-01-23,spending,HKD,Uber,Uber
+39.13,Dining,2025-01-25,spending,HKD,Morning coffee,Starbucks
+40.3,Dining,2025-01-26,spending,HKD,Morning coffee,Starbucks
+73.2,Transport,2025-01-26,spending,HKD,MTR,MTR
+72.41,Transport,2025-01-26,spending,HKD,Uber,Uber
+83.64,Transport,2025-01-27,spending,HKD,HKTaxi,HKTaxi
+598.24,Dining,2025-01-29,spending,HKD,Food - Keeta,Keeta
+42.26,Dining,2025-01-29,spending,HKD,Morning coffee,Starbucks
+702.3,Shopping,2025-01-29,spending,HKD,Purchase - Apple Store,Apple Store
+886.79,Shopping,2025-01-29,spending,HKD,Purchase - Uniqlo,Uniqlo
+436.14,Dining,2025-01-30,spending,HKD,Food - Foodpanda,Foodpanda
+47.25,Dining,2025-01-30,spending,HKD,Morning coffee,Starbucks
+60.79,Transport,2025-01-30,spending,HKD,HKTaxi,HKTaxi
+106.72,Transport,2025-01-30,spending,HKD,HKTaxi,HKTaxi
+472.43,Dining,2025-01-31,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+39.59,Dining,2025-01-31,spending,HKD,Morning coffee,Starbucks
+20000.0,Salary,2025-01-31,income,HKD,Monthly salary,Design Studio HK
+46.23,Dining,2025-02-01,spending,HKD,Morning coffee,Starbucks
+134.75,Other,2025-02-01,spending,HKD,Convenience - ATM,ATM
+3000.0,Rent,2025-02-01,spending,HKD,Monthly rent,Landlord
+110.97,Transport,2025-02-01,spending,HKD,Uber,Uber
+634.81,Dining,2025-02-02,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+39.7,Dining,2025-02-02,spending,HKD,Morning coffee,Starbucks
+45.96,Dining,2025-02-03,spending,HKD,Morning coffee,Starbucks
+38.34,Dining,2025-02-03,spending,HKD,Morning coffee,Starbucks
+44.42,Dining,2025-02-03,spending,HKD,Morning coffee,Starbucks
+1107.11,Shopping,2025-02-03,spending,HKD,Purchase - HKTVmall,HKTVmall
+99.17,Transport,2025-02-03,spending,HKD,HKTaxi,HKTaxi
+119.4,Transport,2025-02-03,spending,HKD,Uber,Uber
+561.51,Dining,2025-02-04,spending,HKD,Food - Keeta,Keeta
+113.52,Other,2025-02-04,spending,HKD,Convenience - ATM,ATM
+118.54,Transport,2025-02-04,spending,HKD,MTR,MTR
+585.2,Dining,2025-02-05,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+39.52,Dining,2025-02-05,spending,HKD,Morning coffee,Starbucks
+42.88,Dining,2025-02-05,spending,HKD,Morning coffee,Starbucks
+92.06,Entertainment,2025-02-05,spending,HKD,Netflix subscription,Netflix
+77.18,Transport,2025-02-05,spending,HKD,HKTaxi,HKTaxi
+38.92,Dining,2025-02-06,spending,HKD,Morning coffee,Starbucks
+77.41,Transport,2025-02-06,spending,HKD,HKTaxi,HKTaxi
+99.0,Transport,2025-02-06,spending,HKD,HKTaxi,HKTaxi
+407.4,Dining,2025-02-07,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+41.97,Dining,2025-02-07,spending,HKD,Morning coffee,Starbucks
+45.14,Dining,2025-02-08,spending,HKD,Morning coffee,Starbucks
+58.88,Entertainment,2025-02-08,spending,HKD,Spotify subscription,Spotify
+43.22,Dining,2025-02-09,spending,HKD,Morning coffee,Starbucks
+104.37,Transport,2025-02-09,spending,HKD,HKTaxi,HKTaxi
+112.83,Transport,2025-02-09,spending,HKD,HKTaxi,HKTaxi
+87.06,Transport,2025-02-09,spending,HKD,Uber,Uber
+44.44,Dining,2025-02-10,spending,HKD,Morning coffee,Starbucks
+1051.49,Shopping,2025-02-10,spending,HKD,Purchase - Uniqlo,Uniqlo
+115.67,Transport,2025-02-10,spending,HKD,MTR,MTR
+1458.13,Shopping,2025-02-11,spending,HKD,Purchase - Apple Store,Apple Store
+558.58,Dining,2025-02-12,spending,HKD,Food - Foodpanda,Foodpanda
+38.97,Dining,2025-02-12,spending,HKD,Morning coffee,Starbucks
+73.07,Entertainment,2025-02-12,spending,HKD,Disney+ subscription,Disney+
+114.37,Transport,2025-02-12,spending,HKD,MTR,MTR
+74.68,Transport,2025-02-12,spending,HKD,MTR,MTR
+85.3,Transport,2025-02-12,spending,HKD,MTR,MTR
+365.52,Dining,2025-02-13,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+113.85,Other,2025-02-13,spending,HKD,Convenience - ATM,ATM
+123.28,Transport,2025-02-13,spending,HKD,MTR,MTR
+729.36,Dining,2025-02-14,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+44.51,Dining,2025-02-15,spending,HKD,Morning coffee,Starbucks
+122.46,Transport,2025-02-15,spending,HKD,HKTaxi,HKTaxi
+412.29,Dining,2025-02-16,spending,HKD,Food - Keeta,Keeta
+38.85,Dining,2025-02-16,spending,HKD,Morning coffee,Starbucks
+38.07,Dining,2025-02-16,spending,HKD,Morning coffee,Starbucks
+109.18,Transport,2025-02-16,spending,HKD,Uber,Uber
+642.1,Dining,2025-02-17,spending,HKD,Food - Keeta,Keeta
+44.74,Dining,2025-02-17,spending,HKD,Morning coffee,Starbucks
+44.44,Dining,2025-02-17,spending,HKD,Morning coffee,Starbucks
+595.23,Dining,2025-02-18,spending,HKD,Food - % Arabica,% Arabica
+42.62,Dining,2025-02-18,spending,HKD,Morning coffee,Starbucks
+78.74,Entertainment,2025-02-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+71.83,Transport,2025-02-18,spending,HKD,HKTaxi,HKTaxi
+45.01,Dining,2025-02-19,spending,HKD,Morning coffee,Starbucks
+109.99,Other,2025-02-19,spending,HKD,Convenience - Circle K,Circle K
+154.16,Other,2025-02-20,spending,HKD,Convenience - 7-Eleven,7-Eleven
+1583.26,Shopping,2025-02-21,spending,HKD,Purchase - HKTVmall,HKTVmall
+125.54,Transport,2025-02-21,spending,HKD,HKTaxi,HKTaxi
+57.22,Entertainment,2025-02-22,spending,HKD,Apple subscription,Apple
+61.98,Transport,2025-02-22,spending,HKD,HKTaxi,HKTaxi
+46.7,Dining,2025-02-23,spending,HKD,Morning coffee,Starbucks
+165.6,Other,2025-02-23,spending,HKD,Convenience - ATM,ATM
+108.13,Other,2025-02-24,spending,HKD,Convenience - 7-Eleven,7-Eleven
+43.73,Dining,2025-02-26,spending,HKD,Morning coffee,Starbucks
+38.84,Dining,2025-02-26,spending,HKD,Morning coffee,Starbucks
+46.9,Dining,2025-02-26,spending,HKD,Morning coffee,Starbucks
+117.87,Transport,2025-02-26,spending,HKD,HKTaxi,HKTaxi
+71.91,Transport,2025-02-26,spending,HKD,Uber,Uber
+20000.0,Salary,2025-02-28,income,HKD,Monthly salary,Design Studio HK
+131.11,Other,2025-03-01,spending,HKD,Convenience - ATM,ATM
+3000.0,Rent,2025-03-01,spending,HKD,Monthly rent,Landlord
+100.81,Transport,2025-03-01,spending,HKD,Uber,Uber
+124.54,Transport,2025-03-02,spending,HKD,MTR,MTR
+360.25,Dining,2025-03-03,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+156.18,Other,2025-03-04,spending,HKD,Convenience - Circle K,Circle K
+106.38,Transport,2025-03-04,spending,HKD,Uber,Uber
+92.31,Entertainment,2025-03-05,spending,HKD,Netflix subscription,Netflix
+167.51,Other,2025-03-05,spending,HKD,Convenience - Circle K,Circle K
+467.33,Dining,2025-03-06,spending,HKD,Food - % Arabica,% Arabica
+606.25,Dining,2025-03-06,spending,HKD,Food - Foodpanda,Foodpanda
+124.97,Transport,2025-03-06,spending,HKD,HKTaxi,HKTaxi
+112.71,Transport,2025-03-07,spending,HKD,MTR,MTR
+101.81,Transport,2025-03-07,spending,HKD,Uber,Uber
+57.85,Entertainment,2025-03-08,spending,HKD,Spotify subscription,Spotify
+128.76,Transport,2025-03-08,spending,HKD,Uber,Uber
+477.71,Dining,2025-03-09,spending,HKD,Food - % Arabica,% Arabica
+567.44,Dining,2025-03-09,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+646.95,Dining,2025-03-09,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+638.32,Dining,2025-03-10,spending,HKD,Food - Keeta,Keeta
+115.03,Other,2025-03-11,spending,HKD,Convenience - Circle K,Circle K
+73.72,Entertainment,2025-03-12,spending,HKD,Disney+ subscription,Disney+
+118.07,Transport,2025-03-14,spending,HKD,Uber,Uber
+72.96,Transport,2025-03-14,spending,HKD,Uber,Uber
+128.3,Transport,2025-03-16,spending,HKD,HKTaxi,HKTaxi
+421.92,Dining,2025-03-17,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+136.89,Transport,2025-03-17,spending,HKD,HKTaxi,HKTaxi
+639.69,Dining,2025-03-18,spending,HKD,Food - Keeta,Keeta
+76.55,Entertainment,2025-03-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+162.06,Other,2025-03-19,spending,HKD,Convenience - 7-Eleven,7-Eleven
+507.68,Dining,2025-03-20,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+73.35,Transport,2025-03-21,spending,HKD,HKTaxi,HKTaxi
+57.51,Entertainment,2025-03-22,spending,HKD,Apple subscription,Apple
+79.37,Transport,2025-03-22,spending,HKD,HKTaxi,HKTaxi
+130.69,Transport,2025-03-22,spending,HKD,HKTaxi,HKTaxi
+507.22,Dining,2025-03-25,spending,HKD,Food - Foodpanda,Foodpanda
+121.86,Transport,2025-03-26,spending,HKD,HKTaxi,HKTaxi
+109.18,Transport,2025-03-26,spending,HKD,HKTaxi,HKTaxi
+132.65,Transport,2025-03-27,spending,HKD,MTR,MTR
+659.24,Dining,2025-03-28,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+119.28,Transport,2025-03-28,spending,HKD,Uber,Uber
+78.81,Transport,2025-03-29,spending,HKD,MTR,MTR
+168.12,Other,2025-03-30,spending,HKD,Convenience - 7-Eleven,7-Eleven
+20000.0,Salary,2025-03-31,income,HKD,Monthly salary,Design Studio HK
+98.6,Transport,2025-03-31,spending,HKD,HKTaxi,HKTaxi
+3000.0,Rent,2025-04-01,spending,HKD,Monthly rent,Landlord
+64.9,Transport,2025-04-01,spending,HKD,HKTaxi,HKTaxi
+337.33,Dining,2025-04-02,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+144.98,Other,2025-04-02,spending,HKD,Convenience - ATM,ATM
+1142.09,Shopping,2025-04-02,spending,HKD,Purchase - Apple Store,Apple Store
+65.16,Transport,2025-04-03,spending,HKD,HKTaxi,HKTaxi
+103.66,Transport,2025-04-03,spending,HKD,MTR,MTR
+303.04,Dining,2025-04-04,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+62.18,Transport,2025-04-04,spending,HKD,HKTaxi,HKTaxi
+557.7,Dining,2025-04-05,spending,HKD,Food - % Arabica,% Arabica
+92.4,Entertainment,2025-04-05,spending,HKD,Netflix subscription,Netflix
+1180.51,Shopping,2025-04-05,spending,HKD,Purchase - Uniqlo,Uniqlo
+101.07,Transport,2025-04-05,spending,HKD,HKTaxi,HKTaxi
+98.92,Other,2025-04-06,spending,HKD,Convenience - ATM,ATM
+185.08,Other,2025-04-06,spending,HKD,Convenience - ATM,ATM
+475.49,Dining,2025-04-07,spending,HKD,Food - Foodpanda,Foodpanda
+38.86,Dining,2025-04-07,spending,HKD,Morning coffee,Starbucks
+346.67,Dining,2025-04-08,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+435.4,Dining,2025-04-08,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+38.91,Dining,2025-04-08,spending,HKD,Morning coffee,Starbucks
+39.48,Dining,2025-04-08,spending,HKD,Morning coffee,Starbucks
+59.0,Entertainment,2025-04-08,spending,HKD,Spotify subscription,Spotify
+118.47,Transport,2025-04-08,spending,HKD,HKTaxi,HKTaxi
+113.87,Transport,2025-04-09,spending,HKD,Uber,Uber
+62.14,Transport,2025-04-10,spending,HKD,MTR,MTR
+85.52,Transport,2025-04-10,spending,HKD,MTR,MTR
+480.61,Dining,2025-04-11,spending,HKD,Food - Keeta,Keeta
+41.38,Dining,2025-04-11,spending,HKD,Morning coffee,Starbucks
+43.04,Dining,2025-04-12,spending,HKD,Morning coffee,Starbucks
+73.1,Entertainment,2025-04-12,spending,HKD,Disney+ subscription,Disney+
+41.85,Dining,2025-04-13,spending,HKD,Morning coffee,Starbucks
+44.8,Dining,2025-04-14,spending,HKD,Morning coffee,Starbucks
+152.54,Other,2025-04-14,spending,HKD,Convenience - Circle K,Circle K
+116.15,Transport,2025-04-14,spending,HKD,Uber,Uber
+81.64,Transport,2025-04-14,spending,HKD,Uber,Uber
+115.38,Transport,2025-04-15,spending,HKD,MTR,MTR
+38.24,Dining,2025-04-16,spending,HKD,Morning coffee,Starbucks
+40.81,Dining,2025-04-16,spending,HKD,Morning coffee,Starbucks
+117.57,Transport,2025-04-16,spending,HKD,HKTaxi,HKTaxi
+85.85,Transport,2025-04-16,spending,HKD,HKTaxi,HKTaxi
+518.36,Dining,2025-04-17,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+44.61,Dining,2025-04-17,spending,HKD,Morning coffee,Starbucks
+140.34,Other,2025-04-17,spending,HKD,Convenience - ATM,ATM
+116.54,Transport,2025-04-17,spending,HKD,HKTaxi,HKTaxi
+44.76,Dining,2025-04-18,spending,HKD,Morning coffee,Starbucks
+77.21,Entertainment,2025-04-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+77.51,Transport,2025-04-18,spending,HKD,Uber,Uber
+40.58,Dining,2025-04-19,spending,HKD,Morning coffee,Starbucks
+1470.44,Shopping,2025-04-19,spending,HKD,Purchase - HKTVmall,HKTVmall
+346.81,Dining,2025-04-20,spending,HKD,Food - Foodpanda,Foodpanda
+579.92,Dining,2025-04-20,spending,HKD,Food - Keeta,Keeta
+38.75,Dining,2025-04-20,spending,HKD,Morning coffee,Starbucks
+67.56,Transport,2025-04-20,spending,HKD,HKTaxi,HKTaxi
+111.78,Transport,2025-04-20,spending,HKD,HKTaxi,HKTaxi
+292.03,Dining,2025-04-21,spending,HKD,Food - Foodpanda,Foodpanda
+80.66,Transport,2025-04-21,spending,HKD,HKTaxi,HKTaxi
+107.85,Transport,2025-04-21,spending,HKD,HKTaxi,HKTaxi
+63.46,Transport,2025-04-21,spending,HKD,Uber,Uber
+38.87,Dining,2025-04-22,spending,HKD,Morning coffee,Starbucks
+57.94,Entertainment,2025-04-22,spending,HKD,Apple subscription,Apple
+46.05,Dining,2025-04-23,spending,HKD,Morning coffee,Starbucks
+76.61,Transport,2025-04-25,spending,HKD,HKTaxi,HKTaxi
+103.33,Transport,2025-04-25,spending,HKD,MTR,MTR
+101.14,Transport,2025-04-25,spending,HKD,Uber,Uber
+571.34,Dining,2025-04-26,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+43.28,Dining,2025-04-26,spending,HKD,Morning coffee,Starbucks
+43.53,Dining,2025-04-26,spending,HKD,Morning coffee,Starbucks
+1406.95,Shopping,2025-04-26,spending,HKD,Purchase - Taobao,Taobao
+499.31,Dining,2025-04-27,spending,HKD,Food - % Arabica,% Arabica
+178.14,Other,2025-04-27,spending,HKD,Convenience - ATM,ATM
+40.69,Dining,2025-04-28,spending,HKD,Morning coffee,Starbucks
+20000.0,Salary,2025-04-30,income,HKD,Monthly salary,Design Studio HK
+3000.0,Rent,2025-05-01,spending,HKD,Monthly rent,Landlord
+740.82,Dining,2025-05-02,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+565.74,Dining,2025-05-03,spending,HKD,Food - Keeta,Keeta
+43.47,Dining,2025-05-03,spending,HKD,Morning coffee,Starbucks
+99.29,Transport,2025-05-03,spending,HKD,HKTaxi,HKTaxi
+88.67,Transport,2025-05-03,spending,HKD,HKTaxi,HKTaxi
+74.37,Transport,2025-05-03,spending,HKD,MTR,MTR
+221.76,Other,2025-05-04,spending,HKD,Convenience - 7-Eleven,7-Eleven
+102.25,Transport,2025-05-04,spending,HKD,MTR,MTR
+91.42,Entertainment,2025-05-05,spending,HKD,Netflix subscription,Netflix
+572.58,Dining,2025-05-06,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+475.72,Dining,2025-05-07,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+38.64,Dining,2025-05-07,spending,HKD,Morning coffee,Starbucks
+167.91,Other,2025-05-07,spending,HKD,Convenience - 7-Eleven,7-Eleven
+73.44,Transport,2025-05-07,spending,HKD,Uber,Uber
+57.33,Entertainment,2025-05-08,spending,HKD,Spotify subscription,Spotify
+93.58,Transport,2025-05-08,spending,HKD,Uber,Uber
+38.94,Dining,2025-05-09,spending,HKD,Morning coffee,Starbucks
+39.22,Dining,2025-05-09,spending,HKD,Morning coffee,Starbucks
+39.44,Dining,2025-05-09,spending,HKD,Morning coffee,Starbucks
+1222.56,Shopping,2025-05-09,spending,HKD,Purchase - Uniqlo,Uniqlo
+88.2,Transport,2025-05-09,spending,HKD,MTR,MTR
+39.93,Dining,2025-05-10,spending,HKD,Morning coffee,Starbucks
+41.94,Dining,2025-05-11,spending,HKD,Morning coffee,Starbucks
+85.44,Transport,2025-05-11,spending,HKD,HKTaxi,HKTaxi
+38.83,Dining,2025-05-12,spending,HKD,Morning coffee,Starbucks
+71.54,Entertainment,2025-05-12,spending,HKD,Disney+ subscription,Disney+
+380.77,Dining,2025-05-13,spending,HKD,Food - Keeta,Keeta
+47.08,Dining,2025-05-13,spending,HKD,Morning coffee,Starbucks
+1013.19,Shopping,2025-05-13,spending,HKD,Purchase - HKTVmall,HKTVmall
+98.1,Transport,2025-05-13,spending,HKD,HKTaxi,HKTaxi
+98.38,Transport,2025-05-14,spending,HKD,Uber,Uber
+94.19,Transport,2025-05-14,spending,HKD,Uber,Uber
+377.03,Dining,2025-05-15,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+47.3,Dining,2025-05-15,spending,HKD,Morning coffee,Starbucks
+43.64,Dining,2025-05-15,spending,HKD,Morning coffee,Starbucks
+63.99,Transport,2025-05-15,spending,HKD,MTR,MTR
+675.44,Dining,2025-05-16,spending,HKD,Food - % Arabica,% Arabica
+92.44,Transport,2025-05-16,spending,HKD,HKTaxi,HKTaxi
+67.01,Transport,2025-05-16,spending,HKD,Uber,Uber
+523.29,Dining,2025-05-17,spending,HKD,Food - Foodpanda,Foodpanda
+45.25,Dining,2025-05-17,spending,HKD,Morning coffee,Starbucks
+458.31,Dining,2025-05-18,spending,HKD,Food - Foodpanda,Foodpanda
+40.02,Dining,2025-05-18,spending,HKD,Morning coffee,Starbucks
+78.52,Entertainment,2025-05-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+43.96,Dining,2025-05-19,spending,HKD,Morning coffee,Starbucks
+368.21,Dining,2025-05-20,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+74.56,Transport,2025-05-20,spending,HKD,MTR,MTR
+59.49,Transport,2025-05-20,spending,HKD,Uber,Uber
+76.78,Transport,2025-05-21,spending,HKD,MTR,MTR
+83.49,Transport,2025-05-21,spending,HKD,Uber,Uber
+97.94,Transport,2025-05-21,spending,HKD,Uber,Uber
+57.29,Entertainment,2025-05-22,spending,HKD,Apple subscription,Apple
+99.43,Transport,2025-05-22,spending,HKD,MTR,MTR
+71.53,Transport,2025-05-22,spending,HKD,Uber,Uber
+98.09,Transport,2025-05-23,spending,HKD,HKTaxi,HKTaxi
+396.08,Dining,2025-05-24,spending,HKD,Food - Foodpanda,Foodpanda
+44.57,Dining,2025-05-24,spending,HKD,Morning coffee,Starbucks
+72.74,Transport,2025-05-24,spending,HKD,HKTaxi,HKTaxi
+90.91,Transport,2025-05-24,spending,HKD,Uber,Uber
+44.3,Dining,2025-05-25,spending,HKD,Morning coffee,Starbucks
+42.81,Dining,2025-05-26,spending,HKD,Morning coffee,Starbucks
+150.31,Other,2025-05-26,spending,HKD,Convenience - Circle K,Circle K
+45.88,Dining,2025-05-27,spending,HKD,Morning coffee,Starbucks
+43.05,Dining,2025-05-27,spending,HKD,Morning coffee,Starbucks
+71.42,Transport,2025-05-27,spending,HKD,MTR,MTR
+40.48,Dining,2025-05-28,spending,HKD,Morning coffee,Starbucks
+47.25,Dining,2025-05-29,spending,HKD,Morning coffee,Starbucks
+204.95,Other,2025-05-29,spending,HKD,Convenience - Circle K,Circle K
+1549.17,Shopping,2025-05-29,spending,HKD,Purchase - ZARA,ZARA
+84.26,Transport,2025-05-29,spending,HKD,MTR,MTR
+44.11,Dining,2025-05-30,spending,HKD,Morning coffee,Starbucks
+155.07,Other,2025-05-30,spending,HKD,Convenience - ATM,ATM
+20000.0,Salary,2025-05-30,income,HKD,Monthly salary,Design Studio HK
+46.57,Dining,2025-05-31,spending,HKD,Morning coffee,Starbucks
+1415.08,Shopping,2025-05-31,spending,HKD,Purchase - Uniqlo,Uniqlo
+3000.0,Rent,2025-06-01,spending,HKD,Monthly rent,Landlord
+346.8,Dining,2025-06-02,spending,HKD,Food - % Arabica,% Arabica
+44.81,Dining,2025-06-02,spending,HKD,Morning coffee,Starbucks
+45.17,Dining,2025-06-02,spending,HKD,Morning coffee,Starbucks
+117.19,Other,2025-06-02,spending,HKD,Convenience - ATM,ATM
+103.09,Other,2025-06-02,spending,HKD,Convenience - ATM,ATM
+164.22,Other,2025-06-02,spending,HKD,Convenience - Circle K,Circle K
+72.22,Transport,2025-06-02,spending,HKD,HKTaxi,HKTaxi
+63.88,Transport,2025-06-02,spending,HKD,MTR,MTR
+127.42,Other,2025-06-03,spending,HKD,Convenience - 7-Eleven,7-Eleven
+121.78,Other,2025-06-03,spending,HKD,Convenience - Circle K,Circle K
+121.22,Transport,2025-06-03,spending,HKD,HKTaxi,HKTaxi
+102.33,Transport,2025-06-03,spending,HKD,MTR,MTR
+352.88,Dining,2025-06-04,spending,HKD,Food - Foodpanda,Foodpanda
+42.71,Dining,2025-06-05,spending,HKD,Morning coffee,Starbucks
+93.76,Entertainment,2025-06-05,spending,HKD,Netflix subscription,Netflix
+64.75,Transport,2025-06-05,spending,HKD,Uber,Uber
+80.58,Transport,2025-06-05,spending,HKD,Uber,Uber
+441.58,Dining,2025-06-06,spending,HKD,Food - % Arabica,% Arabica
+514.31,Dining,2025-06-06,spending,HKD,Food - Keeta,Keeta
+39.01,Dining,2025-06-06,spending,HKD,Morning coffee,Starbucks
+46.77,Dining,2025-06-06,spending,HKD,Morning coffee,Starbucks
+354.32,Dining,2025-06-07,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+401.73,Dining,2025-06-07,spending,HKD,Food - Keeta,Keeta
+78.52,Transport,2025-06-07,spending,HKD,HKTaxi,HKTaxi
+43.2,Dining,2025-06-08,spending,HKD,Morning coffee,Starbucks
+58.35,Entertainment,2025-06-08,spending,HKD,Spotify subscription,Spotify
+382.18,Dining,2025-06-09,spending,HKD,Food - Foodpanda,Foodpanda
+308.12,Dining,2025-06-09,spending,HKD,Food - Keeta,Keeta
+44.1,Dining,2025-06-09,spending,HKD,Morning coffee,Starbucks
+38.44,Dining,2025-06-10,spending,HKD,Morning coffee,Starbucks
+44.01,Dining,2025-06-10,spending,HKD,Morning coffee,Starbucks
+38.96,Dining,2025-06-10,spending,HKD,Morning coffee,Starbucks
+282.85,Dining,2025-06-11,spending,HKD,Food - Keeta,Keeta
+1668.34,Shopping,2025-06-11,spending,HKD,Purchase - Apple Store,Apple Store
+104.15,Transport,2025-06-11,spending,HKD,HKTaxi,HKTaxi
+97.45,Transport,2025-06-11,spending,HKD,Uber,Uber
+119.4,Transport,2025-06-11,spending,HKD,Uber,Uber
+72.39,Entertainment,2025-06-12,spending,HKD,Disney+ subscription,Disney+
+108.57,Transport,2025-06-12,spending,HKD,HKTaxi,HKTaxi
+110.89,Transport,2025-06-12,spending,HKD,HKTaxi,HKTaxi
+97.47,Transport,2025-06-12,spending,HKD,MTR,MTR
+397.7,Dining,2025-06-13,spending,HKD,Food - Keeta,Keeta
+398.6,Dining,2025-06-14,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+44.39,Dining,2025-06-14,spending,HKD,Morning coffee,Starbucks
+512.2,Dining,2025-06-16,spending,HKD,Food - Foodpanda,Foodpanda
+504.92,Dining,2025-06-16,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+46.57,Dining,2025-06-16,spending,HKD,Morning coffee,Starbucks
+45.66,Dining,2025-06-16,spending,HKD,Morning coffee,Starbucks
+1439.57,Shopping,2025-06-17,spending,HKD,Purchase - Uniqlo,Uniqlo
+335.81,Dining,2025-06-18,spending,HKD,Food - Keeta,Keeta
+78.31,Entertainment,2025-06-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+45.41,Dining,2025-06-19,spending,HKD,Morning coffee,Starbucks
+124.74,Transport,2025-06-20,spending,HKD,HKTaxi,HKTaxi
+44.58,Dining,2025-06-21,spending,HKD,Morning coffee,Starbucks
+46.74,Dining,2025-06-21,spending,HKD,Morning coffee,Starbucks
+885.88,Shopping,2025-06-21,spending,HKD,Purchase - Apple Store,Apple Store
+44.37,Dining,2025-06-22,spending,HKD,Morning coffee,Starbucks
+39.67,Dining,2025-06-22,spending,HKD,Morning coffee,Starbucks
+57.57,Entertainment,2025-06-22,spending,HKD,Apple subscription,Apple
+87.8,Transport,2025-06-22,spending,HKD,Uber,Uber
+47.63,Dining,2025-06-23,spending,HKD,Morning coffee,Starbucks
+42.81,Dining,2025-06-24,spending,HKD,Morning coffee,Starbucks
+104.73,Transport,2025-06-24,spending,HKD,HKTaxi,HKTaxi
+96.2,Transport,2025-06-24,spending,HKD,HKTaxi,HKTaxi
+77.42,Transport,2025-06-26,spending,HKD,MTR,MTR
+42.44,Dining,2025-06-27,spending,HKD,Morning coffee,Starbucks
+116.54,Transport,2025-06-27,spending,HKD,HKTaxi,HKTaxi
+82.06,Transport,2025-06-28,spending,HKD,HKTaxi,HKTaxi
+68.32,Transport,2025-06-28,spending,HKD,HKTaxi,HKTaxi
+43.91,Dining,2025-06-29,spending,HKD,Morning coffee,Starbucks
+44.93,Dining,2025-06-29,spending,HKD,Morning coffee,Starbucks
+130.6,Other,2025-06-29,spending,HKD,Convenience - 7-Eleven,7-Eleven
+135.69,Other,2025-06-29,spending,HKD,Convenience - ATM,ATM
+115.14,Transport,2025-06-29,spending,HKD,HKTaxi,HKTaxi
+105.63,Transport,2025-06-29,spending,HKD,Uber,Uber
+20000.0,Salary,2025-06-30,income,HKD,Monthly salary,Design Studio HK
+1206.21,Shopping,2025-06-30,spending,HKD,Purchase - Uniqlo,Uniqlo
+333.34,Dining,2025-07-01,spending,HKD,Food - Keeta,Keeta
+39.26,Dining,2025-07-01,spending,HKD,Morning coffee,Starbucks
+224.75,Other,2025-07-01,spending,HKD,Convenience - Circle K,Circle K
+3000.0,Rent,2025-07-01,spending,HKD,Monthly rent,Landlord
+69.78,Transport,2025-07-01,spending,HKD,HKTaxi,HKTaxi
+134.15,Transport,2025-07-01,spending,HKD,MTR,MTR
+80.49,Transport,2025-07-02,spending,HKD,MTR,MTR
+114.25,Transport,2025-07-02,spending,HKD,MTR,MTR
+45.47,Dining,2025-07-03,spending,HKD,Morning coffee,Starbucks
+43.19,Dining,2025-07-03,spending,HKD,Morning coffee,Starbucks
+1196.45,Shopping,2025-07-03,spending,HKD,Purchase - Uniqlo,Uniqlo
+108.28,Transport,2025-07-03,spending,HKD,Uber,Uber
+505.5,Dining,2025-07-04,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+44.7,Dining,2025-07-04,spending,HKD,Morning coffee,Starbucks
+107.16,Transport,2025-07-04,spending,HKD,Uber,Uber
+41.2,Dining,2025-07-05,spending,HKD,Morning coffee,Starbucks
+93.3,Entertainment,2025-07-05,spending,HKD,Netflix subscription,Netflix
+44.32,Dining,2025-07-06,spending,HKD,Morning coffee,Starbucks
+43.16,Dining,2025-07-06,spending,HKD,Morning coffee,Starbucks
+360.14,Dining,2025-07-07,spending,HKD,Food - % Arabica,% Arabica
+43.78,Dining,2025-07-07,spending,HKD,Morning coffee,Starbucks
+39.03,Dining,2025-07-08,spending,HKD,Morning coffee,Starbucks
+58.0,Entertainment,2025-07-08,spending,HKD,Spotify subscription,Spotify
+150.65,Other,2025-07-08,spending,HKD,Convenience - Circle K,Circle K
+321.1,Dining,2025-07-09,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+41.2,Dining,2025-07-09,spending,HKD,Morning coffee,Starbucks
+40.51,Dining,2025-07-10,spending,HKD,Morning coffee,Starbucks
+83.69,Transport,2025-07-10,spending,HKD,Uber,Uber
+432.7,Dining,2025-07-11,spending,HKD,Food - Keeta,Keeta
+284.46,Dining,2025-07-11,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+40.28,Dining,2025-07-12,spending,HKD,Morning coffee,Starbucks
+73.05,Entertainment,2025-07-12,spending,HKD,Disney+ subscription,Disney+
+1311.51,Shopping,2025-07-12,spending,HKD,Purchase - Apple Store,Apple Store
+1244.34,Shopping,2025-07-13,spending,HKD,Purchase - Taobao,Taobao
+75.17,Transport,2025-07-13,spending,HKD,Uber,Uber
+425.36,Dining,2025-07-14,spending,HKD,Food - % Arabica,% Arabica
+456.95,Dining,2025-07-14,spending,HKD,Food - Keeta,Keeta
+47.6,Dining,2025-07-14,spending,HKD,Morning coffee,Starbucks
+343.03,Dining,2025-07-15,spending,HKD,Food - Keeta,Keeta
+121.78,Transport,2025-07-15,spending,HKD,MTR,MTR
+96.68,Transport,2025-07-16,spending,HKD,MTR,MTR
+71.05,Transport,2025-07-16,spending,HKD,MTR,MTR
+44.3,Dining,2025-07-17,spending,HKD,Morning coffee,Starbucks
+40.5,Dining,2025-07-17,spending,HKD,Morning coffee,Starbucks
+45.03,Dining,2025-07-17,spending,HKD,Morning coffee,Starbucks
+159.75,Other,2025-07-17,spending,HKD,Convenience - Circle K,Circle K
+304.48,Dining,2025-07-18,spending,HKD,Food - Foodpanda,Foodpanda
+76.64,Entertainment,2025-07-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+152.39,Other,2025-07-18,spending,HKD,Convenience - ATM,ATM
+80.71,Transport,2025-07-18,spending,HKD,HKTaxi,HKTaxi
+139.98,Transport,2025-07-19,spending,HKD,HKTaxi,HKTaxi
+101.18,Transport,2025-07-19,spending,HKD,MTR,MTR
+138.03,Transport,2025-07-20,spending,HKD,MTR,MTR
+38.4,Dining,2025-07-21,spending,HKD,Morning coffee,Starbucks
+399.1,Dining,2025-07-22,spending,HKD,Food - Keeta,Keeta
+58.05,Entertainment,2025-07-22,spending,HKD,Apple subscription,Apple
+138.49,Transport,2025-07-22,spending,HKD,HKTaxi,HKTaxi
+85.87,Transport,2025-07-22,spending,HKD,MTR,MTR
+110.47,Transport,2025-07-23,spending,HKD,MTR,MTR
+122.73,Transport,2025-07-23,spending,HKD,Uber,Uber
+38.49,Dining,2025-07-24,spending,HKD,Morning coffee,Starbucks
+45.3,Dining,2025-07-24,spending,HKD,Morning coffee,Starbucks
+298.96,Dining,2025-07-25,spending,HKD,Food - % Arabica,% Arabica
+40.89,Dining,2025-07-25,spending,HKD,Morning coffee,Starbucks
+212.46,Other,2025-07-25,spending,HKD,Convenience - Circle K,Circle K
+38.6,Dining,2025-07-26,spending,HKD,Morning coffee,Starbucks
+138.65,Transport,2025-07-26,spending,HKD,HKTaxi,HKTaxi
+81.42,Transport,2025-07-26,spending,HKD,HKTaxi,HKTaxi
+42.66,Dining,2025-07-27,spending,HKD,Morning coffee,Starbucks
+1447.7,Shopping,2025-07-28,spending,HKD,Purchase - ZARA,ZARA
+532.08,Dining,2025-07-29,spending,HKD,Food - Keeta,Keeta
+452.8,Dining,2025-07-30,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+39.67,Dining,2025-07-30,spending,HKD,Morning coffee,Starbucks
+42.29,Dining,2025-07-30,spending,HKD,Morning coffee,Starbucks
+38.08,Dining,2025-07-31,spending,HKD,Morning coffee,Starbucks
+20000.0,Salary,2025-07-31,income,HKD,Monthly salary,Design Studio HK
+440.96,Dining,2025-08-01,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+46.67,Dining,2025-08-01,spending,HKD,Morning coffee,Starbucks
+3000.0,Rent,2025-08-01,spending,HKD,Monthly rent,Landlord
+239.53,Dining,2025-08-02,spending,HKD,Food - Keeta,Keeta
+42.61,Dining,2025-08-02,spending,HKD,Morning coffee,Starbucks
+43.42,Dining,2025-08-02,spending,HKD,Morning coffee,Starbucks
+46.1,Dining,2025-08-03,spending,HKD,Morning coffee,Starbucks
+40.73,Dining,2025-08-04,spending,HKD,Morning coffee,Starbucks
+46.68,Dining,2025-08-05,spending,HKD,Morning coffee,Starbucks
+92.94,Entertainment,2025-08-05,spending,HKD,Netflix subscription,Netflix
+46.82,Dining,2025-08-06,spending,HKD,Morning coffee,Starbucks
+45.56,Dining,2025-08-06,spending,HKD,Morning coffee,Starbucks
+99.01,Transport,2025-08-06,spending,HKD,MTR,MTR
+367.63,Dining,2025-08-07,spending,HKD,Food - Keeta,Keeta
+58.31,Entertainment,2025-08-08,spending,HKD,Spotify subscription,Spotify
+127.45,Transport,2025-08-09,spending,HKD,HKTaxi,HKTaxi
+1359.19,Shopping,2025-08-10,spending,HKD,Purchase - HKTVmall,HKTVmall
+135.09,Transport,2025-08-10,spending,HKD,MTR,MTR
+257.46,Dining,2025-08-11,spending,HKD,Food - Keeta,Keeta
+155.41,Transport,2025-08-11,spending,HKD,MTR,MTR
+74.75,Entertainment,2025-08-12,spending,HKD,Disney+ subscription,Disney+
+1208.34,Shopping,2025-08-12,spending,HKD,Purchase - Taobao,Taobao
+357.61,Dining,2025-08-14,spending,HKD,Food - Keeta,Keeta
+115.3,Other,2025-08-14,spending,HKD,Convenience - ATM,ATM
+47.37,Dining,2025-08-15,spending,HKD,Morning coffee,Starbucks
+42.24,Dining,2025-08-15,spending,HKD,Morning coffee,Starbucks
+47.06,Dining,2025-08-15,spending,HKD,Morning coffee,Starbucks
+104.39,Transport,2025-08-15,spending,HKD,HKTaxi,HKTaxi
+115.43,Transport,2025-08-15,spending,HKD,HKTaxi,HKTaxi
+171.43,Other,2025-08-16,spending,HKD,Convenience - 7-Eleven,7-Eleven
+107.38,Transport,2025-08-16,spending,HKD,MTR,MTR
+1524.6,Shopping,2025-08-17,spending,HKD,Purchase - HKTVmall,HKTVmall
+119.14,Transport,2025-08-17,spending,HKD,HKTaxi,HKTaxi
+137.22,Transport,2025-08-17,spending,HKD,MTR,MTR
+324.54,Dining,2025-08-18,spending,HKD,Food - % Arabica,% Arabica
+77.46,Entertainment,2025-08-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+106.93,Transport,2025-08-19,spending,HKD,MTR,MTR
+40.85,Dining,2025-08-20,spending,HKD,Morning coffee,Starbucks
+1107.87,Shopping,2025-08-20,spending,HKD,Purchase - ZARA,ZARA
+144.17,Transport,2025-08-20,spending,HKD,MTR,MTR
+38.49,Dining,2025-08-21,spending,HKD,Morning coffee,Starbucks
+354.07,Dining,2025-08-22,spending,HKD,Food - Foodpanda,Foodpanda
+389.97,Dining,2025-08-22,spending,HKD,Food - Foodpanda,Foodpanda
+41.56,Dining,2025-08-22,spending,HKD,Morning coffee,Starbucks
+57.53,Entertainment,2025-08-22,spending,HKD,Apple subscription,Apple
+428.24,Dining,2025-08-23,spending,HKD,Food - % Arabica,% Arabica
+340.65,Dining,2025-08-23,spending,HKD,Food - Keeta,Keeta
+40.4,Dining,2025-08-23,spending,HKD,Morning coffee,Starbucks
+39.45,Dining,2025-08-23,spending,HKD,Morning coffee,Starbucks
+47.23,Dining,2025-08-23,spending,HKD,Morning coffee,Starbucks
+95.45,Transport,2025-08-23,spending,HKD,MTR,MTR
+293.04,Dining,2025-08-24,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+38.45,Dining,2025-08-24,spending,HKD,Morning coffee,Starbucks
+46.01,Dining,2025-08-24,spending,HKD,Morning coffee,Starbucks
+105.54,Transport,2025-08-24,spending,HKD,Uber,Uber
+426.96,Dining,2025-08-25,spending,HKD,Food - % Arabica,% Arabica
+352.51,Dining,2025-08-25,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+182.31,Other,2025-08-25,spending,HKD,Convenience - Circle K,Circle K
+111.45,Transport,2025-08-25,spending,HKD,MTR,MTR
+361.11,Dining,2025-08-26,spending,HKD,Food - % Arabica,% Arabica
+45.11,Dining,2025-08-26,spending,HKD,Morning coffee,Starbucks
+38.44,Dining,2025-08-26,spending,HKD,Morning coffee,Starbucks
+168.53,Other,2025-08-26,spending,HKD,Convenience - 7-Eleven,7-Eleven
+170.93,Other,2025-08-26,spending,HKD,Convenience - 7-Eleven,7-Eleven
+85.91,Transport,2025-08-26,spending,HKD,MTR,MTR
+155.43,Transport,2025-08-26,spending,HKD,MTR,MTR
+47.65,Dining,2025-08-27,spending,HKD,Morning coffee,Starbucks
+78.81,Transport,2025-08-27,spending,HKD,HKTaxi,HKTaxi
+240.12,Dining,2025-08-28,spending,HKD,Food - % Arabica,% Arabica
+91.5,Other,2025-08-28,spending,HKD,Convenience - ATM,ATM
+44.62,Dining,2025-08-29,spending,HKD,Morning coffee,Starbucks
+20000.0,Salary,2025-08-29,income,HKD,Monthly salary,Design Studio HK
+119.19,Transport,2025-08-29,spending,HKD,HKTaxi,HKTaxi
+275.6,Dining,2025-08-30,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+41.05,Dining,2025-08-30,spending,HKD,Morning coffee,Starbucks
+45.08,Dining,2025-08-30,spending,HKD,Morning coffee,Starbucks
+96.59,Transport,2025-08-30,spending,HKD,HKTaxi,HKTaxi
+38.08,Dining,2025-09-01,spending,HKD,Morning coffee,Starbucks
+38.4,Other,2025-09-01,spending,HKD,Micro purchase,7-Eleven
+20.52,Other,2025-09-01,spending,HKD,Micro purchase,7-Eleven
+88.17,Other,2025-09-01,spending,HKD,Micro purchase,7-Eleven
+43.91,Other,2025-09-01,spending,HKD,Micro purchase,7-Eleven
+89.03,Other,2025-09-01,spending,HKD,Micro purchase,7-Eleven
+92.9,Other,2025-09-01,spending,HKD,Micro purchase,7-Eleven
+3000.0,Rent,2025-09-01,spending,HKD,Monthly rent,Landlord
+408.97,Dining,2025-09-02,spending,HKD,Food - Keeta,Keeta
+43.25,Dining,2025-09-02,spending,HKD,Morning coffee,Starbucks
+79.07,Other,2025-09-02,spending,HKD,Micro purchase,7-Eleven
+70.71,Other,2025-09-02,spending,HKD,Micro purchase,7-Eleven
+83.58,Other,2025-09-02,spending,HKD,Micro purchase,7-Eleven
+28.34,Other,2025-09-02,spending,HKD,Micro purchase,7-Eleven
+42.2,Dining,2025-09-03,spending,HKD,Morning coffee,Starbucks
+94.97,Other,2025-09-03,spending,HKD,Micro purchase,7-Eleven
+88.92,Other,2025-09-03,spending,HKD,Micro purchase,7-Eleven
+57.47,Other,2025-09-03,spending,HKD,Micro purchase,7-Eleven
+121.87,Other,2025-09-03,spending,HKD,Convenience - ATM,ATM
+123.27,Transport,2025-09-03,spending,HKD,HKTaxi,HKTaxi
+109.53,Transport,2025-09-03,spending,HKD,MTR,MTR
+79.88,Other,2025-09-04,spending,HKD,Micro purchase,7-Eleven
+90.53,Other,2025-09-04,spending,HKD,Micro purchase,7-Eleven
+91.56,Entertainment,2025-09-05,spending,HKD,Netflix subscription,Netflix
+92.97,Other,2025-09-05,spending,HKD,Micro purchase,7-Eleven
+56.18,Other,2025-09-05,spending,HKD,Micro purchase,7-Eleven
+66.43,Other,2025-09-05,spending,HKD,Micro purchase,7-Eleven
+23.28,Other,2025-09-05,spending,HKD,Micro purchase,7-Eleven
+45.86,Other,2025-09-05,spending,HKD,Micro purchase,7-Eleven
+60.71,Other,2025-09-05,spending,HKD,Micro purchase,7-Eleven
+64.98,Other,2025-09-05,spending,HKD,Micro purchase,7-Eleven
+94.01,Other,2025-09-05,spending,HKD,Micro purchase,7-Eleven
+50.74,Other,2025-09-05,spending,HKD,Micro purchase,7-Eleven
+51.74,Other,2025-09-05,spending,HKD,Micro purchase,7-Eleven
+41.96,Dining,2025-09-06,spending,HKD,Morning coffee,Starbucks
+64.8,Other,2025-09-06,spending,HKD,Micro purchase,7-Eleven
+77.99,Other,2025-09-06,spending,HKD,Micro purchase,7-Eleven
+73.67,Other,2025-09-06,spending,HKD,Micro purchase,7-Eleven
+34.73,Other,2025-09-06,spending,HKD,Micro purchase,7-Eleven
+551.85,Dining,2025-09-07,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+21.68,Other,2025-09-07,spending,HKD,Micro purchase,7-Eleven
+92.82,Other,2025-09-07,spending,HKD,Micro purchase,7-Eleven
+73.36,Other,2025-09-07,spending,HKD,Micro purchase,7-Eleven
+22.47,Other,2025-09-07,spending,HKD,Micro purchase,7-Eleven
+32.6,Other,2025-09-07,spending,HKD,Micro purchase,7-Eleven
+66.0,Transport,2025-09-07,spending,HKD,Uber,Uber
+58.08,Entertainment,2025-09-08,spending,HKD,Spotify subscription,Spotify
+41.39,Other,2025-09-08,spending,HKD,Micro purchase,7-Eleven
+720.66,Shopping,2025-09-08,spending,HKD,Purchase - Taobao,Taobao
+38.94,Dining,2025-09-09,spending,HKD,Morning coffee,Starbucks
+39.07,Dining,2025-09-09,spending,HKD,Morning coffee,Starbucks
+77.09,Other,2025-09-09,spending,HKD,Micro purchase,7-Eleven
+89.07,Other,2025-09-09,spending,HKD,Micro purchase,7-Eleven
+556.99,Dining,2025-09-10,spending,HKD,Food - Keeta,Keeta
+43.66,Other,2025-09-10,spending,HKD,Micro purchase,7-Eleven
+59.42,Other,2025-09-10,spending,HKD,Micro purchase,7-Eleven
+57.58,Other,2025-09-10,spending,HKD,Micro purchase,7-Eleven
+122.56,Other,2025-09-10,spending,HKD,Convenience - ATM,ATM
+728.76,Shopping,2025-09-10,spending,HKD,Purchase - Taobao,Taobao
+102.01,Transport,2025-09-10,spending,HKD,HKTaxi,HKTaxi
+65.49,Other,2025-09-11,spending,HKD,Micro purchase,7-Eleven
+65.46,Other,2025-09-11,spending,HKD,Micro purchase,7-Eleven
+28.22,Other,2025-09-11,spending,HKD,Micro purchase,7-Eleven
+51.92,Other,2025-09-11,spending,HKD,Micro purchase,7-Eleven
+743.26,Shopping,2025-09-11,spending,HKD,Purchase - HKTVmall,HKTVmall
+97.82,Transport,2025-09-11,spending,HKD,MTR,MTR
+44.55,Dining,2025-09-12,spending,HKD,Morning coffee,Starbucks
+73.47,Entertainment,2025-09-12,spending,HKD,Disney+ subscription,Disney+
+22.38,Other,2025-09-12,spending,HKD,Micro purchase,7-Eleven
+651.85,Shopping,2025-09-12,spending,HKD,Purchase - Apple Store,Apple Store
+111.94,Transport,2025-09-12,spending,HKD,HKTaxi,HKTaxi
+56.82,Other,2025-09-13,spending,HKD,Micro purchase,7-Eleven
+79.12,Other,2025-09-13,spending,HKD,Micro purchase,7-Eleven
+47.92,Other,2025-09-13,spending,HKD,Micro purchase,7-Eleven
+290.64,Dining,2025-09-14,spending,HKD,Food - % Arabica,% Arabica
+41.09,Dining,2025-09-14,spending,HKD,Morning coffee,Starbucks
+41.27,Dining,2025-09-14,spending,HKD,Morning coffee,Starbucks
+41.1,Dining,2025-09-14,spending,HKD,Morning coffee,Starbucks
+152.29,Other,2025-09-14,spending,HKD,Convenience - 7-Eleven,7-Eleven
+66.47,Other,2025-09-14,spending,HKD,Micro purchase,7-Eleven
+66.26,Other,2025-09-14,spending,HKD,Micro purchase,7-Eleven
+22.91,Other,2025-09-14,spending,HKD,Micro purchase,7-Eleven
+69.04,Other,2025-09-14,spending,HKD,Micro purchase,7-Eleven
+87.68,Transport,2025-09-14,spending,HKD,HKTaxi,HKTaxi
+65.83,Transport,2025-09-14,spending,HKD,MTR,MTR
+44.6,Dining,2025-09-15,spending,HKD,Morning coffee,Starbucks
+49.41,Other,2025-09-15,spending,HKD,Micro purchase,7-Eleven
+87.37,Other,2025-09-15,spending,HKD,Micro purchase,7-Eleven
+58.81,Other,2025-09-15,spending,HKD,Micro purchase,7-Eleven
+31.05,Other,2025-09-15,spending,HKD,Micro purchase,7-Eleven
+49.98,Other,2025-09-15,spending,HKD,Micro purchase,7-Eleven
+84.67,Other,2025-09-15,spending,HKD,Micro purchase,7-Eleven
+58.3,Other,2025-09-15,spending,HKD,Micro purchase,7-Eleven
+734.04,Shopping,2025-09-15,spending,HKD,Purchase - Uniqlo,Uniqlo
+361.52,Dining,2025-09-16,spending,HKD,Food - Foodpanda,Foodpanda
+296.57,Dining,2025-09-16,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+448.15,Dining,2025-09-16,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+38.58,Dining,2025-09-16,spending,HKD,Morning coffee,Starbucks
+47.51,Other,2025-09-16,spending,HKD,Micro purchase,7-Eleven
+35.99,Other,2025-09-16,spending,HKD,Micro purchase,7-Eleven
+68.35,Other,2025-09-16,spending,HKD,Micro purchase,7-Eleven
+48.87,Other,2025-09-16,spending,HKD,Micro purchase,7-Eleven
+83.26,Other,2025-09-16,spending,HKD,Micro purchase,7-Eleven
+74.53,Other,2025-09-16,spending,HKD,Micro purchase,7-Eleven
+28.5,Other,2025-09-16,spending,HKD,Micro purchase,7-Eleven
+487.9,Dining,2025-09-17,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+76.54,Transport,2025-09-17,spending,HKD,MTR,MTR
+77.98,Entertainment,2025-09-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+89.78,Other,2025-09-18,spending,HKD,Micro purchase,7-Eleven
+77.49,Other,2025-09-18,spending,HKD,Micro purchase,7-Eleven
+52.4,Other,2025-09-18,spending,HKD,Micro purchase,7-Eleven
+84.53,Other,2025-09-18,spending,HKD,Micro purchase,7-Eleven
+88.32,Other,2025-09-18,spending,HKD,Micro purchase,7-Eleven
+34.67,Other,2025-09-18,spending,HKD,Micro purchase,7-Eleven
+99.1,Transport,2025-09-18,spending,HKD,Uber,Uber
+63.09,Other,2025-09-19,spending,HKD,Micro purchase,7-Eleven
+66.86,Other,2025-09-19,spending,HKD,Micro purchase,7-Eleven
+43.21,Other,2025-09-19,spending,HKD,Micro purchase,7-Eleven
+69.61,Other,2025-09-19,spending,HKD,Micro purchase,7-Eleven
+83.5,Other,2025-09-19,spending,HKD,Micro purchase,7-Eleven
+132.89,Other,2025-09-19,spending,HKD,Convenience - ATM,ATM
+393.22,Dining,2025-09-20,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+47.11,Dining,2025-09-20,spending,HKD,Morning coffee,Starbucks
+33.03,Other,2025-09-20,spending,HKD,Micro purchase,7-Eleven
+74.32,Other,2025-09-20,spending,HKD,Micro purchase,7-Eleven
+68.96,Other,2025-09-20,spending,HKD,Micro purchase,7-Eleven
+51.73,Other,2025-09-20,spending,HKD,Micro purchase,7-Eleven
+21.01,Other,2025-09-20,spending,HKD,Micro purchase,7-Eleven
+91.64,Other,2025-09-20,spending,HKD,Micro purchase,7-Eleven
+798.23,Shopping,2025-09-20,spending,HKD,Purchase - Uniqlo,Uniqlo
+63.77,Transport,2025-09-20,spending,HKD,MTR,MTR
+551.02,Dining,2025-09-21,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+29.82,Other,2025-09-21,spending,HKD,Micro purchase,7-Eleven
+78.75,Other,2025-09-21,spending,HKD,Micro purchase,7-Eleven
+27.7,Other,2025-09-21,spending,HKD,Micro purchase,7-Eleven
+121.15,Transport,2025-09-21,spending,HKD,HKTaxi,HKTaxi
+57.41,Entertainment,2025-09-22,spending,HKD,Apple subscription,Apple
+93.76,Other,2025-09-22,spending,HKD,Micro purchase,7-Eleven
+48.93,Other,2025-09-22,spending,HKD,Micro purchase,7-Eleven
+107.12,Transport,2025-09-22,spending,HKD,MTR,MTR
+94.09,Transport,2025-09-22,spending,HKD,MTR,MTR
+66.41,Transport,2025-09-22,spending,HKD,Uber,Uber
+73.8,Transport,2025-09-22,spending,HKD,Uber,Uber
+115.54,Transport,2025-09-22,spending,HKD,Uber,Uber
+40.11,Dining,2025-09-23,spending,HKD,Morning coffee,Starbucks
+38.39,Dining,2025-09-23,spending,HKD,Morning coffee,Starbucks
+38.98,Dining,2025-09-23,spending,HKD,Morning coffee,Starbucks
+86.0,Other,2025-09-23,spending,HKD,Micro purchase,7-Eleven
+22.79,Other,2025-09-23,spending,HKD,Micro purchase,7-Eleven
+65.8,Other,2025-09-23,spending,HKD,Micro purchase,7-Eleven
+32.51,Other,2025-09-23,spending,HKD,Micro purchase,7-Eleven
+61.47,Other,2025-09-23,spending,HKD,Micro purchase,7-Eleven
+78.86,Other,2025-09-23,spending,HKD,Micro purchase,7-Eleven
+81.85,Transport,2025-09-23,spending,HKD,HKTaxi,HKTaxi
+411.17,Dining,2025-09-24,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+52.06,Other,2025-09-25,spending,HKD,Micro purchase,7-Eleven
+31.49,Other,2025-09-25,spending,HKD,Micro purchase,7-Eleven
+85.8,Other,2025-09-25,spending,HKD,Micro purchase,7-Eleven
+47.88,Other,2025-09-25,spending,HKD,Micro purchase,7-Eleven
+41.38,Other,2025-09-25,spending,HKD,Micro purchase,7-Eleven
+65.68,Other,2025-09-25,spending,HKD,Micro purchase,7-Eleven
+69.09,Other,2025-09-25,spending,HKD,Micro purchase,7-Eleven
+336.47,Dining,2025-09-26,spending,HKD,Food - Foodpanda,Foodpanda
+46.89,Dining,2025-09-26,spending,HKD,Morning coffee,Starbucks
+79.09,Other,2025-09-26,spending,HKD,Micro purchase,7-Eleven
+45.94,Other,2025-09-26,spending,HKD,Micro purchase,7-Eleven
+77.57,Other,2025-09-26,spending,HKD,Micro purchase,7-Eleven
+823.2,Shopping,2025-09-26,spending,HKD,Purchase - Uniqlo,Uniqlo
+481.53,Dining,2025-09-27,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+45.39,Dining,2025-09-27,spending,HKD,Morning coffee,Starbucks
+40.09,Dining,2025-09-27,spending,HKD,Morning coffee,Starbucks
+46.77,Dining,2025-09-27,spending,HKD,Morning coffee,Starbucks
+69.6,Other,2025-09-27,spending,HKD,Micro purchase,7-Eleven
+78.68,Other,2025-09-27,spending,HKD,Micro purchase,7-Eleven
+55.72,Other,2025-09-27,spending,HKD,Micro purchase,7-Eleven
+85.73,Other,2025-09-27,spending,HKD,Micro purchase,7-Eleven
+62.02,Other,2025-09-27,spending,HKD,Micro purchase,7-Eleven
+91.87,Other,2025-09-27,spending,HKD,Micro purchase,7-Eleven
+125.97,Other,2025-09-27,spending,HKD,Convenience - Circle K,Circle K
+119.08,Transport,2025-09-27,spending,HKD,Uber,Uber
+109.63,Transport,2025-09-27,spending,HKD,Uber,Uber
+44.3,Dining,2025-09-28,spending,HKD,Morning coffee,Starbucks
+58.5,Other,2025-09-28,spending,HKD,Micro purchase,7-Eleven
+24.39,Other,2025-09-28,spending,HKD,Micro purchase,7-Eleven
+58.86,Other,2025-09-28,spending,HKD,Micro purchase,7-Eleven
+151.64,Other,2025-09-28,spending,HKD,Convenience - ATM,ATM
+92.78,Other,2025-09-28,spending,HKD,Convenience - ATM,ATM
+81.98,Transport,2025-09-28,spending,HKD,HKTaxi,HKTaxi
+38.43,Dining,2025-09-29,spending,HKD,Morning coffee,Starbucks
+85.16,Other,2025-09-29,spending,HKD,Micro purchase,7-Eleven
+87.3,Other,2025-09-29,spending,HKD,Micro purchase,7-Eleven
+102.35,Transport,2025-09-29,spending,HKD,MTR,MTR
+123.54,Transport,2025-09-29,spending,HKD,Uber,Uber
+31.22,Other,2025-09-30,spending,HKD,Micro purchase,7-Eleven
+39.9,Other,2025-09-30,spending,HKD,Micro purchase,7-Eleven
+87.06,Other,2025-09-30,spending,HKD,Micro purchase,7-Eleven
+23.78,Other,2025-09-30,spending,HKD,Micro purchase,7-Eleven
+75.29,Other,2025-09-30,spending,HKD,Micro purchase,7-Eleven
+20000.0,Salary,2025-09-30,income,HKD,Monthly salary,Design Studio HK
+3000.0,Rent,2025-10-01,spending,HKD,Monthly rent,Landlord
+45.45,Dining,2025-10-02,spending,HKD,Morning coffee,Starbucks
+44.86,Dining,2025-10-02,spending,HKD,Morning coffee,Starbucks
+94.61,Transport,2025-10-02,spending,HKD,Uber,Uber
+119.22,Transport,2025-10-02,spending,HKD,Uber,Uber
+66.74,Transport,2025-10-03,spending,HKD,HKTaxi,HKTaxi
+122.7,Transport,2025-10-03,spending,HKD,MTR,MTR
+39.71,Dining,2025-10-04,spending,HKD,Morning coffee,Starbucks
+45.84,Dining,2025-10-05,spending,HKD,Morning coffee,Starbucks
+92.26,Entertainment,2025-10-05,spending,HKD,Netflix subscription,Netflix
+820.21,Shopping,2025-10-05,spending,HKD,Purchase - HKTVmall,HKTVmall
+40.32,Dining,2025-10-06,spending,HKD,Morning coffee,Starbucks
+39.68,Dining,2025-10-06,spending,HKD,Morning coffee,Starbucks
+481.19,Dining,2025-10-07,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+42.21,Dining,2025-10-07,spending,HKD,Morning coffee,Starbucks
+66.14,Transport,2025-10-07,spending,HKD,Uber,Uber
+43.18,Dining,2025-10-08,spending,HKD,Morning coffee,Starbucks
+43.07,Dining,2025-10-08,spending,HKD,Morning coffee,Starbucks
+58.26,Entertainment,2025-10-08,spending,HKD,Spotify subscription,Spotify
+546.72,Dining,2025-10-09,spending,HKD,Food - Keeta,Keeta
+184.37,Other,2025-10-09,spending,HKD,Convenience - 7-Eleven,7-Eleven
+96.74,Transport,2025-10-09,spending,HKD,HKTaxi,HKTaxi
+38.34,Dining,2025-10-10,spending,HKD,Morning coffee,Starbucks
+823.9,Shopping,2025-10-10,spending,HKD,Purchase - HKTVmall,HKTVmall
+72.69,Transport,2025-10-10,spending,HKD,MTR,MTR
+333.78,Dining,2025-10-11,spending,HKD,Food - % Arabica,% Arabica
+563.3,Dining,2025-10-11,spending,HKD,Food - Keeta,Keeta
+782.01,Shopping,2025-10-11,spending,HKD,Purchase - Apple Store,Apple Store
+38.81,Dining,2025-10-12,spending,HKD,Morning coffee,Starbucks
+44.61,Dining,2025-10-12,spending,HKD,Morning coffee,Starbucks
+73.0,Entertainment,2025-10-12,spending,HKD,Disney+ subscription,Disney+
+652.03,Shopping,2025-10-12,spending,HKD,Purchase - ZARA,ZARA
+121.13,Transport,2025-10-12,spending,HKD,HKTaxi,HKTaxi
+41.21,Dining,2025-10-13,spending,HKD,Morning coffee,Starbucks
+809.53,Shopping,2025-10-13,spending,HKD,Purchase - Taobao,Taobao
+42.4,Dining,2025-10-14,spending,HKD,Morning coffee,Starbucks
+678.29,Shopping,2025-10-14,spending,HKD,Purchase - Apple Store,Apple Store
+612.91,Dining,2025-10-15,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+39.7,Dining,2025-10-15,spending,HKD,Morning coffee,Starbucks
+251.21,Other,2025-10-15,spending,HKD,Convenience - ATM,ATM
+608.85,Dining,2025-10-16,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+43.96,Dining,2025-10-16,spending,HKD,Morning coffee,Starbucks
+110.87,Transport,2025-10-16,spending,HKD,HKTaxi,HKTaxi
+67.01,Transport,2025-10-16,spending,HKD,Uber,Uber
+87.85,Transport,2025-10-17,spending,HKD,HKTaxi,HKTaxi
+78.71,Entertainment,2025-10-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+123.57,Transport,2025-10-18,spending,HKD,MTR,MTR
+125.01,Transport,2025-10-18,spending,HKD,Uber,Uber
+633.77,Dining,2025-10-19,spending,HKD,Food - % Arabica,% Arabica
+93.3,Transport,2025-10-19,spending,HKD,HKTaxi,HKTaxi
+125.58,Transport,2025-10-19,spending,HKD,HKTaxi,HKTaxi
+104.08,Transport,2025-10-21,spending,HKD,MTR,MTR
+41.31,Dining,2025-10-22,spending,HKD,Morning coffee,Starbucks
+43.73,Dining,2025-10-22,spending,HKD,Morning coffee,Starbucks
+57.7,Entertainment,2025-10-22,spending,HKD,Apple subscription,Apple
+40.47,Dining,2025-10-24,spending,HKD,Morning coffee,Starbucks
+65.33,Transport,2025-10-24,spending,HKD,HKTaxi,HKTaxi
+473.76,Dining,2025-10-25,spending,HKD,Food - Keeta,Keeta
+634.01,Shopping,2025-10-25,spending,HKD,Purchase - ZARA,ZARA
+121.24,Transport,2025-10-25,spending,HKD,HKTaxi,HKTaxi
+632.91,Dining,2025-10-26,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+40.54,Dining,2025-10-26,spending,HKD,Morning coffee,Starbucks
+284.05,Other,2025-10-26,spending,HKD,Convenience - 7-Eleven,7-Eleven
+41.63,Dining,2025-10-27,spending,HKD,Morning coffee,Starbucks
+38.6,Dining,2025-10-27,spending,HKD,Morning coffee,Starbucks
+100.71,Transport,2025-10-27,spending,HKD,HKTaxi,HKTaxi
+42.15,Dining,2025-10-28,spending,HKD,Morning coffee,Starbucks
+180.37,Other,2025-10-28,spending,HKD,Convenience - Circle K,Circle K
+45.67,Dining,2025-10-29,spending,HKD,Morning coffee,Starbucks
+44.48,Dining,2025-10-29,spending,HKD,Morning coffee,Starbucks
+126.87,Transport,2025-10-29,spending,HKD,MTR,MTR
+562.81,Dining,2025-10-30,spending,HKD,Food - % Arabica,% Arabica
+20000.0,Salary,2025-10-31,income,HKD,Monthly salary,Design Studio HK
+65.34,Transport,2025-10-31,spending,HKD,MTR,MTR
+123.25,Transport,2025-10-31,spending,HKD,Uber,Uber
+3000.0,Rent,2025-11-01,spending,HKD,Monthly rent,Landlord
+617.96,Shopping,2025-11-02,spending,HKD,Purchase - Uniqlo,Uniqlo
+824.75,Shopping,2025-11-03,spending,HKD,Purchase - Apple Store,Apple Store
+1066.84,Shopping,2025-11-03,spending,HKD,Purchase - Uniqlo,Uniqlo
+818.39,Shopping,2025-11-03,spending,HKD,Purchase - ZARA,ZARA
+97.7,Transport,2025-11-04,spending,HKD,MTR,MTR
+72.93,Transport,2025-11-04,spending,HKD,MTR,MTR
+43.53,Dining,2025-11-05,spending,HKD,Morning coffee,Starbucks
+94.5,Entertainment,2025-11-05,spending,HKD,Netflix subscription,Netflix
+97.33,Transport,2025-11-05,spending,HKD,MTR,MTR
+41.8,Dining,2025-11-06,spending,HKD,Morning coffee,Starbucks
+47.51,Dining,2025-11-06,spending,HKD,Morning coffee,Starbucks
+42.61,Dining,2025-11-06,spending,HKD,Morning coffee,Starbucks
+433.13,Dining,2025-11-07,spending,HKD,Food - Keeta,Keeta
+40.66,Dining,2025-11-08,spending,HKD,Morning coffee,Starbucks
+58.22,Entertainment,2025-11-08,spending,HKD,Spotify subscription,Spotify
+97.52,Transport,2025-11-08,spending,HKD,HKTaxi,HKTaxi
+40.69,Dining,2025-11-09,spending,HKD,Morning coffee,Starbucks
+155.76,Other,2025-11-09,spending,HKD,Convenience - 7-Eleven,7-Eleven
+95.47,Transport,2025-11-09,spending,HKD,Uber,Uber
+286.46,Dining,2025-11-10,spending,HKD,Food - Keeta,Keeta
+411.96,Dining,2025-11-10,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+39.92,Dining,2025-11-10,spending,HKD,Morning coffee,Starbucks
+111.46,Other,2025-11-10,spending,HKD,Convenience - 7-Eleven,7-Eleven
+117.69,Transport,2025-11-10,spending,HKD,MTR,MTR
+77.21,Transport,2025-11-10,spending,HKD,MTR,MTR
+47.68,Dining,2025-11-11,spending,HKD,Morning coffee,Starbucks
+137.79,Transport,2025-11-11,spending,HKD,HKTaxi,HKTaxi
+45.72,Dining,2025-11-12,spending,HKD,Morning coffee,Starbucks
+73.07,Entertainment,2025-11-12,spending,HKD,Disney+ subscription,Disney+
+96.57,Transport,2025-11-12,spending,HKD,HKTaxi,HKTaxi
+358.3,Dining,2025-11-13,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+39.25,Dining,2025-11-13,spending,HKD,Morning coffee,Starbucks
+103.33,Other,2025-11-13,spending,HKD,Convenience - Circle K,Circle K
+833.42,Shopping,2025-11-13,spending,HKD,Purchase - Apple Store,Apple Store
+84.67,Transport,2025-11-13,spending,HKD,Uber,Uber
+404.32,Dining,2025-11-14,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+97.67,Transport,2025-11-14,spending,HKD,HKTaxi,HKTaxi
+80.44,Transport,2025-11-14,spending,HKD,HKTaxi,HKTaxi
+405.76,Dining,2025-11-15,spending,HKD,Food - Foodpanda,Foodpanda
+291.84,Dining,2025-11-15,spending,HKD,Food - Keeta,Keeta
+129.88,Other,2025-11-15,spending,HKD,Convenience - ATM,ATM
+144.81,Transport,2025-11-16,spending,HKD,HKTaxi,HKTaxi
+326.59,Dining,2025-11-17,spending,HKD,Food - Foodpanda,Foodpanda
+42.68,Dining,2025-11-17,spending,HKD,Morning coffee,Starbucks
+91.03,Transport,2025-11-17,spending,HKD,Uber,Uber
+380.91,Dining,2025-11-18,spending,HKD,Food - Keeta,Keeta
+41.64,Dining,2025-11-18,spending,HKD,Morning coffee,Starbucks
+76.73,Entertainment,2025-11-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+125.73,Other,2025-11-18,spending,HKD,Convenience - ATM,ATM
+47.33,Dining,2025-11-19,spending,HKD,Morning coffee,Starbucks
+40.44,Dining,2025-11-19,spending,HKD,Morning coffee,Starbucks
+44.73,Dining,2025-11-20,spending,HKD,Morning coffee,Starbucks
+1038.63,Shopping,2025-11-20,spending,HKD,Purchase - Taobao,Taobao
+128.88,Transport,2025-11-20,spending,HKD,HKTaxi,HKTaxi
+44.11,Dining,2025-11-21,spending,HKD,Morning coffee,Starbucks
+46.33,Dining,2025-11-21,spending,HKD,Morning coffee,Starbucks
+151.98,Other,2025-11-21,spending,HKD,Convenience - 7-Eleven,7-Eleven
+113.8,Transport,2025-11-21,spending,HKD,Uber,Uber
+345.06,Dining,2025-11-22,spending,HKD,Food - Keeta,Keeta
+47.38,Dining,2025-11-22,spending,HKD,Morning coffee,Starbucks
+45.17,Dining,2025-11-22,spending,HKD,Morning coffee,Starbucks
+57.82,Entertainment,2025-11-22,spending,HKD,Apple subscription,Apple
+78.29,Transport,2025-11-22,spending,HKD,HKTaxi,HKTaxi
+388.55,Dining,2025-11-23,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+46.32,Dining,2025-11-23,spending,HKD,Morning coffee,Starbucks
+121.87,Other,2025-11-24,spending,HKD,Convenience - ATM,ATM
+332.0,Dining,2025-11-25,spending,HKD,Food - Foodpanda,Foodpanda
+301.83,Dining,2025-11-25,spending,HKD,Food - Keeta,Keeta
+47.97,Dining,2025-11-25,spending,HKD,Morning coffee,Starbucks
+40.17,Dining,2025-11-25,spending,HKD,Morning coffee,Starbucks
+74.77,Transport,2025-11-25,spending,HKD,MTR,MTR
+97.42,Transport,2025-11-25,spending,HKD,Uber,Uber
+89.53,Transport,2025-11-26,spending,HKD,HKTaxi,HKTaxi
+459.45,Dining,2025-11-27,spending,HKD,Food - % Arabica,% Arabica
+365.86,Dining,2025-11-27,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+42.27,Dining,2025-11-27,spending,HKD,Morning coffee,Starbucks
+20000.0,Salary,2025-11-28,income,HKD,Monthly salary,Design Studio HK
+118.0,Transport,2025-11-28,spending,HKD,HKTaxi,HKTaxi
+38.74,Dining,2025-11-29,spending,HKD,Morning coffee,Starbucks
+110.45,Transport,2025-11-29,spending,HKD,HKTaxi,HKTaxi
+42.42,Dining,2025-12-01,spending,HKD,Morning coffee,Starbucks
+3000.0,Rent,2025-12-01,spending,HKD,Monthly rent,Landlord
+155.35,Transport,2025-12-01,spending,HKD,HKTaxi,HKTaxi
+161.1,Other,2025-12-02,spending,HKD,Convenience - 7-Eleven,7-Eleven
+685.06,Shopping,2025-12-04,spending,HKD,Purchase - Taobao,Taobao
+116.4,Transport,2025-12-04,spending,HKD,HKTaxi,HKTaxi
+127.68,Transport,2025-12-04,spending,HKD,MTR,MTR
+123.97,Transport,2025-12-04,spending,HKD,Uber,Uber
+520.02,Dining,2025-12-05,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+92.79,Entertainment,2025-12-05,spending,HKD,Netflix subscription,Netflix
+1128.06,Shopping,2025-12-05,spending,HKD,Purchase - Taobao,Taobao
+466.95,Dining,2025-12-06,spending,HKD,Food - Foodpanda,Foodpanda
+194.66,Other,2025-12-06,spending,HKD,Convenience - Circle K,Circle K
+44.07,Dining,2025-12-07,spending,HKD,Morning coffee,Starbucks
+157.55,Transport,2025-12-07,spending,HKD,HKTaxi,HKTaxi
+152.99,Transport,2025-12-07,spending,HKD,HKTaxi,HKTaxi
+57.39,Entertainment,2025-12-08,spending,HKD,Spotify subscription,Spotify
+279.74,Dining,2025-12-09,spending,HKD,Food - % Arabica,% Arabica
+419.95,Dining,2025-12-09,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+47.43,Dining,2025-12-09,spending,HKD,Morning coffee,Starbucks
+78.22,Transport,2025-12-09,spending,HKD,HKTaxi,HKTaxi
+43.8,Dining,2025-12-10,spending,HKD,Morning coffee,Starbucks
+39.28,Dining,2025-12-10,spending,HKD,Morning coffee,Starbucks
+161.62,Transport,2025-12-10,spending,HKD,HKTaxi,HKTaxi
+949.73,Shopping,2025-12-11,spending,HKD,Purchase - ZARA,ZARA
+404.98,Dining,2025-12-12,spending,HKD,Food - Foodpanda,Foodpanda
+72.26,Entertainment,2025-12-12,spending,HKD,Disney+ subscription,Disney+
+621.54,Shopping,2025-12-12,spending,HKD,Purchase - Taobao,Taobao
+101.74,Transport,2025-12-12,spending,HKD,Uber,Uber
+132.51,Transport,2025-12-12,spending,HKD,Uber,Uber
+123.49,Transport,2025-12-12,spending,HKD,Uber,Uber
+90.81,Transport,2025-12-13,spending,HKD,MTR,MTR
+523.63,Dining,2025-12-15,spending,HKD,Food - % Arabica,% Arabica
+43.39,Dining,2025-12-15,spending,HKD,Morning coffee,Starbucks
+304.33,Dining,2025-12-16,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+44.29,Dining,2025-12-16,spending,HKD,Morning coffee,Starbucks
+43.04,Dining,2025-12-16,spending,HKD,Morning coffee,Starbucks
+370.97,Dining,2025-12-17,spending,HKD,Food - Keeta,Keeta
+139.57,Other,2025-12-17,spending,HKD,Convenience - 7-Eleven,7-Eleven
+111.11,Other,2025-12-17,spending,HKD,Convenience - ATM,ATM
+115.96,Transport,2025-12-17,spending,HKD,MTR,MTR
+307.71,Dining,2025-12-18,spending,HKD,Food - Foodpanda,Foodpanda
+78.41,Entertainment,2025-12-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+45.67,Dining,2025-12-19,spending,HKD,Morning coffee,Starbucks
+1023.07,Shopping,2025-12-19,spending,HKD,Purchase - HKTVmall,HKTVmall
+46.17,Dining,2025-12-20,spending,HKD,Morning coffee,Starbucks
+166.83,Other,2025-12-20,spending,HKD,Convenience - Circle K,Circle K
+154.94,Transport,2025-12-20,spending,HKD,MTR,MTR
+402.76,Dining,2025-12-21,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+47.76,Dining,2025-12-21,spending,HKD,Morning coffee,Starbucks
+40.22,Dining,2025-12-21,spending,HKD,Morning coffee,Starbucks
+40.96,Dining,2025-12-21,spending,HKD,Morning coffee,Starbucks
+126.72,Other,2025-12-21,spending,HKD,Convenience - ATM,ATM
+128.44,Transport,2025-12-21,spending,HKD,Uber,Uber
+46.19,Dining,2025-12-22,spending,HKD,Morning coffee,Starbucks
+58.78,Entertainment,2025-12-22,spending,HKD,Apple subscription,Apple
+106.21,Transport,2025-12-22,spending,HKD,Uber,Uber
+44.18,Dining,2025-12-23,spending,HKD,Morning coffee,Starbucks
+43.34,Dining,2025-12-24,spending,HKD,Morning coffee,Starbucks
+300.1,Dining,2025-12-25,spending,HKD,Food - Foodpanda,Foodpanda
+46.68,Dining,2025-12-26,spending,HKD,Morning coffee,Starbucks
+47.7,Dining,2025-12-27,spending,HKD,Morning coffee,Starbucks
+44.19,Dining,2025-12-28,spending,HKD,Morning coffee,Starbucks
+431.35,Dining,2025-12-29,spending,HKD,Food - % Arabica,% Arabica
+89.44,Transport,2025-12-29,spending,HKD,MTR,MTR
+335.36,Dining,2025-12-30,spending,HKD,Food - % Arabica,% Arabica
+508.15,Dining,2025-12-30,spending,HKD,Food - Foodpanda,Foodpanda
+41.44,Dining,2025-12-30,spending,HKD,Morning coffee,Starbucks
+42.34,Dining,2025-12-30,spending,HKD,Morning coffee,Starbucks
+45.3,Dining,2025-12-31,spending,HKD,Morning coffee,Starbucks
+20000.0,Salary,2025-12-31,income,HKD,Monthly salary,Design Studio HK
+792.55,Shopping,2025-12-31,spending,HKD,Purchase - ZARA,ZARA
+82.68,Transport,2025-12-31,spending,HKD,Uber,Uber
+589.17,Dining,2026-01-01,spending,HKD,Food - % Arabica,% Arabica
+484.35,Dining,2026-01-01,spending,HKD,Food - Foodpanda,Foodpanda
+3000.0,Rent,2026-01-01,spending,HKD,Monthly rent,Landlord
+97.51,Transport,2026-01-01,spending,HKD,Uber,Uber
+215.84,Other,2026-01-04,spending,HKD,Convenience - Circle K,Circle K
+73.55,Transport,2026-01-04,spending,HKD,HKTaxi,HKTaxi
+63.52,Transport,2026-01-04,spending,HKD,MTR,MTR
+109.79,Transport,2026-01-04,spending,HKD,Uber,Uber
+92.67,Entertainment,2026-01-05,spending,HKD,Netflix subscription,Netflix
+113.07,Transport,2026-01-05,spending,HKD,MTR,MTR
+46.1,Dining,2026-01-06,spending,HKD,Morning coffee,Starbucks
+1048.15,Shopping,2026-01-06,spending,HKD,Purchase - HKTVmall,HKTVmall
+892.37,Shopping,2026-01-06,spending,HKD,Purchase - HKTVmall,HKTVmall
+688.64,Shopping,2026-01-06,spending,HKD,Purchase - ZARA,ZARA
+112.17,Transport,2026-01-06,spending,HKD,HKTaxi,HKTaxi
+605.97,Dining,2026-01-07,spending,HKD,Food - % Arabica,% Arabica
+68.76,Transport,2026-01-07,spending,HKD,MTR,MTR
+613.59,Dining,2026-01-08,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+42.78,Dining,2026-01-08,spending,HKD,Morning coffee,Starbucks
+46.6,Dining,2026-01-08,spending,HKD,Morning coffee,Starbucks
+57.43,Entertainment,2026-01-08,spending,HKD,Spotify subscription,Spotify
+877.05,Shopping,2026-01-08,spending,HKD,Purchase - ZARA,ZARA
+44.62,Dining,2026-01-09,spending,HKD,Morning coffee,Starbucks
+104.92,Transport,2026-01-09,spending,HKD,HKTaxi,HKTaxi
+78.36,Transport,2026-01-09,spending,HKD,HKTaxi,HKTaxi
+108.49,Transport,2026-01-10,spending,HKD,MTR,MTR
+508.56,Dining,2026-01-11,spending,HKD,Food - Foodpanda,Foodpanda
+585.0,Dining,2026-01-11,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+46.63,Dining,2026-01-11,spending,HKD,Morning coffee,Starbucks
+72.16,Entertainment,2026-01-12,spending,HKD,Disney+ subscription,Disney+
+111.99,Transport,2026-01-12,spending,HKD,HKTaxi,HKTaxi
+85.15,Transport,2026-01-12,spending,HKD,MTR,MTR
+90.1,Transport,2026-01-13,spending,HKD,HKTaxi,HKTaxi
+631.66,Dining,2026-01-14,spending,HKD,Food - Keeta,Keeta
+41.67,Dining,2026-01-14,spending,HKD,Morning coffee,Starbucks
+42.09,Dining,2026-01-15,spending,HKD,Morning coffee,Starbucks
+39.92,Dining,2026-01-15,spending,HKD,Morning coffee,Starbucks
+586.02,Shopping,2026-01-15,spending,HKD,Purchase - Taobao,Taobao
+77.49,Transport,2026-01-15,spending,HKD,Uber,Uber
+584.82,Dining,2026-01-16,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+43.22,Dining,2026-01-16,spending,HKD,Morning coffee,Starbucks
+488.17,Dining,2026-01-17,spending,HKD,Food - Keeta,Keeta
+44.39,Dining,2026-01-17,spending,HKD,Morning coffee,Starbucks
+307.64,Other,2026-01-17,spending,HKD,Convenience - ATM,ATM
+112.97,Transport,2026-01-17,spending,HKD,HKTaxi,HKTaxi
+78.69,Entertainment,2026-01-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+39.67,Dining,2026-01-21,spending,HKD,Morning coffee,Starbucks
+45.96,Dining,2026-01-21,spending,HKD,Morning coffee,Starbucks
+76.06,Transport,2026-01-21,spending,HKD,HKTaxi,HKTaxi
+59.16,Entertainment,2026-01-22,spending,HKD,Apple subscription,Apple
+65.25,Transport,2026-01-22,spending,HKD,MTR,MTR
+105.85,Transport,2026-01-23,spending,HKD,HKTaxi,HKTaxi
+38.52,Dining,2026-01-26,spending,HKD,Morning coffee,Starbucks
+1107.77,Shopping,2026-01-26,spending,HKD,Purchase - HKTVmall,HKTVmall
+63.07,Transport,2026-01-26,spending,HKD,HKTaxi,HKTaxi
+61.91,Transport,2026-01-26,spending,HKD,HKTaxi,HKTaxi
+109.0,Transport,2026-01-26,spending,HKD,Uber,Uber
+38.16,Dining,2026-01-27,spending,HKD,Morning coffee,Starbucks
+39.5,Dining,2026-01-27,spending,HKD,Morning coffee,Starbucks
+65.28,Transport,2026-01-27,spending,HKD,HKTaxi,HKTaxi
+94.22,Transport,2026-01-27,spending,HKD,Uber,Uber
+40.39,Dining,2026-01-28,spending,HKD,Morning coffee,Starbucks
+65.92,Transport,2026-01-28,spending,HKD,Uber,Uber
+652.72,Dining,2026-01-29,spending,HKD,Food - % Arabica,% Arabica
+41.51,Dining,2026-01-29,spending,HKD,Morning coffee,Starbucks
+44.94,Dining,2026-01-29,spending,HKD,Morning coffee,Starbucks
+192.64,Other,2026-01-29,spending,HKD,Convenience - Circle K,Circle K
+20000.0,Salary,2026-01-30,income,HKD,Monthly salary,Design Studio HK
+85.59,Transport,2026-01-30,spending,HKD,Uber,Uber
+183.88,Other,2026-01-31,spending,HKD,Convenience - 7-Eleven,7-Eleven
+390.92,Dining,2026-02-01,spending,HKD,Food - Foodpanda,Foodpanda
+294.74,Dining,2026-02-01,spending,HKD,Food - Keeta,Keeta
+38.37,Dining,2026-02-01,spending,HKD,Morning coffee,Starbucks
+42.24,Dining,2026-02-01,spending,HKD,Morning coffee,Starbucks
+3000.0,Rent,2026-02-01,spending,HKD,Monthly rent,Landlord
+93.5,Transport,2026-02-01,spending,HKD,HKTaxi,HKTaxi
+40.83,Dining,2026-02-02,spending,HKD,Morning coffee,Starbucks
+216.47,Other,2026-02-02,spending,HKD,Convenience - 7-Eleven,7-Eleven
+119.47,Transport,2026-02-02,spending,HKD,Uber,Uber
+327.8,Dining,2026-02-04,spending,HKD,Food - % Arabica,% Arabica
+442.75,Dining,2026-02-04,spending,HKD,Food - Foodpanda,Foodpanda
+602.83,Shopping,2026-02-04,spending,HKD,Purchase - Taobao,Taobao
+293.17,Dining,2026-02-05,spending,HKD,Food - Foodpanda,Foodpanda
+300.29,Dining,2026-02-05,spending,HKD,Food - Keeta,Keeta
+94.43,Entertainment,2026-02-05,spending,HKD,Netflix subscription,Netflix
+120.3,Transport,2026-02-05,spending,HKD,HKTaxi,HKTaxi
+99.23,Transport,2026-02-05,spending,HKD,HKTaxi,HKTaxi
+76.02,Transport,2026-02-05,spending,HKD,MTR,MTR
+86.32,Transport,2026-02-05,spending,HKD,Uber,Uber
+380.51,Dining,2026-02-06,spending,HKD,Food - Keeta,Keeta
+239.54,Other,2026-02-06,spending,HKD,Convenience - ATM,ATM
+99.04,Transport,2026-02-07,spending,HKD,Uber,Uber
+47.79,Dining,2026-02-08,spending,HKD,Morning coffee,Starbucks
+40.45,Dining,2026-02-08,spending,HKD,Morning coffee,Starbucks
+43.55,Dining,2026-02-08,spending,HKD,Morning coffee,Starbucks
+57.02,Entertainment,2026-02-08,spending,HKD,Spotify subscription,Spotify
+79.71,Transport,2026-02-08,spending,HKD,Uber,Uber
+39.06,Dining,2026-02-09,spending,HKD,Morning coffee,Starbucks
+68.79,Transport,2026-02-09,spending,HKD,HKTaxi,HKTaxi
+84.57,Transport,2026-02-09,spending,HKD,MTR,MTR
+436.86,Dining,2026-02-10,spending,HKD,Food - Foodpanda,Foodpanda
+72.23,Transport,2026-02-10,spending,HKD,HKTaxi,HKTaxi
+40.71,Dining,2026-02-11,spending,HKD,Morning coffee,Starbucks
+40.28,Dining,2026-02-11,spending,HKD,Morning coffee,Starbucks
+39.15,Dining,2026-02-11,spending,HKD,Morning coffee,Starbucks
+855.83,Shopping,2026-02-11,spending,HKD,Purchase - Uniqlo,Uniqlo
+73.41,Entertainment,2026-02-12,spending,HKD,Disney+ subscription,Disney+
+79.78,Transport,2026-02-12,spending,HKD,HKTaxi,HKTaxi
+89.57,Transport,2026-02-12,spending,HKD,MTR,MTR
+473.1,Dining,2026-02-13,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+108.93,Transport,2026-02-13,spending,HKD,Uber,Uber
+100.94,Transport,2026-02-14,spending,HKD,HKTaxi,HKTaxi
+84.71,Transport,2026-02-14,spending,HKD,HKTaxi,HKTaxi
+406.59,Dining,2026-02-15,spending,HKD,Food - % Arabica,% Arabica
+39.83,Dining,2026-02-15,spending,HKD,Morning coffee,Starbucks
+81.19,Transport,2026-02-15,spending,HKD,MTR,MTR
+408.71,Dining,2026-02-16,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+583.09,Shopping,2026-02-16,spending,HKD,Purchase - Taobao,Taobao
+45.39,Dining,2026-02-17,spending,HKD,Morning coffee,Starbucks
+98.85,Transport,2026-02-17,spending,HKD,Uber,Uber
+76.43,Entertainment,2026-02-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+183.86,Other,2026-02-18,spending,HKD,Convenience - ATM,ATM
+46.69,Dining,2026-02-19,spending,HKD,Morning coffee,Starbucks
+44.83,Dining,2026-02-19,spending,HKD,Morning coffee,Starbucks
+115.11,Transport,2026-02-19,spending,HKD,HKTaxi,HKTaxi
+98.96,Transport,2026-02-19,spending,HKD,Uber,Uber
+62.28,Transport,2026-02-20,spending,HKD,HKTaxi,HKTaxi
+79.61,Transport,2026-02-21,spending,HKD,MTR,MTR
+46.97,Dining,2026-02-22,spending,HKD,Morning coffee,Starbucks
+41.82,Dining,2026-02-22,spending,HKD,Morning coffee,Starbucks
+59.28,Entertainment,2026-02-22,spending,HKD,Apple subscription,Apple
+1055.97,Shopping,2026-02-22,spending,HKD,Purchase - ZARA,ZARA
+469.4,Dining,2026-02-23,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+47.66,Dining,2026-02-23,spending,HKD,Morning coffee,Starbucks
+44.55,Dining,2026-02-24,spending,HKD,Morning coffee,Starbucks
+474.32,Dining,2026-02-25,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+42.37,Dining,2026-02-25,spending,HKD,Morning coffee,Starbucks
+1071.24,Shopping,2026-02-25,spending,HKD,Purchase - Taobao,Taobao
+60.34,Transport,2026-02-25,spending,HKD,HKTaxi,HKTaxi
+40.73,Dining,2026-02-26,spending,HKD,Morning coffee,Starbucks
+260.12,Other,2026-02-26,spending,HKD,Convenience - 7-Eleven,7-Eleven
+1031.03,Shopping,2026-02-26,spending,HKD,Purchase - ZARA,ZARA
+42.26,Dining,2026-02-27,spending,HKD,Morning coffee,Starbucks
+38.95,Dining,2026-02-27,spending,HKD,Morning coffee,Starbucks
+20000.0,Salary,2026-02-27,income,HKD,Monthly salary,Design Studio HK
+63.31,Transport,2026-02-27,spending,HKD,HKTaxi,HKTaxi
+77.24,Transport,2026-02-27,spending,HKD,Uber,Uber
+350.84,Dining,2026-02-28,spending,HKD,Food - Foodpanda,Foodpanda
+40.92,Dining,2026-02-28,spending,HKD,Morning coffee,Starbucks
+46.88,Dining,2026-02-28,spending,HKD,Morning coffee,Starbucks
+43.05,Dining,2026-02-28,spending,HKD,Morning coffee,Starbucks
+438.38,Dining,2026-03-01,spending,HKD,Food - Keeta,Keeta
+47.26,Dining,2026-03-01,spending,HKD,Morning coffee,Starbucks
+3000.0,Rent,2026-03-01,spending,HKD,Monthly rent,Landlord
+169.94,Other,2026-03-03,spending,HKD,Convenience - Circle K,Circle K
+297.12,Dining,2026-03-04,spending,HKD,Food - Keeta,Keeta
+47.99,Dining,2026-03-04,spending,HKD,Morning coffee,Starbucks
+233.37,Other,2026-03-04,spending,HKD,Convenience - ATM,ATM
+47.31,Dining,2026-03-05,spending,HKD,Morning coffee,Starbucks
+92.98,Entertainment,2026-03-05,spending,HKD,Netflix subscription,Netflix
+125.92,Transport,2026-03-05,spending,HKD,MTR,MTR
+557.33,Dining,2026-03-06,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+46.52,Dining,2026-03-06,spending,HKD,Morning coffee,Starbucks
+38.79,Dining,2026-03-06,spending,HKD,Morning coffee,Starbucks
+58.77,Entertainment,2026-03-08,spending,HKD,Spotify subscription,Spotify
+131.6,Transport,2026-03-08,spending,HKD,Uber,Uber
+455.74,Dining,2026-03-09,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+45.93,Dining,2026-03-09,spending,HKD,Morning coffee,Starbucks
+44.42,Dining,2026-03-09,spending,HKD,Morning coffee,Starbucks
+126.32,Transport,2026-03-09,spending,HKD,MTR,MTR
+110.3,Transport,2026-03-10,spending,HKD,HKTaxi,HKTaxi
+195.98,Other,2026-03-11,spending,HKD,Convenience - 7-Eleven,7-Eleven
+73.44,Entertainment,2026-03-12,spending,HKD,Disney+ subscription,Disney+
+94.02,Transport,2026-03-12,spending,HKD,MTR,MTR
+128.64,Other,2026-03-13,spending,HKD,Convenience - Circle K,Circle K
+45.99,Dining,2026-03-14,spending,HKD,Morning coffee,Starbucks
+44.23,Dining,2026-03-14,spending,HKD,Morning coffee,Starbucks
+1113.43,Shopping,2026-03-15,spending,HKD,Purchase - HKTVmall,HKTVmall
+125.19,Transport,2026-03-15,spending,HKD,HKTaxi,HKTaxi
+87.2,Transport,2026-03-15,spending,HKD,Uber,Uber
+503.06,Dining,2026-03-16,spending,HKD,Food - % Arabica,% Arabica
+46.11,Dining,2026-03-17,spending,HKD,Morning coffee,Starbucks
+38.87,Dining,2026-03-17,spending,HKD,Morning coffee,Starbucks
+127.7,Transport,2026-03-17,spending,HKD,HKTaxi,HKTaxi
+470.74,Dining,2026-03-18,spending,HKD,Food - Fuel Espresso,Fuel Espresso
+38.75,Dining,2026-03-18,spending,HKD,Morning coffee,Starbucks
+78.78,Entertainment,2026-03-18,spending,HKD,YouTube Premium subscription,YouTube Premium
+123.43,Transport,2026-03-19,spending,HKD,HKTaxi,HKTaxi
+482.62,Dining,2026-03-20,spending,HKD,Food - Keeta,Keeta
+1540.28,Shopping,2026-03-20,spending,HKD,Purchase - Taobao,Taobao
+80.66,Transport,2026-03-20,spending,HKD,MTR,MTR
+80.51,Transport,2026-03-20,spending,HKD,MTR,MTR
+70.47,Transport,2026-03-21,spending,HKD,MTR,MTR
+342.98,Dining,2026-03-22,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+38.47,Dining,2026-03-22,spending,HKD,Morning coffee,Starbucks
+57.45,Entertainment,2026-03-22,spending,HKD,Apple subscription,Apple
+172.07,Other,2026-03-22,spending,HKD,Convenience - ATM,ATM
+71.41,Transport,2026-03-22,spending,HKD,HKTaxi,HKTaxi
+1407.64,Shopping,2026-03-23,spending,HKD,Purchase - Uniqlo,Uniqlo
+581.89,Dining,2026-03-24,spending,HKD,Food - Foodpanda,Foodpanda
+41.51,Dining,2026-03-24,spending,HKD,Morning coffee,Starbucks
+39.24,Dining,2026-03-25,spending,HKD,Morning coffee,Starbucks
+95.78,Transport,2026-03-25,spending,HKD,HKTaxi,HKTaxi
+398.6,Dining,2026-03-26,spending,HKD,Food - % Arabica,% Arabica
+42.16,Dining,2026-03-26,spending,HKD,Morning coffee,Starbucks
+43.15,Dining,2026-03-26,spending,HKD,Morning coffee,Starbucks
+131.97,Transport,2026-03-26,spending,HKD,HKTaxi,HKTaxi
+39.98,Dining,2026-03-27,spending,HKD,Morning coffee,Starbucks
+41.01,Dining,2026-03-27,spending,HKD,Morning coffee,Starbucks
+42.94,Dining,2026-03-27,spending,HKD,Morning coffee,Starbucks
+92.05,Transport,2026-03-27,spending,HKD,HKTaxi,HKTaxi
+91.07,Transport,2026-03-27,spending,HKD,MTR,MTR
+84.51,Transport,2026-03-27,spending,HKD,Uber,Uber
+38.9,Dining,2026-03-28,spending,HKD,Morning coffee,Starbucks
+47.52,Dining,2026-03-29,spending,HKD,Morning coffee,Starbucks
+47.5,Dining,2026-03-29,spending,HKD,Morning coffee,Starbucks
+119.8,Transport,2026-03-29,spending,HKD,HKTaxi,HKTaxi
+94.27,Transport,2026-03-29,spending,HKD,MTR,MTR
+453.48,Dining,2026-03-30,spending,HKD,Food - % Arabica,% Arabica
+1138.65,Shopping,2026-03-30,spending,HKD,Purchase - HKTVmall,HKTVmall
+552.06,Dining,2026-03-31,spending,HKD,Food - Pacific Coffee,Pacific Coffee
+20000.0,Salary,2026-03-31,income,HKD,Monthly salary,Design Studio HK
+135.84,Transport,2026-03-31,spending,HKD,HKTaxi,HKTaxi

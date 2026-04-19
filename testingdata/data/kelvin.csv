@@ -1,0 +1,1431 @@
+AMOUNT,CNAME,DATE,TYPE,CURRENCY,DESCRIPTION,RNAME
+294.56,Other,2024-10-01,spending,HKD,7-Eleven,7-Eleven
+14000.0,Rent,2024-10-01,spending,HKD,Monthly rent,Landlord
+364.66,Entertainment,2024-10-02,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+162.98,Transport,2024-10-02,spending,HKD,MTR,MTR
+209.83,Transport,2024-10-02,spending,HKD,Uber,Uber
+279.3,Dining,2024-10-03,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+339.71,Dining,2024-10-03,spending,HKD,Dinner at Ozone,Ozone
+211.44,Dining,2024-10-03,spending,HKD,Dinner at Ozone,Ozone
+514.93,Entertainment,2024-10-03,spending,HKD,Night out - LKF Concepts,LKF Concepts
+529.05,Entertainment,2024-10-03,spending,HKD,Night out - Volar,Volar
+139.98,Transport,2024-10-03,spending,HKD,HKTaxi,HKTaxi
+503.41,Entertainment,2024-10-04,spending,HKD,Night out - Volar,Volar
+175.38,Transport,2024-10-05,spending,HKD,MTR,MTR
+324.0,Entertainment,2024-10-06,spending,HKD,Night out - Volar,Volar
+215.1,Transport,2024-10-06,spending,HKD,MTR,MTR
+253.4,Dining,2024-10-07,spending,HKD,Dinner at Honi Honi,Honi Honi
+466.36,Entertainment,2024-10-07,spending,HKD,Night out - LKF Concepts,LKF Concepts
+201.08,Transport,2024-10-07,spending,HKD,Citybus,Citybus
+164.81,Transport,2024-10-07,spending,HKD,Uber,Uber
+277.84,Dining,2024-10-08,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+308.67,Dining,2024-10-08,spending,HKD,Dinner at Ozone,Ozone
+328.2,Entertainment,2024-10-08,spending,HKD,Night out - Cinema City,Cinema City
+761.52,Shopping,2024-10-08,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+309.03,Other,2024-10-09,spending,HKD,7-Eleven,7-Eleven
+334.51,Other,2024-10-09,spending,HKD,HSBC Credit Card,HSBC Credit Card
+125.01,Transport,2024-10-10,spending,HKD,HKTaxi,HKTaxi
+637.22,Entertainment,2024-10-11,spending,HKD,Night out - LKF Concepts,LKF Concepts
+345.92,Dining,2024-10-12,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+283.47,Dining,2024-10-13,spending,HKD,Dinner at Ozone,Ozone
+195.13,Transport,2024-10-13,spending,HKD,HKTaxi,HKTaxi
+262.84,Dining,2024-10-15,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+300.82,Dining,2024-10-15,spending,HKD,Dinner at Ozone,Ozone
+275.81,Dining,2024-10-15,spending,HKD,Dinner at Ozone,Ozone
+458.94,Other,2024-10-15,spending,HKD,HSBC Credit Card,HSBC Credit Card
+842.65,Shopping,2024-10-15,spending,HKD,Purchase at Apple Store,Apple Store
+274.16,Dining,2024-10-16,spending,HKD,Dinner at Nobu HK,Nobu HK
+809.45,Shopping,2024-10-16,spending,HKD,Purchase at IFC Mall,IFC Mall
+190.75,Transport,2024-10-16,spending,HKD,Citybus,Citybus
+206.2,Dining,2024-10-17,spending,HKD,Dinner at Mott 32,Mott 32
+872.86,Shopping,2024-10-17,spending,HKD,Purchase at Apple Store,Apple Store
+227.7,Transport,2024-10-17,spending,HKD,HKTaxi,HKTaxi
+164.82,Transport,2024-10-17,spending,HKD,MTR,MTR
+408.74,Dining,2024-10-18,spending,HKD,Dinner at Nobu HK,Nobu HK
+192.89,Transport,2024-10-18,spending,HKD,Uber,Uber
+374.03,Other,2024-10-19,spending,HKD,HSBC Credit Card,HSBC Credit Card
+241.79,Transport,2024-10-19,spending,HKD,Uber,Uber
+326.66,Dining,2024-10-21,spending,HKD,Dinner at Mott 32,Mott 32
+137.34,Transport,2024-10-21,spending,HKD,Uber,Uber
+380.32,Dining,2024-10-22,spending,HKD,Dinner at Honi Honi,Honi Honi
+322.87,Dining,2024-10-23,spending,HKD,Dinner at Mott 32,Mott 32
+372.7,Dining,2024-10-25,spending,HKD,Dinner at Ozone,Ozone
+35000.0,Salary,2024-10-25,income,HKD,Monthly salary,ABC Marketing Ltd
+165.1,Transport,2024-10-25,spending,HKD,MTR,MTR
+368.25,Dining,2024-10-26,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+290.2,Other,2024-10-26,spending,HKD,HSBC Credit Card,HSBC Credit Card
+136.23,Transport,2024-10-26,spending,HKD,HKTaxi,HKTaxi
+130.09,Transport,2024-10-26,spending,HKD,MTR,MTR
+386.42,Dining,2024-10-27,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+585.05,Shopping,2024-10-27,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+131.11,Transport,2024-10-27,spending,HKD,MTR,MTR
+391.9,Dining,2024-10-28,spending,HKD,Dinner at Honi Honi,Honi Honi
+572.74,Entertainment,2024-10-28,spending,HKD,Night out - Club Cubic,Club Cubic
+192.88,Transport,2024-10-28,spending,HKD,MTR,MTR
+617.5,Entertainment,2024-10-29,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+641.94,Entertainment,2024-10-29,spending,HKD,Night out - Volar,Volar
+386.98,Other,2024-10-29,spending,HKD,HSBC Credit Card,HSBC Credit Card
+239.7,Other,2024-10-29,spending,HKD,HSBC Credit Card,HSBC Credit Card
+276.83,Dining,2024-10-30,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+247.83,Dining,2024-10-30,spending,HKD,Dinner at Honi Honi,Honi Honi
+628.48,Shopping,2024-10-30,spending,HKD,Purchase at Apple Store,Apple Store
+397.9,Dining,2024-10-31,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+312.06,Other,2024-10-31,spending,HKD,Octopus Reload,Octopus Reload
+484.46,Entertainment,2024-11-01,spending,HKD,Night out - Cinema City,Cinema City
+368.56,Other,2024-11-01,spending,HKD,HSBC Credit Card,HSBC Credit Card
+14000.0,Rent,2024-11-01,spending,HKD,Monthly rent,Landlord
+165.28,Transport,2024-11-01,spending,HKD,Citybus,Citybus
+138.66,Transport,2024-11-01,spending,HKD,HKTaxi,HKTaxi
+139.28,Transport,2024-11-01,spending,HKD,HKTaxi,HKTaxi
+125.12,Transport,2024-11-01,spending,HKD,MTR,MTR
+88.34,Transport,2024-11-02,spending,HKD,MTR,MTR
+84.96,Transport,2024-11-02,spending,HKD,MTR,MTR
+346.58,Dining,2024-11-03,spending,HKD,Dinner at Ozone,Ozone
+249.73,Dining,2024-11-04,spending,HKD,Dinner at Mott 32,Mott 32
+156.95,Transport,2024-11-04,spending,HKD,Citybus,Citybus
+115.42,Transport,2024-11-04,spending,HKD,HKTaxi,HKTaxi
+363.13,Dining,2024-11-05,spending,HKD,Dinner at Nobu HK,Nobu HK
+104.45,Transport,2024-11-05,spending,HKD,HKTaxi,HKTaxi
+360.49,Dining,2024-11-06,spending,HKD,Dinner at Honi Honi,Honi Honi
+326.95,Other,2024-11-06,spending,HKD,Octopus Reload,Octopus Reload
+110.21,Transport,2024-11-06,spending,HKD,Uber,Uber
+218.67,Dining,2024-11-07,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+237.34,Dining,2024-11-07,spending,HKD,Dinner at Ozone,Ozone
+159.42,Transport,2024-11-08,spending,HKD,Uber,Uber
+353.78,Dining,2024-11-09,spending,HKD,Dinner at Honi Honi,Honi Honi
+381.15,Dining,2024-11-09,spending,HKD,Dinner at Mott 32,Mott 32
+326.4,Dining,2024-11-09,spending,HKD,Dinner at Nobu HK,Nobu HK
+250.06,Dining,2024-11-09,spending,HKD,Dinner at Ozone,Ozone
+577.12,Entertainment,2024-11-09,spending,HKD,Night out - Cinema City,Cinema City
+93.81,Transport,2024-11-09,spending,HKD,Citybus,Citybus
+254.93,Dining,2024-11-10,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+323.66,Other,2024-11-10,spending,HKD,7-Eleven,7-Eleven
+156.14,Transport,2024-11-10,spending,HKD,Citybus,Citybus
+126.78,Transport,2024-11-10,spending,HKD,Citybus,Citybus
+85.98,Transport,2024-11-10,spending,HKD,Uber,Uber
+331.04,Entertainment,2024-11-11,spending,HKD,Night out - Club Cubic,Club Cubic
+328.84,Other,2024-11-11,spending,HKD,Octopus Reload,Octopus Reload
+87.17,Transport,2024-11-11,spending,HKD,MTR,MTR
+546.13,Entertainment,2024-11-12,spending,HKD,Night out - Cinema City,Cinema City
+210.68,Dining,2024-11-13,spending,HKD,Dinner at Mott 32,Mott 32
+101.79,Transport,2024-11-13,spending,HKD,Citybus,Citybus
+277.37,Dining,2024-11-14,spending,HKD,Dinner at Honi Honi,Honi Honi
+209.92,Dining,2024-11-15,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+221.13,Dining,2024-11-15,spending,HKD,Dinner at Ozone,Ozone
+424.08,Other,2024-11-15,spending,HKD,Octopus Reload,Octopus Reload
+1359.98,Shopping,2024-11-15,spending,HKD,Purchase at Apple Store,Apple Store
+235.8,Dining,2024-11-16,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+414.11,Entertainment,2024-11-16,spending,HKD,Night out - Club Cubic,Club Cubic
+555.38,Entertainment,2024-11-16,spending,HKD,Night out - LKF Concepts,LKF Concepts
+123.55,Transport,2024-11-16,spending,HKD,Citybus,Citybus
+150.55,Transport,2024-11-16,spending,HKD,Uber,Uber
+229.83,Dining,2024-11-17,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+386.63,Entertainment,2024-11-17,spending,HKD,Night out - LKF Concepts,LKF Concepts
+260.28,Dining,2024-11-19,spending,HKD,Dinner at Honi Honi,Honi Honi
+252.46,Other,2024-11-19,spending,HKD,7-Eleven,7-Eleven
+109.24,Transport,2024-11-19,spending,HKD,Uber,Uber
+439.24,Entertainment,2024-11-20,spending,HKD,Night out - Cinema City,Cinema City
+262.22,Dining,2024-11-22,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+152.51,Transport,2024-11-22,spending,HKD,Citybus,Citybus
+161.42,Transport,2024-11-22,spending,HKD,MTR,MTR
+880.81,Shopping,2024-11-23,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+89.69,Transport,2024-11-23,spending,HKD,Uber,Uber
+1078.52,Shopping,2024-11-24,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+113.74,Transport,2024-11-24,spending,HKD,Citybus,Citybus
+111.34,Transport,2024-11-24,spending,HKD,HKTaxi,HKTaxi
+353.09,Entertainment,2024-11-25,spending,HKD,Night out - LKF Concepts,LKF Concepts
+35000.0,Salary,2024-11-25,income,HKD,Monthly salary,ABC Marketing Ltd
+343.22,Dining,2024-11-26,spending,HKD,Dinner at Honi Honi,Honi Honi
+339.36,Dining,2024-11-26,spending,HKD,Dinner at Ozone,Ozone
+284.41,Dining,2024-11-26,spending,HKD,Dinner at Ozone,Ozone
+412.8,Other,2024-11-26,spending,HKD,7-Eleven,7-Eleven
+312.59,Other,2024-11-26,spending,HKD,Octopus Reload,Octopus Reload
+357.63,Dining,2024-11-27,spending,HKD,Dinner at Honi Honi,Honi Honi
+250.07,Other,2024-11-27,spending,HKD,7-Eleven,7-Eleven
+1180.68,Shopping,2024-11-27,spending,HKD,Purchase at ZARA,ZARA
+129.47,Transport,2024-11-27,spending,HKD,Uber,Uber
+256.16,Dining,2024-11-28,spending,HKD,Dinner at Mott 32,Mott 32
+290.64,Dining,2024-11-28,spending,HKD,Dinner at Nobu HK,Nobu HK
+423.62,Entertainment,2024-11-28,spending,HKD,Night out - Cinema City,Cinema City
+139.34,Transport,2024-11-28,spending,HKD,Citybus,Citybus
+566.59,Entertainment,2024-11-29,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+83.53,Transport,2024-11-29,spending,HKD,HKTaxi,HKTaxi
+379.09,Dining,2024-11-30,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+422.59,Entertainment,2024-11-30,spending,HKD,Night out - Volar,Volar
+95.83,Transport,2024-11-30,spending,HKD,MTR,MTR
+455.91,Dining,2024-12-01,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+14000.0,Rent,2024-12-01,spending,HKD,Monthly rent,Landlord
+175.03,Transport,2024-12-01,spending,HKD,HKTaxi,HKTaxi
+461.87,Dining,2024-12-02,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+822.04,Entertainment,2024-12-02,spending,HKD,Night out - LKF Concepts,LKF Concepts
+1752.06,Shopping,2024-12-02,spending,HKD,Purchase at Apple Store,Apple Store
+398.25,Dining,2024-12-03,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+441.16,Dining,2024-12-03,spending,HKD,Dinner at Nobu HK,Nobu HK
+425.86,Dining,2024-12-03,spending,HKD,Dinner at Ozone,Ozone
+909.99,Entertainment,2024-12-03,spending,HKD,Night out - LKF Concepts,LKF Concepts
+547.32,Dining,2024-12-05,spending,HKD,Dinner at Mott 32,Mott 32
+449.7,Dining,2024-12-05,spending,HKD,Dinner at Nobu HK,Nobu HK
+460.88,Dining,2024-12-05,spending,HKD,Dinner at Ozone,Ozone
+197.96,Transport,2024-12-05,spending,HKD,Citybus,Citybus
+456.06,Dining,2024-12-06,spending,HKD,Dinner at Honi Honi,Honi Honi
+532.21,Dining,2024-12-06,spending,HKD,Dinner at Ozone,Ozone
+1170.06,Shopping,2024-12-06,spending,HKD,Purchase at IFC Mall,IFC Mall
+169.01,Transport,2024-12-06,spending,HKD,HKTaxi,HKTaxi
+105.26,Transport,2024-12-06,spending,HKD,MTR,MTR
+503.4,Dining,2024-12-07,spending,HKD,Dinner at Nobu HK,Nobu HK
+618.19,Dining,2024-12-07,spending,HKD,Dinner at Nobu HK,Nobu HK
+456.11,Dining,2024-12-07,spending,HKD,Dinner at Nobu HK,Nobu HK
+115.62,Transport,2024-12-07,spending,HKD,Uber,Uber
+478.1,Dining,2024-12-08,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+327.41,Dining,2024-12-08,spending,HKD,Dinner at Nobu HK,Nobu HK
+557.58,Dining,2024-12-08,spending,HKD,Dinner at Ozone,Ozone
+329.58,Dining,2024-12-08,spending,HKD,Dinner at Ozone,Ozone
+1089.02,Shopping,2024-12-08,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+439.86,Dining,2024-12-09,spending,HKD,Dinner at Mott 32,Mott 32
+454.26,Dining,2024-12-09,spending,HKD,Dinner at Nobu HK,Nobu HK
+869.28,Entertainment,2024-12-09,spending,HKD,Night out - Club Cubic,Club Cubic
+125.57,Transport,2024-12-10,spending,HKD,HKTaxi,HKTaxi
+306.2,Dining,2024-12-11,spending,HKD,Dinner at Honi Honi,Honi Honi
+647.56,Entertainment,2024-12-11,spending,HKD,Night out - LKF Concepts,LKF Concepts
+440.96,Other,2024-12-11,spending,HKD,Circle K,Circle K
+97.47,Transport,2024-12-11,spending,HKD,Uber,Uber
+320.36,Dining,2024-12-12,spending,HKD,Dinner at Honi Honi,Honi Honi
+596.54,Dining,2024-12-12,spending,HKD,Dinner at Ozone,Ozone
+99.66,Transport,2024-12-13,spending,HKD,MTR,MTR
+378.01,Dining,2024-12-14,spending,HKD,Dinner at Nobu HK,Nobu HK
+574.46,Dining,2024-12-14,spending,HKD,Dinner at Nobu HK,Nobu HK
+546.51,Dining,2024-12-14,spending,HKD,Dinner at Ozone,Ozone
+484.21,Dining,2024-12-14,spending,HKD,Dinner at Ozone,Ozone
+1248.36,Shopping,2024-12-14,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+153.7,Transport,2024-12-14,spending,HKD,Citybus,Citybus
+122.99,Transport,2024-12-14,spending,HKD,Uber,Uber
+677.07,Entertainment,2024-12-16,spending,HKD,Night out - LKF Concepts,LKF Concepts
+159.39,Transport,2024-12-17,spending,HKD,HKTaxi,HKTaxi
+191.4,Transport,2024-12-18,spending,HKD,HKTaxi,HKTaxi
+1142.69,Entertainment,2024-12-19,spending,HKD,Night out - Volar,Volar
+1739.45,Shopping,2024-12-19,spending,HKD,Purchase at IFC Mall,IFC Mall
+187.42,Transport,2024-12-19,spending,HKD,Uber,Uber
+116.37,Transport,2024-12-19,spending,HKD,Uber,Uber
+1081.02,Entertainment,2024-12-21,spending,HKD,Night out - LKF Concepts,LKF Concepts
+460.3,Other,2024-12-22,spending,HKD,Circle K,Circle K
+122.3,Transport,2024-12-22,spending,HKD,Citybus,Citybus
+135.95,Transport,2024-12-22,spending,HKD,HKTaxi,HKTaxi
+1489.0,Shopping,2024-12-23,spending,HKD,Purchase at Apple Store,Apple Store
+166.51,Transport,2024-12-23,spending,HKD,Citybus,Citybus
+183.86,Transport,2024-12-23,spending,HKD,HKTaxi,HKTaxi
+99.02,Transport,2024-12-23,spending,HKD,Uber,Uber
+1280.62,Entertainment,2024-12-24,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+830.66,Entertainment,2024-12-25,spending,HKD,Night out - Volar,Volar
+35000.0,Salary,2024-12-25,income,HKD,Monthly salary,ABC Marketing Ltd
+109.19,Transport,2024-12-25,spending,HKD,MTR,MTR
+150.09,Transport,2024-12-25,spending,HKD,MTR,MTR
+441.38,Other,2024-12-26,spending,HKD,HSBC Credit Card,HSBC Credit Card
+179.11,Transport,2024-12-26,spending,HKD,Citybus,Citybus
+1239.08,Entertainment,2024-12-27,spending,HKD,Night out - Club Cubic,Club Cubic
+1012.05,Shopping,2024-12-27,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+101.93,Transport,2024-12-27,spending,HKD,HKTaxi,HKTaxi
+530.02,Other,2024-12-29,spending,HKD,Circle K,Circle K
+113.66,Transport,2024-12-30,spending,HKD,MTR,MTR
+353.89,Other,2024-12-31,spending,HKD,7-Eleven,7-Eleven
+422.11,Other,2024-12-31,spending,HKD,Circle K,Circle K
+351.34,Other,2024-12-31,spending,HKD,Octopus Reload,Octopus Reload
+121.5,Transport,2024-12-31,spending,HKD,MTR,MTR
+320.47,Dining,2025-01-01,spending,HKD,Dinner at Nobu HK,Nobu HK
+208.77,Dining,2025-01-01,spending,HKD,Dinner at Nobu HK,Nobu HK
+271.71,Dining,2025-01-01,spending,HKD,Dinner at Nobu HK,Nobu HK
+14000.0,Rent,2025-01-01,spending,HKD,Monthly rent,Landlord
+93.19,Transport,2025-01-01,spending,HKD,Uber,Uber
+275.35,Dining,2025-01-02,spending,HKD,Dinner at Nobu HK,Nobu HK
+301.99,Entertainment,2025-01-03,spending,HKD,Night out - Volar,Volar
+306.65,Entertainment,2025-01-04,spending,HKD,Night out - LKF Concepts,LKF Concepts
+106.19,Transport,2025-01-04,spending,HKD,Citybus,Citybus
+227.3,Dining,2025-01-05,spending,HKD,Dinner at Mott 32,Mott 32
+586.59,Entertainment,2025-01-05,spending,HKD,Night out - Cinema City,Cinema City
+573.77,Other,2025-01-05,spending,HKD,7-Eleven,7-Eleven
+342.49,Dining,2025-01-06,spending,HKD,Dinner at Honi Honi,Honi Honi
+372.97,Entertainment,2025-01-06,spending,HKD,Night out - Club Cubic,Club Cubic
+122.42,Transport,2025-01-07,spending,HKD,Citybus,Citybus
+226.92,Dining,2025-01-09,spending,HKD,Dinner at Honi Honi,Honi Honi
+316.44,Entertainment,2025-01-09,spending,HKD,Night out - LKF Concepts,LKF Concepts
+196.34,Dining,2025-01-10,spending,HKD,Dinner at Mott 32,Mott 32
+186.39,Dining,2025-01-10,spending,HKD,Dinner at Mott 32,Mott 32
+500.1,Other,2025-01-10,spending,HKD,Octopus Reload,Octopus Reload
+140.42,Transport,2025-01-10,spending,HKD,HKTaxi,HKTaxi
+102.62,Transport,2025-01-10,spending,HKD,MTR,MTR
+117.95,Transport,2025-01-10,spending,HKD,Uber,Uber
+275.59,Dining,2025-01-11,spending,HKD,Dinner at Mott 32,Mott 32
+292.89,Dining,2025-01-11,spending,HKD,Dinner at Mott 32,Mott 32
+721.87,Shopping,2025-01-11,spending,HKD,Purchase at Apple Store,Apple Store
+185.3,Transport,2025-01-11,spending,HKD,MTR,MTR
+152.87,Transport,2025-01-11,spending,HKD,Uber,Uber
+196.0,Dining,2025-01-13,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+196.35,Dining,2025-01-13,spending,HKD,Dinner at Nobu HK,Nobu HK
+474.75,Shopping,2025-01-13,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+252.88,Dining,2025-01-15,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+432.21,Entertainment,2025-01-15,spending,HKD,Night out - LKF Concepts,LKF Concepts
+167.67,Transport,2025-01-16,spending,HKD,HKTaxi,HKTaxi
+156.16,Transport,2025-01-16,spending,HKD,MTR,MTR
+344.23,Entertainment,2025-01-17,spending,HKD,Night out - Volar,Volar
+125.57,Transport,2025-01-17,spending,HKD,MTR,MTR
+138.87,Transport,2025-01-18,spending,HKD,HKTaxi,HKTaxi
+218.69,Dining,2025-01-19,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+469.16,Entertainment,2025-01-19,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+325.32,Other,2025-01-19,spending,HKD,HSBC Credit Card,HSBC Credit Card
+225.83,Dining,2025-01-20,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+335.59,Dining,2025-01-20,spending,HKD,Dinner at Mott 32,Mott 32
+528.96,Entertainment,2025-01-20,spending,HKD,Night out - Club Cubic,Club Cubic
+673.36,Shopping,2025-01-20,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+115.31,Transport,2025-01-20,spending,HKD,HKTaxi,HKTaxi
+266.62,Dining,2025-01-21,spending,HKD,Dinner at Ozone,Ozone
+582.95,Other,2025-01-21,spending,HKD,Octopus Reload,Octopus Reload
+612.78,Shopping,2025-01-21,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+110.05,Transport,2025-01-21,spending,HKD,Uber,Uber
+330.4,Dining,2025-01-22,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+144.95,Transport,2025-01-22,spending,HKD,Uber,Uber
+100.83,Transport,2025-01-22,spending,HKD,Uber,Uber
+319.64,Dining,2025-01-23,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+316.74,Dining,2025-01-23,spending,HKD,Dinner at Ozone,Ozone
+796.24,Shopping,2025-01-23,spending,HKD,Purchase at IFC Mall,IFC Mall
+113.54,Transport,2025-01-23,spending,HKD,Citybus,Citybus
+301.31,Dining,2025-01-24,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+438.89,Entertainment,2025-01-24,spending,HKD,Night out - Club Cubic,Club Cubic
+421.53,Shopping,2025-01-24,spending,HKD,Purchase at ZARA,ZARA
+157.47,Transport,2025-01-24,spending,HKD,Citybus,Citybus
+186.0,Transport,2025-01-24,spending,HKD,MTR,MTR
+112.61,Transport,2025-01-24,spending,HKD,Uber,Uber
+333.64,Dining,2025-01-25,spending,HKD,Dinner at Honi Honi,Honi Honi
+35000.0,Salary,2025-01-25,income,HKD,Monthly salary,ABC Marketing Ltd
+93.49,Transport,2025-01-25,spending,HKD,HKTaxi,HKTaxi
+430.47,Other,2025-01-26,spending,HKD,Octopus Reload,Octopus Reload
+105.9,Transport,2025-01-27,spending,HKD,MTR,MTR
+179.71,Dining,2025-01-28,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+199.44,Dining,2025-01-28,spending,HKD,Dinner at Honi Honi,Honi Honi
+799.47,Shopping,2025-01-28,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+180.2,Transport,2025-01-28,spending,HKD,Citybus,Citybus
+557.91,Entertainment,2025-01-29,spending,HKD,Night out - Cinema City,Cinema City
+554.87,Entertainment,2025-01-29,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+587.4,Other,2025-01-29,spending,HKD,Circle K,Circle K
+152.3,Transport,2025-01-29,spending,HKD,Citybus,Citybus
+147.29,Transport,2025-01-29,spending,HKD,HKTaxi,HKTaxi
+189.85,Dining,2025-01-30,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+260.92,Dining,2025-01-30,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+308.32,Dining,2025-01-30,spending,HKD,Dinner at Honi Honi,Honi Honi
+170.83,Transport,2025-01-30,spending,HKD,MTR,MTR
+243.85,Dining,2025-01-31,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+289.12,Entertainment,2025-01-31,spending,HKD,Night out - LKF Concepts,LKF Concepts
+150.24,Dining,2025-02-01,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+14000.0,Rent,2025-02-01,spending,HKD,Monthly rent,Landlord
+125.36,Transport,2025-02-01,spending,HKD,Citybus,Citybus
+112.3,Transport,2025-02-01,spending,HKD,MTR,MTR
+187.23,Transport,2025-02-01,spending,HKD,Uber,Uber
+211.93,Dining,2025-02-02,spending,HKD,Dinner at Honi Honi,Honi Honi
+203.51,Dining,2025-02-02,spending,HKD,Dinner at Mott 32,Mott 32
+289.23,Entertainment,2025-02-02,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+258.04,Shopping,2025-02-02,spending,HKD,Purchase at ZARA,ZARA
+145.5,Transport,2025-02-02,spending,HKD,HKTaxi,HKTaxi
+255.93,Entertainment,2025-02-03,spending,HKD,Night out - Cinema City,Cinema City
+245.51,Other,2025-02-03,spending,HKD,HSBC Credit Card,HSBC Credit Card
+336.91,Other,2025-02-03,spending,HKD,Octopus Reload,Octopus Reload
+365.21,Shopping,2025-02-03,spending,HKD,Purchase at IFC Mall,IFC Mall
+342.61,Shopping,2025-02-03,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+96.39,Transport,2025-02-03,spending,HKD,Uber,Uber
+243.83,Dining,2025-02-04,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+286.75,Entertainment,2025-02-04,spending,HKD,Night out - Volar,Volar
+276.88,Other,2025-02-04,spending,HKD,Circle K,Circle K
+173.37,Transport,2025-02-04,spending,HKD,Uber,Uber
+198.94,Dining,2025-02-06,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+324.37,Entertainment,2025-02-06,spending,HKD,Night out - Cinema City,Cinema City
+316.67,Other,2025-02-06,spending,HKD,Circle K,Circle K
+257.67,Shopping,2025-02-06,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+173.42,Transport,2025-02-06,spending,HKD,Citybus,Citybus
+115.21,Transport,2025-02-06,spending,HKD,HKTaxi,HKTaxi
+330.7,Entertainment,2025-02-07,spending,HKD,Night out - Cinema City,Cinema City
+371.73,Other,2025-02-07,spending,HKD,Octopus Reload,Octopus Reload
+346.9,Shopping,2025-02-07,spending,HKD,Purchase at ZARA,ZARA
+227.68,Dining,2025-02-08,spending,HKD,Dinner at Mott 32,Mott 32
+278.19,Dining,2025-02-10,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+262.45,Dining,2025-02-10,spending,HKD,Dinner at Honi Honi,Honi Honi
+226.46,Dining,2025-02-10,spending,HKD,Dinner at Nobu HK,Nobu HK
+241.83,Entertainment,2025-02-10,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+144.41,Transport,2025-02-10,spending,HKD,Citybus,Citybus
+220.24,Dining,2025-02-11,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+281.96,Dining,2025-02-11,spending,HKD,Dinner at Nobu HK,Nobu HK
+106.01,Transport,2025-02-11,spending,HKD,Uber,Uber
+158.42,Dining,2025-02-12,spending,HKD,Dinner at Honi Honi,Honi Honi
+337.23,Other,2025-02-12,spending,HKD,7-Eleven,7-Eleven
+227.55,Dining,2025-02-13,spending,HKD,Dinner at Ozone,Ozone
+144.3,Dining,2025-02-13,spending,HKD,Dinner at Ozone,Ozone
+326.68,Shopping,2025-02-13,spending,HKD,Purchase at Apple Store,Apple Store
+173.28,Dining,2025-02-14,spending,HKD,Dinner at Mott 32,Mott 32
+226.95,Dining,2025-02-14,spending,HKD,Dinner at Ozone,Ozone
+357.83,Shopping,2025-02-14,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+160.6,Transport,2025-02-14,spending,HKD,Citybus,Citybus
+161.03,Transport,2025-02-14,spending,HKD,HKTaxi,HKTaxi
+103.41,Transport,2025-02-14,spending,HKD,MTR,MTR
+188.43,Transport,2025-02-16,spending,HKD,Citybus,Citybus
+107.75,Transport,2025-02-16,spending,HKD,HKTaxi,HKTaxi
+145.56,Dining,2025-02-17,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+181.07,Transport,2025-02-17,spending,HKD,MTR,MTR
+181.32,Dining,2025-02-18,spending,HKD,Dinner at Nobu HK,Nobu HK
+228.85,Entertainment,2025-02-19,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+310.66,Entertainment,2025-02-19,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+245.06,Shopping,2025-02-19,spending,HKD,Purchase at ZARA,ZARA
+132.38,Transport,2025-02-19,spending,HKD,Citybus,Citybus
+188.73,Entertainment,2025-02-20,spending,HKD,Night out - Club Cubic,Club Cubic
+291.61,Entertainment,2025-02-20,spending,HKD,Night out - LKF Concepts,LKF Concepts
+217.69,Dining,2025-02-21,spending,HKD,Dinner at Mott 32,Mott 32
+300.15,Entertainment,2025-02-21,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+266.27,Other,2025-02-21,spending,HKD,Octopus Reload,Octopus Reload
+171.43,Transport,2025-02-21,spending,HKD,MTR,MTR
+197.82,Dining,2025-02-22,spending,HKD,Dinner at Ozone,Ozone
+353.31,Other,2025-02-22,spending,HKD,HSBC Credit Card,HSBC Credit Card
+190.21,Other,2025-02-22,spending,HKD,HSBC Credit Card,HSBC Credit Card
+99.98,Transport,2025-02-22,spending,HKD,Uber,Uber
+110.75,Transport,2025-02-23,spending,HKD,Uber,Uber
+152.45,Transport,2025-02-23,spending,HKD,Uber,Uber
+174.94,Dining,2025-02-24,spending,HKD,Dinner at Mott 32,Mott 32
+223.26,Dining,2025-02-24,spending,HKD,Dinner at Nobu HK,Nobu HK
+221.08,Entertainment,2025-02-24,spending,HKD,Night out - Club Cubic,Club Cubic
+134.22,Transport,2025-02-24,spending,HKD,Citybus,Citybus
+149.0,Transport,2025-02-24,spending,HKD,MTR,MTR
+229.05,Dining,2025-02-25,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+230.11,Entertainment,2025-02-25,spending,HKD,Night out - Cinema City,Cinema City
+35000.0,Salary,2025-02-25,income,HKD,Monthly salary,ABC Marketing Ltd
+160.9,Transport,2025-02-25,spending,HKD,Citybus,Citybus
+225.63,Dining,2025-02-26,spending,HKD,Dinner at Nobu HK,Nobu HK
+251.0,Dining,2025-02-26,spending,HKD,Dinner at Ozone,Ozone
+217.8,Dining,2025-02-26,spending,HKD,Dinner at Ozone,Ozone
+305.28,Other,2025-02-26,spending,HKD,Octopus Reload,Octopus Reload
+107.4,Transport,2025-02-27,spending,HKD,Uber,Uber
+14000.0,Rent,2025-03-01,spending,HKD,Monthly rent,Landlord
+132.31,Transport,2025-03-01,spending,HKD,HKTaxi,HKTaxi
+153.27,Transport,2025-03-01,spending,HKD,MTR,MTR
+374.96,Dining,2025-03-02,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+328.64,Dining,2025-03-02,spending,HKD,Dinner at Honi Honi,Honi Honi
+230.61,Dining,2025-03-02,spending,HKD,Dinner at Ozone,Ozone
+97.72,Transport,2025-03-02,spending,HKD,Uber,Uber
+267.93,Dining,2025-03-04,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+343.12,Dining,2025-03-04,spending,HKD,Dinner at Mott 32,Mott 32
+419.74,Dining,2025-03-04,spending,HKD,Dinner at Ozone,Ozone
+330.55,Entertainment,2025-03-04,spending,HKD,Night out - Club Cubic,Club Cubic
+275.51,Other,2025-03-04,spending,HKD,HSBC Credit Card,HSBC Credit Card
+123.26,Transport,2025-03-04,spending,HKD,Citybus,Citybus
+391.79,Entertainment,2025-03-05,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+402.46,Entertainment,2025-03-05,spending,HKD,Night out - LKF Concepts,LKF Concepts
+392.83,Other,2025-03-05,spending,HKD,HSBC Credit Card,HSBC Credit Card
+117.15,Transport,2025-03-05,spending,HKD,Citybus,Citybus
+283.61,Dining,2025-03-06,spending,HKD,Dinner at Ozone,Ozone
+504.28,Other,2025-03-06,spending,HKD,7-Eleven,7-Eleven
+337.58,Other,2025-03-06,spending,HKD,Octopus Reload,Octopus Reload
+111.47,Transport,2025-03-06,spending,HKD,HKTaxi,HKTaxi
+241.67,Dining,2025-03-07,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+305.39,Dining,2025-03-07,spending,HKD,Dinner at Mott 32,Mott 32
+285.72,Entertainment,2025-03-07,spending,HKD,Night out - LKF Concepts,LKF Concepts
+387.24,Entertainment,2025-03-08,spending,HKD,Night out - LKF Concepts,LKF Concepts
+762.44,Shopping,2025-03-08,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+129.67,Transport,2025-03-08,spending,HKD,Citybus,Citybus
+329.08,Dining,2025-03-09,spending,HKD,Dinner at Ozone,Ozone
+804.13,Shopping,2025-03-09,spending,HKD,Purchase at Apple Store,Apple Store
+815.22,Shopping,2025-03-10,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+92.53,Transport,2025-03-10,spending,HKD,HKTaxi,HKTaxi
+146.9,Transport,2025-03-10,spending,HKD,Uber,Uber
+347.48,Dining,2025-03-11,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+526.27,Other,2025-03-11,spending,HKD,HSBC Credit Card,HSBC Credit Card
+400.04,Dining,2025-03-12,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+307.36,Dining,2025-03-12,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+654.03,Shopping,2025-03-12,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+106.94,Transport,2025-03-12,spending,HKD,Citybus,Citybus
+163.54,Transport,2025-03-12,spending,HKD,HKTaxi,HKTaxi
+266.89,Dining,2025-03-13,spending,HKD,Dinner at Ozone,Ozone
+530.8,Other,2025-03-13,spending,HKD,Octopus Reload,Octopus Reload
+334.15,Dining,2025-03-14,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+338.26,Dining,2025-03-14,spending,HKD,Dinner at Mott 32,Mott 32
+93.98,Transport,2025-03-14,spending,HKD,Citybus,Citybus
+117.01,Transport,2025-03-14,spending,HKD,MTR,MTR
+87.16,Transport,2025-03-15,spending,HKD,MTR,MTR
+100.6,Transport,2025-03-15,spending,HKD,Uber,Uber
+265.97,Dining,2025-03-16,spending,HKD,Dinner at Nobu HK,Nobu HK
+265.06,Dining,2025-03-18,spending,HKD,Dinner at Honi Honi,Honi Honi
+251.01,Dining,2025-03-18,spending,HKD,Dinner at Mott 32,Mott 32
+101.17,Transport,2025-03-18,spending,HKD,Uber,Uber
+339.81,Dining,2025-03-19,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+786.81,Shopping,2025-03-19,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+428.13,Entertainment,2025-03-20,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+274.27,Entertainment,2025-03-20,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+164.78,Transport,2025-03-20,spending,HKD,Citybus,Citybus
+448.52,Entertainment,2025-03-21,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+231.0,Dining,2025-03-22,spending,HKD,Dinner at Nobu HK,Nobu HK
+443.06,Entertainment,2025-03-22,spending,HKD,Night out - Club Cubic,Club Cubic
+158.98,Transport,2025-03-22,spending,HKD,HKTaxi,HKTaxi
+414.05,Entertainment,2025-03-23,spending,HKD,Night out - LKF Concepts,LKF Concepts
+35000.0,Salary,2025-03-25,income,HKD,Monthly salary,ABC Marketing Ltd
+150.4,Transport,2025-03-25,spending,HKD,HKTaxi,HKTaxi
+155.07,Transport,2025-03-25,spending,HKD,MTR,MTR
+275.22,Entertainment,2025-03-26,spending,HKD,Night out - Volar,Volar
+432.74,Other,2025-03-26,spending,HKD,Octopus Reload,Octopus Reload
+91.57,Transport,2025-03-26,spending,HKD,Citybus,Citybus
+88.16,Transport,2025-03-27,spending,HKD,Citybus,Citybus
+101.89,Transport,2025-03-27,spending,HKD,Uber,Uber
+122.84,Transport,2025-03-27,spending,HKD,Uber,Uber
+375.05,Dining,2025-03-28,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+446.17,Entertainment,2025-03-28,spending,HKD,Night out - LKF Concepts,LKF Concepts
+316.21,Entertainment,2025-03-28,spending,HKD,Night out - Volar,Volar
+277.24,Entertainment,2025-03-29,spending,HKD,Night out - Club Cubic,Club Cubic
+379.35,Entertainment,2025-03-29,spending,HKD,Night out - Volar,Volar
+86.51,Transport,2025-03-29,spending,HKD,HKTaxi,HKTaxi
+421.59,Dining,2025-03-30,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+231.59,Dining,2025-03-31,spending,HKD,Dinner at Honi Honi,Honi Honi
+677.37,Shopping,2025-03-31,spending,HKD,Purchase at IFC Mall,IFC Mall
+108.59,Transport,2025-03-31,spending,HKD,Citybus,Citybus
+141.74,Transport,2025-03-31,spending,HKD,Citybus,Citybus
+151.24,Transport,2025-03-31,spending,HKD,MTR,MTR
+103.57,Transport,2025-03-31,spending,HKD,MTR,MTR
+497.2,Entertainment,2025-04-01,spending,HKD,Night out - LKF Concepts,LKF Concepts
+14000.0,Rent,2025-04-01,spending,HKD,Monthly rent,Landlord
+130.36,Transport,2025-04-01,spending,HKD,MTR,MTR
+398.04,Entertainment,2025-04-02,spending,HKD,Night out - Cinema City,Cinema City
+497.75,Entertainment,2025-04-02,spending,HKD,Night out - LKF Concepts,LKF Concepts
+259.72,Dining,2025-04-03,spending,HKD,Dinner at Nobu HK,Nobu HK
+222.72,Dining,2025-04-03,spending,HKD,Dinner at Nobu HK,Nobu HK
+336.18,Other,2025-04-03,spending,HKD,Octopus Reload,Octopus Reload
+109.6,Transport,2025-04-03,spending,HKD,MTR,MTR
+360.73,Dining,2025-04-04,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+144.16,Transport,2025-04-04,spending,HKD,HKTaxi,HKTaxi
+302.56,Other,2025-04-05,spending,HKD,7-Eleven,7-Eleven
+1025.39,Shopping,2025-04-05,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+90.85,Transport,2025-04-05,spending,HKD,HKTaxi,HKTaxi
+351.92,Dining,2025-04-06,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+91.16,Transport,2025-04-07,spending,HKD,MTR,MTR
+204.66,Dining,2025-04-08,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+298.13,Dining,2025-04-08,spending,HKD,Dinner at Nobu HK,Nobu HK
+92.03,Transport,2025-04-08,spending,HKD,MTR,MTR
+291.65,Dining,2025-04-09,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+281.35,Entertainment,2025-04-09,spending,HKD,Night out - Cinema City,Cinema City
+436.12,Entertainment,2025-04-09,spending,HKD,Night out - Club Cubic,Club Cubic
+149.53,Transport,2025-04-09,spending,HKD,Citybus,Citybus
+128.22,Transport,2025-04-09,spending,HKD,Citybus,Citybus
+124.07,Transport,2025-04-10,spending,HKD,Uber,Uber
+136.0,Transport,2025-04-10,spending,HKD,Uber,Uber
+369.69,Dining,2025-04-11,spending,HKD,Dinner at Honi Honi,Honi Honi
+417.45,Dining,2025-04-11,spending,HKD,Dinner at Mott 32,Mott 32
+265.21,Entertainment,2025-04-11,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+359.89,Other,2025-04-11,spending,HKD,HSBC Credit Card,HSBC Credit Card
+113.27,Transport,2025-04-11,spending,HKD,MTR,MTR
+252.96,Dining,2025-04-12,spending,HKD,Dinner at Honi Honi,Honi Honi
+94.14,Transport,2025-04-12,spending,HKD,Citybus,Citybus
+303.84,Dining,2025-04-13,spending,HKD,Dinner at Mott 32,Mott 32
+1039.83,Shopping,2025-04-13,spending,HKD,Purchase at Apple Store,Apple Store
+88.04,Transport,2025-04-13,spending,HKD,HKTaxi,HKTaxi
+335.38,Dining,2025-04-14,spending,HKD,Dinner at Ozone,Ozone
+388.43,Entertainment,2025-04-14,spending,HKD,Night out - Volar,Volar
+257.66,Dining,2025-04-15,spending,HKD,Dinner at Ozone,Ozone
+347.59,Other,2025-04-15,spending,HKD,7-Eleven,7-Eleven
+444.21,Other,2025-04-15,spending,HKD,7-Eleven,7-Eleven
+338.33,Entertainment,2025-04-16,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+91.97,Transport,2025-04-16,spending,HKD,Citybus,Citybus
+113.8,Transport,2025-04-16,spending,HKD,Citybus,Citybus
+101.69,Transport,2025-04-16,spending,HKD,Uber,Uber
+389.25,Dining,2025-04-17,spending,HKD,Dinner at Ozone,Ozone
+454.24,Entertainment,2025-04-17,spending,HKD,Night out - LKF Concepts,LKF Concepts
+101.02,Transport,2025-04-17,spending,HKD,HKTaxi,HKTaxi
+151.55,Transport,2025-04-17,spending,HKD,MTR,MTR
+168.97,Transport,2025-04-17,spending,HKD,Uber,Uber
+257.38,Other,2025-04-18,spending,HKD,7-Eleven,7-Eleven
+111.9,Transport,2025-04-18,spending,HKD,Uber,Uber
+91.71,Transport,2025-04-18,spending,HKD,Uber,Uber
+205.19,Dining,2025-04-19,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+314.72,Entertainment,2025-04-20,spending,HKD,Night out - LKF Concepts,LKF Concepts
+121.22,Transport,2025-04-20,spending,HKD,MTR,MTR
+499.72,Entertainment,2025-04-21,spending,HKD,Night out - LKF Concepts,LKF Concepts
+341.68,Dining,2025-04-22,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+309.43,Dining,2025-04-22,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+318.18,Dining,2025-04-23,spending,HKD,Dinner at Nobu HK,Nobu HK
+322.51,Entertainment,2025-04-24,spending,HKD,Night out - Volar,Volar
+309.91,Dining,2025-04-25,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+257.1,Dining,2025-04-25,spending,HKD,Dinner at Mott 32,Mott 32
+35000.0,Salary,2025-04-25,income,HKD,Monthly salary,ABC Marketing Ltd
+1404.14,Shopping,2025-04-25,spending,HKD,Purchase at IFC Mall,IFC Mall
+93.25,Transport,2025-04-26,spending,HKD,Citybus,Citybus
+290.02,Dining,2025-04-27,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+336.93,Dining,2025-04-27,spending,HKD,Dinner at Mott 32,Mott 32
+316.02,Dining,2025-04-27,spending,HKD,Dinner at Ozone,Ozone
+162.06,Transport,2025-04-27,spending,HKD,Citybus,Citybus
+144.29,Transport,2025-04-27,spending,HKD,HKTaxi,HKTaxi
+273.15,Dining,2025-04-28,spending,HKD,Dinner at Mott 32,Mott 32
+290.41,Other,2025-04-28,spending,HKD,7-Eleven,7-Eleven
+1030.64,Shopping,2025-04-28,spending,HKD,Purchase at ZARA,ZARA
+160.9,Transport,2025-04-28,spending,HKD,Citybus,Citybus
+487.0,Entertainment,2025-04-29,spending,HKD,Night out - LKF Concepts,LKF Concepts
+276.37,Other,2025-04-29,spending,HKD,7-Eleven,7-Eleven
+109.97,Transport,2025-04-29,spending,HKD,Uber,Uber
+115.82,Transport,2025-04-29,spending,HKD,Uber,Uber
+226.59,Dining,2025-04-30,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+319.38,Entertainment,2025-04-30,spending,HKD,Night out - LKF Concepts,LKF Concepts
+385.42,Other,2025-04-30,spending,HKD,HSBC Credit Card,HSBC Credit Card
+168.44,Transport,2025-04-30,spending,HKD,Uber,Uber
+14000.0,Rent,2025-05-01,spending,HKD,Monthly rent,Landlord
+102.32,Transport,2025-05-01,spending,HKD,Uber,Uber
+409.28,Dining,2025-05-02,spending,HKD,Dinner at Honi Honi,Honi Honi
+298.37,Dining,2025-05-02,spending,HKD,Dinner at Nobu HK,Nobu HK
+322.45,Other,2025-05-02,spending,HKD,HSBC Credit Card,HSBC Credit Card
+139.81,Transport,2025-05-02,spending,HKD,Uber,Uber
+136.27,Transport,2025-05-02,spending,HKD,Uber,Uber
+384.59,Dining,2025-05-03,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+229.92,Other,2025-05-03,spending,HKD,7-Eleven,7-Eleven
+120.74,Transport,2025-05-03,spending,HKD,MTR,MTR
+386.06,Dining,2025-05-04,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+318.44,Entertainment,2025-05-04,spending,HKD,Night out - Cinema City,Cinema City
+607.0,Entertainment,2025-05-04,spending,HKD,Night out - LKF Concepts,LKF Concepts
+312.23,Dining,2025-05-05,spending,HKD,Dinner at Nobu HK,Nobu HK
+363.65,Other,2025-05-05,spending,HKD,Octopus Reload,Octopus Reload
+108.8,Transport,2025-05-05,spending,HKD,Uber,Uber
+474.33,Entertainment,2025-05-06,spending,HKD,Night out - Cinema City,Cinema City
+579.48,Entertainment,2025-05-06,spending,HKD,Night out - Cinema City,Cinema City
+161.75,Transport,2025-05-06,spending,HKD,Citybus,Citybus
+302.11,Dining,2025-05-07,spending,HKD,Dinner at Honi Honi,Honi Honi
+497.59,Entertainment,2025-05-07,spending,HKD,Night out - LKF Concepts,LKF Concepts
+440.37,Dining,2025-05-08,spending,HKD,Dinner at Honi Honi,Honi Honi
+266.61,Dining,2025-05-09,spending,HKD,Dinner at Ozone,Ozone
+301.58,Other,2025-05-09,spending,HKD,7-Eleven,7-Eleven
+1234.63,Shopping,2025-05-10,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+170.71,Transport,2025-05-10,spending,HKD,MTR,MTR
+229.69,Dining,2025-05-11,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+126.76,Transport,2025-05-11,spending,HKD,HKTaxi,HKTaxi
+359.9,Dining,2025-05-12,spending,HKD,Dinner at Nobu HK,Nobu HK
+544.06,Entertainment,2025-05-12,spending,HKD,Night out - Club Cubic,Club Cubic
+129.77,Transport,2025-05-13,spending,HKD,Citybus,Citybus
+239.93,Dining,2025-05-14,spending,HKD,Dinner at Mott 32,Mott 32
+403.99,Dining,2025-05-14,spending,HKD,Dinner at Nobu HK,Nobu HK
+133.92,Transport,2025-05-15,spending,HKD,HKTaxi,HKTaxi
+318.65,Dining,2025-05-16,spending,HKD,Dinner at Mott 32,Mott 32
+191.44,Other,2025-05-16,spending,HKD,HSBC Credit Card,HSBC Credit Card
+324.21,Other,2025-05-16,spending,HKD,Octopus Reload,Octopus Reload
+137.39,Transport,2025-05-16,spending,HKD,HKTaxi,HKTaxi
+157.81,Transport,2025-05-16,spending,HKD,MTR,MTR
+288.28,Dining,2025-05-17,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+221.18,Dining,2025-05-17,spending,HKD,Dinner at Nobu HK,Nobu HK
+561.32,Entertainment,2025-05-17,spending,HKD,Night out - LKF Concepts,LKF Concepts
+631.76,Entertainment,2025-05-18,spending,HKD,Night out - LKF Concepts,LKF Concepts
+567.07,Entertainment,2025-05-18,spending,HKD,Night out - Volar,Volar
+146.36,Transport,2025-05-18,spending,HKD,Citybus,Citybus
+131.9,Transport,2025-05-19,spending,HKD,Citybus,Citybus
+124.82,Transport,2025-05-19,spending,HKD,Uber,Uber
+111.83,Transport,2025-05-20,spending,HKD,Citybus,Citybus
+121.25,Transport,2025-05-20,spending,HKD,HKTaxi,HKTaxi
+343.02,Other,2025-05-22,spending,HKD,7-Eleven,7-Eleven
+300.74,Other,2025-05-22,spending,HKD,Circle K,Circle K
+342.47,Dining,2025-05-23,spending,HKD,Dinner at Mott 32,Mott 32
+429.25,Dining,2025-05-23,spending,HKD,Dinner at Ozone,Ozone
+319.41,Entertainment,2025-05-24,spending,HKD,Night out - LKF Concepts,LKF Concepts
+194.91,Other,2025-05-24,spending,HKD,7-Eleven,7-Eleven
+399.47,Dining,2025-05-25,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+35000.0,Salary,2025-05-25,income,HKD,Monthly salary,ABC Marketing Ltd
+1226.05,Shopping,2025-05-25,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+440.81,Dining,2025-05-26,spending,HKD,Dinner at Nobu HK,Nobu HK
+129.47,Transport,2025-05-26,spending,HKD,MTR,MTR
+126.41,Transport,2025-05-26,spending,HKD,MTR,MTR
+427.65,Dining,2025-05-27,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+237.97,Other,2025-05-27,spending,HKD,Octopus Reload,Octopus Reload
+105.89,Transport,2025-05-27,spending,HKD,MTR,MTR
+137.65,Transport,2025-05-27,spending,HKD,Uber,Uber
+1092.56,Shopping,2025-05-28,spending,HKD,Purchase at ZARA,ZARA
+141.44,Transport,2025-05-29,spending,HKD,MTR,MTR
+333.41,Dining,2025-05-30,spending,HKD,Dinner at Honi Honi,Honi Honi
+265.72,Dining,2025-05-30,spending,HKD,Dinner at Ozone,Ozone
+190.11,Other,2025-05-30,spending,HKD,HSBC Credit Card,HSBC Credit Card
+182.97,Transport,2025-05-30,spending,HKD,Uber,Uber
+399.52,Entertainment,2025-05-31,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+946.76,Shopping,2025-05-31,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+152.08,Transport,2025-05-31,spending,HKD,HKTaxi,HKTaxi
+127.95,Transport,2025-05-31,spending,HKD,MTR,MTR
+133.92,Transport,2025-05-31,spending,HKD,Uber,Uber
+601.11,Dining,2025-06-01,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+1055.46,Entertainment,2025-06-01,spending,HKD,Night out - Club Cubic,Club Cubic
+14000.0,Rent,2025-06-01,spending,HKD,Monthly rent,Landlord
+455.95,Dining,2025-06-02,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+222.94,Transport,2025-06-02,spending,HKD,Citybus,Citybus
+587.11,Dining,2025-06-03,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+385.68,Dining,2025-06-03,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+458.19,Shopping,2025-06-03,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+156.27,Transport,2025-06-04,spending,HKD,Citybus,Citybus
+197.78,Transport,2025-06-04,spending,HKD,Uber,Uber
+668.65,Dining,2025-06-05,spending,HKD,Dinner at Honi Honi,Honi Honi
+655.2,Dining,2025-06-05,spending,HKD,Dinner at Honi Honi,Honi Honi
+132.11,Transport,2025-06-05,spending,HKD,Citybus,Citybus
+137.97,Transport,2025-06-05,spending,HKD,Citybus,Citybus
+206.3,Transport,2025-06-05,spending,HKD,MTR,MTR
+146.98,Transport,2025-06-05,spending,HKD,Uber,Uber
+545.99,Dining,2025-06-07,spending,HKD,Dinner at Nobu HK,Nobu HK
+687.95,Entertainment,2025-06-07,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+283.25,Other,2025-06-07,spending,HKD,Octopus Reload,Octopus Reload
+483.87,Dining,2025-06-08,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+1136.18,Entertainment,2025-06-08,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+275.37,Other,2025-06-08,spending,HKD,7-Eleven,7-Eleven
+342.63,Other,2025-06-08,spending,HKD,7-Eleven,7-Eleven
+309.49,Other,2025-06-08,spending,HKD,Circle K,Circle K
+179.35,Transport,2025-06-08,spending,HKD,Uber,Uber
+690.64,Dining,2025-06-10,spending,HKD,Dinner at Nobu HK,Nobu HK
+258.28,Other,2025-06-10,spending,HKD,7-Eleven,7-Eleven
+183.68,Transport,2025-06-10,spending,HKD,Citybus,Citybus
+187.07,Transport,2025-06-10,spending,HKD,Citybus,Citybus
+544.27,Dining,2025-06-11,spending,HKD,Dinner at Mott 32,Mott 32
+544.34,Dining,2025-06-11,spending,HKD,Dinner at Nobu HK,Nobu HK
+569.04,Dining,2025-06-11,spending,HKD,Dinner at Ozone,Ozone
+1215.37,Entertainment,2025-06-11,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+206.23,Transport,2025-06-11,spending,HKD,Uber,Uber
+803.56,Entertainment,2025-06-12,spending,HKD,Night out - Club Cubic,Club Cubic
+753.81,Entertainment,2025-06-12,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+1107.18,Entertainment,2025-06-13,spending,HKD,Night out - LKF Concepts,LKF Concepts
+132.89,Transport,2025-06-13,spending,HKD,Uber,Uber
+599.41,Dining,2025-06-14,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+781.98,Shopping,2025-06-14,spending,HKD,Purchase at IFC Mall,IFC Mall
+149.37,Transport,2025-06-14,spending,HKD,MTR,MTR
+352.26,Dining,2025-06-15,spending,HKD,Dinner at Mott 32,Mott 32
+681.74,Dining,2025-06-15,spending,HKD,Dinner at Nobu HK,Nobu HK
+412.8,Dining,2025-06-15,spending,HKD,Dinner at Nobu HK,Nobu HK
+373.11,Dining,2025-06-15,spending,HKD,Dinner at Ozone,Ozone
+147.31,Transport,2025-06-15,spending,HKD,HKTaxi,HKTaxi
+148.69,Transport,2025-06-16,spending,HKD,MTR,MTR
+377.42,Dining,2025-06-17,spending,HKD,Dinner at Ozone,Ozone
+453.52,Dining,2025-06-18,spending,HKD,Dinner at Nobu HK,Nobu HK
+404.36,Other,2025-06-18,spending,HKD,7-Eleven,7-Eleven
+441.47,Shopping,2025-06-18,spending,HKD,Purchase at IFC Mall,IFC Mall
+1040.1,Entertainment,2025-06-19,spending,HKD,Night out - Club Cubic,Club Cubic
+714.37,Shopping,2025-06-19,spending,HKD,Purchase at ZARA,ZARA
+436.69,Dining,2025-06-20,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+615.34,Dining,2025-06-20,spending,HKD,Dinner at Honi Honi,Honi Honi
+816.64,Entertainment,2025-06-21,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+876.39,Shopping,2025-06-21,spending,HKD,Purchase at Apple Store,Apple Store
+624.56,Dining,2025-06-22,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+455.86,Dining,2025-06-22,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+473.47,Dining,2025-06-22,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+831.08,Entertainment,2025-06-22,spending,HKD,Night out - Cinema City,Cinema City
+876.46,Entertainment,2025-06-22,spending,HKD,Night out - Volar,Volar
+197.71,Transport,2025-06-23,spending,HKD,Citybus,Citybus
+213.3,Transport,2025-06-23,spending,HKD,MTR,MTR
+354.3,Other,2025-06-24,spending,HKD,Circle K,Circle K
+397.73,Other,2025-06-24,spending,HKD,Circle K,Circle K
+185.97,Transport,2025-06-24,spending,HKD,HKTaxi,HKTaxi
+371.8,Dining,2025-06-25,spending,HKD,Dinner at Mott 32,Mott 32
+501.73,Dining,2025-06-25,spending,HKD,Dinner at Nobu HK,Nobu HK
+676.21,Entertainment,2025-06-25,spending,HKD,Night out - Volar,Volar
+374.59,Other,2025-06-25,spending,HKD,Octopus Reload,Octopus Reload
+35000.0,Salary,2025-06-25,income,HKD,Monthly salary,ABC Marketing Ltd
+435.09,Shopping,2025-06-27,spending,HKD,Purchase at Apple Store,Apple Store
+792.52,Shopping,2025-06-27,spending,HKD,Purchase at IFC Mall,IFC Mall
+173.06,Transport,2025-06-27,spending,HKD,HKTaxi,HKTaxi
+195.02,Transport,2025-06-29,spending,HKD,MTR,MTR
+538.44,Dining,2025-06-30,spending,HKD,Dinner at Mott 32,Mott 32
+284.5,Dining,2025-07-01,spending,HKD,Dinner at Ozone,Ozone
+14000.0,Rent,2025-07-01,spending,HKD,Monthly rent,Landlord
+390.49,Dining,2025-07-02,spending,HKD,Dinner at Nobu HK,Nobu HK
+320.21,Other,2025-07-02,spending,HKD,7-Eleven,7-Eleven
+207.47,Other,2025-07-03,spending,HKD,Circle K,Circle K
+124.05,Transport,2025-07-03,spending,HKD,MTR,MTR
+197.01,Transport,2025-07-03,spending,HKD,Uber,Uber
+293.28,Dining,2025-07-04,spending,HKD,Dinner at Mott 32,Mott 32
+423.25,Entertainment,2025-07-04,spending,HKD,Night out - Cinema City,Cinema City
+475.79,Entertainment,2025-07-04,spending,HKD,Night out - Cinema City,Cinema City
+175.6,Transport,2025-07-04,spending,HKD,HKTaxi,HKTaxi
+160.51,Transport,2025-07-04,spending,HKD,MTR,MTR
+198.67,Dining,2025-07-05,spending,HKD,Dinner at Nobu HK,Nobu HK
+260.66,Other,2025-07-05,spending,HKD,Circle K,Circle K
+175.88,Transport,2025-07-07,spending,HKD,Uber,Uber
+350.71,Dining,2025-07-08,spending,HKD,Dinner at Honi Honi,Honi Honi
+270.37,Dining,2025-07-08,spending,HKD,Dinner at Mott 32,Mott 32
+526.78,Entertainment,2025-07-08,spending,HKD,Night out - Club Cubic,Club Cubic
+388.12,Entertainment,2025-07-08,spending,HKD,Night out - Volar,Volar
+306.41,Other,2025-07-08,spending,HKD,HSBC Credit Card,HSBC Credit Card
+187.1,Transport,2025-07-08,spending,HKD,Uber,Uber
+378.8,Dining,2025-07-09,spending,HKD,Dinner at Honi Honi,Honi Honi
+355.59,Dining,2025-07-10,spending,HKD,Dinner at Mott 32,Mott 32
+376.48,Dining,2025-07-10,spending,HKD,Dinner at Nobu HK,Nobu HK
+308.42,Entertainment,2025-07-10,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+382.49,Entertainment,2025-07-10,spending,HKD,Night out - Volar,Volar
+267.33,Dining,2025-07-11,spending,HKD,Dinner at Honi Honi,Honi Honi
+452.81,Entertainment,2025-07-11,spending,HKD,Night out - Club Cubic,Club Cubic
+488.53,Entertainment,2025-07-11,spending,HKD,Night out - LKF Concepts,LKF Concepts
+441.74,Entertainment,2025-07-13,spending,HKD,Night out - Cinema City,Cinema City
+430.42,Entertainment,2025-07-13,spending,HKD,Night out - Cinema City,Cinema City
+262.7,Dining,2025-07-14,spending,HKD,Dinner at Nobu HK,Nobu HK
+250.24,Dining,2025-07-14,spending,HKD,Dinner at Nobu HK,Nobu HK
+365.06,Dining,2025-07-15,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+209.92,Dining,2025-07-15,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+223.91,Other,2025-07-15,spending,HKD,HSBC Credit Card,HSBC Credit Card
+755.52,Shopping,2025-07-15,spending,HKD,Purchase at IFC Mall,IFC Mall
+866.41,Shopping,2025-07-15,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+197.68,Transport,2025-07-15,spending,HKD,Citybus,Citybus
+172.56,Transport,2025-07-15,spending,HKD,MTR,MTR
+218.2,Other,2025-07-16,spending,HKD,Circle K,Circle K
+203.34,Transport,2025-07-16,spending,HKD,Citybus,Citybus
+237.56,Dining,2025-07-17,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+856.02,Shopping,2025-07-17,spending,HKD,Purchase at Apple Store,Apple Store
+106.55,Transport,2025-07-17,spending,HKD,MTR,MTR
+178.95,Transport,2025-07-17,spending,HKD,Uber,Uber
+199.18,Dining,2025-07-18,spending,HKD,Dinner at Ozone,Ozone
+371.05,Other,2025-07-18,spending,HKD,Circle K,Circle K
+153.7,Transport,2025-07-18,spending,HKD,MTR,MTR
+202.76,Other,2025-07-19,spending,HKD,7-Eleven,7-Eleven
+108.57,Transport,2025-07-19,spending,HKD,HKTaxi,HKTaxi
+138.42,Transport,2025-07-19,spending,HKD,MTR,MTR
+255.2,Dining,2025-07-20,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+359.65,Dining,2025-07-20,spending,HKD,Dinner at Mott 32,Mott 32
+274.45,Dining,2025-07-22,spending,HKD,Dinner at Honi Honi,Honi Honi
+241.1,Dining,2025-07-23,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+389.2,Entertainment,2025-07-23,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+476.04,Entertainment,2025-07-23,spending,HKD,Night out - Volar,Volar
+151.82,Transport,2025-07-23,spending,HKD,MTR,MTR
+316.41,Entertainment,2025-07-24,spending,HKD,Night out - LKF Concepts,LKF Concepts
+276.69,Dining,2025-07-25,spending,HKD,Dinner at Nobu HK,Nobu HK
+35000.0,Salary,2025-07-25,income,HKD,Monthly salary,ABC Marketing Ltd
+193.25,Transport,2025-07-25,spending,HKD,Citybus,Citybus
+318.72,Dining,2025-07-26,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+361.87,Dining,2025-07-27,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+353.95,Dining,2025-07-27,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+360.38,Other,2025-07-27,spending,HKD,7-Eleven,7-Eleven
+202.28,Transport,2025-07-27,spending,HKD,HKTaxi,HKTaxi
+157.88,Transport,2025-07-27,spending,HKD,HKTaxi,HKTaxi
+167.67,Transport,2025-07-27,spending,HKD,MTR,MTR
+1059.56,Shopping,2025-07-28,spending,HKD,Purchase at IFC Mall,IFC Mall
+141.81,Transport,2025-07-28,spending,HKD,HKTaxi,HKTaxi
+332.73,Other,2025-07-29,spending,HKD,Circle K,Circle K
+962.49,Shopping,2025-07-29,spending,HKD,Purchase at Apple Store,Apple Store
+205.38,Transport,2025-07-29,spending,HKD,Citybus,Citybus
+367.5,Dining,2025-07-30,spending,HKD,Dinner at Nobu HK,Nobu HK
+196.22,Other,2025-07-31,spending,HKD,Octopus Reload,Octopus Reload
+14000.0,Rent,2025-08-01,spending,HKD,Monthly rent,Landlord
+91.68,Transport,2025-08-01,spending,HKD,Uber,Uber
+244.14,Dining,2025-08-02,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+82.37,Transport,2025-08-02,spending,HKD,HKTaxi,HKTaxi
+143.77,Transport,2025-08-02,spending,HKD,Uber,Uber
+295.55,Entertainment,2025-08-03,spending,HKD,Night out - Volar,Volar
+556.27,Other,2025-08-03,spending,HKD,HSBC Credit Card,HSBC Credit Card
+150.9,Transport,2025-08-03,spending,HKD,Citybus,Citybus
+507.87,Entertainment,2025-08-04,spending,HKD,Night out - Club Cubic,Club Cubic
+355.06,Entertainment,2025-08-04,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+107.22,Transport,2025-08-04,spending,HKD,Uber,Uber
+358.08,Dining,2025-08-05,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+414.47,Other,2025-08-05,spending,HKD,7-Eleven,7-Eleven
+89.11,Transport,2025-08-05,spending,HKD,MTR,MTR
+886.71,Shopping,2025-08-06,spending,HKD,Purchase at Apple Store,Apple Store
+345.23,Dining,2025-08-07,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+179.68,Dining,2025-08-07,spending,HKD,Dinner at Ozone,Ozone
+101.1,Transport,2025-08-07,spending,HKD,MTR,MTR
+88.28,Transport,2025-08-07,spending,HKD,Uber,Uber
+421.36,Entertainment,2025-08-08,spending,HKD,Night out - Club Cubic,Club Cubic
+627.21,Other,2025-08-08,spending,HKD,Octopus Reload,Octopus Reload
+302.68,Dining,2025-08-09,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+96.51,Transport,2025-08-09,spending,HKD,MTR,MTR
+290.38,Dining,2025-08-10,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+328.5,Dining,2025-08-10,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+325.37,Dining,2025-08-10,spending,HKD,Dinner at Nobu HK,Nobu HK
+209.58,Dining,2025-08-11,spending,HKD,Dinner at Honi Honi,Honi Honi
+111.55,Transport,2025-08-11,spending,HKD,Citybus,Citybus
+303.5,Dining,2025-08-12,spending,HKD,Dinner at Mott 32,Mott 32
+439.17,Other,2025-08-12,spending,HKD,Octopus Reload,Octopus Reload
+84.45,Transport,2025-08-12,spending,HKD,Citybus,Citybus
+153.74,Transport,2025-08-12,spending,HKD,Uber,Uber
+262.35,Dining,2025-08-13,spending,HKD,Dinner at Ozone,Ozone
+420.91,Entertainment,2025-08-13,spending,HKD,Night out - Cinema City,Cinema City
+135.64,Transport,2025-08-13,spending,HKD,HKTaxi,HKTaxi
+157.2,Transport,2025-08-13,spending,HKD,Uber,Uber
+923.22,Shopping,2025-08-15,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+417.22,Entertainment,2025-08-16,spending,HKD,Night out - Cinema City,Cinema City
+127.6,Transport,2025-08-16,spending,HKD,Citybus,Citybus
+196.92,Dining,2025-08-17,spending,HKD,Dinner at Mott 32,Mott 32
+1379.91,Shopping,2025-08-17,spending,HKD,Purchase at Apple Store,Apple Store
+156.07,Transport,2025-08-17,spending,HKD,Uber,Uber
+293.88,Entertainment,2025-08-19,spending,HKD,Night out - Volar,Volar
+87.01,Transport,2025-08-20,spending,HKD,Citybus,Citybus
+137.71,Transport,2025-08-20,spending,HKD,HKTaxi,HKTaxi
+107.95,Transport,2025-08-20,spending,HKD,Uber,Uber
+141.96,Transport,2025-08-20,spending,HKD,Uber,Uber
+133.6,Transport,2025-08-20,spending,HKD,Uber,Uber
+176.23,Dining,2025-08-21,spending,HKD,Dinner at Honi Honi,Honi Honi
+207.66,Dining,2025-08-21,spending,HKD,Dinner at Ozone,Ozone
+1310.15,Shopping,2025-08-21,spending,HKD,Purchase at IFC Mall,IFC Mall
+134.73,Transport,2025-08-21,spending,HKD,Uber,Uber
+484.66,Entertainment,2025-08-23,spending,HKD,Night out - Cinema City,Cinema City
+449.05,Entertainment,2025-08-23,spending,HKD,Night out - Club Cubic,Club Cubic
+118.51,Transport,2025-08-23,spending,HKD,Citybus,Citybus
+293.05,Dining,2025-08-24,spending,HKD,Dinner at Honi Honi,Honi Honi
+282.1,Dining,2025-08-24,spending,HKD,Dinner at Mott 32,Mott 32
+300.1,Dining,2025-08-24,spending,HKD,Dinner at Nobu HK,Nobu HK
+389.22,Entertainment,2025-08-24,spending,HKD,Night out - Club Cubic,Club Cubic
+113.88,Transport,2025-08-24,spending,HKD,MTR,MTR
+358.45,Dining,2025-08-25,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+313.69,Entertainment,2025-08-25,spending,HKD,Night out - LKF Concepts,LKF Concepts
+35000.0,Salary,2025-08-25,income,HKD,Monthly salary,ABC Marketing Ltd
+270.98,Dining,2025-08-26,spending,HKD,Dinner at Mott 32,Mott 32
+534.29,Entertainment,2025-08-26,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+282.2,Dining,2025-08-27,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+247.49,Dining,2025-08-27,spending,HKD,Dinner at Honi Honi,Honi Honi
+345.84,Dining,2025-08-27,spending,HKD,Dinner at Mott 32,Mott 32
+205.03,Dining,2025-08-27,spending,HKD,Dinner at Mott 32,Mott 32
+275.87,Dining,2025-08-27,spending,HKD,Dinner at Ozone,Ozone
+293.92,Entertainment,2025-08-27,spending,HKD,Night out - Club Cubic,Club Cubic
+111.68,Transport,2025-08-27,spending,HKD,Uber,Uber
+201.71,Dining,2025-08-28,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+273.88,Dining,2025-08-28,spending,HKD,Dinner at Ozone,Ozone
+524.33,Other,2025-08-28,spending,HKD,Circle K,Circle K
+147.27,Transport,2025-08-29,spending,HKD,HKTaxi,HKTaxi
+127.8,Transport,2025-08-29,spending,HKD,Uber,Uber
+184.13,Dining,2025-08-30,spending,HKD,Dinner at Mott 32,Mott 32
+248.86,Dining,2025-08-30,spending,HKD,Dinner at Ozone,Ozone
+323.31,Entertainment,2025-08-30,spending,HKD,Night out - Volar,Volar
+139.76,Transport,2025-08-30,spending,HKD,MTR,MTR
+438.56,Other,2025-08-31,spending,HKD,Circle K,Circle K
+120.95,Transport,2025-08-31,spending,HKD,MTR,MTR
+360.15,Dining,2025-09-01,spending,HKD,Dinner at Mott 32,Mott 32
+376.54,Dining,2025-09-01,spending,HKD,Dinner at Mott 32,Mott 32
+14000.0,Rent,2025-09-01,spending,HKD,Monthly rent,Landlord
+430.09,Dining,2025-09-02,spending,HKD,Dinner at Honi Honi,Honi Honi
+327.07,Other,2025-09-02,spending,HKD,Octopus Reload,Octopus Reload
+196.95,Transport,2025-09-02,spending,HKD,HKTaxi,HKTaxi
+190.75,Transport,2025-09-03,spending,HKD,MTR,MTR
+294.12,Dining,2025-09-05,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+327.72,Entertainment,2025-09-05,spending,HKD,Night out - LKF Concepts,LKF Concepts
+119.13,Transport,2025-09-05,spending,HKD,MTR,MTR
+247.53,Dining,2025-09-06,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+420.06,Dining,2025-09-06,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+596.31,Entertainment,2025-09-06,spending,HKD,Night out - Cinema City,Cinema City
+484.49,Entertainment,2025-09-06,spending,HKD,Night out - LKF Concepts,LKF Concepts
+668.39,Shopping,2025-09-06,spending,HKD,Purchase at Apple Store,Apple Store
+718.96,Shopping,2025-09-06,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+151.92,Transport,2025-09-06,spending,HKD,Uber,Uber
+492.93,Entertainment,2025-09-07,spending,HKD,Night out - Volar,Volar
+213.69,Transport,2025-09-07,spending,HKD,Citybus,Citybus
+218.88,Transport,2025-09-07,spending,HKD,HKTaxi,HKTaxi
+440.93,Entertainment,2025-09-08,spending,HKD,Night out - Club Cubic,Club Cubic
+444.63,Other,2025-09-08,spending,HKD,Octopus Reload,Octopus Reload
+379.13,Other,2025-09-08,spending,HKD,Octopus Reload,Octopus Reload
+203.95,Transport,2025-09-08,spending,HKD,MTR,MTR
+398.88,Dining,2025-09-09,spending,HKD,Dinner at Ozone,Ozone
+557.95,Entertainment,2025-09-09,spending,HKD,Night out - Volar,Volar
+253.37,Dining,2025-09-10,spending,HKD,Dinner at Honi Honi,Honi Honi
+486.29,Shopping,2025-09-10,spending,HKD,Purchase at Apple Store,Apple Store
+291.09,Dining,2025-09-11,spending,HKD,Dinner at Honi Honi,Honi Honi
+383.44,Dining,2025-09-12,spending,HKD,Dinner at Honi Honi,Honi Honi
+402.27,Dining,2025-09-12,spending,HKD,Dinner at Honi Honi,Honi Honi
+368.94,Other,2025-09-12,spending,HKD,7-Eleven,7-Eleven
+130.65,Transport,2025-09-12,spending,HKD,MTR,MTR
+282.16,Dining,2025-09-13,spending,HKD,Dinner at Ozone,Ozone
+429.73,Entertainment,2025-09-14,spending,HKD,Night out - Cinema City,Cinema City
+694.11,Shopping,2025-09-14,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+348.75,Dining,2025-09-17,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+457.44,Entertainment,2025-09-17,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+148.29,Transport,2025-09-17,spending,HKD,Uber,Uber
+303.21,Other,2025-09-18,spending,HKD,Octopus Reload,Octopus Reload
+143.5,Transport,2025-09-18,spending,HKD,Citybus,Citybus
+319.73,Dining,2025-09-19,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+229.32,Dining,2025-09-19,spending,HKD,Dinner at Nobu HK,Nobu HK
+434.24,Shopping,2025-09-19,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+200.36,Transport,2025-09-20,spending,HKD,Citybus,Citybus
+225.2,Dining,2025-09-21,spending,HKD,Dinner at Mott 32,Mott 32
+363.41,Dining,2025-09-21,spending,HKD,Dinner at Ozone,Ozone
+151.19,Transport,2025-09-21,spending,HKD,Citybus,Citybus
+206.24,Transport,2025-09-21,spending,HKD,HKTaxi,HKTaxi
+202.19,Transport,2025-09-21,spending,HKD,HKTaxi,HKTaxi
+257.45,Dining,2025-09-22,spending,HKD,Dinner at Mott 32,Mott 32
+345.24,Entertainment,2025-09-22,spending,HKD,Night out - Cinema City,Cinema City
+372.63,Shopping,2025-09-23,spending,HKD,Purchase at Apple Store,Apple Store
+230.36,Transport,2025-09-23,spending,HKD,Citybus,Citybus
+454.3,Dining,2025-09-24,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+186.62,Transport,2025-09-24,spending,HKD,MTR,MTR
+35000.0,Salary,2025-09-25,income,HKD,Monthly salary,ABC Marketing Ltd
+394.25,Shopping,2025-09-25,spending,HKD,Purchase at ZARA,ZARA
+386.7,Dining,2025-09-26,spending,HKD,Dinner at Honi Honi,Honi Honi
+326.65,Entertainment,2025-09-26,spending,HKD,Night out - Club Cubic,Club Cubic
+252.04,Other,2025-09-26,spending,HKD,Octopus Reload,Octopus Reload
+123.74,Transport,2025-09-26,spending,HKD,MTR,MTR
+124.42,Transport,2025-09-26,spending,HKD,Uber,Uber
+556.81,Entertainment,2025-09-27,spending,HKD,Night out - Volar,Volar
+731.12,Shopping,2025-09-27,spending,HKD,Purchase at ZARA,ZARA
+210.48,Transport,2025-09-27,spending,HKD,MTR,MTR
+414.74,Dining,2025-09-28,spending,HKD,Dinner at Nobu HK,Nobu HK
+242.82,Other,2025-09-28,spending,HKD,7-Eleven,7-Eleven
+146.69,Transport,2025-09-28,spending,HKD,HKTaxi,HKTaxi
+414.98,Other,2025-09-29,spending,HKD,HSBC Credit Card,HSBC Credit Card
+267.18,Other,2025-09-29,spending,HKD,Octopus Reload,Octopus Reload
+360.69,Dining,2025-09-30,spending,HKD,Dinner at Ozone,Ozone
+483.8,Entertainment,2025-09-30,spending,HKD,Night out - Volar,Volar
+14000.0,Rent,2025-10-01,spending,HKD,Monthly rent,Landlord
+116.91,Transport,2025-10-01,spending,HKD,HKTaxi,HKTaxi
+107.77,Transport,2025-10-02,spending,HKD,MTR,MTR
+94.08,Transport,2025-10-02,spending,HKD,Uber,Uber
+252.05,Dining,2025-10-03,spending,HKD,Dinner at Ozone,Ozone
+194.33,Dining,2025-10-04,spending,HKD,Dinner at Nobu HK,Nobu HK
+285.02,Entertainment,2025-10-04,spending,HKD,Night out - LKF Concepts,LKF Concepts
+947.73,Shopping,2025-10-05,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+182.54,Transport,2025-10-06,spending,HKD,HKTaxi,HKTaxi
+149.53,Transport,2025-10-06,spending,HKD,MTR,MTR
+253.12,Dining,2025-10-07,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+471.83,Entertainment,2025-10-07,spending,HKD,Night out - Club Cubic,Club Cubic
+280.47,Entertainment,2025-10-07,spending,HKD,Night out - Club Cubic,Club Cubic
+103.85,Transport,2025-10-07,spending,HKD,MTR,MTR
+172.19,Transport,2025-10-08,spending,HKD,HKTaxi,HKTaxi
+93.42,Transport,2025-10-08,spending,HKD,MTR,MTR
+161.4,Transport,2025-10-08,spending,HKD,Uber,Uber
+267.1,Dining,2025-10-09,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+321.45,Dining,2025-10-09,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+383.51,Other,2025-10-09,spending,HKD,Octopus Reload,Octopus Reload
+277.48,Entertainment,2025-10-10,spending,HKD,Night out - Volar,Volar
+382.32,Dining,2025-10-11,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+357.58,Dining,2025-10-11,spending,HKD,Dinner at Honi Honi,Honi Honi
+317.82,Dining,2025-10-12,spending,HKD,Dinner at Ozone,Ozone
+94.49,Transport,2025-10-12,spending,HKD,Citybus,Citybus
+100.41,Transport,2025-10-12,spending,HKD,Citybus,Citybus
+340.15,Dining,2025-10-13,spending,HKD,Dinner at Nobu HK,Nobu HK
+269.17,Dining,2025-10-13,spending,HKD,Dinner at Ozone,Ozone
+361.88,Entertainment,2025-10-13,spending,HKD,Night out - Cinema City,Cinema City
+178.48,Transport,2025-10-13,spending,HKD,MTR,MTR
+293.08,Dining,2025-10-14,spending,HKD,Dinner at Nobu HK,Nobu HK
+346.04,Entertainment,2025-10-14,spending,HKD,Night out - Club Cubic,Club Cubic
+597.77,Other,2025-10-14,spending,HKD,7-Eleven,7-Eleven
+578.77,Shopping,2025-10-14,spending,HKD,Purchase at IFC Mall,IFC Mall
+372.71,Dining,2025-10-15,spending,HKD,Dinner at Nobu HK,Nobu HK
+325.08,Dining,2025-10-15,spending,HKD,Dinner at Ozone,Ozone
+320.69,Entertainment,2025-10-15,spending,HKD,Night out - LKF Concepts,LKF Concepts
+109.56,Transport,2025-10-15,spending,HKD,Citybus,Citybus
+694.93,Shopping,2025-10-16,spending,HKD,Purchase at Apple Store,Apple Store
+124.1,Transport,2025-10-16,spending,HKD,HKTaxi,HKTaxi
+261.73,Dining,2025-10-17,spending,HKD,Dinner at Nobu HK,Nobu HK
+240.88,Dining,2025-10-17,spending,HKD,Dinner at Ozone,Ozone
+344.44,Entertainment,2025-10-17,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+253.93,Dining,2025-10-18,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+382.68,Dining,2025-10-18,spending,HKD,Dinner at Honi Honi,Honi Honi
+306.74,Dining,2025-10-18,spending,HKD,Dinner at Honi Honi,Honi Honi
+8500.0,Shopping,2025-10-18,spending,HKD,Lane Crawford leather jacket,Lane Crawford
+141.37,Transport,2025-10-18,spending,HKD,HKTaxi,HKTaxi
+129.2,Transport,2025-10-18,spending,HKD,MTR,MTR
+368.81,Dining,2025-10-19,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+336.57,Entertainment,2025-10-19,spending,HKD,Night out - LKF Concepts,LKF Concepts
+849.03,Shopping,2025-10-19,spending,HKD,Purchase at Apple Store,Apple Store
+201.34,Dining,2025-10-20,spending,HKD,Dinner at Mott 32,Mott 32
+510.48,Entertainment,2025-10-20,spending,HKD,Night out - Cinema City,Cinema City
+642.34,Other,2025-10-20,spending,HKD,Circle K,Circle K
+138.23,Transport,2025-10-20,spending,HKD,MTR,MTR
+310.31,Dining,2025-10-21,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+275.85,Dining,2025-10-21,spending,HKD,Dinner at Mott 32,Mott 32
+422.88,Entertainment,2025-10-21,spending,HKD,Night out - Club Cubic,Club Cubic
+142.18,Transport,2025-10-21,spending,HKD,Citybus,Citybus
+331.23,Entertainment,2025-10-22,spending,HKD,Night out - Club Cubic,Club Cubic
+322.81,Other,2025-10-22,spending,HKD,Circle K,Circle K
+100.75,Transport,2025-10-22,spending,HKD,HKTaxi,HKTaxi
+129.6,Transport,2025-10-22,spending,HKD,MTR,MTR
+698.81,Shopping,2025-10-23,spending,HKD,Purchase at Apple Store,Apple Store
+99.26,Transport,2025-10-23,spending,HKD,Citybus,Citybus
+366.15,Dining,2025-10-24,spending,HKD,Dinner at Ozone,Ozone
+263.44,Dining,2025-10-24,spending,HKD,Dinner at Ozone,Ozone
+730.72,Shopping,2025-10-24,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+156.13,Transport,2025-10-24,spending,HKD,Citybus,Citybus
+35000.0,Salary,2025-10-25,income,HKD,Monthly salary,ABC Marketing Ltd
+101.11,Transport,2025-10-25,spending,HKD,HKTaxi,HKTaxi
+185.8,Transport,2025-10-25,spending,HKD,MTR,MTR
+132.24,Transport,2025-10-25,spending,HKD,Uber,Uber
+287.25,Entertainment,2025-10-26,spending,HKD,Night out - LKF Concepts,LKF Concepts
+447.32,Other,2025-10-27,spending,HKD,7-Eleven,7-Eleven
+427.35,Entertainment,2025-10-28,spending,HKD,Night out - Club Cubic,Club Cubic
+125.51,Transport,2025-10-28,spending,HKD,HKTaxi,HKTaxi
+322.18,Dining,2025-10-29,spending,HKD,Dinner at Nobu HK,Nobu HK
+496.4,Entertainment,2025-10-29,spending,HKD,Night out - Cinema City,Cinema City
+129.87,Transport,2025-10-29,spending,HKD,MTR,MTR
+606.24,Other,2025-10-30,spending,HKD,Octopus Reload,Octopus Reload
+185.8,Dining,2025-11-01,spending,HKD,Dinner at Mott 32,Mott 32
+277.94,Dining,2025-11-01,spending,HKD,Dinner at Nobu HK,Nobu HK
+337.95,Dining,2025-11-01,spending,HKD,Dinner at Ozone,Ozone
+14000.0,Rent,2025-11-01,spending,HKD,Monthly rent,Landlord
+690.78,Shopping,2025-11-01,spending,HKD,Purchase at IFC Mall,IFC Mall
+123.21,Transport,2025-11-01,spending,HKD,HKTaxi,HKTaxi
+384.36,Dining,2025-11-02,spending,HKD,Dinner at Nobu HK,Nobu HK
+379.06,Dining,2025-11-03,spending,HKD,Dinner at Ozone,Ozone
+125.11,Transport,2025-11-03,spending,HKD,Uber,Uber
+280.0,Dining,2025-11-04,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+492.86,Other,2025-11-04,spending,HKD,HSBC Credit Card,HSBC Credit Card
+165.9,Transport,2025-11-04,spending,HKD,Citybus,Citybus
+242.81,Dining,2025-11-05,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+353.31,Dining,2025-11-06,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+289.57,Other,2025-11-07,spending,HKD,HSBC Credit Card,HSBC Credit Card
+254.04,Dining,2025-11-08,spending,HKD,Dinner at Mott 32,Mott 32
+245.75,Dining,2025-11-08,spending,HKD,Dinner at Ozone,Ozone
+188.67,Transport,2025-11-08,spending,HKD,HKTaxi,HKTaxi
+155.7,Transport,2025-11-08,spending,HKD,Uber,Uber
+240.48,Other,2025-11-10,spending,HKD,Octopus Reload,Octopus Reload
+103.22,Transport,2025-11-10,spending,HKD,MTR,MTR
+207.25,Dining,2025-11-11,spending,HKD,Dinner at Mott 32,Mott 32
+633.3,Entertainment,2025-11-11,spending,HKD,Night out - Cinema City,Cinema City
+627.66,Entertainment,2025-11-11,spending,HKD,Night out - Cinema City,Cinema City
+353.84,Other,2025-11-11,spending,HKD,Circle K,Circle K
+173.27,Transport,2025-11-11,spending,HKD,HKTaxi,HKTaxi
+271.11,Dining,2025-11-12,spending,HKD,Dinner at Honi Honi,Honi Honi
+150.49,Transport,2025-11-12,spending,HKD,Citybus,Citybus
+302.56,Dining,2025-11-13,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+201.44,Dining,2025-11-13,spending,HKD,Dinner at Nobu HK,Nobu HK
+186.58,Transport,2025-11-13,spending,HKD,HKTaxi,HKTaxi
+245.67,Dining,2025-11-14,spending,HKD,Dinner at Mott 32,Mott 32
+409.78,Entertainment,2025-11-14,spending,HKD,Night out - Volar,Volar
+151.59,Transport,2025-11-14,spending,HKD,HKTaxi,HKTaxi
+118.04,Transport,2025-11-14,spending,HKD,HKTaxi,HKTaxi
+106.96,Transport,2025-11-14,spending,HKD,MTR,MTR
+246.32,Dining,2025-11-15,spending,HKD,Dinner at Mott 32,Mott 32
+651.7,Entertainment,2025-11-15,spending,HKD,Night out - LKF Concepts,LKF Concepts
+598.88,Entertainment,2025-11-15,spending,HKD,Night out - LKF Concepts,LKF Concepts
+375.73,Entertainment,2025-11-15,spending,HKD,Night out - LKF Concepts,LKF Concepts
+95.61,Transport,2025-11-15,spending,HKD,Uber,Uber
+223.87,Dining,2025-11-16,spending,HKD,Dinner at Mott 32,Mott 32
+240.23,Other,2025-11-16,spending,HKD,7-Eleven,7-Eleven
+98.63,Transport,2025-11-16,spending,HKD,Citybus,Citybus
+106.49,Transport,2025-11-16,spending,HKD,Uber,Uber
+319.99,Dining,2025-11-18,spending,HKD,Dinner at Honi Honi,Honi Honi
+582.64,Shopping,2025-11-18,spending,HKD,Purchase at ZARA,ZARA
+136.9,Transport,2025-11-18,spending,HKD,MTR,MTR
+126.71,Transport,2025-11-18,spending,HKD,Uber,Uber
+347.14,Dining,2025-11-19,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+123.88,Transport,2025-11-19,spending,HKD,Citybus,Citybus
+297.02,Dining,2025-11-20,spending,HKD,Dinner at Mott 32,Mott 32
+253.87,Dining,2025-11-20,spending,HKD,Dinner at Ozone,Ozone
+467.46,Other,2025-11-20,spending,HKD,7-Eleven,7-Eleven
+421.6,Shopping,2025-11-20,spending,HKD,Purchase at ZARA,ZARA
+101.55,Transport,2025-11-20,spending,HKD,Citybus,Citybus
+267.72,Dining,2025-11-21,spending,HKD,Dinner at Mott 32,Mott 32
+636.96,Entertainment,2025-11-21,spending,HKD,Night out - Cinema City,Cinema City
+529.71,Entertainment,2025-11-21,spending,HKD,Night out - Club Cubic,Club Cubic
+176.18,Transport,2025-11-21,spending,HKD,HKTaxi,HKTaxi
+786.67,Shopping,2025-11-22,spending,HKD,Purchase at Apple Store,Apple Store
+367.29,Dining,2025-11-23,spending,HKD,Dinner at Ozone,Ozone
+184.84,Transport,2025-11-23,spending,HKD,MTR,MTR
+372.09,Dining,2025-11-24,spending,HKD,Dinner at Ozone,Ozone
+35000.0,Salary,2025-11-25,income,HKD,Monthly salary,ABC Marketing Ltd
+437.38,Shopping,2025-11-25,spending,HKD,Purchase at Apple Store,Apple Store
+712.32,Shopping,2025-11-25,spending,HKD,Purchase at IFC Mall,IFC Mall
+116.5,Transport,2025-11-25,spending,HKD,Uber,Uber
+386.59,Shopping,2025-11-26,spending,HKD,Purchase at Apple Store,Apple Store
+382.98,Dining,2025-11-27,spending,HKD,Dinner at Ozone,Ozone
+189.0,Transport,2025-11-27,spending,HKD,Citybus,Citybus
+252.66,Dining,2025-11-28,spending,HKD,Dinner at Mott 32,Mott 32
+483.26,Entertainment,2025-11-28,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+286.71,Other,2025-11-28,spending,HKD,7-Eleven,7-Eleven
+283.41,Other,2025-11-28,spending,HKD,HSBC Credit Card,HSBC Credit Card
+120.75,Transport,2025-11-28,spending,HKD,MTR,MTR
+553.03,Entertainment,2025-11-29,spending,HKD,Night out - LKF Concepts,LKF Concepts
+174.24,Transport,2025-11-29,spending,HKD,HKTaxi,HKTaxi
+345.44,Other,2025-11-30,spending,HKD,Octopus Reload,Octopus Reload
+482.02,Shopping,2025-11-30,spending,HKD,Purchase at Apple Store,Apple Store
+374.12,Other,2025-12-01,spending,HKD,Circle K,Circle K
+14000.0,Rent,2025-12-01,spending,HKD,Monthly rent,Landlord
+330.48,Other,2025-12-03,spending,HKD,Octopus Reload,Octopus Reload
+220.14,Dining,2025-12-04,spending,HKD,Dinner at Mott 32,Mott 32
+248.58,Entertainment,2025-12-04,spending,HKD,Night out - Club Cubic,Club Cubic
+364.38,Dining,2025-12-05,spending,HKD,Dinner at Honi Honi,Honi Honi
+343.71,Dining,2025-12-05,spending,HKD,Dinner at Ozone,Ozone
+298.04,Entertainment,2025-12-05,spending,HKD,Night out - Volar,Volar
+691.1,Shopping,2025-12-05,spending,HKD,Purchase at IFC Mall,IFC Mall
+139.93,Transport,2025-12-05,spending,HKD,HKTaxi,HKTaxi
+297.44,Dining,2025-12-07,spending,HKD,Dinner at Honi Honi,Honi Honi
+377.62,Dining,2025-12-07,spending,HKD,Dinner at Nobu HK,Nobu HK
+410.59,Entertainment,2025-12-07,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+193.78,Transport,2025-12-07,spending,HKD,Uber,Uber
+404.58,Other,2025-12-08,spending,HKD,HSBC Credit Card,HSBC Credit Card
+689.59,Shopping,2025-12-08,spending,HKD,Purchase at Apple Store,Apple Store
+109.69,Transport,2025-12-08,spending,HKD,MTR,MTR
+289.18,Entertainment,2025-12-09,spending,HKD,Night out - Cinema City,Cinema City
+608.63,Shopping,2025-12-09,spending,HKD,Purchase at Apple Store,Apple Store
+192.89,Transport,2025-12-09,spending,HKD,Citybus,Citybus
+230.5,Dining,2025-12-10,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+277.08,Dining,2025-12-10,spending,HKD,Dinner at Nobu HK,Nobu HK
+423.32,Shopping,2025-12-10,spending,HKD,Purchase at ZARA,ZARA
+212.86,Transport,2025-12-10,spending,HKD,HKTaxi,HKTaxi
+288.42,Entertainment,2025-12-11,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+400.06,Other,2025-12-11,spending,HKD,Octopus Reload,Octopus Reload
+156.49,Transport,2025-12-11,spending,HKD,Citybus,Citybus
+206.65,Dining,2025-12-12,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+196.24,Transport,2025-12-12,spending,HKD,HKTaxi,HKTaxi
+224.19,Dining,2025-12-13,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+401.79,Entertainment,2025-12-13,spending,HKD,Night out - LKF Concepts,LKF Concepts
+164.59,Transport,2025-12-13,spending,HKD,MTR,MTR
+148.36,Transport,2025-12-13,spending,HKD,Uber,Uber
+380.32,Dining,2025-12-14,spending,HKD,Dinner at Ozone,Ozone
+326.54,Dining,2025-12-15,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+238.3,Dining,2025-12-15,spending,HKD,Dinner at Ozone,Ozone
+122.1,Transport,2025-12-15,spending,HKD,Citybus,Citybus
+171.4,Transport,2025-12-15,spending,HKD,MTR,MTR
+362.2,Entertainment,2025-12-16,spending,HKD,Night out - Club Cubic,Club Cubic
+277.89,Other,2025-12-16,spending,HKD,HSBC Credit Card,HSBC Credit Card
+149.75,Transport,2025-12-16,spending,HKD,Citybus,Citybus
+346.01,Dining,2025-12-17,spending,HKD,Dinner at Nobu HK,Nobu HK
+187.09,Transport,2025-12-17,spending,HKD,Citybus,Citybus
+292.24,Dining,2025-12-18,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+207.7,Dining,2025-12-18,spending,HKD,Dinner at Honi Honi,Honi Honi
+443.64,Entertainment,2025-12-18,spending,HKD,Night out - Cinema City,Cinema City
+441.42,Entertainment,2025-12-18,spending,HKD,Night out - Club Cubic,Club Cubic
+437.72,Entertainment,2025-12-18,spending,HKD,Night out - Volar,Volar
+322.53,Dining,2025-12-19,spending,HKD,Dinner at Mott 32,Mott 32
+240.53,Dining,2025-12-19,spending,HKD,Dinner at Nobu HK,Nobu HK
+151.22,Transport,2025-12-19,spending,HKD,Citybus,Citybus
+198.08,Dining,2025-12-21,spending,HKD,Dinner at Ozone,Ozone
+294.28,Dining,2025-12-21,spending,HKD,Dinner at Ozone,Ozone
+161.46,Transport,2025-12-21,spending,HKD,HKTaxi,HKTaxi
+134.96,Transport,2025-12-22,spending,HKD,MTR,MTR
+212.04,Transport,2025-12-23,spending,HKD,Uber,Uber
+198.23,Dining,2025-12-24,spending,HKD,Dinner at Honi Honi,Honi Honi
+555.55,Shopping,2025-12-24,spending,HKD,Purchase at Apple Store,Apple Store
+249.68,Dining,2025-12-25,spending,HKD,Dinner at Mott 32,Mott 32
+370.82,Entertainment,2025-12-25,spending,HKD,Night out - Volar,Volar
+35000.0,Salary,2025-12-25,income,HKD,Monthly salary,ABC Marketing Ltd
+245.66,Dining,2025-12-26,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+311.09,Entertainment,2025-12-26,spending,HKD,Night out - Club Cubic,Club Cubic
+381.41,Entertainment,2025-12-26,spending,HKD,Night out - LKF Concepts,LKF Concepts
+305.55,Dining,2025-12-27,spending,HKD,Dinner at Honi Honi,Honi Honi
+202.46,Other,2025-12-27,spending,HKD,7-Eleven,7-Eleven
+253.36,Dining,2025-12-28,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+197.71,Dining,2025-12-28,spending,HKD,Dinner at Mott 32,Mott 32
+439.85,Entertainment,2025-12-28,spending,HKD,Night out - Cinema City,Cinema City
+358.55,Dining,2025-12-29,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+375.26,Entertainment,2025-12-29,spending,HKD,Night out - Volar,Volar
+283.45,Other,2025-12-29,spending,HKD,7-Eleven,7-Eleven
+113.31,Transport,2025-12-29,spending,HKD,HKTaxi,HKTaxi
+189.14,Transport,2025-12-29,spending,HKD,MTR,MTR
+303.02,Dining,2025-12-30,spending,HKD,Dinner at Nobu HK,Nobu HK
+390.97,Shopping,2025-12-30,spending,HKD,Purchase at ZARA,ZARA
+188.02,Transport,2025-12-30,spending,HKD,Citybus,Citybus
+204.68,Transport,2025-12-30,spending,HKD,HKTaxi,HKTaxi
+376.39,Other,2025-12-31,spending,HKD,Circle K,Circle K
+350.58,Other,2025-12-31,spending,HKD,Circle K,Circle K
+661.18,Shopping,2025-12-31,spending,HKD,Purchase at Apple Store,Apple Store
+479.66,Shopping,2025-12-31,spending,HKD,Purchase at Harvey Nichols,Harvey Nichols
+456.77,Entertainment,2026-01-01,spending,HKD,Night out - LKF Concepts,LKF Concepts
+313.47,Entertainment,2026-01-01,spending,HKD,Night out - Volar,Volar
+14000.0,Rent,2026-01-01,spending,HKD,Monthly rent,Landlord
+553.59,Other,2026-01-02,spending,HKD,HSBC Credit Card,HSBC Credit Card
+821.6,Shopping,2026-01-02,spending,HKD,Purchase at ZARA,ZARA
+129.91,Transport,2026-01-02,spending,HKD,Uber,Uber
+656.81,Shopping,2026-01-04,spending,HKD,Purchase at Apple Store,Apple Store
+439.35,Dining,2026-01-05,spending,HKD,Dinner at Mott 32,Mott 32
+300.3,Entertainment,2026-01-05,spending,HKD,Night out - Volar,Volar
+462.08,Entertainment,2026-01-05,spending,HKD,Night out - Volar,Volar
+358.65,Other,2026-01-06,spending,HKD,Octopus Reload,Octopus Reload
+339.25,Entertainment,2026-01-07,spending,HKD,Night out - Volar,Volar
+459.31,Other,2026-01-07,spending,HKD,HSBC Credit Card,HSBC Credit Card
+686.45,Shopping,2026-01-07,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+431.28,Dining,2026-01-08,spending,HKD,Dinner at Mott 32,Mott 32
+396.81,Other,2026-01-10,spending,HKD,Octopus Reload,Octopus Reload
+146.83,Transport,2026-01-10,spending,HKD,MTR,MTR
+82.17,Transport,2026-01-10,spending,HKD,Uber,Uber
+278.58,Dining,2026-01-11,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+277.28,Dining,2026-01-11,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+409.51,Dining,2026-01-11,spending,HKD,Dinner at Honi Honi,Honi Honi
+301.02,Dining,2026-01-11,spending,HKD,Dinner at Ozone,Ozone
+117.72,Transport,2026-01-11,spending,HKD,HKTaxi,HKTaxi
+375.72,Dining,2026-01-12,spending,HKD,Dinner at Mott 32,Mott 32
+376.2,Dining,2026-01-12,spending,HKD,Dinner at Ozone,Ozone
+386.27,Other,2026-01-12,spending,HKD,HSBC Credit Card,HSBC Credit Card
+86.87,Transport,2026-01-12,spending,HKD,Uber,Uber
+384.0,Dining,2026-01-13,spending,HKD,Dinner at Nobu HK,Nobu HK
+105.97,Transport,2026-01-13,spending,HKD,HKTaxi,HKTaxi
+147.53,Transport,2026-01-14,spending,HKD,Uber,Uber
+138.3,Transport,2026-01-15,spending,HKD,HKTaxi,HKTaxi
+448.94,Dining,2026-01-16,spending,HKD,Dinner at Ozone,Ozone
+483.06,Entertainment,2026-01-16,spending,HKD,Night out - Club Cubic,Club Cubic
+134.73,Transport,2026-01-16,spending,HKD,Citybus,Citybus
+89.85,Transport,2026-01-16,spending,HKD,Citybus,Citybus
+154.83,Transport,2026-01-16,spending,HKD,HKTaxi,HKTaxi
+429.11,Entertainment,2026-01-17,spending,HKD,Night out - LKF Concepts,LKF Concepts
+139.28,Transport,2026-01-17,spending,HKD,Uber,Uber
+260.57,Dining,2026-01-18,spending,HKD,Dinner at Honi Honi,Honi Honi
+136.86,Transport,2026-01-18,spending,HKD,MTR,MTR
+252.58,Dining,2026-01-19,spending,HKD,Dinner at Nobu HK,Nobu HK
+150.4,Transport,2026-01-20,spending,HKD,HKTaxi,HKTaxi
+140.04,Transport,2026-01-20,spending,HKD,Uber,Uber
+362.37,Dining,2026-01-21,spending,HKD,Dinner at Honi Honi,Honi Honi
+294.87,Dining,2026-01-22,spending,HKD,Dinner at Ozone,Ozone
+596.29,Shopping,2026-01-22,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+109.62,Transport,2026-01-22,spending,HKD,HKTaxi,HKTaxi
+132.35,Transport,2026-01-22,spending,HKD,MTR,MTR
+144.95,Transport,2026-01-22,spending,HKD,Uber,Uber
+254.11,Dining,2026-01-23,spending,HKD,Dinner at Mott 32,Mott 32
+298.82,Dining,2026-01-23,spending,HKD,Dinner at Ozone,Ozone
+486.38,Entertainment,2026-01-23,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+327.8,Dining,2026-01-24,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+296.38,Entertainment,2026-01-24,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+1001.38,Shopping,2026-01-24,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+100.45,Transport,2026-01-24,spending,HKD,Citybus,Citybus
+127.58,Transport,2026-01-24,spending,HKD,Uber,Uber
+435.43,Dining,2026-01-25,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+35000.0,Salary,2026-01-25,income,HKD,Monthly salary,ABC Marketing Ltd
+737.47,Shopping,2026-01-25,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+102.32,Transport,2026-01-25,spending,HKD,Citybus,Citybus
+162.43,Transport,2026-01-25,spending,HKD,MTR,MTR
+290.19,Other,2026-01-26,spending,HKD,Octopus Reload,Octopus Reload
+109.62,Transport,2026-01-26,spending,HKD,MTR,MTR
+493.76,Entertainment,2026-01-27,spending,HKD,Night out - Club Cubic,Club Cubic
+398.83,Dining,2026-01-28,spending,HKD,Dinner at Mott 32,Mott 32
+555.18,Other,2026-01-28,spending,HKD,Octopus Reload,Octopus Reload
+124.14,Transport,2026-01-28,spending,HKD,Uber,Uber
+303.4,Dining,2026-01-29,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+293.79,Entertainment,2026-01-29,spending,HKD,Night out - LKF Concepts,LKF Concepts
+164.91,Transport,2026-01-29,spending,HKD,MTR,MTR
+239.43,Dining,2026-01-30,spending,HKD,Dinner at Nobu HK,Nobu HK
+396.84,Entertainment,2026-01-30,spending,HKD,Night out - Club Cubic,Club Cubic
+324.09,Entertainment,2026-01-30,spending,HKD,Night out - Club Cubic,Club Cubic
+424.7,Entertainment,2026-01-30,spending,HKD,Night out - LKF Concepts,LKF Concepts
+81.45,Transport,2026-01-30,spending,HKD,Uber,Uber
+349.91,Dining,2026-01-31,spending,HKD,Dinner at Ozone,Ozone
+83.27,Transport,2026-01-31,spending,HKD,Citybus,Citybus
+155.64,Transport,2026-01-31,spending,HKD,Uber,Uber
+396.55,Dining,2026-02-01,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+380.22,Dining,2026-02-01,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+369.3,Dining,2026-02-01,spending,HKD,Dinner at Nobu HK,Nobu HK
+14000.0,Rent,2026-02-01,spending,HKD,Monthly rent,Landlord
+334.19,Dining,2026-02-02,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+253.92,Dining,2026-02-02,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+331.46,Dining,2026-02-03,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+338.9,Other,2026-02-03,spending,HKD,7-Eleven,7-Eleven
+566.42,Entertainment,2026-02-04,spending,HKD,Night out - Club Cubic,Club Cubic
+901.31,Shopping,2026-02-04,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+342.64,Dining,2026-02-05,spending,HKD,Dinner at Honi Honi,Honi Honi
+105.33,Transport,2026-02-05,spending,HKD,Uber,Uber
+181.67,Transport,2026-02-05,spending,HKD,Uber,Uber
+427.04,Other,2026-02-06,spending,HKD,HSBC Credit Card,HSBC Credit Card
+114.69,Transport,2026-02-06,spending,HKD,Uber,Uber
+224.37,Dining,2026-02-07,spending,HKD,Dinner at Mott 32,Mott 32
+554.3,Entertainment,2026-02-07,spending,HKD,Night out - Volar,Volar
+290.22,Dining,2026-02-08,spending,HKD,Dinner at Honi Honi,Honi Honi
+451.98,Entertainment,2026-02-08,spending,HKD,Night out - Cinema City,Cinema City
+129.93,Transport,2026-02-08,spending,HKD,Citybus,Citybus
+193.21,Transport,2026-02-08,spending,HKD,Uber,Uber
+256.42,Dining,2026-02-09,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+192.22,Dining,2026-02-09,spending,HKD,Dinner at Honi Honi,Honi Honi
+356.06,Entertainment,2026-02-09,spending,HKD,Night out - Volar,Volar
+426.23,Entertainment,2026-02-10,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+111.77,Transport,2026-02-10,spending,HKD,Citybus,Citybus
+237.22,Dining,2026-02-11,spending,HKD,Dinner at Ozone,Ozone
+415.01,Entertainment,2026-02-11,spending,HKD,Night out - LKF Concepts,LKF Concepts
+111.16,Transport,2026-02-11,spending,HKD,Citybus,Citybus
+197.64,Transport,2026-02-11,spending,HKD,MTR,MTR
+106.66,Transport,2026-02-11,spending,HKD,MTR,MTR
+443.2,Entertainment,2026-02-12,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+857.43,Shopping,2026-02-12,spending,HKD,Purchase at Apple Store,Apple Store
+797.53,Shopping,2026-02-12,spending,HKD,Purchase at IFC Mall,IFC Mall
+155.76,Transport,2026-02-12,spending,HKD,HKTaxi,HKTaxi
+324.71,Dining,2026-02-13,spending,HKD,Dinner at Nobu HK,Nobu HK
+208.14,Dining,2026-02-13,spending,HKD,Dinner at Ozone,Ozone
+152.38,Transport,2026-02-13,spending,HKD,HKTaxi,HKTaxi
+228.4,Dining,2026-02-15,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+253.22,Other,2026-02-15,spending,HKD,7-Eleven,7-Eleven
+203.9,Transport,2026-02-15,spending,HKD,HKTaxi,HKTaxi
+260.68,Other,2026-02-16,spending,HKD,Circle K,Circle K
+172.08,Transport,2026-02-16,spending,HKD,MTR,MTR
+150.35,Transport,2026-02-16,spending,HKD,Uber,Uber
+388.09,Dining,2026-02-17,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+227.55,Dining,2026-02-17,spending,HKD,Dinner at Nobu HK,Nobu HK
+195.43,Transport,2026-02-17,spending,HKD,Citybus,Citybus
+189.76,Transport,2026-02-17,spending,HKD,Uber,Uber
+248.67,Dining,2026-02-18,spending,HKD,Dinner at Nobu HK,Nobu HK
+633.96,Shopping,2026-02-18,spending,HKD,Purchase at ZARA,ZARA
+130.99,Transport,2026-02-18,spending,HKD,Citybus,Citybus
+193.41,Transport,2026-02-18,spending,HKD,HKTaxi,HKTaxi
+373.3,Dining,2026-02-19,spending,HKD,Dinner at Honi Honi,Honi Honi
+246.83,Other,2026-02-19,spending,HKD,7-Eleven,7-Eleven
+224.57,Dining,2026-02-20,spending,HKD,Dinner at Mott 32,Mott 32
+615.75,Entertainment,2026-02-20,spending,HKD,Night out - LKF Concepts,LKF Concepts
+192.96,Transport,2026-02-20,spending,HKD,MTR,MTR
+371.22,Other,2026-02-21,spending,HKD,HSBC Credit Card,HSBC Credit Card
+489.7,Entertainment,2026-02-22,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+395.36,Dining,2026-02-23,spending,HKD,Dinner at Nobu HK,Nobu HK
+546.32,Shopping,2026-02-23,spending,HKD,Purchase at Apple Store,Apple Store
+109.24,Transport,2026-02-23,spending,HKD,MTR,MTR
+202.1,Dining,2026-02-24,spending,HKD,Dinner at Honi Honi,Honi Honi
+393.29,Dining,2026-02-24,spending,HKD,Dinner at Nobu HK,Nobu HK
+330.72,Dining,2026-02-25,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+35000.0,Salary,2026-02-25,income,HKD,Monthly salary,ABC Marketing Ltd
+763.45,Shopping,2026-02-25,spending,HKD,Purchase at Lane Crawford,Lane Crawford
+355.03,Other,2026-02-26,spending,HKD,Octopus Reload,Octopus Reload
+198.4,Transport,2026-02-26,spending,HKD,Citybus,Citybus
+203.29,Transport,2026-02-26,spending,HKD,Uber,Uber
+346.34,Dining,2026-02-27,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+677.27,Entertainment,2026-02-27,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+504.08,Entertainment,2026-02-27,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+436.6,Other,2026-02-28,spending,HKD,7-Eleven,7-Eleven
+310.48,Other,2026-02-28,spending,HKD,Octopus Reload,Octopus Reload
+301.33,Dining,2026-03-01,spending,HKD,Dinner at Mott 32,Mott 32
+14000.0,Rent,2026-03-01,spending,HKD,Monthly rent,Landlord
+100.53,Transport,2026-03-01,spending,HKD,HKTaxi,HKTaxi
+154.2,Transport,2026-03-01,spending,HKD,Uber,Uber
+250.06,Dining,2026-03-02,spending,HKD,Dinner at Mott 32,Mott 32
+295.63,Dining,2026-03-03,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+323.08,Other,2026-03-03,spending,HKD,HSBC Credit Card,HSBC Credit Card
+195.47,Dining,2026-03-04,spending,HKD,Dinner at Mott 32,Mott 32
+302.22,Entertainment,2026-03-04,spending,HKD,Night out - Cinema City,Cinema City
+233.72,Dining,2026-03-05,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+303.84,Entertainment,2026-03-05,spending,HKD,Night out - Cinema City,Cinema City
+293.83,Dining,2026-03-06,spending,HKD,Dinner at Ozone,Ozone
+299.7,Entertainment,2026-03-06,spending,HKD,Night out - Club Cubic,Club Cubic
+375.87,Entertainment,2026-03-07,spending,HKD,Night out - LKF Concepts,LKF Concepts
+107.32,Transport,2026-03-07,spending,HKD,MTR,MTR
+1458.32,Shopping,2026-03-08,spending,HKD,Purchase at ZARA,ZARA
+118.43,Transport,2026-03-08,spending,HKD,Citybus,Citybus
+119.78,Transport,2026-03-08,spending,HKD,MTR,MTR
+183.77,Dining,2026-03-09,spending,HKD,Dinner at Nobu HK,Nobu HK
+359.43,Entertainment,2026-03-09,spending,HKD,Night out - Volar,Volar
+485.0,Entertainment,2026-03-10,spending,HKD,Night out - Volar,Volar
+524.01,Other,2026-03-10,spending,HKD,Circle K,Circle K
+522.82,Other,2026-03-11,spending,HKD,HSBC Credit Card,HSBC Credit Card
+109.11,Transport,2026-03-11,spending,HKD,MTR,MTR
+269.82,Dining,2026-03-12,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+240.14,Dining,2026-03-12,spending,HKD,Dinner at Honi Honi,Honi Honi
+349.85,Dining,2026-03-13,spending,HKD,Dinner at Ozone,Ozone
+181.25,Dining,2026-03-14,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+188.76,Dining,2026-03-14,spending,HKD,Dinner at Honi Honi,Honi Honi
+281.23,Other,2026-03-14,spending,HKD,HSBC Credit Card,HSBC Credit Card
+921.72,Shopping,2026-03-14,spending,HKD,Purchase at ZARA,ZARA
+126.73,Transport,2026-03-14,spending,HKD,Citybus,Citybus
+129.25,Transport,2026-03-14,spending,HKD,MTR,MTR
+202.85,Dining,2026-03-15,spending,HKD,Dinner at Nobu HK,Nobu HK
+122.26,Transport,2026-03-15,spending,HKD,HKTaxi,HKTaxi
+264.0,Dining,2026-03-16,spending,HKD,Dinner at Honi Honi,Honi Honi
+349.19,Dining,2026-03-16,spending,HKD,Dinner at Honi Honi,Honi Honi
+338.05,Dining,2026-03-16,spending,HKD,Dinner at Nobu HK,Nobu HK
+328.47,Other,2026-03-16,spending,HKD,Circle K,Circle K
+269.58,Dining,2026-03-17,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+569.35,Entertainment,2026-03-17,spending,HKD,Night out - Volar,Volar
+518.82,Other,2026-03-17,spending,HKD,Octopus Reload,Octopus Reload
+119.73,Transport,2026-03-17,spending,HKD,MTR,MTR
+113.06,Transport,2026-03-17,spending,HKD,MTR,MTR
+314.64,Dining,2026-03-18,spending,HKD,Dinner at Black Sheep Restaurants,Black Sheep Restaurants
+272.92,Dining,2026-03-18,spending,HKD,Dinner at Mott 32,Mott 32
+339.53,Entertainment,2026-03-18,spending,HKD,Night out - Club Cubic,Club Cubic
+132.66,Transport,2026-03-18,spending,HKD,Citybus,Citybus
+99.15,Transport,2026-03-18,spending,HKD,Citybus,Citybus
+99.1,Transport,2026-03-19,spending,HKD,Uber,Uber
+143.3,Transport,2026-03-19,spending,HKD,Uber,Uber
+353.66,Dining,2026-03-20,spending,HKD,Dinner at Ho Lee Fook,Ho Lee Fook
+421.7,Entertainment,2026-03-20,spending,HKD,Night out - Cinema City,Cinema City
+111.13,Transport,2026-03-20,spending,HKD,HKTaxi,HKTaxi
+164.11,Transport,2026-03-20,spending,HKD,MTR,MTR
+165.36,Transport,2026-03-21,spending,HKD,Citybus,Citybus
+238.73,Dining,2026-03-22,spending,HKD,Dinner at Honi Honi,Honi Honi
+125.77,Transport,2026-03-22,spending,HKD,Citybus,Citybus
+116.61,Transport,2026-03-22,spending,HKD,Uber,Uber
+299.76,Dining,2026-03-23,spending,HKD,Dinner at Nobu HK,Nobu HK
+331.88,Dining,2026-03-23,spending,HKD,Dinner at Ozone,Ozone
+292.82,Dining,2026-03-24,spending,HKD,Dinner at Honi Honi,Honi Honi
+185.19,Dining,2026-03-24,spending,HKD,Dinner at Ozone,Ozone
+428.31,Entertainment,2026-03-24,spending,HKD,Night out - HK Philharmonic,HK Philharmonic
+1258.81,Shopping,2026-03-24,spending,HKD,Purchase at IFC Mall,IFC Mall
+35000.0,Salary,2026-03-25,income,HKD,Monthly salary,ABC Marketing Ltd
+150.36,Transport,2026-03-25,spending,HKD,MTR,MTR
+115.45,Transport,2026-03-25,spending,HKD,Uber,Uber
+861.14,Shopping,2026-03-26,spending,HKD,Purchase at ZARA,ZARA
+565.95,Entertainment,2026-03-27,spending,HKD,Night out - Club Cubic,Club Cubic
+473.0,Entertainment,2026-03-27,spending,HKD,Night out - Club Cubic,Club Cubic
+140.53,Transport,2026-03-27,spending,HKD,Citybus,Citybus
+113.9,Transport,2026-03-27,spending,HKD,HKTaxi,HKTaxi
+88.83,Transport,2026-03-27,spending,HKD,MTR,MTR
+501.58,Other,2026-03-28,spending,HKD,Octopus Reload,Octopus Reload
+152.16,Transport,2026-03-28,spending,HKD,MTR,MTR
+137.33,Transport,2026-03-29,spending,HKD,HKTaxi,HKTaxi
+260.82,Dining,2026-03-30,spending,HKD,Dinner at Mott 32,Mott 32
+123.87,Transport,2026-03-30,spending,HKD,Uber,Uber
+211.2,Dining,2026-03-31,spending,HKD,Dinner at Honi Honi,Honi Honi
+331.11,Dining,2026-03-31,spending,HKD,Dinner at Mott 32,Mott 32
+576.09,Entertainment,2026-03-31,spending,HKD,Night out - Club Cubic,Club Cubic
