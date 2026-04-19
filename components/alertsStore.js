@@ -190,7 +190,7 @@ function normalizeRuleForStore(rule = {}) {
 }
 
 function normalizeGoalForStore(goal = {}) {
-  console.log('Normalizing Goal:', goal)
+  // console.log('Normalizing Goal:', goal)
   const now = toIsoNow()
   return {
     goal_id: Math.max(1, Math.trunc(normalizeNumber(goal.goal_id, 1))),
@@ -317,7 +317,7 @@ function appendCutoffDateClause(whereClauses = [], params = [], cutoffDateExclus
 }
 
 async function sumAmountsForPeriod({ startDate, endDate, type, categoryIds = [], recipientIds = [], cutoffDateExclusive = null }) {
-  console.log('sumAmountsForPeriod params:', { startDate, endDate, categoryIds })
+  // console.log('sumAmountsForPeriod params:', { startDate, endDate, categoryIds })
   const params = [startDate, endDate, type]
   const whereClauses = ['date BETWEEN ? AND ?', 'type = ?']
 
@@ -333,7 +333,7 @@ async function sumAmountsForPeriod({ startDate, endDate, type, categoryIds = [],
     `SELECT COALESCE(SUM(amount), 0) AS total FROM record WHERE ${whereClauses.join(' AND ')}`,
     params
   )
-  console.log('sumAmountsForPeriod params:', { startDate, endDate, categoryIds }) //debug
+  // console.log('sumAmountsForPeriod params:', { startDate, endDate, categoryIds }) //debug
 
   return normalizeNumber(res?.rows?._array?.[0]?.total, 0)
 }
@@ -478,9 +478,9 @@ function insertAlertEventInStore(store, inputEvent = {}) {
     event.trigger_signature === normalized.trigger_signature
   ))
 
-  console.log('Checking for existing alert:', {
-  trigger_signature: inputEvent.trigger_signature,
-})
+  // console.log('Checking for existing alert:', {
+  // trigger_signature: inputEvent.trigger_signature,
+// })
   if (alreadyExists) {
     store.counters.event = Math.max(0, normalizeNumber(store.counters.event, 1) - 1)
     return false
@@ -743,12 +743,12 @@ async function evaluateRuleByType(store, rule, referenceDate, context, evaluatio
 }
 
 async function computeSavingsForGoal(goal, cycleBounds, evaluationOptions = {}) {
-  console.log('Computing Savings for Goal:', goal)
-  console.log('Cycle Bounds:', cycleBounds)
-  console.log('Goal Category IDs:', goal.category_ids)
+  // console.log('Computing Savings for Goal:', goal)
+  // console.log('Cycle Bounds:', cycleBounds)
+  // console.log('Goal Category IDs:', goal.category_ids)
 
   if (goal.mode === 'category') {
-    console.log('Category Mode: Passing categoryIds to sumAmountsForPeriod')
+    // console.log('Category Mode: Passing categoryIds to sumAmountsForPeriod')
     return sumAmountsForPeriod({
       startDate: cycleBounds.cycleStartDate,
       endDate: cycleBounds.cycleEndDate,
@@ -775,7 +775,7 @@ async function computeSavingsForGoal(goal, cycleBounds, evaluationOptions = {}) 
 }
 
 async function evaluateSavingsGoal(store, goal, referenceDate, evaluationOptions = {}) {
-  console.log('Evaluating Goal:', goal)
+  // console.log('Evaluating Goal:', goal)
   if (!goal?.enabled) return 0
   const cycleBounds = getCycleBoundsForDate(referenceDate, goal.cycle_start_day)
   const savings = await computeSavingsForGoal(goal, cycleBounds, evaluationOptions)
@@ -914,7 +914,7 @@ export async function fetchAllSavingsGoals(options = {}) {
 }
 
 export async function addSavingsGoal(input = {}) {
-  console.log('Adding Savings Goal Input:', input)
+  // console.log('Adding Savings Goal Input:', input)
   const store = await readStore()
   const now = toIsoNow()
 
@@ -931,7 +931,7 @@ export async function addSavingsGoal(input = {}) {
     created_at: now,
     updated_at: now,
   })
-  console.log('Adding Savings Goal:', payload)
+  // console.log('Adding Savings Goal:', payload)
 
   if (!payload.name) throw new Error('Goal name is required')
   if (payload.target_amount <= 0) throw new Error('Target amount must be greater than 0')
@@ -1112,7 +1112,7 @@ export async function evaluateAlertsForDate(referenceDate = null, options = {}) 
   for (const goal of store.goals.filter((item) => item.enabled)) {
     try {
       inserted += await evaluateSavingsGoal(store, goal, dateString, evaluationOptions)
-      console.log('Evaluating Goal:', goal)
+      // console.log('Evaluating Goal:', goal)
     } catch (e) {
       console.warn('evaluateSavingsGoal failed', goal?.goal_id, e)
     }
