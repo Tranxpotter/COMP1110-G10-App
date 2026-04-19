@@ -827,9 +827,30 @@ export async function importRecordsFromRows(rows = [], chunkSize = 200) {
 
 /* Export helper using Papa + expo-file-system + expo-sharing */
 export async function exportRecordsToCsv() {
-    const res = await executeSqlAsync('SELECT * FROM record')
+    // join to get category and recipient names
+    const res = await executeSqlAsync(
+      `SELECT r.*, c.cname AS cname, p.name AS rname
+         FROM record r
+         LEFT JOIN category c ON r.cid = c.cid
+         LEFT JOIN recipient p ON r.rid = p.rid
+         ORDER BY r.tid`
+    )
     const rows = (res.rows && res.rows._array) ? res.rows._array : []
-    const csv = Papa.unparse(rows)
+
+    // map to predictable columns: remove cid and rid, keep cname and rname
+    const mapped = rows.map(r => ({
+      tid: r.tid ?? '',
+      amount: r.amount ?? '',
+      cname: r.cname ?? '',
+      date: r.date ?? '',
+      type: r.type ?? '',
+      currency: r.currency ?? '',
+      inputdatetime: r.inputdatetime ?? '',
+      description: r.description ?? '',
+      rname: r.rname ?? ''
+    }))
+
+    const csv = Papa.unparse(mapped)
     const ts = new Date().toISOString().slice(0,19).replace(/[:T]/g, '-')
     const filename = `records-${ts}.csv`
     const path = `${FileSystem.cacheDirectory}${filename}`
