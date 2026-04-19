@@ -36,6 +36,7 @@ const CHART_PRIMARY_COLOR = '#1f8a70';
 const CHART_SECONDARY_COLOR = '#f97316';
 const CHART_DASH_ARRAY = [5, 4];
 const TREND_COLORS = ['#1f8a70', '#f97316', '#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899'];
+const PAGE_TYPE_OVERVIEW = 'overview';
 const PAGE_TYPE_PERIOD_TREND = 'period-trend';
 const PAGE_TYPE_CATEGORY_GROUPS = 'category-groups';
 const PAGE_TYPE_PROJECTION = 'projection';
@@ -56,6 +57,7 @@ const defaultFilterConfig = () => RecordFilterConfig.from().build();
 const buildDefaultPageConfig = (pageType = PAGE_TYPE_PERIOD_TREND) => ({
   filterConfig: defaultFilterConfig(),
   sortConfig: defaultSortConfig(),
+  summaryMode: 'all',
   trendConfig: defaultTrendConfig(),
   page2ChartType: 'Bar',
   projectionConfig: normalizeProjectionConfig({}, pageType === PAGE_TYPE_PROJECTION ? PROJECTION_SUBTYPE_MONTHLY_SPENDING : undefined),
@@ -68,6 +70,7 @@ const normalizePageConfig = (source = {}, pageType = PAGE_TYPE_PERIOD_TREND) => 
     ...source,
     filterConfig: RecordFilterConfig.from(source?.filterConfig || defaults.filterConfig).build(),
     sortConfig: RecordSortConfig.from(source?.sortConfig || defaults.sortConfig).build(),
+    summaryMode: ['all', 'income', 'spending'].includes(source?.summaryMode) ? source.summaryMode : defaults.summaryMode,
     trendConfig: {
       ...defaults.trendConfig,
       ...(source?.trendConfig || {}),
@@ -89,9 +92,27 @@ const normalizePageConfig = (source = {}, pageType = PAGE_TYPE_PERIOD_TREND) => 
 };
 
 const defaultBasePages = [
+  { id: 'base-overview', type: PAGE_TYPE_OVERVIEW, title: 'Summary (default)' },
   { id: 'base-period', type: PAGE_TYPE_PERIOD_TREND, title: 'Period Trend (default)' },
   { id: 'base-category', type: PAGE_TYPE_CATEGORY_GROUPS, title: 'Category Groups (default)' },
 ];
+
+const getRecordType = (record) => String(record?.type || '').toLowerCase();
+
+const matchesSummaryMode = (record, summaryMode) => {
+  if (summaryMode === 'income') return getRecordType(record) === 'income';
+  if (summaryMode === 'spending') return getRecordType(record) === 'spending';
+  return true;
+};
+
+const roundAmount = (value) => Math.round((Number(value) || 0) * 100) / 100;
+
+const formatSignedCurrency = (value) => {
+  const numeric = Number(value) || 0;
+  if (numeric > 0) return `+$${numeric.toFixed(2)}`;
+  if (numeric < 0) return `-$${Math.abs(numeric).toFixed(2)}`;
+  return '$0.00';
+};
 
 const formatYAxisLabel = (value) => {
   const numericValue = Number(value) || 0;
@@ -471,6 +492,7 @@ const Dashboard = () => {
   const [trendConfig, setTrendConfig] = useState(() => defaultTrendConfig());
   const [page2ChartType, setPage2ChartType] = useState('Bar');
   const [projectionConfig, setProjectionConfig] = useState(() => toDefaultProjectionConfig(PROJECTION_SUBTYPE_MONTHLY_SPENDING));
+  const [summaryMode, setSummaryMode] = useState('all');
 
   const pageDefinitions = useMemo(() => {
     return [...defaultBasePages, ...customPages];
@@ -495,7 +517,7 @@ const Dashboard = () => {
 
   const currentPageData = pageDefinitions[currentPage] || pageDefinitions[0] || defaultBasePages[0];
   const currentPageType = currentPageData?.type || PAGE_TYPE_PERIOD_TREND;
-  const currentPageId = currentPageData?.id || 'base-period';
+  const currentPageId = currentPageData?.id || 'base-overview';
   const records = recordsByPageId[currentPageId] || [];
   const currentPageLoading = Boolean(pageLoadingById[currentPageId]);
   const hasCurrentPageRecords = Object.prototype.hasOwnProperty.call(recordsByPageId, currentPageId);
@@ -523,6 +545,7 @@ const Dashboard = () => {
       const defaults = {
         customPages: [],
         pageConfigById: {
+          'base-overview': buildDefaultPageConfig(PAGE_TYPE_OVERVIEW),
           'base-period': buildDefaultPageConfig(PAGE_TYPE_PERIOD_TREND),
           'base-category': buildDefaultPageConfig(PAGE_TYPE_CATEGORY_GROUPS),
         },
@@ -640,6 +663,7 @@ const Dashboard = () => {
     const nextConfig = getNormalizedPageConfig(page.id, page.type);
     setFilterConfig(nextConfig.filterConfig);
     setSortConfig(nextConfig.sortConfig);
+    setSummaryMode(nextConfig.summaryMode || 'all');
     setTrendConfig(nextConfig.trendConfig);
     setPage2ChartType(nextConfig.page2ChartType);
     setProjectionConfig(nextConfig.projectionConfig);
@@ -732,6 +756,16 @@ const Dashboard = () => {
     setProjectionFilterSetupVisible(false);
   };
 
+  const handleSelectSummaryMode = (mode) => {
+    if (!['income', 'spending'].includes(mode)) return;
+    const nextMode = summaryMode === mode ? 'all' : mode;
+    setSummaryMode(nextMode);
+    updatePageConfig(currentPageData.id, currentPageType, (prev) => ({
+      ...prev,
+      summaryMode: nextMode,
+    }));
+  };
+
   const handleAddPage = () => {
     if (pageDefinitions.length >= MAX_DASHBOARD_PAGES) {
       Alert.alert('Page Limit Reached', `You can only have up to ${MAX_DASHBOARD_PAGES} pages.`);
@@ -802,7 +836,7 @@ const Dashboard = () => {
   };
 
   const handleDeleteCurrentPage = () => {
-    if (currentPage < 2) {
+    if (currentPage < defaultBasePages.length) {
       Alert.alert('Cannot Delete', 'Default page cannot be deleted.');
       return;
     }
@@ -862,6 +896,80 @@ const Dashboard = () => {
       projectionConfig,
     });
   }, [records, projectionConfig]);
+
+  const summaryModel = useMemo(() => {
+    const filtered = records.filter((record) => matchesSummaryMode(record, summaryMode));
+
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+    const todayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
+    const weekday = todayStart.getDay();
+    const diffToMonday = (weekday + 6) % 7;
+    const weekStart = new Date(todayStart);
+    weekStart.setDate(todayStart.getDate() - diffToMonday);
+
+    const isBetween = (dateValue, start, end) => {
+      const value = toValidDate(dateValue);
+      if (!value) return false;
+      const ms = value.getTime();
+      return ms >= start.getTime() && ms <= end.getTime();
+    };
+
+    const sumRows = (source) => roundAmount(source.reduce((sum, record) => sum + getSignedAmount(record), 0));
+
+    const total = sumRows(filtered);
+    const monthly = sumRows(filtered.filter((record) => isBetween(record.date, monthStart, todayEnd)));
+    const weekly = sumRows(filtered.filter((record) => isBetween(record.date, weekStart, todayEnd)));
+    const daily = sumRows(filtered.filter((record) => isBetween(record.date, todayStart, todayEnd)));
+
+    const categoryTotals = {};
+    Object.values(categoriesById).forEach((name) => {
+      const normalized = String(name || '').trim();
+      if (normalized) categoryTotals[normalized] = 0;
+    });
+
+    filtered.forEach((record) => {
+      const name = toCategoryName(record, categoriesById);
+      if (!Object.prototype.hasOwnProperty.call(categoryTotals, name)) {
+        categoryTotals[name] = 0;
+      }
+      categoryTotals[name] += getSignedAmount(record);
+    });
+
+    const categoryRows = Object.entries(categoryTotals)
+      .map(([label, value]) => ({ label, value: roundAmount(value) }));
+
+    categoryRows.sort((left, right) => {
+      if (summaryMode === 'income') {
+        return right.value - left.value;
+      }
+      return left.value - right.value;
+    });
+
+    const amountHeader = summaryMode === 'income'
+      ? 'Total Income'
+      : summaryMode === 'spending'
+        ? 'Total Spending'
+        : 'Total Amount';
+    const metricHeader = summaryMode === 'income'
+      ? 'Income'
+      : summaryMode === 'spending'
+        ? 'Spending'
+        : 'Amount';
+
+    return {
+      amountHeader,
+      metricHeader,
+      total,
+      periodRows: [
+        { label: 'Monthly', value: monthly },
+        { label: 'Weekly', value: weekly },
+        { label: 'Daily', value: daily },
+      ],
+      categoryRows,
+    };
+  }, [records, summaryMode, categoriesById]);
 
   const chartTitleOptions = useMemo(() => {
     return pageDefinitions.map((page, index) => ({ key: String(index), value: page.title }));
@@ -1173,8 +1281,8 @@ const Dashboard = () => {
     ? (trendConfig.chartType === 'line' ? 'Trend by Categories (Multi-Line)' : 'Trend by Categories (Stacked Bar)')
     : (trendConfig.chartType === 'line' ? 'Total Trend (Line)' : 'Total Trend (Bar)');
 
-  const renderChartTitleDropdown = () => (
-    <View style={styles.chartTitleDropdown}>
+  const renderChartTitleDropdown = (_title, inPaddedSection = false) => (
+    <View style={[styles.chartTitleDropdown, inPaddedSection && styles.chartTitleDropdownPadded]}>
       <ThemedSelectList
         key={`chart-page-select-${currentPage}`}
         data={chartTitleOptions}
@@ -1226,6 +1334,78 @@ const Dashboard = () => {
       </View>
     );
   };
+
+  const renderSummaryPage = (pageTitle, pageKey) => (
+    <View key={pageKey} style={styles.page}>
+      {renderPageRefreshIndicator()}
+      <View style={styles.summarySection}>
+        {renderChartTitleDropdown(pageTitle || 'Summary', true)}
+
+        <View style={styles.summaryTableCard}>
+          <View style={styles.summaryHeaderRow}>
+            <Text style={[styles.summaryHeaderCell, styles.summarySingleHeaderCell]}>{summaryModel.amountHeader}</Text>
+          </View>
+          <View style={styles.summaryDataRow}>
+            <Text
+              style={[
+                styles.summaryDataCell,
+                styles.summarySingleDataCell,
+                { color: summaryModel.total >= 0 ? '#2e7d32' : '#d32f2f', fontWeight: '700' },
+              ]}
+            >
+              {formatSignedCurrency(summaryModel.total)}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.summaryTableCard}>
+          <View style={styles.summaryHeaderRow}>
+            <Text style={[styles.summaryHeaderCell, { flex: 1.4 }]}>Period</Text>
+            <Text style={[styles.summaryHeaderCell, { flex: 1, textAlign: 'right' }]}>{summaryModel.metricHeader}</Text>
+          </View>
+          {summaryModel.periodRows.map((row) => (
+            <View key={`period-${row.label}`} style={styles.summaryDataRow}>
+              <Text style={[styles.summaryDataCell, { flex: 1.4 }]}>{row.label}</Text>
+              <Text style={[styles.summaryDataCell, { flex: 1, textAlign: 'right', color: row.value >= 0 ? '#2e7d32' : '#d32f2f', fontWeight: '700' }]}>
+                {formatSignedCurrency(row.value)}
+              </Text>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.summaryTableCard}>
+          <View style={styles.summaryHeaderRow}>
+            <Text style={[styles.summaryHeaderCell, { flex: 1.4 }]}>Category</Text>
+            <Text style={[styles.summaryHeaderCell, { flex: 1, textAlign: 'right' }]}>{summaryModel.metricHeader}</Text>
+          </View>
+          <ScrollView
+            style={styles.summaryCategoryScroll}
+            contentContainerStyle={styles.summaryCategoryScrollContent}
+            nestedScrollEnabled
+          >
+            {summaryModel.categoryRows.length === 0 ? (
+              <View style={styles.summaryDataRow}>
+                <Text style={[styles.summaryDataCell, { flex: 1.4 }]}>No categories</Text>
+                <Text style={[styles.summaryDataCell, { flex: 1, textAlign: 'right' }]}>$0.00</Text>
+              </View>
+            ) : (
+              summaryModel.categoryRows.map((row) => (
+                <View key={`category-${row.label}`} style={styles.summaryDataRow}>
+                  <Text style={[styles.summaryDataCell, { flex: 1.4 }]}>{row.label}</Text>
+                  <Text style={[styles.summaryDataCell, { flex: 1, textAlign: 'right', color: row.value >= 0 ? '#2e7d32' : '#d32f2f', fontWeight: '700' }]}>
+                    {formatSignedCurrency(row.value)}
+                  </Text>
+                </View>
+              ))
+            )}
+          </ScrollView>
+          {summaryModel.categoryRows.length > 3 ? (
+            <Text style={styles.summaryHintText}>Scroll for more categories</Text>
+          ) : null}
+        </View>
+      </View>
+    </View>
+  );
 
   const renderPeriodTrendPage = (pageTitle, pageKey) => (
     <View key={pageKey} style={styles.page}>
@@ -1300,6 +1480,9 @@ const Dashboard = () => {
         onPageSelected={(e) => setCurrentPage(e.nativeEvent.position)}
       >
         {pageDefinitions.map((page) => {
+          if (page.type === PAGE_TYPE_OVERVIEW) {
+            return renderSummaryPage(page.title, page.id);
+          }
           if (page.type === PAGE_TYPE_CATEGORY_GROUPS) {
             return renderCategoryGroupsPage(page.title, page.id);
           }
@@ -1311,33 +1494,61 @@ const Dashboard = () => {
       </PagerView>
 
       <View style={styles.footerContainer}>
-        <TouchableOpacity
-          style={styles.sideButton}
-          onPress={() => {
-            if (currentPageType === PAGE_TYPE_PERIOD_TREND) {
-              setTrendFilterVisible(true);
-            } else if (currentPageType === PAGE_TYPE_PROJECTION) {
-              setProjectionChartSetupVisible(true);
-            } else {
-              setChartModalVisible(true);
-            }
-          }}
-        >
-          <Text style={styles.sideButtonText}>Chart</Text>
-        </TouchableOpacity>
+        {currentPageType === PAGE_TYPE_OVERVIEW ? (
+          <>
+            <TouchableOpacity
+              style={[
+                styles.sideButton,
+                styles.summaryIncomeButton,
+                summaryMode !== 'income' && styles.summaryInactiveButton,
+              ]}
+              onPress={() => handleSelectSummaryMode('income')}
+            >
+              <Text style={styles.sideButtonText}>Income</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.sideButton}
-          onPress={() => {
-            if (currentPageType === PAGE_TYPE_PROJECTION) {
-              setProjectionFilterSetupVisible(true);
-              return;
-            }
-            handleOpenFilterModal();
-          }}
-        >
-          <Text style={styles.sideButtonText}>Filter</Text>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.sideButton,
+                styles.summarySpendingButton,
+                summaryMode !== 'spending' && styles.summaryInactiveButton,
+              ]}
+              onPress={() => handleSelectSummaryMode('spending')}
+            >
+              <Text style={styles.sideButtonText}>Spending</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            <TouchableOpacity
+              style={styles.sideButton}
+              onPress={() => {
+                if (currentPageType === PAGE_TYPE_PERIOD_TREND) {
+                  setTrendFilterVisible(true);
+                } else if (currentPageType === PAGE_TYPE_PROJECTION) {
+                  setProjectionChartSetupVisible(true);
+                } else {
+                  setChartModalVisible(true);
+                }
+              }}
+            >
+              <Text style={styles.sideButtonText}>Chart</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.sideButton}
+              onPress={() => {
+                if (currentPageType === PAGE_TYPE_PROJECTION) {
+                  setProjectionFilterSetupVisible(true);
+                  return;
+                }
+                handleOpenFilterModal();
+              }}
+            >
+              <Text style={styles.sideButtonText}>Filter</Text>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
 
       <Modal
@@ -1708,11 +1919,60 @@ const styles = StyleSheet.create({
   },
 
   chartSection: { flex: 3, justifyContent: 'center', alignItems: 'center', zIndex: 1 },
+  summarySection: { flex: 1, paddingHorizontal: '4%', paddingBottom: 8 },
+  summaryTableCard: {
+    borderWidth: 1,
+    borderColor: '#d0d0d0',
+    borderRadius: 10,
+    overflow: 'hidden',
+    backgroundColor: '#fff',
+    marginTop: 8,
+  },
+  summaryHeaderRow: {
+    flexDirection: 'row',
+    backgroundColor: Colors.primary,
+    borderBottomWidth: 1,
+    borderBottomColor: '#d0d0d0',
+  },
+  summaryHeaderCell: {
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#fff',
+  },
+  summarySingleHeaderCell: { flex: 1, textAlign: 'center' },
+  summaryDataRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e2e6e4',
+    minHeight: 34,
+  },
+  summaryDataCell: {
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    fontSize: 12,
+    color: Colors.light.text,
+  },
+  summarySingleDataCell: { flex: 1, textAlign: 'center' },
+  summaryCategoryScroll: { maxHeight: 104 },
+  summaryCategoryScrollContent: { paddingBottom: 0 },
+  summaryHintText: {
+    fontSize: 10,
+    color: Colors.light.disabledText,
+    textAlign: 'right',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+  },
   chartLabel: { fontSize: 14, color: Colors.light.text, marginTop: 10, fontWeight: '600' },
   chartTitleDropdown: {
     width: '92%',
     marginTop: 10,
     marginBottom: 2,
+  },
+  chartTitleDropdownPadded: {
+    width: '100%',
   },
   chartTitleSelectBox: {
     borderRadius: 8,
@@ -1859,6 +2119,9 @@ const styles = StyleSheet.create({
   footerContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: '5%', paddingBottom: 8, paddingTop: 10, borderTopWidth: 1, borderTopColor: '#d0d0d0' },
 
   sideButton: { width: screenWidth * 0.4, paddingVertical: 10, borderRadius: 8, borderWidth: 1, borderColor: Colors.primary, alignItems: 'center', backgroundColor: Colors.primary },
+  summaryIncomeButton: { backgroundColor: '#2e7d32', borderColor: '#2e7d32' },
+  summarySpendingButton: { backgroundColor: '#d32f2f', borderColor: '#d32f2f' },
+  summaryInactiveButton: { opacity: 0.55 },
   sideButtonText: { color: '#fff', fontWeight: '700', fontSize: 13 },
 
   modalOverlay: {
