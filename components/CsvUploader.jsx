@@ -20,7 +20,7 @@ const CsvUploader = () => {
     return await FileSystem.readAsStringAsync(path);
   }
 
-  // fallback copy/download to cache
+  // fallback copy/download to cache, error handling
   async function saveToCache(uri, name) {
     const safeName = name || `upload-${Date.now()}.csv`;
     const cacheDest = `${FileSystem.cacheDirectory}${safeName}`;

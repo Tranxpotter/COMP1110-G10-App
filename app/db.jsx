@@ -21,14 +21,14 @@ export default function InputForms() {
       setRecipients(recips || [])
       setRecords(recs || [])
 
-      /*
+      
       //for debugging
       const count = (recs || []).length
       console.log(`loadAll: fetched ${count} records`)
       if (count) {
         recs.forEach((r, i) => console.log(`record[${i}]`, r))
       }
-      */
+      
 
     } catch (e) {
       console.log('loadAll error', e)

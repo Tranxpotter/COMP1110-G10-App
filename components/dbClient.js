@@ -454,32 +454,73 @@ export async function deleteRecord(tid) {
 export async function importRecordsFromRows(rows = [], chunkSize = 200) {
   if (!Array.isArray(rows) || rows.length === 0) return { inserted: 0, skipped: 0 }
   let inserted = 0, skipped = 0
-  const db = await getDb()
 
-  // normalize rows first (keep names/cid/rid logic elsewhere if needed)
-  const normalized = rows.map(r => ([
-    Number(r.amount) || 0,
-    r.cid ? Number(r.cid) : null,
-    r.date ?? '',
-    r.type ?? '',
-    r.currency ?? '',
-    r.inputdatetime ?? '',
-    r.description ?? '',
-    r.rid ? Number(r.rid) : null
-  ]))
+  // helper: find a value in a row using multiple candidate header names (case-insensitive)
+  const findVal = (obj, candidates = []) => {
+    if (!obj || typeof obj !== 'object') return undefined
+    const map = {}
+    for (const k of Object.keys(obj)) {
+      map[String(k).trim().toLowerCase()] = obj[k]
+    }
+    for (const c of candidates) {
+      const v = map[String(c).trim().toLowerCase()]
+      if (v !== undefined) return v
+    }
+    return undefined
+  }
 
-  for (let i = 0; i < normalized.length; i += chunkSize) {
-    const chunk = normalized.slice(i, i + chunkSize)
-    for (const vals of chunk) {
+  // process rows in chunks to avoid overwhelming DB
+  for (let i = 0; i < rows.length; i += chunkSize) {
+    const chunk = rows.slice(i, i + chunkSize)
+    for (const r of chunk) {
       try {
-        const res = await db.runAsync(
-          `INSERT INTO record (amount, cid, date, type, currency, inputdatetime, description, rid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-          vals
-        )
-        if (res?.lastInsertRowId) inserted += 1
-        else if (res?.changes) inserted += res.changes
+        const amount = Number(findVal(r, ['amount', 'amt', 'value'])) || 0
+
+        // prefer cname/rname (text) — addRecord will resolve/create
+        const cname = (findVal(r, ['cname', 'category', 'categoryname', 'Category']) ?? null)
+        const rname = (findVal(r, ['rname', 'recipient', 'payee', 'Rname']) ?? null)
+
+        const dateRaw = String(findVal(r, ['date', 'transaction_date', 'dt', 'Date']) ?? '')
+        const date = dateRaw.slice(0, 10) // keep YYYY-MM-DD if available
+
+        const type = String(findVal(r, ['type', 'transaction_type', 'kind', 'Type']) ?? '')
+        const currency = String(findVal(r, ['currency', 'cur', 'Currency']) ?? '')
+
+        let inputdatetime = String(findVal(r, ['inputdatetime', 'input_datetime', 'timestamp', 'ts', 'InputDatetime']) ?? '')
+        // if inputdatetime missing but date present, set to date at 08:00:00
+        if (!inputdatetime && date) {
+          inputdatetime = `${date} 08:00:00`
+        } else if (!inputdatetime) {
+          // fallback to now if neither provided
+          const now = new Date()
+          const yyyy = now.getFullYear()
+          const mm = String(now.getMonth() + 1).padStart(2, '0')
+          const dd = String(now.getDate()).padStart(2, '0')
+          const hh = String(now.getHours()).padStart(2, '0')
+          const min = String(now.getMinutes()).padStart(2, '0')
+          const ss = String(now.getSeconds()).padStart(2, '0')
+          inputdatetime = `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`
+        }
+
+        const description = String(findVal(r, ['description', 'desc', 'note', 'Description']) ?? '')
+
+        // build object for addRecord (use cname/rname so addRecord resolves)
+        const obj = {
+          amount,
+          cname,
+          date,
+          type,
+          currency,
+          inputdatetime,
+          description,
+          rname
+        }
+
+        const res = await addRecord(obj)
+        if (res) inserted += 1
+        else skipped += 1
       } catch (err) {
-        console.warn('insert failed', err)
+        console.warn('importRecordsFromRows: addRecord failed', err)
         skipped += 1
       }
     }

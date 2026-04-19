@@ -34,6 +34,8 @@ export default function AlertRunner() {
     console.log('Alert rules triggered:', res)
   }
 
+
+  //change how it looks here, mainly use a button to run alerts I think, but u can call the function by following my code directly
   return (
     <View style={styles.container}>
       <Button title="Run Alert Rules" onPress={onRun} />
