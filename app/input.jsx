@@ -337,7 +337,6 @@ const Input = () => {
               save="key"
               defaultOption={selectedTypeOption}
               search={false}
-              inputStyles={{ color: '#fff' }}
               dropdownStyles={styles.typeDropdown}
             />
 
