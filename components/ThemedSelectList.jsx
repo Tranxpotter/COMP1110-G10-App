@@ -20,7 +20,7 @@ const ThemedSelectList = ({ boxStyles, inputStyles, dropdownStyles, dropdownItem
   if (!floating){
     return (
       <SelectList 
-        boxStyles={[{ backgroundColor: Colors.primary }, boxStyles]}
+        boxStyles={[{ backgroundColor: theme.uiBackground }, boxStyles]}
         inputStyles={[{ color: theme.text }, inputStyles]}
         dropdownStyles={[{ backgroundColor: theme.uiBackground }, dropdownStyles]}
         dropdownItemStyles={[{}, dropdownItemStyles]}
@@ -35,7 +35,7 @@ const ThemedSelectList = ({ boxStyles, inputStyles, dropdownStyles, dropdownItem
   else {
     return (
       <SelectList 
-        boxStyles={[{ backgroundColor: Colors.primary }, boxStyles]}
+        boxStyles={[{ backgroundColor: theme.uiBackground }, boxStyles]}
         inputStyles={[{ color: theme.text }, inputStyles]}
         dropdownStyles={[{ backgroundColor: theme.uiBackground, position: "absolute", zIndex: 99, top:40 }, dropdownStyles]}
         dropdownItemStyles={[{}, dropdownItemStyles]}

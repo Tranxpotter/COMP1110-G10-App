@@ -21,16 +21,6 @@ export default function CsvDownloader() {
   }
 
   return (
-    <View style={styles.container}>
-      <Button title={loading ? 'Exporting...' : 'Export CSV'} onPress={handleExport} disabled={loading} />
-      {loading && <ActivityIndicator style={styles.indicator} />}
-      <Text style={styles.note}>Exports records table to CSV and opens share/save sheet.</Text>
-    </View>
+    <Button title={loading ? 'Exporting...' : 'Export CSV'} onPress={handleExport} disabled={loading} />
   )
 }
-
-const styles = StyleSheet.create({
-  container: { padding: 16, alignItems: 'center' },
-  indicator: { marginTop: 12 },
-  note: { marginTop: 12, color: '#666', textAlign: 'center' }
-})

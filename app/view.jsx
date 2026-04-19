@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { Colors } from '../constants/Colors'
-import { RecordFilterConfig, RecordSortConfig, deleteRecord, executeSqlAsync, fetchAllCategories, fetchAllRecipients, fetchRecordCountWithFilters, fetchRecordsWithFilters, initTables, updateRecord } from '../components/dbClient'
+import { RecordFilterConfig, RecordSortConfig, deleteCategory, deleteRecord, deleteRecipient, executeSqlAsync, fetchAllCategories, fetchAllRecipients, fetchRecordCountWithFilters, fetchRecordsWithFilters, initTables, updateCategory, updateRecord, updateRecipient } from '../components/dbClient'
 import ThemedAutocomplete from '../components/ThemedAutocomplete'
 import ThemedButton from '../components/ThemedButton'
 import ThemedSelectList from '../components/ThemedSelectList'
@@ -11,6 +11,7 @@ import ThemedText from '../components/ThemedText'
 import ThemedTextInput from '../components/ThemedTextInput'
 import ThemedView from '../components/ThemedView'
 import RecordsFilterModal from '../components/RecordsFilterModal'
+import CsvDownloader from '../components/CsvDownloader'
 
 const RECORD_COLUMNS = [
   { key: 'date', width: 110, maxWidth: 110 },
@@ -24,6 +25,23 @@ const RECORD_COLUMNS = [
 const UPDATE_ACTION_COLUMN = { key: 'update', width: 120, maxWidth: 120 }
 const DELETE_ACTION_COLUMN = { key: 'delete', width: 120, maxWidth: 120 }
 const SELECT_COLUMN = { key: 'select', width: 68, maxWidth: 68 }
+
+const TABLE_MODE_OPTIONS = [
+  { key: 'transactions', value: 'Transactions' },
+  { key: 'categories', value: 'Categories' },
+  { key: 'recipients', value: 'Recipients' },
+]
+
+const CATEGORY_COLUMNS = [
+  { key: 'name', label: 'name', width: 220, maxWidth: 220 },
+  { key: 'count', label: 'count of transactions', width: 190, maxWidth: 190 },
+]
+
+const RECIPIENT_COLUMNS = [
+  { key: 'name', label: 'name', width: 180, maxWidth: 180 },
+  { key: 'count', label: 'count of transactions', width: 190, maxWidth: 190 },
+  { key: 'defaultCategory', label: 'default category', width: 220, maxWidth: 220 },
+]
 
 const TYPE_OPTIONS = [
   { key: 'spending', value: 'Spending' },
@@ -84,26 +102,85 @@ const UpdateRecordModal = ({
   const amountInputRef = useRef(null)
   const currencyInputRef = useRef(null)
   const descriptionInputRef = useRef(null)
+  const initialValuesRef = useRef(null)
 
   useEffect(() => {
     if (!visible || !record) return
 
     const nextType = String(record.type || '').toLowerCase() === 'income' ? 'income' : 'spending'
-    setDate(parseDateValue(record.date))
+    const initialDate = parseDateValue(record.date)
+    const initialRecipient = String(recipientsById[record.rid] || '')
+    const initialCategory = String(categoriesById[record.cid] || '')
+    const initialAmount = String(record.amount ?? 0)
+    const initialCurrency = String(record.currency ?? 'HKD')
+    const initialDescription = String(record.description ?? '')
+
+    setDate(initialDate)
     setTransactionType(nextType)
     setTypeSelectResetKey((prev) => prev + 1)
     setTypeDropdownCloseKey((prev) => prev + 1)
-    setRecipient(recipientsById[record.rid] || '')
-    setCategory(categoriesById[record.cid] || '')
-    setAmount(String(record.amount ?? 0))
-    setCurrency(String(record.currency ?? 'HKD'))
-    setDescription(String(record.description ?? ''))
+    setRecipient(initialRecipient)
+    setCategory(initialCategory)
+    setAmount(initialAmount)
+    setCurrency(initialCurrency)
+    setDescription(initialDescription)
     setMatchingRecipients([])
     setMatchingCategories([])
     setShowDatePicker(false)
     setSaving(false)
     setErrorMsg('')
+
+    initialValuesRef.current = {
+      date: initialDate.toLocaleDateString('en-CA'),
+      type: nextType,
+      recipient: initialRecipient,
+      category: initialCategory,
+      amount: Number(initialAmount),
+      amountRaw: initialAmount,
+      currency: initialCurrency,
+      description: initialDescription,
+    }
   }, [visible, record, categoriesById, recipientsById])
+
+  const hasUnsavedChanges = useMemo(() => {
+    if (!visible || !record || !initialValuesRef.current) return false
+
+    const initial = initialValuesRef.current
+    const currentDate = date?.toLocaleDateString?.('en-CA') || ''
+    const currentAmount = Number(amount)
+
+    const amountChanged = Number.isFinite(currentAmount) && Number.isFinite(initial.amount)
+      ? currentAmount !== initial.amount
+      : String(amount) !== String(initial.amountRaw || '')
+
+    return (
+      currentDate !== initial.date ||
+      transactionType !== initial.type ||
+      recipient !== initial.recipient ||
+      category !== initial.category ||
+      amountChanged ||
+      currency !== initial.currency ||
+      description !== initial.description
+    )
+  }, [visible, record, date, transactionType, recipient, category, amount, currency, description])
+
+  const handleAttemptClose = useCallback(() => {
+    if (saving) return
+
+    if (!hasUnsavedChanges) {
+      onClose()
+      return
+    }
+
+    Alert.alert(
+      'Discard unsaved changes?',
+      'You have unsaved changes. Close without saving?',
+      [
+        { text: 'Keep Editing', style: 'cancel' },
+        { text: 'Discard', style: 'destructive', onPress: onClose },
+      ]
+    )
+  }, [saving, hasUnsavedChanges, onClose])
 
   const selectedTypeOption =
     transactionType === 'income'
@@ -287,7 +364,7 @@ const UpdateRecordModal = ({
       animationType="fade"
       presentationStyle="overFullScreen"
       statusBarTranslucent={true}
-      onRequestClose={onClose}
+      onRequestClose={handleAttemptClose}
     >
       <View style={styles.modalOverlay}>
         <KeyboardAvoidingView
@@ -298,7 +375,7 @@ const UpdateRecordModal = ({
           <ThemedView style={styles.modalCard}>
             <View style={styles.modalHeader}>
               <ThemedText style={styles.modalTitle}>Update Record</ThemedText>
-              <Pressable onPress={onClose} style={styles.modalCloseButton}>
+              <Pressable onPress={handleAttemptClose} style={styles.modalCloseButton}>
                 <Text style={styles.modalCloseText}>Close</Text>
               </Pressable>
             </View>
@@ -363,7 +440,6 @@ const UpdateRecordModal = ({
                   save="key"
                   defaultOption={selectedTypeOption}
                   search={false}
-                  inputStyles={{ color: '#fff' }}
                   dropdownStyles={styles.modalTypeDropdown}
                 />
               </View>
@@ -492,7 +568,357 @@ const UpdateRecordModal = ({
 
                 <ThemedButton
                   style={[styles.modalActionButton, styles.modalCancelButton]}
-                  onPress={onClose}
+                  onPress={handleAttemptClose}
+                >
+                  <Text style={styles.modalActionText}>Cancel</Text>
+                </ThemedButton>
+              </View>
+
+              {!!errorMsg && <Text style={styles.modalErrorText}>{errorMsg}</Text>}
+            </ScrollView>
+          </ThemedView>
+        </KeyboardAvoidingView>
+      </View>
+    </Modal>
+  )
+}
+
+const UpdateCategoryModal = ({ visible, category, onClose, onSave }) => {
+  const [name, setName] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+  const initialNameRef = useRef('')
+
+  useEffect(() => {
+    if (!visible || !category) return
+
+    const initialName = String(category.cname || '')
+    setName(initialName)
+    setSaving(false)
+    setErrorMsg('')
+    initialNameRef.current = initialName
+  }, [visible, category])
+
+  const hasUnsavedChanges = useMemo(() => {
+    if (!visible || !category) return false
+    return String(name) !== String(initialNameRef.current || '')
+  }, [visible, category, name])
+
+  const handleAttemptClose = useCallback(() => {
+    if (saving) return
+
+    if (!hasUnsavedChanges) {
+      onClose()
+      return
+    }
+
+    Alert.alert(
+      'Discard unsaved changes?',
+      'You have unsaved changes. Close without saving?',
+      [
+        { text: 'Keep Editing', style: 'cancel' },
+        { text: 'Discard', style: 'destructive', onPress: onClose },
+      ]
+    )
+  }, [saving, hasUnsavedChanges, onClose])
+
+  const handleSave = useCallback(async () => {
+    if (!category?.cid) {
+      setErrorMsg('Invalid category.')
+      return
+    }
+
+    const trimmedName = String(name || '').trim()
+    if (!trimmedName) {
+      setErrorMsg('Name is required.')
+      return
+    }
+
+    setSaving(true)
+    try {
+      await onSave({
+        cid: category.cid,
+        name: trimmedName,
+      })
+    } catch (e) {
+      setErrorMsg(String(e?.message || e || 'Update failed'))
+    } finally {
+      setSaving(false)
+    }
+  }, [category, name, onSave])
+
+  return (
+    <Modal
+      visible={visible}
+      transparent={true}
+      animationType="fade"
+      presentationStyle="overFullScreen"
+      statusBarTranslucent={true}
+      onRequestClose={handleAttemptClose}
+    >
+      <View style={styles.modalOverlay}>
+        <KeyboardAvoidingView
+          style={styles.modalKeyboardWrap}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+        >
+          <ThemedView style={styles.modalCard}>
+            <View style={styles.modalHeader}>
+              <ThemedText style={styles.modalTitle}>Update Category</ThemedText>
+              <Pressable onPress={handleAttemptClose} style={styles.modalCloseButton}>
+                <Text style={styles.modalCloseText}>Close</Text>
+              </Pressable>
+            </View>
+
+            <ScrollView style={styles.modalScroll} keyboardShouldPersistTaps="handled">
+              <View style={styles.modalFieldRow}>
+                <ThemedText style={styles.modalFieldName}>Name:</ThemedText>
+                <ThemedTextInput
+                  style={styles.modalTextInput}
+                  value={name}
+                  onChangeText={(value) => {
+                    setName(value)
+                    setErrorMsg('')
+                  }}
+                  autoCorrect={false}
+                  returnKeyType="done"
+                />
+              </View>
+
+              <View style={styles.modalActionRow}>
+                <ThemedButton
+                  style={[styles.modalActionButton, styles.modalSaveButton]}
+                  onPress={handleSave}
+                >
+                  <Text style={styles.modalActionText}>{saving ? 'Saving...' : 'Save'}</Text>
+                </ThemedButton>
+
+                <ThemedButton
+                  style={[styles.modalActionButton, styles.modalCancelButton]}
+                  onPress={handleAttemptClose}
+                >
+                  <Text style={styles.modalActionText}>Cancel</Text>
+                </ThemedButton>
+              </View>
+
+              {!!errorMsg && <Text style={styles.modalErrorText}>{errorMsg}</Text>}
+            </ScrollView>
+          </ThemedView>
+        </KeyboardAvoidingView>
+      </View>
+    </Modal>
+  )
+}
+
+const UpdateRecipientModal = ({ visible, recipient, onClose, onSave }) => {
+  const [name, setName] = useState('')
+  const [defaultCategory, setDefaultCategory] = useState('')
+  const [matchingCategories, setMatchingCategories] = useState([])
+  const [saving, setSaving] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+  const initialValuesRef = useRef({ name: '', defaultCategory: '' })
+  const defaultCategoryInputRef = useRef(null)
+
+  useEffect(() => {
+    if (!visible || !recipient) return
+
+    const initialName = String(recipient.name || '')
+    const initialDefaultCategory = String(recipient.defaultCategory || '')
+
+    setName(initialName)
+    setDefaultCategory(initialDefaultCategory)
+    setMatchingCategories([])
+    setSaving(false)
+    setErrorMsg('')
+    initialValuesRef.current = {
+      name: initialName,
+      defaultCategory: initialDefaultCategory,
+    }
+  }, [visible, recipient])
+
+  const hasUnsavedChanges = useMemo(() => {
+    if (!visible || !recipient) return false
+
+    return (
+      String(name) !== String(initialValuesRef.current.name || '') ||
+      String(defaultCategory) !== String(initialValuesRef.current.defaultCategory || '')
+    )
+  }, [visible, recipient, name, defaultCategory])
+
+  const closeCategorySuggestions = useCallback(() => {
+    setMatchingCategories([])
+  }, [])
+
+  const lookupCategoryMatches = useCallback(async (value) => {
+    const keyword = String(value || '').trim()
+
+    if (!keyword) {
+      setMatchingCategories([])
+      return
+    }
+
+    const res = await executeSqlAsync(
+      `SELECT cname
+       FROM category
+       WHERE cname LIKE ?
+       ORDER BY cname ASC
+       LIMIT 8`,
+      [`${keyword}%`]
+    )
+
+    setMatchingCategories(res?.rows?._array || [])
+  }, [])
+
+  const handleDefaultCategoryChange = useCallback(async (value) => {
+    setDefaultCategory(value)
+    setErrorMsg('')
+
+    try {
+      await lookupCategoryMatches(value)
+    } catch (e) {
+      console.error('default category lookup failed', e)
+    }
+  }, [lookupCategoryMatches])
+
+  const handleAttemptClose = useCallback(() => {
+    if (saving) return
+
+    if (!hasUnsavedChanges) {
+      onClose()
+      return
+    }
+
+    Alert.alert(
+      'Discard unsaved changes?',
+      'You have unsaved changes. Close without saving?',
+      [
+        { text: 'Keep Editing', style: 'cancel' },
+        { text: 'Discard', style: 'destructive', onPress: onClose },
+      ]
+    )
+  }, [saving, hasUnsavedChanges, onClose])
+
+  const handleSave = useCallback(async () => {
+    if (!recipient?.rid) {
+      setErrorMsg('Invalid recipient.')
+      return
+    }
+
+    const trimmedName = String(name || '').trim()
+    const trimmedDefaultCategory = String(defaultCategory || '').trim()
+    if (!trimmedName) {
+      setErrorMsg('Name is required.')
+      return
+    }
+
+    let defaultCategoryCid = null
+    if (trimmedDefaultCategory) {
+      const matchRes = await executeSqlAsync(
+        `SELECT cid
+         FROM category
+         WHERE LOWER(cname) = LOWER(?)
+         LIMIT 1`,
+        [trimmedDefaultCategory]
+      )
+      const matchedCategory = matchRes?.rows?._array?.[0]
+      if (!matchedCategory?.cid) {
+        setErrorMsg('Default category must be an existing category.')
+        return
+      }
+      defaultCategoryCid = matchedCategory.cid
+    }
+
+    setSaving(true)
+    try {
+      await onSave({
+        rid: recipient.rid,
+        name: trimmedName,
+        defaultCategoryCid,
+      })
+    } catch (e) {
+      setErrorMsg(String(e?.message || e || 'Update failed'))
+    } finally {
+      setSaving(false)
+    }
+  }, [recipient, name, defaultCategory, onSave])
+
+  return (
+    <Modal
+      visible={visible}
+      transparent={true}
+      animationType="fade"
+      presentationStyle="overFullScreen"
+      statusBarTranslucent={true}
+      onRequestClose={handleAttemptClose}
+    >
+      <View style={styles.modalOverlay}>
+        <KeyboardAvoidingView
+          style={styles.modalKeyboardWrap}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+        >
+          <ThemedView style={styles.modalCard}>
+            <View style={styles.modalHeader}>
+              <ThemedText style={styles.modalTitle}>Update Recipient</ThemedText>
+              <Pressable onPress={handleAttemptClose} style={styles.modalCloseButton}>
+                <Text style={styles.modalCloseText}>Close</Text>
+              </Pressable>
+            </View>
+
+            <ScrollView style={styles.modalScroll} keyboardShouldPersistTaps="handled">
+              <View style={styles.modalFieldRow}>
+                <ThemedText style={styles.modalFieldName}>Name:</ThemedText>
+                <ThemedTextInput
+                  style={styles.modalTextInput}
+                  value={name}
+                  onFocus={closeCategorySuggestions}
+                  onChangeText={(value) => {
+                    setName(value)
+                    setErrorMsg('')
+                  }}
+                  autoCorrect={false}
+                  returnKeyType="next"
+                  blurOnSubmit={false}
+                  onSubmitEditing={() => defaultCategoryInputRef.current?.focus()}
+                />
+              </View>
+
+              <View style={styles.modalFieldRow}>
+                <ThemedText style={styles.modalFieldName}>Default Category:</ThemedText>
+                <ThemedAutocomplete
+                  inputRef={defaultCategoryInputRef}
+                  containerStyle={styles.modalAutocompleteWrap}
+                  inputStyle={styles.modalTextInput}
+                  value={defaultCategory}
+                  onChangeText={handleDefaultCategoryChange}
+                  returnKeyType="done"
+                  blurOnSubmit={false}
+                  autoCorrect={false}
+                  suggestions={matchingCategories}
+                  shouldShowSuggestions={!!defaultCategory.trim() && matchingCategories.length > 0}
+                  onSelectSuggestion={(item) => {
+                    setDefaultCategory(item?.cname || '')
+                    setMatchingCategories([])
+                    setErrorMsg('')
+                  }}
+                  onClose={closeCategorySuggestions}
+                  getSuggestionLabel={(item) => item?.cname || ''}
+                  maxVisibleItems={3}
+                  suggestionRowHeight={50}
+                />
+              </View>
+
+              <View style={styles.modalActionRow}>
+                <ThemedButton
+                  style={[styles.modalActionButton, styles.modalSaveButton]}
+                  onPress={handleSave}
+                >
+                  <Text style={styles.modalActionText}>{saving ? 'Saving...' : 'Save'}</Text>
+                </ThemedButton>
+
+                <ThemedButton
+                  style={[styles.modalActionButton, styles.modalCancelButton]}
+                  onPress={handleAttemptClose}
                 >
                   <Text style={styles.modalActionText}>Cancel</Text>
                 </ThemedButton>
@@ -508,11 +934,16 @@ const UpdateRecordModal = ({
 }
 
 const ViewTable = () => {
+  const [tableMode, setTableMode] = useState('transactions')
   const [records, setRecords] = useState([])
+  const [categoriesTableRows, setCategoriesTableRows] = useState([])
+  const [recipientsTableRows, setRecipientsTableRows] = useState([])
   const [categoriesById, setCategoriesById] = useState({})
   const [recipientsById, setRecipientsById] = useState({})
   const [loading, setLoading] = useState(true)
   const [editingRecord, setEditingRecord] = useState(null)
+  const [editingCategory, setEditingCategory] = useState(null)
+  const [editingRecipient, setEditingRecipient] = useState(null)
   const [filterModalVisible, setFilterModalVisible] = useState(false)
   const [filterModalColumnKey, setFilterModalColumnKey] = useState('date')
   const [filterConfig, setFilterConfig] = useState(() => (
@@ -525,6 +956,14 @@ const ViewTable = () => {
   const [totalRecords, setTotalRecords] = useState(0)
   const [selectMode, setSelectMode] = useState(false)
   const [selectedRecordIds, setSelectedRecordIds] = useState([])
+
+  const isTransactionsMode = tableMode === 'transactions'
+  const isCategoriesMode = tableMode === 'categories'
+  const isRecipientsMode = tableMode === 'recipients'
+
+  const selectedTableModeOption = useMemo(() => {
+    return TABLE_MODE_OPTIONS.find((item) => item.key === tableMode) || TABLE_MODE_OPTIONS[0]
+  }, [tableMode])
 
   const totalPages = useMemo(() => {
     return Math.max(1, Math.ceil(totalRecords / rowsPerPage))
@@ -603,10 +1042,135 @@ const ViewTable = () => {
     }
   }, [filterConfig, sortConfig, currentPage, rowsPerPage])
 
+  const loadCategories = useCallback(async (
+    targetPage = currentPage,
+    targetRowsPerPage = rowsPerPage,
+  ) => {
+    const safeRowsPerPage = normalizePageSize(targetRowsPerPage)
+    const requestedPage = normalizePage(targetPage)
+
+    try {
+      setLoading(true)
+      await initTables()
+
+      const [countRes, categories, recipients] = await Promise.all([
+        executeSqlAsync('SELECT COUNT(*) AS total FROM category'),
+        fetchAllCategories(),
+        fetchAllRecipients(),
+      ])
+
+      const safeTotalRecords = Number(countRes?.rows?._array?.[0]?.total) || 0
+      const safeTotalPages = Math.max(1, Math.ceil(safeTotalRecords / safeRowsPerPage))
+      const finalPage = Math.min(requestedPage, safeTotalPages)
+      const offset = (finalPage - 1) * safeRowsPerPage
+
+      const rows = await executeSqlAsync(
+        `SELECT c.cid, c.cname, COUNT(r.tid) AS transactionCount
+         FROM category c
+         LEFT JOIN record r ON r.cid = c.cid
+         GROUP BY c.cid, c.cname
+         ORDER BY LOWER(COALESCE(c.cname, '')) ASC, c.cid ASC
+         LIMIT ? OFFSET ?`,
+        [safeRowsPerPage, offset]
+      )
+
+      const categoryMap = (categories || []).reduce((acc, item) => {
+        acc[item.cid] = item.cname || ''
+        return acc
+      }, {})
+
+      const recipientMap = (recipients || []).reduce((acc, item) => {
+        acc[item.rid] = item.name || ''
+        return acc
+      }, {})
+
+      setCategoriesTableRows(rows?.rows?._array || [])
+      setCategoriesById(categoryMap)
+      setRecipientsById(recipientMap)
+      setTotalRecords(safeTotalRecords)
+      setRowsPerPage(safeRowsPerPage)
+      setCurrentPage(finalPage)
+      setPageInput(String(finalPage))
+    } catch (e) {
+      console.error('loadCategories failed', e)
+      Alert.alert('Database error', 'Failed to load categories.')
+    } finally {
+      setLoading(false)
+    }
+  }, [currentPage, rowsPerPage])
+
+  const loadRecipients = useCallback(async (
+    targetPage = currentPage,
+    targetRowsPerPage = rowsPerPage,
+  ) => {
+    const safeRowsPerPage = normalizePageSize(targetRowsPerPage)
+    const requestedPage = normalizePage(targetPage)
+
+    try {
+      setLoading(true)
+      await initTables()
+
+      const [countRes, categories, recipients] = await Promise.all([
+        executeSqlAsync('SELECT COUNT(*) AS total FROM recipient'),
+        fetchAllCategories(),
+        fetchAllRecipients(),
+      ])
+
+      const safeTotalRecords = Number(countRes?.rows?._array?.[0]?.total) || 0
+      const safeTotalPages = Math.max(1, Math.ceil(safeTotalRecords / safeRowsPerPage))
+      const finalPage = Math.min(requestedPage, safeTotalPages)
+      const offset = (finalPage - 1) * safeRowsPerPage
+
+      const rows = await executeSqlAsync(
+        `SELECT re.rid, re.name, re.cid, COALESCE(c.cname, '') AS defaultCategory, COUNT(r.tid) AS transactionCount
+         FROM recipient re
+         LEFT JOIN category c ON c.cid = re.cid
+         LEFT JOIN record r ON r.rid = re.rid
+         GROUP BY re.rid, re.name, re.cid, c.cname
+         ORDER BY LOWER(COALESCE(re.name, '')) ASC, re.rid ASC
+         LIMIT ? OFFSET ?`,
+        [safeRowsPerPage, offset]
+      )
+
+      const categoryMap = (categories || []).reduce((acc, item) => {
+        acc[item.cid] = item.cname || ''
+        return acc
+      }, {})
+
+      const recipientMap = (recipients || []).reduce((acc, item) => {
+        acc[item.rid] = item.name || ''
+        return acc
+      }, {})
+
+      setRecipientsTableRows(rows?.rows?._array || [])
+      setCategoriesById(categoryMap)
+      setRecipientsById(recipientMap)
+      setTotalRecords(safeTotalRecords)
+      setRowsPerPage(safeRowsPerPage)
+      setCurrentPage(finalPage)
+      setPageInput(String(finalPage))
+    } catch (e) {
+      console.error('loadRecipients failed', e)
+      Alert.alert('Database error', 'Failed to load recipients.')
+    } finally {
+      setLoading(false)
+    }
+  }, [currentPage, rowsPerPage])
+
   useFocusEffect(
     useCallback(() => {
+      if (isCategoriesMode) {
+        loadCategories()
+        return
+      }
+
+      if (isRecipientsMode) {
+        loadRecipients()
+        return
+      }
+
       loadRecords()
-    }, [loadRecords])
+    }, [isCategoriesMode, isRecipientsMode, loadRecords, loadCategories, loadRecipients])
   )
 
   useEffect(() => {
@@ -614,6 +1178,28 @@ const ViewTable = () => {
       setSelectedRecordIds([])
     }
   }, [selectMode, selectedRecordIds.length])
+
+  useEffect(() => {
+    if (isTransactionsMode) return
+    if (!selectMode && selectedRecordIds.length === 0) return
+
+    setSelectMode(false)
+    setSelectedRecordIds([])
+  }, [isTransactionsMode, selectMode, selectedRecordIds.length])
+
+  const handleTableModeChange = useCallback((value) => {
+    const normalized = ['transactions', 'categories', 'recipients'].includes(value)
+      ? value
+      : 'transactions'
+
+    setTableMode(normalized)
+    setFilterModalVisible(false)
+    setEditingRecord(null)
+    setEditingCategory(null)
+    setEditingRecipient(null)
+    setCurrentPage(1)
+    setPageInput('1')
+  }, [])
 
   const handleDelete = useCallback((tid) => {
     Alert.alert('Delete record', `Delete record #${tid}?`, [
@@ -647,6 +1233,110 @@ const ViewTable = () => {
   const handleCloseUpdateModal = useCallback(() => {
     setEditingRecord(null)
   }, [])
+
+  const handleUpdateCategory = useCallback((cid) => {
+    const row = categoriesTableRows.find((item) => item.cid === cid)
+    if (!row) {
+      Alert.alert('Update failed', 'Category was not found.')
+      return
+    }
+
+    setEditingCategory(row)
+  }, [categoriesTableRows])
+
+  const handleDeleteCategory = useCallback((cid) => {
+    Alert.alert('Delete category', 'Delete this category and its related data?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            await deleteCategory(cid)
+            await loadCategories()
+          } catch (e) {
+            console.error('deleteCategory failed', e)
+            Alert.alert('Delete failed', String(e))
+          }
+        },
+      },
+    ])
+  }, [loadCategories])
+
+  const handleSaveCategoryUpdate = useCallback(async (payload) => {
+    const trimmedName = String(payload?.name || '').trim()
+    if (!payload?.cid || !trimmedName) {
+      throw new Error('Invalid category update payload.')
+    }
+
+    const duplicate = await executeSqlAsync(
+      `SELECT cid
+       FROM category
+       WHERE LOWER(cname) = LOWER(?) AND cid <> ?
+       LIMIT 1`,
+      [trimmedName, payload.cid]
+    )
+
+    if (duplicate?.rows?._array?.length) {
+      throw new Error('Category name already exists.')
+    }
+
+    await updateCategory(payload.cid, trimmedName)
+    await loadCategories()
+    setEditingCategory(null)
+  }, [loadCategories])
+
+  const handleUpdateRecipient = useCallback((rid) => {
+    const row = recipientsTableRows.find((item) => item.rid === rid)
+    if (!row) {
+      Alert.alert('Update failed', 'Recipient was not found.')
+      return
+    }
+
+    setEditingRecipient(row)
+  }, [recipientsTableRows])
+
+  const handleDeleteRecipient = useCallback((rid) => {
+    Alert.alert('Delete recipient', 'Delete this recipient and its related transactions?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            await deleteRecipient(rid)
+            await loadRecipients()
+          } catch (e) {
+            console.error('deleteRecipient failed', e)
+            Alert.alert('Delete failed', String(e))
+          }
+        },
+      },
+    ])
+  }, [loadRecipients])
+
+  const handleSaveRecipientUpdate = useCallback(async (payload) => {
+    const trimmedName = String(payload?.name || '').trim()
+    if (!payload?.rid || !trimmedName) {
+      throw new Error('Invalid recipient update payload.')
+    }
+
+    const duplicate = await executeSqlAsync(
+      `SELECT rid
+       FROM recipient
+       WHERE LOWER(name) = LOWER(?) AND rid <> ?
+       LIMIT 1`,
+      [trimmedName, payload.rid]
+    )
+
+    if (duplicate?.rows?._array?.length) {
+      throw new Error('Recipient name already exists.')
+    }
+
+    await updateRecipient(payload.rid, trimmedName, payload.defaultCategoryCid ?? null)
+    await loadRecipients()
+    setEditingRecipient(null)
+  }, [loadRecipients])
 
   const handleOpenFilterModal = useCallback((columnKey) => {
     setFilterModalColumnKey(columnKey)
@@ -739,8 +1429,19 @@ const ViewTable = () => {
     const bounded = Math.min(normalized, totalPages)
     setCurrentPage(bounded)
     setPageInput(String(bounded))
+
+    if (isCategoriesMode) {
+      await loadCategories(bounded, rowsPerPage)
+      return
+    }
+
+    if (isRecipientsMode) {
+      await loadRecipients(bounded, rowsPerPage)
+      return
+    }
+
     await loadRecords(filterConfig, sortConfig, bounded, rowsPerPage)
-  }, [loadRecords, filterConfig, sortConfig, rowsPerPage, totalPages])
+  }, [loadRecords, loadCategories, loadRecipients, filterConfig, sortConfig, rowsPerPage, totalPages, isCategoriesMode, isRecipientsMode])
 
   const handlePageInputSubmit = useCallback(async () => {
     const numericInput = pageInput.trim() === '' ? 1 : normalizePage(pageInput)
@@ -754,8 +1455,19 @@ const ViewTable = () => {
     setRowsPerPage(nextRowsPerPage)
     setCurrentPage(1)
     setPageInput('1')
+
+    if (isCategoriesMode) {
+      await loadCategories(1, nextRowsPerPage)
+      return
+    }
+
+    if (isRecipientsMode) {
+      await loadRecipients(1, nextRowsPerPage)
+      return
+    }
+
     await loadRecords(filterConfig, sortConfig, 1, nextRowsPerPage)
-  }, [loadRecords, filterConfig, sortConfig])
+  }, [loadRecords, loadCategories, loadRecipients, filterConfig, sortConfig, isCategoriesMode, isRecipientsMode])
 
   const getCellValue = useCallback((row, columnKey) => {
     if (columnKey === 'category') return categoriesById[row.cid] ?? ''
@@ -780,24 +1492,45 @@ const ViewTable = () => {
     return undefined
   }, [])
 
-  const tableWidth = RECORD_COLUMNS.reduce((sum, col) => sum + col.width, 0) + (selectMode ? SELECT_COLUMN.width : 0) + (selectMode ? 0 : UPDATE_ACTION_COLUMN.width + DELETE_ACTION_COLUMN.width)
+  const transactionTableWidth = RECORD_COLUMNS.reduce((sum, col) => sum + col.width, 0) + (selectMode ? SELECT_COLUMN.width : 0) + (selectMode ? 0 : UPDATE_ACTION_COLUMN.width + DELETE_ACTION_COLUMN.width)
+  const categoryTableWidth = CATEGORY_COLUMNS.reduce((sum, col) => sum + col.width, 0) + UPDATE_ACTION_COLUMN.width + DELETE_ACTION_COLUMN.width
+  const recipientTableWidth = RECIPIENT_COLUMNS.reduce((sum, col) => sum + col.width, 0) + UPDATE_ACTION_COLUMN.width + DELETE_ACTION_COLUMN.width
 
   return (
     <ThemedView style={styles.container} safe={true}>
       <View style={styles.headerBar}>
-        <ThemedText style={styles.title}>Records</ThemedText>
-        <ThemedButton style={styles.selectModeButton} onPress={toggleSelectMode}>
-          <Text style={styles.selectModeButtonText}>{selectMode ? 'Exit Select Mode' : 'Select Mode'}</Text>
-        </ThemedButton>
-      </View>
-
-      {selectMode && selectedRecordIds.length > 0 && (
-        <View style={styles.bulkActionRow}>
-          <ThemedButton style={styles.bulkDeleteButton} onPress={handleDeleteSelected}>
-            <Text style={styles.bulkDeleteButtonText}>Delete Selected ({selectedRecordIds.length})</Text>
-          </ThemedButton>
+        <View style={styles.tableModeSelectWrap}>
+          <ThemedSelectList
+            key={`table-mode-${tableMode}`}
+            setSelected={handleTableModeChange}
+            data={TABLE_MODE_OPTIONS}
+            floating={true}
+            save="key"
+            defaultOption={selectedTableModeOption}
+            search={false}
+            boxStyles={styles.tableModeSelectBox}
+            inputStyles={styles.tableModeSelectInput}
+          />
         </View>
-      )}
+
+        <View style={styles.headerActionsWrap}>
+          {isTransactionsMode && selectMode && selectedRecordIds.length > 0 && (
+            <ThemedButton style={styles.bulkDeleteButton} onPress={handleDeleteSelected}>
+              <Text style={styles.bulkDeleteButtonText}>Delete ({selectedRecordIds.length})</Text>
+            </ThemedButton>
+          )}
+
+          {isTransactionsMode && !selectMode && (
+            <CsvDownloader />
+          )}
+
+          {isTransactionsMode && (
+            <ThemedButton style={styles.selectModeButton} onPress={toggleSelectMode}>
+              <Text style={styles.selectModeButtonText}>{selectMode ? 'Exit Select' : 'Select'}</Text>
+            </ThemedButton>
+          )}
+        </View>
+      </View>
 
       <UpdateRecordModal
         visible={!!editingRecord}
@@ -808,8 +1541,22 @@ const ViewTable = () => {
         onSave={handleSaveUpdate}
       />
 
+      <UpdateCategoryModal
+        visible={!!editingCategory}
+        category={editingCategory}
+        onClose={() => setEditingCategory(null)}
+        onSave={handleSaveCategoryUpdate}
+      />
+
+      <UpdateRecipientModal
+        visible={!!editingRecipient}
+        recipient={editingRecipient}
+        onClose={() => setEditingRecipient(null)}
+        onSave={handleSaveRecipientUpdate}
+      />
+
       <RecordsFilterModal
-        visible={filterModalVisible}
+        visible={isTransactionsMode && filterModalVisible}
         activeColumnKey={filterModalColumnKey}
         initialConfig={{ ...filterConfig, sort: sortConfig }}
         categoryOptions={categoryOptions}
@@ -819,82 +1566,175 @@ const ViewTable = () => {
       />
 
       {loading ? (
-        <Text style={styles.statusText}>Loading records...</Text>
-      ) : records.length === 0 ? (
-        <Text style={styles.statusText}>No records yet.</Text>
+        <Text style={styles.statusText}>Loading data...</Text>
+      ) : isTransactionsMode && records.length === 0 ? (
+        <Text style={styles.statusText}>No transactions yet.</Text>
+      ) : isCategoriesMode && categoriesTableRows.length === 0 ? (
+        <Text style={styles.statusText}>No categories yet.</Text>
+      ) : isRecipientsMode && recipientsTableRows.length === 0 ? (
+        <Text style={styles.statusText}>No recipients yet.</Text>
       ) : (
         <ScrollView style={styles.verticalScroll} contentContainerStyle={styles.verticalContent}>
-          <ScrollView horizontal showsHorizontalScrollIndicator contentContainerStyle={styles.horizontalContent}>
-            <View style={[styles.table, { width: tableWidth }]}>
-              <View style={[styles.row, styles.headerRow]}>
-                {selectMode && (
-                  <Text style={[styles.cell, styles.headerCell, styles.selectCell, { width: SELECT_COLUMN.width, minWidth: SELECT_COLUMN.width, maxWidth: SELECT_COLUMN.maxWidth }]}>select</Text>
-                )}
-                {RECORD_COLUMNS.map((col) => (
-                  <Pressable
-                    key={col.key}
-                    style={[styles.cell, styles.headerCell, styles.headerButton, { width: col.width, minWidth: col.width, maxWidth: col.maxWidth }]}
-                    onPress={() => handleOpenFilterModal(col.key)}
-                  >
-                    <Text style={styles.headerButtonText}>{col.key}</Text>
-                  </Pressable>
-                ))}
-                {!selectMode && (
-                  <>
-                    <Text style={[styles.cell, styles.headerCell, styles.actionCell, { width: UPDATE_ACTION_COLUMN.width, minWidth: UPDATE_ACTION_COLUMN.width, maxWidth: UPDATE_ACTION_COLUMN.maxWidth }]}>update</Text>
-                    <Text style={[styles.cell, styles.headerCell, styles.actionCell, { width: DELETE_ACTION_COLUMN.width, minWidth: DELETE_ACTION_COLUMN.width, maxWidth: DELETE_ACTION_COLUMN.maxWidth }]}>delete</Text>
-                  </>
-                )}
-              </View>
-
-              {records.map((row, index) => (
-                <View key={row.tid ?? index} style={[styles.row, index % 2 === 0 ? styles.evenRow : styles.oddRow]}>
+          {isTransactionsMode && (
+            <ScrollView horizontal showsHorizontalScrollIndicator contentContainerStyle={styles.horizontalContent}>
+              <View style={[styles.table, { width: transactionTableWidth }]}> 
+                <View style={[styles.row, styles.headerRow]}>
                   {selectMode && (
-                    <View style={[styles.cell, styles.selectCell, { width: SELECT_COLUMN.width, minWidth: SELECT_COLUMN.width, maxWidth: SELECT_COLUMN.maxWidth }]}>
-                      <Pressable
-                        style={[styles.checkbox, isRecordSelected(row.tid) && styles.checkboxChecked]}
-                        onPress={() => toggleRecordSelected(row.tid)}
-                        hitSlop={8}
-                      >
-                        {isRecordSelected(row.tid) && <View style={styles.checkboxInner} />}
-                      </Pressable>
-                    </View>
+                    <Text style={[styles.cell, styles.headerCell, styles.selectCell, { width: SELECT_COLUMN.width, minWidth: SELECT_COLUMN.width, maxWidth: SELECT_COLUMN.maxWidth }]}>select</Text>
                   )}
-
                   {RECORD_COLUMNS.map((col) => (
-                    <Text
-                      key={`${row.tid ?? index}-${col.key}`}
-                      style={[
-                        styles.cell,
-                        { width: col.width, minWidth: col.width, maxWidth: col.maxWidth },
-                        col.key === 'amount' && { color: getAmountColor(row) }
-                      ]}
-                      numberOfLines={2}
-                      ellipsizeMode="tail"
+                    <Pressable
+                      key={col.key}
+                      style={[styles.cell, styles.headerCell, styles.headerButton, { width: col.width, minWidth: col.width, maxWidth: col.maxWidth }]}
+                      onPress={() => handleOpenFilterModal(col.key)}
                     >
-                      {col.key === 'amount' ? getAmountDisplay(row) : String(getCellValue(row, col.key))}
-                    </Text>
+                      <Text style={styles.headerButtonText}>{col.key}</Text>
+                    </Pressable>
                   ))}
-
                   {!selectMode && (
                     <>
-                      <View style={[styles.cell, styles.actionCell, { width: UPDATE_ACTION_COLUMN.width, minWidth: UPDATE_ACTION_COLUMN.width, maxWidth: UPDATE_ACTION_COLUMN.maxWidth }]}>
-                        <Pressable style={[styles.actionButton, styles.updateButton]} onPress={() => handleUpdate(row.tid)}>
-                          <Text style={styles.actionText}>Update</Text>
-                        </Pressable>
-                      </View>
-
-                      <View style={[styles.cell, styles.actionCell, { width: DELETE_ACTION_COLUMN.width, minWidth: DELETE_ACTION_COLUMN.width, maxWidth: DELETE_ACTION_COLUMN.maxWidth }]}>
-                        <Pressable style={[styles.actionButton, styles.deleteButton]} onPress={() => handleDelete(row.tid)}>
-                          <Text style={styles.actionText}>Delete</Text>
-                        </Pressable>
-                      </View>
+                      <Text style={[styles.cell, styles.headerCell, styles.actionCell, { width: UPDATE_ACTION_COLUMN.width, minWidth: UPDATE_ACTION_COLUMN.width, maxWidth: UPDATE_ACTION_COLUMN.maxWidth }]}>update</Text>
+                      <Text style={[styles.cell, styles.headerCell, styles.actionCell, { width: DELETE_ACTION_COLUMN.width, minWidth: DELETE_ACTION_COLUMN.width, maxWidth: DELETE_ACTION_COLUMN.maxWidth }]}>delete</Text>
                     </>
                   )}
                 </View>
-              ))}
-            </View>
-          </ScrollView>
+
+                {records.map((row, index) => (
+                  <View key={row.tid ?? index} style={[styles.row, index % 2 === 0 ? styles.evenRow : styles.oddRow]}>
+                    {selectMode && (
+                      <View style={[styles.cell, styles.selectCell, { width: SELECT_COLUMN.width, minWidth: SELECT_COLUMN.width, maxWidth: SELECT_COLUMN.maxWidth }]}> 
+                        <Pressable
+                          style={[styles.checkbox, isRecordSelected(row.tid) && styles.checkboxChecked]}
+                          onPress={() => toggleRecordSelected(row.tid)}
+                          hitSlop={8}
+                        >
+                          {isRecordSelected(row.tid) && <View style={styles.checkboxInner} />}
+                        </Pressable>
+                      </View>
+                    )}
+
+                    {RECORD_COLUMNS.map((col) => (
+                      <Text
+                        key={`${row.tid ?? index}-${col.key}`}
+                        style={[
+                          styles.cell,
+                          { width: col.width, minWidth: col.width, maxWidth: col.maxWidth },
+                          col.key === 'amount' && { color: getAmountColor(row) }
+                        ]}
+                        numberOfLines={2}
+                        ellipsizeMode="tail"
+                      >
+                        {col.key === 'amount' ? getAmountDisplay(row) : String(getCellValue(row, col.key))}
+                      </Text>
+                    ))}
+
+                    {!selectMode && (
+                      <>
+                        <View style={[styles.cell, styles.actionCell, { width: UPDATE_ACTION_COLUMN.width, minWidth: UPDATE_ACTION_COLUMN.width, maxWidth: UPDATE_ACTION_COLUMN.maxWidth }]}> 
+                          <Pressable style={[styles.actionButton, styles.updateButton]} onPress={() => handleUpdate(row.tid)}>
+                            <Text style={styles.actionText}>Update</Text>
+                          </Pressable>
+                        </View>
+
+                        <View style={[styles.cell, styles.actionCell, { width: DELETE_ACTION_COLUMN.width, minWidth: DELETE_ACTION_COLUMN.width, maxWidth: DELETE_ACTION_COLUMN.maxWidth }]}> 
+                          <Pressable style={[styles.actionButton, styles.deleteButton]} onPress={() => handleDelete(row.tid)}>
+                            <Text style={styles.actionText}>Delete</Text>
+                          </Pressable>
+                        </View>
+                      </>
+                    )}
+                  </View>
+                ))}
+              </View>
+            </ScrollView>
+          )}
+
+          {isCategoriesMode && (
+            <ScrollView horizontal showsHorizontalScrollIndicator contentContainerStyle={styles.horizontalContent}>
+              <View style={[styles.table, { width: categoryTableWidth }]}> 
+                <View style={[styles.row, styles.headerRow]}>
+                  {CATEGORY_COLUMNS.map((col) => (
+                    <Text
+                      key={col.key}
+                      style={[styles.cell, styles.headerCell, { width: col.width, minWidth: col.width, maxWidth: col.maxWidth }]}
+                    >
+                      {col.label}
+                    </Text>
+                  ))}
+                  <Text style={[styles.cell, styles.headerCell, styles.actionCell, { width: UPDATE_ACTION_COLUMN.width, minWidth: UPDATE_ACTION_COLUMN.width, maxWidth: UPDATE_ACTION_COLUMN.maxWidth }]}>update</Text>
+                  <Text style={[styles.cell, styles.headerCell, styles.actionCell, { width: DELETE_ACTION_COLUMN.width, minWidth: DELETE_ACTION_COLUMN.width, maxWidth: DELETE_ACTION_COLUMN.maxWidth }]}>delete</Text>
+                </View>
+
+                {categoriesTableRows.map((row, index) => (
+                  <View key={row.cid ?? index} style={[styles.row, index % 2 === 0 ? styles.evenRow : styles.oddRow]}>
+                    <Text style={[styles.cell, { width: CATEGORY_COLUMNS[0].width, minWidth: CATEGORY_COLUMNS[0].width, maxWidth: CATEGORY_COLUMNS[0].maxWidth }]} numberOfLines={2} ellipsizeMode="tail">
+                      {String(row.cname || '')}
+                    </Text>
+                    <Text style={[styles.cell, { width: CATEGORY_COLUMNS[1].width, minWidth: CATEGORY_COLUMNS[1].width, maxWidth: CATEGORY_COLUMNS[1].maxWidth }]}>
+                      {String(Number(row.transactionCount) || 0)}
+                    </Text>
+
+                    <View style={[styles.cell, styles.actionCell, { width: UPDATE_ACTION_COLUMN.width, minWidth: UPDATE_ACTION_COLUMN.width, maxWidth: UPDATE_ACTION_COLUMN.maxWidth }]}> 
+                      <Pressable style={[styles.actionButton, styles.updateButton]} onPress={() => handleUpdateCategory(row.cid)}>
+                        <Text style={styles.actionText}>Update</Text>
+                      </Pressable>
+                    </View>
+
+                    <View style={[styles.cell, styles.actionCell, { width: DELETE_ACTION_COLUMN.width, minWidth: DELETE_ACTION_COLUMN.width, maxWidth: DELETE_ACTION_COLUMN.maxWidth }]}> 
+                      <Pressable style={[styles.actionButton, styles.deleteButton]} onPress={() => handleDeleteCategory(row.cid)}>
+                        <Text style={styles.actionText}>Delete</Text>
+                      </Pressable>
+                    </View>
+                  </View>
+                ))}
+              </View>
+            </ScrollView>
+          )}
+
+          {isRecipientsMode && (
+            <ScrollView horizontal showsHorizontalScrollIndicator contentContainerStyle={styles.horizontalContent}>
+              <View style={[styles.table, { width: recipientTableWidth }]}> 
+                <View style={[styles.row, styles.headerRow]}>
+                  {RECIPIENT_COLUMNS.map((col) => (
+                    <Text
+                      key={col.key}
+                      style={[styles.cell, styles.headerCell, { width: col.width, minWidth: col.width, maxWidth: col.maxWidth }]}
+                    >
+                      {col.label}
+                    </Text>
+                  ))}
+                  <Text style={[styles.cell, styles.headerCell, styles.actionCell, { width: UPDATE_ACTION_COLUMN.width, minWidth: UPDATE_ACTION_COLUMN.width, maxWidth: UPDATE_ACTION_COLUMN.maxWidth }]}>update</Text>
+                  <Text style={[styles.cell, styles.headerCell, styles.actionCell, { width: DELETE_ACTION_COLUMN.width, minWidth: DELETE_ACTION_COLUMN.width, maxWidth: DELETE_ACTION_COLUMN.maxWidth }]}>delete</Text>
+                </View>
+
+                {recipientsTableRows.map((row, index) => (
+                  <View key={row.rid ?? index} style={[styles.row, index % 2 === 0 ? styles.evenRow : styles.oddRow]}>
+                    <Text style={[styles.cell, { width: RECIPIENT_COLUMNS[0].width, minWidth: RECIPIENT_COLUMNS[0].width, maxWidth: RECIPIENT_COLUMNS[0].maxWidth }]} numberOfLines={2} ellipsizeMode="tail">
+                      {String(row.name || '')}
+                    </Text>
+                    <Text style={[styles.cell, { width: RECIPIENT_COLUMNS[1].width, minWidth: RECIPIENT_COLUMNS[1].width, maxWidth: RECIPIENT_COLUMNS[1].maxWidth }]}>
+                      {String(Number(row.transactionCount) || 0)}
+                    </Text>
+                    <Text style={[styles.cell, { width: RECIPIENT_COLUMNS[2].width, minWidth: RECIPIENT_COLUMNS[2].width, maxWidth: RECIPIENT_COLUMNS[2].maxWidth }]} numberOfLines={2} ellipsizeMode="tail">
+                      {String(row.defaultCategory || '')}
+                    </Text>
+
+                    <View style={[styles.cell, styles.actionCell, { width: UPDATE_ACTION_COLUMN.width, minWidth: UPDATE_ACTION_COLUMN.width, maxWidth: UPDATE_ACTION_COLUMN.maxWidth }]}> 
+                      <Pressable style={[styles.actionButton, styles.updateButton]} onPress={() => handleUpdateRecipient(row.rid)}>
+                        <Text style={styles.actionText}>Update</Text>
+                      </Pressable>
+                    </View>
+
+                    <View style={[styles.cell, styles.actionCell, { width: DELETE_ACTION_COLUMN.width, minWidth: DELETE_ACTION_COLUMN.width, maxWidth: DELETE_ACTION_COLUMN.maxWidth }]}> 
+                      <Pressable style={[styles.actionButton, styles.deleteButton]} onPress={() => handleDeleteRecipient(row.rid)}>
+                        <Text style={styles.actionText}>Delete</Text>
+                      </Pressable>
+                    </View>
+                  </View>
+                ))}
+              </View>
+            </ScrollView>
+          )}
         </ScrollView>
       )}
 
@@ -941,9 +1781,6 @@ const ViewTable = () => {
           <Text style={styles.pageButtonText}>{'>>'}</Text>
         </Pressable>
 
-        {/* <ThemedText style={styles.pageMetaText}>Page {currentPage} / {totalPages}</ThemedText> */}
-
-        {/* <ThemedText style={styles.pageSizeLabel}>Rows:</ThemedText> */}
         <View style={styles.pageSizeSelectWrap}>
           <ThemedSelectList
             key={`rows-${rowsPerPage}`}
@@ -953,6 +1790,8 @@ const ViewTable = () => {
             search={false}
             defaultOption={{ key: String(rowsPerPage), value: `${rowsPerPage}/page` }}
             style={styles.rowsPerPageInput}
+            // dropdownStyles={{top: -150}}
+            // floating={true}
           />
         </View>
       </View>
@@ -973,6 +1812,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 10,
+  },
+  tableModeSelectWrap: {
+    width: 140,
+    zIndex: 600,
+    elevation: 600,
+  },
+  tableModeSelectBox: {
+    minHeight: 44,
+  },
+  tableModeSelectInput: {
+    fontWeight: '700',
+  },
+  headerActionsWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: 8,
   },
   title: {
     fontSize: 20,

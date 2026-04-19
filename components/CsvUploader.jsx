@@ -20,7 +20,7 @@ const CsvUploader = () => {
     return await FileSystem.readAsStringAsync(path);
   }
 
-  // fallback copy/download to cache
+  // fallback copy/download to cache, error handling
   async function saveToCache(uri, name) {
     const safeName = name || `upload-${Date.now()}.csv`;
     const cacheDest = `${FileSystem.cacheDirectory}${safeName}`;
@@ -122,16 +122,11 @@ const CsvUploader = () => {
 
       // try import hook
       try {
-        await importCsv(uri, text, parsed.data);
+        await importCsv(parsed.data);
       } catch (e) {
-        console.warn('importCsv(uri, text) failed, trying importCsv(text)', e);
-        try {
-          await importCsv(text, parsed.data);
-        } catch (e2) {
-          console.error('importCsv failed', e2);
-          Alert.alert('Import failed', 'CSV import failed. See console.');
-          return;
-        }
+        console.error('importCsv failed', e);
+        Alert.alert('Import failed', 'CSV import failed. See console.');
+        return;
       }
 
       Alert.alert('Imported', `Imported ${name}`);
@@ -144,13 +139,12 @@ const CsvUploader = () => {
   return (
     <View style={styles.container}>
       <Button title="Upload CSV" onPress={handleFileUpload} />
-      {fileName ? <Text style={styles.fileName}>Selected: {fileName}</Text> : null}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { padding: 16 },
+  // container: { padding: 16 },
   fileName: { marginTop: 12, fontSize: 14 },
 });
 
