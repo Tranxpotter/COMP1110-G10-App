@@ -139,7 +139,6 @@ const CsvUploader = () => {
   return (
     <View style={styles.container}>
       <Button title="Upload CSV" onPress={handleFileUpload} />
-      {fileName ? <Text style={styles.fileName}>Selected: {fileName}</Text> : null}
     </View>
   );
 };

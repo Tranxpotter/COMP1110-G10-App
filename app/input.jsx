@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View, Text, useColorScheme, Pressable, Alert } from 'react-native'
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View, Text, useColorScheme, Pressable, Alert, Modal } from 'react-native'
 import React, { useRef, useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SelectList } from "react-native-dropdown-select-list";
@@ -37,11 +37,22 @@ const Input = () => {
   const [logMsg, setLogMsg] = useState("");
   const [matchingRecipients, setMatchingRecipients] = useState([])
   const [matchingCategories, setMatchingCategories] = useState([])
+  const [showAddRecipientModal, setShowAddRecipientModal] = useState(false)
+  const [showAddCategoryModal, setShowAddCategoryModal] = useState(false)
+  const [newRecipientName, setNewRecipientName] = useState('')
+  const [newRecipientNameExists, setNewRecipientNameExists] = useState(false)
+  const [newRecipientDefaultCategory, setNewRecipientDefaultCategory] = useState('')
+  const [recipientModalCategoryMatches, setRecipientModalCategoryMatches] = useState([])
+  const [newCategoryName, setNewCategoryName] = useState('')
+  const [newCategoryNameExists, setNewCategoryNameExists] = useState(false)
 
   const recipientInputRef = useRef(null);
   const categoryInputRef = useRef(null);
   const amountInputRef = useRef(null);
   const descriptionInputRef = useRef(null);
+  const newRecipientNameInputRef = useRef(null);
+  const newRecipientDefaultCategoryInputRef = useRef(null);
+  const newCategoryNameInputRef = useRef(null);
 
   function handleAmountInput(text) {
     let numericValue = String(text || '').replace(/[^0-9.]/g, '');
@@ -261,6 +272,210 @@ const Input = () => {
     closeCategorySuggestions()
   }
 
+  async function isRecipientNameTaken(name) {
+    const normalizedName = String(name || '').trim()
+    if (!normalizedName) return false
+
+    const res = await executeSqlAsync(
+      `SELECT rid
+       FROM recipient
+       WHERE LOWER(name) = LOWER(?)
+       LIMIT 1`,
+      [normalizedName]
+    )
+
+    return !!res?.rows?._array?.length
+  }
+
+  async function isCategoryNameTaken(name) {
+    const normalizedName = String(name || '').trim()
+    if (!normalizedName) return false
+
+    const res = await executeSqlAsync(
+      `SELECT cid
+       FROM category
+       WHERE LOWER(cname) = LOWER(?)
+       LIMIT 1`,
+      [normalizedName]
+    )
+
+    return !!res?.rows?._array?.length
+  }
+
+  async function handleNewRecipientNameChange(value) {
+    setNewRecipientName(value)
+    try {
+      const taken = await isRecipientNameTaken(value)
+      setNewRecipientNameExists(taken)
+    } catch (e) {
+      console.log('recipient duplicate check failed', e)
+      setNewRecipientNameExists(false)
+    }
+  }
+
+  async function lookupRecipientModalCategoryMatches(value) {
+    const keyword = String(value || '').trim()
+
+    if (!keyword) {
+      setRecipientModalCategoryMatches([])
+      return
+    }
+
+    const res = await executeSqlAsync(
+      `SELECT cname
+       FROM category
+       WHERE cname LIKE ?
+       ORDER BY cname ASC
+       LIMIT 8`,
+      [`${keyword}%`]
+    )
+
+    setRecipientModalCategoryMatches(res?.rows?._array || [])
+  }
+
+  async function handleNewRecipientDefaultCategoryChange(value) {
+    setNewRecipientDefaultCategory(value)
+
+    try {
+      await lookupRecipientModalCategoryMatches(value)
+    } catch (e) {
+      console.log('recipient modal category lookup failed', e)
+    }
+  }
+
+  function handleRecipientModalCategorySuggestionPress(item) {
+    setNewRecipientDefaultCategory(item?.cname || '')
+    setRecipientModalCategoryMatches([])
+  }
+
+  function closeRecipientModalCategorySuggestions() {
+    setRecipientModalCategoryMatches([])
+  }
+
+  async function handleNewCategoryNameChange(value) {
+    setNewCategoryName(value)
+    try {
+      const taken = await isCategoryNameTaken(value)
+      setNewCategoryNameExists(taken)
+    } catch (e) {
+      console.log('category duplicate check failed', e)
+      setNewCategoryNameExists(false)
+    }
+  }
+
+  function resetAddRecipientModal() {
+    setNewRecipientName('')
+    setNewRecipientNameExists(false)
+    setNewRecipientDefaultCategory('')
+    setRecipientModalCategoryMatches([])
+  }
+
+  function resetAddCategoryModal() {
+    setNewCategoryName('')
+    setNewCategoryNameExists(false)
+  }
+
+  function openAddRecipientModal() {
+    closeAllSuggestions()
+    resetAddRecipientModal()
+    setShowAddRecipientModal(true)
+  }
+
+  function closeAddRecipientModal() {
+    setShowAddRecipientModal(false)
+    resetAddRecipientModal()
+  }
+
+  function openAddCategoryModal() {
+    closeAllSuggestions()
+    resetAddCategoryModal()
+    setShowAddCategoryModal(true)
+  }
+
+  function closeAddCategoryModal() {
+    setShowAddCategoryModal(false)
+    resetAddCategoryModal()
+  }
+
+  async function handleAddRecipientSubmit() {
+    const trimmedRecipientName = String(newRecipientName || '').trim()
+    const trimmedDefaultCategory = String(newRecipientDefaultCategory || '').trim()
+
+    if (!trimmedRecipientName) {
+      Alert.alert('Name required', 'Please enter a recipient name.')
+      return
+    }
+
+    try {
+      const duplicateRecipient = await isRecipientNameTaken(trimmedRecipientName)
+      setNewRecipientNameExists(duplicateRecipient)
+      if (duplicateRecipient) return
+
+      let selectedCategoryId = null
+      let selectedCategoryName = ''
+
+      if (trimmedDefaultCategory) {
+        const matchedCategoryRes = await executeSqlAsync(
+          `SELECT cid, cname
+           FROM category
+           WHERE LOWER(cname) = LOWER(?)
+           LIMIT 1`,
+          [trimmedDefaultCategory]
+        )
+
+        const matchedCategory = matchedCategoryRes?.rows?._array?.[0]
+        if (!matchedCategory) {
+          Alert.alert('Category not found', 'Please select an existing default category or leave it blank.')
+          return
+        }
+
+        selectedCategoryId = matchedCategory.cid
+        selectedCategoryName = matchedCategory.cname
+      }
+
+      await addRecipient(trimmedRecipientName, selectedCategoryId)
+      setRecipient(trimmedRecipientName)
+
+      if (!String(category || '').trim() && selectedCategoryName) {
+        setCategory(selectedCategoryName)
+      }
+
+      setLogMsg('Recipient added')
+      closeAddRecipientModal()
+    } catch (e) {
+      console.log(e)
+      Alert.alert('Error', String(e))
+    }
+  }
+
+  async function handleAddCategorySubmit() {
+    const trimmedCategoryName = String(newCategoryName || '').trim()
+
+    if (!trimmedCategoryName) {
+      Alert.alert('Name required', 'Please enter a category name.')
+      return
+    }
+
+    try {
+      const duplicateCategory = await isCategoryNameTaken(trimmedCategoryName)
+      setNewCategoryNameExists(duplicateCategory)
+      if (duplicateCategory) return
+
+      await addCategory(trimmedCategoryName)
+      setCategory(trimmedCategoryName)
+
+      if (String(category || '').trim()) {
+        await lookupCategoryMatches(category)
+      }
+
+      setLogMsg('Category added')
+      closeAddCategoryModal()
+    } catch (e) {
+      console.log(e)
+      Alert.alert('Error', String(e))
+    }
+  }
+
   function handleTypeSelected(value) {
     const normalized = value === 'income' ? 'income' : 'spending'
     setTransactionType(normalized)
@@ -344,7 +559,12 @@ const Input = () => {
 
           <View style={styles.fieldRow}>
             
-            <ThemedText style={styles.fieldname}>Recipient:</ThemedText>
+            <View style={styles.fieldLabelWrap}>
+              <ThemedText style={styles.fieldname}>Recipient:</ThemedText>
+              <ThemedButton style={styles.inlineAddButton} onPress={openAddRecipientModal}>
+                <Text style={styles.inlineAddButtonText}>Add Recipient</Text>
+              </ThemedButton>
+            </View>
             
             <ThemedAutocomplete
               inputRef={recipientInputRef}
@@ -375,7 +595,12 @@ const Input = () => {
 
           <View style={styles.fieldRow}>
             
-            <ThemedText style={styles.fieldname}>Category:</ThemedText>
+            <View style={styles.fieldLabelWrap}>
+              <ThemedText style={styles.fieldname}>Category:</ThemedText>
+              <ThemedButton style={styles.inlineAddButton} onPress={openAddCategoryModal}>
+                <Text style={styles.inlineAddButtonText}>Add Category</Text>
+              </ThemedButton>
+            </View>
             
 
             <ThemedAutocomplete
@@ -463,6 +688,154 @@ const Input = () => {
         </View>
         
       </ThemedScrollView>
+
+      <Modal
+        visible={showAddRecipientModal}
+        transparent={true}
+        animationType="fade"
+        presentationStyle="overFullScreen"
+        statusBarTranslucent={true}
+        onRequestClose={closeAddRecipientModal}
+      >
+        <View style={styles.modalOverlay}>
+          <KeyboardAvoidingView
+            style={styles.modalKeyboardWrap}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 28}
+          >
+            <ThemedView style={styles.modalCard}>
+              <View style={styles.modalHeader}>
+                <ThemedText style={styles.modalTitle}>Add Recipient</ThemedText>
+                <Pressable onPress={closeAddRecipientModal} style={styles.modalCloseButton}>
+                  <Text style={styles.modalCloseText}>Close</Text>
+                </Pressable>
+              </View>
+
+              <ScrollView
+                style={styles.modalScroll}
+                contentContainerStyle={styles.modalScrollContent}
+                keyboardShouldPersistTaps="handled"
+              >
+                <ThemedText style={styles.modalFieldLabel}>Name (required)</ThemedText>
+                <ThemedTextInput
+                  ref={newRecipientNameInputRef}
+                  style={styles.modalInput}
+                  value={newRecipientName}
+                  onFocus={closeRecipientModalCategorySuggestions}
+                  onChangeText={handleNewRecipientNameChange}
+                  autoCorrect={false}
+                  returnKeyType="next"
+                  blurOnSubmit={false}
+                  onSubmitEditing={() => newRecipientDefaultCategoryInputRef.current?.focus()}
+                />
+                {newRecipientNameExists && (
+                  <Text style={styles.duplicateWarning}>Recipient name already exists.</Text>
+                )}
+
+                <ThemedText style={styles.modalFieldLabel}>Default Category (optional)</ThemedText>
+                <ThemedAutocomplete
+                  inputRef={newRecipientDefaultCategoryInputRef}
+                  containerStyle={styles.modalAutocompleteWrap}
+                  inputStyle={styles.modalInput}
+                  value={newRecipientDefaultCategory}
+                  onChangeText={handleNewRecipientDefaultCategoryChange}
+                  onFocus={closeRecipientModalCategorySuggestions}
+                  returnKeyType="done"
+                  blurOnSubmit={false}
+                  autoCorrect={false}
+                  suggestions={recipientModalCategoryMatches}
+                  shouldShowSuggestions={
+                    !!newRecipientDefaultCategory.trim() && recipientModalCategoryMatches.length > 0
+                  }
+                  onSelectSuggestion={handleRecipientModalCategorySuggestionPress}
+                  onClose={closeRecipientModalCategorySuggestions}
+                  getSuggestionLabel={(item) => item?.cname || ''}
+                  maxVisibleItems={3}
+                  suggestionRowHeight={50}
+                />
+
+                <View style={styles.modalActions}>
+                  <ThemedButton
+                    style={[styles.modalButton, { backgroundColor: theme.iconColor }]}
+                    onPress={closeAddRecipientModal}
+                  >
+                    <Text style={styles.modalButtonText}>Cancel</Text>
+                  </ThemedButton>
+
+                  <ThemedButton
+                    style={[styles.modalButton, { backgroundColor: Colors.primary }]}
+                    onPress={handleAddRecipientSubmit}
+                  >
+                    <Text style={styles.modalButtonText}>Save</Text>
+                  </ThemedButton>
+                </View>
+              </ScrollView>
+            </ThemedView>
+          </KeyboardAvoidingView>
+        </View>
+      </Modal>
+
+      <Modal
+        visible={showAddCategoryModal}
+        transparent={true}
+        animationType="fade"
+        presentationStyle="overFullScreen"
+        statusBarTranslucent={true}
+        onRequestClose={closeAddCategoryModal}
+      >
+        <View style={styles.modalOverlay}>
+          <KeyboardAvoidingView
+            style={styles.modalKeyboardWrap}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'position'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 28}
+          >
+            <ThemedView style={styles.modalCard}>
+              <View style={styles.modalHeader}>
+                <ThemedText style={styles.modalTitle}>Add Category</ThemedText>
+                <Pressable onPress={closeAddCategoryModal} style={styles.modalCloseButton}>
+                  <Text style={styles.modalCloseText}>Close</Text>
+                </Pressable>
+              </View>
+
+              <ScrollView
+                style={styles.modalScroll}
+                contentContainerStyle={styles.modalScrollContent}
+                keyboardShouldPersistTaps="handled"
+              >
+                <ThemedText style={styles.modalFieldLabel}>Name (required)</ThemedText>
+                <ThemedTextInput
+                  ref={newCategoryNameInputRef}
+                  style={styles.modalInput}
+                  value={newCategoryName}
+                  onChangeText={handleNewCategoryNameChange}
+                  autoCorrect={false}
+                  returnKeyType="done"
+                  blurOnSubmit={false}
+                />
+                {newCategoryNameExists && (
+                  <Text style={styles.duplicateWarning}>Category name already exists.</Text>
+                )}
+
+                <View style={styles.modalActions}>
+                  <ThemedButton
+                    style={[styles.modalButton, { backgroundColor: theme.iconColor }]}
+                    onPress={closeAddCategoryModal}
+                  >
+                    <Text style={styles.modalButtonText}>Cancel</Text>
+                  </ThemedButton>
+
+                  <ThemedButton
+                    style={[styles.modalButton, { backgroundColor: Colors.primary }]}
+                    onPress={handleAddCategorySubmit}
+                  >
+                    <Text style={styles.modalButtonText}>Save</Text>
+                  </ThemedButton>
+                </View>
+              </ScrollView>
+            </ThemedView>
+          </KeyboardAvoidingView>
+        </View>
+      </Modal>
     </KeyboardAvoidingView>
   )
 }
@@ -498,6 +871,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     columnGap: 10,
   },
+  fieldLabelWrap: {
+    width: 100,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
   typeRow: {
     zIndex: 300,
     elevation: 300,
@@ -529,6 +907,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "right",
   },
+  inlineAddButton: {
+    marginTop: 4,
+    backgroundColor: Colors.primary,
+    justifyContent: 'center',
+    minHeight: 24,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+  },
+  inlineAddButtonText: {
+    color: '#fff',
+    fontSize: 11,
+    textAlign: 'center',
+  },
   actionsRow: {
     flexDirection: "row",
     justifyContent: "space-evenly",
@@ -545,5 +936,90 @@ const styles = StyleSheet.create({
     color: Colors.warning,
     width: "100%",
     textAlign: "center",
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.45)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 14,
+    paddingVertical: 20,
+  },
+  modalKeyboardWrap: {
+    flex: 1,
+    width: '100%',
+    maxWidth: 720,
+    maxHeight: '100%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  modalCard: {
+    width: '100%',
+    maxHeight: '95%',
+    borderRadius: 12,
+    paddingHorizontal: 14,
+    paddingTop: 12,
+    paddingBottom: 16,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  modalCloseButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 6,
+    backgroundColor: Colors.warning,
+  },
+  modalCloseText: {
+    color: '#fff',
+    fontWeight: '700',
+  },
+  modalScroll: {
+    width: '100%',
+  },
+  modalScrollContent: {
+    paddingBottom: 72,
+  },
+  modalFieldLabel: {
+    fontSize: 15,
+    marginBottom: 4,
+    marginTop: 6,
+  },
+  modalInput: {
+    width: '100%',
+  },
+  modalAutocompleteWrap: {
+    width: '100%',
+    minWidth: 0,
+    minHeight: 60,
+  },
+  duplicateWarning: {
+    marginTop: 4,
+    marginBottom: 8,
+    color: Colors.warning,
+    fontSize: 12,
+  },
+  modalActions: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    columnGap: 10,
+    marginTop: 14,
+  },
+  modalButton: {
+    minWidth: 90,
+    justifyContent: 'center',
+    paddingVertical: 8,
+  },
+  modalButtonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 14,
   },
 })
