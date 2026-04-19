@@ -2,6 +2,8 @@ import React, { useState , useEffect} from 'react'
 import { View, Text, TextInput, Button, Alert, ScrollView, StyleSheet } from 'react-native'
 import { addCategory, addRecipient, addRecord, initTables, fetchAllCategories, fetchAllRecipients, fetchAllRecords, dropAllTables } from '../components/dbClient'
 import CsvUploader from '../components/CsvUploader'
+import AlertRunner from '../components/AlertRunner'
+import CsvDownloader from '../components/CsvDownloader'
 
 export default function InputForms() {
 
@@ -20,14 +22,15 @@ export default function InputForms() {
       setRecipients(recips || [])
       setRecords(recs || [])
 
-        // DEBUG: log summary and every record (helps trace blank page / large payload issues)
-        /*
+      
+      //for debugging
       const count = (recs || []).length
       console.log(`loadAll: fetched ${count} records`)
       if (count) {
         recs.forEach((r, i) => console.log(`record[${i}]`, r))
       }
-*/
+      
+
     } catch (e) {
       console.log('loadAll error', e)
     }
@@ -129,7 +132,7 @@ export default function InputForms() {
         return `${yyyy}-${mm}-${dd}`
       })()
 
-      // format inputdatetime -> "YYYY-MM-DD HH:MM:SS"
+      // format inputdatetime -> "YYYY-MM-DD HH:MM:SS" //i put input datetime here :>
       const inputdatetime = (() => {
         const now = new Date()
         const yyyy = now.getFullYear()
@@ -201,12 +204,24 @@ export default function InputForms() {
       <View style={{ marginTop: 12 }}>
           <Button title="Drop all tables (debug)" color="#b22222" onPress={onDropAllConfirm} />
       </View>
+
+
       {/* CSV uploader (debug): upload CSV to import records, this is how u implement my csv uploader hahahahahhahahah*/}
       <View style={{ marginTop: 12 }}>
         <CsvUploader /> 
       </View>
       <View style={{ marginTop: 12 }}>
         <Button title="Refresh Records" onPress={loadAll} />
+      </View>
+
+
+      {/* Alert runner page, if want change how it look go to AlertRunner.jsx*/}
+      <View style={{ marginTop: 12 }}>
+        <AlertRunner /> 
+      </View>
+
+      <View style={{ marginTop: 12 }}>
+        <CsvDownloader /> 
       </View>
 
       </ScrollView>

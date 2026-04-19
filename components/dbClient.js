@@ -803,18 +803,72 @@ export async function importRecordsFromRows(rows = [], chunkSize = 200) {
   if (!Array.isArray(rows) || rows.length === 0) return { inserted: 0, skipped: 0 }
   let inserted = 0, skipped = 0
 
-  const normalized = rows
-    .map(normalizeCsvRow)
-    .filter(row => Object.values(row).some(value => value !== undefined && value !== null && String(value).trim() !== ''))
+  // helper: find a value in a row using multiple candidate header names (case-insensitive)
+  const findVal = (obj, candidates = []) => {
+    if (!obj || typeof obj !== 'object') return undefined
+    const map = {}
+    for (const k of Object.keys(obj)) {
+      map[String(k).trim().toLowerCase()] = obj[k]
+    }
+    for (const c of candidates) {
+      const v = map[String(c).trim().toLowerCase()]
+      if (v !== undefined) return v
+    }
+    return undefined
+  }
 
-  for (let i = 0; i < normalized.length; i += chunkSize) {
-    const chunk = normalized.slice(i, i + chunkSize)
-    for (const row of chunk) {
+  // process rows in chunks to avoid overwhelming DB
+  for (let i = 0; i < rows.length; i += chunkSize) {
+    const chunk = rows.slice(i, i + chunkSize)
+    for (const r of chunk) {
       try {
-        const res = await addRecord(row)
+        const amount = Number(findVal(r, ['amount', 'amt', 'value'])) || 0
+
+        // prefer cname/rname (text) — addRecord will resolve/create
+        const cname = (findVal(r, ['cname', 'category', 'categoryname', 'Category']) ?? null)
+        const rname = (findVal(r, ['rname', 'recipient', 'payee', 'Rname']) ?? null)
+
+        const dateRaw = String(findVal(r, ['date', 'transaction_date', 'dt', 'Date']) ?? '')
+        const date = dateRaw.slice(0, 10) // keep YYYY-MM-DD if available
+
+        const type = String(findVal(r, ['type', 'transaction_type', 'kind', 'Type']) ?? '')
+        const currency = String(findVal(r, ['currency', 'cur', 'Currency']) ?? '')
+
+        let inputdatetime = String(findVal(r, ['inputdatetime', 'input_datetime', 'timestamp', 'ts', 'InputDatetime']) ?? '')
+        // if inputdatetime missing but date present, set to date at 08:00:00
+        if (!inputdatetime && date) {
+          inputdatetime = `${date} 08:00:00`
+        } else if (!inputdatetime) {
+          // fallback to now if neither provided
+          const now = new Date()
+          const yyyy = now.getFullYear()
+          const mm = String(now.getMonth() + 1).padStart(2, '0')
+          const dd = String(now.getDate()).padStart(2, '0')
+          const hh = String(now.getHours()).padStart(2, '0')
+          const min = String(now.getMinutes()).padStart(2, '0')
+          const ss = String(now.getSeconds()).padStart(2, '0')
+          inputdatetime = `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`
+        }
+
+        const description = String(findVal(r, ['description', 'desc', 'note', 'Description']) ?? '')
+
+        // build object for addRecord (use cname/rname so addRecord resolves)
+        const obj = {
+          amount,
+          cname,
+          date,
+          type,
+          currency,
+          inputdatetime,
+          description,
+          rname
+        }
+
+        const res = await addRecord(obj)
         if (res) inserted += 1
+        else skipped += 1
       } catch (err) {
-        console.warn('importRecordsFromRows insert failed', err)
+        console.warn('importRecordsFromRows: addRecord failed', err)
         skipped += 1
       }
     }
@@ -827,9 +881,30 @@ export async function importRecordsFromRows(rows = [], chunkSize = 200) {
 
 /* Export helper using Papa + expo-file-system + expo-sharing */
 export async function exportRecordsToCsv() {
-    const res = await executeSqlAsync('SELECT * FROM record')
+    // join to get category and recipient names
+    const res = await executeSqlAsync(
+      `SELECT r.*, c.cname AS cname, p.name AS rname
+         FROM record r
+         LEFT JOIN category c ON r.cid = c.cid
+         LEFT JOIN recipient p ON r.rid = p.rid
+         ORDER BY r.tid`
+    )
     const rows = (res.rows && res.rows._array) ? res.rows._array : []
-    const csv = Papa.unparse(rows)
+
+    // map to predictable columns: remove cid and rid, keep cname and rname
+    const mapped = rows.map(r => ({
+      tid: r.tid ?? '',
+      amount: r.amount ?? '',
+      cname: r.cname ?? '',
+      date: r.date ?? '',
+      type: r.type ?? '',
+      currency: r.currency ?? '',
+      inputdatetime: r.inputdatetime ?? '',
+      description: r.description ?? '',
+      rname: r.rname ?? ''
+    }))
+
+    const csv = Papa.unparse(mapped)
     const ts = new Date().toISOString().slice(0,19).replace(/[:T]/g, '-')
     const filename = `records-${ts}.csv`
     const path = `${FileSystem.cacheDirectory}${filename}`
