@@ -65,12 +65,14 @@ function parseJsonObject(value, fallback = {}) {
 }
 
 function normalizeIdArray(values = []) {
+  //console.log('normalizeIdArray input:', values) //debug
   if (!Array.isArray(values)) return []
   const ids = []
   for (const value of values) {
     const parsed = Number(value)
     if (Number.isFinite(parsed)) ids.push(parsed)
   }
+  //console.log('normalizeIdArray output:', ids) //debug
   return Array.from(new Set(ids))
 }
 
@@ -188,6 +190,7 @@ function normalizeRuleForStore(rule = {}) {
 }
 
 function normalizeGoalForStore(goal = {}) {
+  console.log('Normalizing Goal:', goal)
   const now = toIsoNow()
   return {
     goal_id: Math.max(1, Math.trunc(normalizeNumber(goal.goal_id, 1))),
@@ -314,6 +317,7 @@ function appendCutoffDateClause(whereClauses = [], params = [], cutoffDateExclus
 }
 
 async function sumAmountsForPeriod({ startDate, endDate, type, categoryIds = [], recipientIds = [], cutoffDateExclusive = null }) {
+  console.log('sumAmountsForPeriod params:', { startDate, endDate, categoryIds })
   const params = [startDate, endDate, type]
   const whereClauses = ['date BETWEEN ? AND ?', 'type = ?']
 
@@ -329,6 +333,7 @@ async function sumAmountsForPeriod({ startDate, endDate, type, categoryIds = [],
     `SELECT COALESCE(SUM(amount), 0) AS total FROM record WHERE ${whereClauses.join(' AND ')}`,
     params
   )
+  console.log('sumAmountsForPeriod params:', { startDate, endDate, categoryIds }) //debug
 
   return normalizeNumber(res?.rows?._array?.[0]?.total, 0)
 }
@@ -473,6 +478,9 @@ function insertAlertEventInStore(store, inputEvent = {}) {
     event.trigger_signature === normalized.trigger_signature
   ))
 
+  console.log('Checking for existing alert:', {
+  trigger_signature: inputEvent.trigger_signature,
+})
   if (alreadyExists) {
     store.counters.event = Math.max(0, normalizeNumber(store.counters.event, 1) - 1)
     return false
@@ -688,6 +696,8 @@ async function evaluateExtraSurplusRule(store, rule, referenceDate, evaluationOp
 
   if (threshold <= 0 || surplus <= threshold) return 0
 
+
+
   const inserted = insertAlertEventInStore(store, {
     source_type: 'rule',
     rule_id: rule.rule_id,
@@ -733,7 +743,12 @@ async function evaluateRuleByType(store, rule, referenceDate, context, evaluatio
 }
 
 async function computeSavingsForGoal(goal, cycleBounds, evaluationOptions = {}) {
+  console.log('Computing Savings for Goal:', goal)
+  console.log('Cycle Bounds:', cycleBounds)
+  console.log('Goal Category IDs:', goal.category_ids)
+
   if (goal.mode === 'category') {
+    console.log('Category Mode: Passing categoryIds to sumAmountsForPeriod')
     return sumAmountsForPeriod({
       startDate: cycleBounds.cycleStartDate,
       endDate: cycleBounds.cycleEndDate,
@@ -760,6 +775,7 @@ async function computeSavingsForGoal(goal, cycleBounds, evaluationOptions = {}) 
 }
 
 async function evaluateSavingsGoal(store, goal, referenceDate, evaluationOptions = {}) {
+  console.log('Evaluating Goal:', goal)
   if (!goal?.enabled) return 0
   const cycleBounds = getCycleBoundsForDate(referenceDate, goal.cycle_start_day)
   const savings = await computeSavingsForGoal(goal, cycleBounds, evaluationOptions)
@@ -898,10 +914,12 @@ export async function fetchAllSavingsGoals(options = {}) {
 }
 
 export async function addSavingsGoal(input = {}) {
+  console.log('Adding Savings Goal Input:', input)
   const store = await readStore()
   const now = toIsoNow()
 
   const payload = normalizeGoalForStore({
+    
     goal_id: nextId(store, 'goal'),
     name: String(input.name || 'Savings goal').trim(),
     enabled: normalizeBoolean(input.enabled, true),
@@ -913,6 +931,7 @@ export async function addSavingsGoal(input = {}) {
     created_at: now,
     updated_at: now,
   })
+  console.log('Adding Savings Goal:', payload)
 
   if (!payload.name) throw new Error('Goal name is required')
   if (payload.target_amount <= 0) throw new Error('Target amount must be greater than 0')
@@ -1093,10 +1112,13 @@ export async function evaluateAlertsForDate(referenceDate = null, options = {}) 
   for (const goal of store.goals.filter((item) => item.enabled)) {
     try {
       inserted += await evaluateSavingsGoal(store, goal, dateString, evaluationOptions)
+      console.log('Evaluating Goal:', goal)
     } catch (e) {
       console.warn('evaluateSavingsGoal failed', goal?.goal_id, e)
     }
   }
+
+
 
   if (inserted > 0) {
     await persistStore(store)
@@ -1179,6 +1201,19 @@ export async function refreshAlertEvaluations(options = {}) {
       AND TRIM(date) <> ''
   `
 
+  // determine cycle bounds for the requested reference date (default = today)
+  const referenceDate = toDateOnlyString(options?.referenceDate ?? new Date())
+  const cycleStartDay = normalizeCycleStartDay(options?.cycle_start_day ?? 1)
+  const cycleBounds = getCycleBoundsForDate(referenceDate, cycleStartDay)
+
+  // start from either an explicit startDate option, or from the reference date (today/debug date)
+  const queryStart = toDateOnlyString(options?.startDate ?? referenceDate)
+  const queryEnd = cycleBounds.cycleEndDate
+
+  // restrict fetched dates to the period [queryStart, queryEnd]
+  sql += ' AND date BETWEEN ? AND ?'
+  params.push(queryStart, queryEnd)
+
   if (cutoffDateExclusive) {
     sql += ' AND date < ?'
     params.push(cutoffDateExclusive)
@@ -1199,6 +1234,10 @@ export async function refreshAlertEvaluations(options = {}) {
 
   return {
     cutoffDateExclusive,
+    referenceDate,
+    cycleStartDay,
+    cycleStartDate: cycleBounds.cycleStartDate,
+    cycleEndDate: cycleBounds.cycleEndDate,
     datesEvaluated: dates.length,
     inserted,
   }
