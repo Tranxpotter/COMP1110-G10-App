@@ -468,8 +468,7 @@ export function useAlertRules(defaultOptions = {}) { //I must rmb to explain the
       await monthlySpendvsIncomeRule(records, opts), //spending limits
       await recurringPaymentRule(records, opts), //recurring payment alerts
       await monthlySurplusRule(records, opts), //extra surplus
-      await monthlySavingGoalRule(records, opts), //monthly savings
-      frequentPurchasesRule(records, opts)
+      await monthlySavingGoalRule(records, opts) //monthly savings
     ].flat()
 
     setAlerts(results)

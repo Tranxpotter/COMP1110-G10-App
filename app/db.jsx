@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, Alert, ScrollView, StyleSheet } from 're
 import { addCategory, addRecipient, addRecord, initTables, fetchAllCategories, fetchAllRecipients, fetchAllRecords, dropAllTables } from '../components/dbClient'
 import CsvUploader from '../components/CsvUploader'
 import AlertRunner from '../components/AlertRunner'
+import CsvDownloader from '../components/CsvDownloader'
 
 export default function InputForms() {
 
@@ -217,6 +218,10 @@ export default function InputForms() {
       {/* Alert runner page, if want change how it look go to AlertRunner.jsx*/}
       <View style={{ marginTop: 12 }}>
         <AlertRunner /> 
+      </View>
+
+      <View style={{ marginTop: 12 }}>
+        <CsvDownloader /> 
       </View>
 
       </ScrollView>
