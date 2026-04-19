@@ -89,7 +89,7 @@ const normalizePageConfig = (source = {}, pageType = PAGE_TYPE_PERIOD_TREND) => 
 
 const defaultBasePages = [
   { id: 'base-period', type: PAGE_TYPE_PERIOD_TREND, title: 'Period Trend (default)' },
-  { id: 'base-category', type: PAGE_TYPE_CATEGORY_GROUPS, title: 'Category groups (default)' },
+  { id: 'base-category', type: PAGE_TYPE_CATEGORY_GROUPS, title: 'Category Groups (default)' },
 ];
 
 const formatYAxisLabel = (value) => {
@@ -725,7 +725,7 @@ const Dashboard = () => {
     const fallbackTitle = nextType === PAGE_TYPE_PERIOD_TREND
       ? 'Period Trend'
       : nextType === PAGE_TYPE_CATEGORY_GROUPS
-        ? 'Category groups'
+        ? 'Category Groups'
         : toProjectionSubtypeLabel(newProjectionSubtype);
     const inputTitle = (newPageTitle || '').trim();
 
@@ -1349,7 +1349,7 @@ const Dashboard = () => {
                   style={[styles.optionButton, newPageType === PAGE_TYPE_CATEGORY_GROUPS && styles.optionButtonActive]}
                   onPress={() => setNewPageType(PAGE_TYPE_CATEGORY_GROUPS)}
                 >
-                  <Text style={[styles.optionButtonText, newPageType === PAGE_TYPE_CATEGORY_GROUPS && styles.optionButtonTextActive]}>Category groups</Text>
+                  <Text style={[styles.optionButtonText, newPageType === PAGE_TYPE_CATEGORY_GROUPS && styles.optionButtonTextActive]}>Category Groups</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.optionButton, newPageType === PAGE_TYPE_PROJECTION && styles.optionButtonActive]}
