@@ -11,6 +11,7 @@ const defaultTrendState = () => ({
   mode: 'total',
   chartType: 'line',
   dayRangePreset: 'auto',
+  showRegressionLine: true,
   selectedCandidateId: '',
   categoryIds: [],
 })
@@ -43,6 +44,7 @@ const DashboardTrendFilter = ({
       mode: source.mode === 'category' ? 'category' : 'total',
       chartType: source.chartType === 'stackedBar' ? 'stackedBar' : 'line',
       dayRangePreset: ['auto', 'closest90', 'closest30', 'closest7'].includes(source.dayRangePreset) ? source.dayRangePreset : 'auto',
+      showRegressionLine: source.showRegressionLine !== false,
       selectedCandidateId: '',
       categoryIds: normalizeIds(source.categoryIds),
     })
@@ -94,6 +96,7 @@ const DashboardTrendFilter = ({
       mode: trendState.mode,
       chartType: trendState.chartType,
       dayRangePreset: trendState.dayRangePreset,
+      showRegressionLine: trendState.showRegressionLine !== false,
       categoryIds: trendState.mode === 'category' ? normalizeIds(trendState.categoryIds) : [],
     })
   }
@@ -162,6 +165,30 @@ const DashboardTrendFilter = ({
                 </ThemedButton>
               </View>
             </View>
+
+            {trendState.mode === 'total' && (
+              <View style={styles.section}>
+                <ThemedText style={styles.sectionTitle}>Regression Line</ThemedText>
+                <View style={styles.optionRow}>
+                  <ThemedButton
+                    style={[styles.optionButton, trendState.showRegressionLine && styles.optionButtonActive]}
+                    onPress={() => setTrendState((prev) => ({ ...prev, showRegressionLine: true }))}
+                  >
+                    <Text style={[styles.optionButtonText, trendState.showRegressionLine && styles.optionButtonTextActive]}>
+                      Show
+                    </Text>
+                  </ThemedButton>
+                  <ThemedButton
+                    style={[styles.optionButton, !trendState.showRegressionLine && styles.optionButtonActive]}
+                    onPress={() => setTrendState((prev) => ({ ...prev, showRegressionLine: false }))}
+                  >
+                    <Text style={[styles.optionButtonText, !trendState.showRegressionLine && styles.optionButtonTextActive]}>
+                      Hide
+                    </Text>
+                  </ThemedButton>
+                </View>
+              </View>
+            )}
 
             <View style={styles.section}>
               <ThemedText style={styles.sectionTitle}>Day Range</ThemedText>

@@ -38,7 +38,13 @@ const PAGE_TYPE_PROJECTION = 'projection';
 const MAX_DASHBOARD_PAGES = 10;
 const MAX_PAGE_TITLE_LENGTH = 25;
 
-const defaultTrendConfig = () => ({ mode: 'total', chartType: 'line', dayRangePreset: 'auto', categoryIds: [] });
+const defaultTrendConfig = () => ({
+  mode: 'total',
+  chartType: 'line',
+  dayRangePreset: 'auto',
+  categoryIds: [],
+  showRegressionLine: true,
+});
 const defaultSortConfig = () => RecordSortConfig.byDate('desc').build();
 const defaultFilterConfig = () => RecordFilterConfig.from().build();
 
@@ -66,6 +72,7 @@ const normalizePageConfig = (source = {}, pageType = PAGE_TYPE_PERIOD_TREND) => 
         ? source.trendConfig.dayRangePreset
         : 'auto',
       categoryIds: (source?.trendConfig?.categoryIds || []).map((item) => String(item)).filter(Boolean),
+      showRegressionLine: source?.trendConfig?.showRegressionLine !== false,
     },
     page2ChartType: source?.page2ChartType === 'Pie' ? 'Pie' : 'Bar',
     projectionConfig: normalizeProjectionConfig(
@@ -349,6 +356,25 @@ const buildTrendModel = (records = [], categoriesById = {}, trendConfig = {}, fi
     frontColor: totals[index] >= 0 ? '#0BA5A4' : '#d32f2f',
   }));
 
+  const regressionLineData = (() => {
+    const count = totals.length;
+    if (count === 0) return [];
+
+    const sumX = (count * (count - 1)) / 2;
+    const sumX2 = ((count - 1) * count * (2 * count - 1)) / 6;
+    const sumY = totals.reduce((sum, value) => sum + value, 0);
+    const sumXY = totals.reduce((sum, value, index) => sum + index * value, 0);
+
+    const denominator = count * sumX2 - sumX * sumX;
+    const slope = denominator === 0 ? 0 : (count * sumXY - sumX * sumY) / denominator;
+    const intercept = (sumY - slope * sumX) / count;
+
+    return periods.map((period, index) => ({
+      label: period.endChartLabel || period.endLabel,
+      value: slope * index + intercept,
+    }));
+  })();
+
   const multiLineDataSet = selectedCategoryIds.map((categoryId, index) => ({
     data: periods.map((period, periodIndex) => ({
       label: period.endChartLabel || period.endLabel,
@@ -398,6 +424,7 @@ const buildTrendModel = (records = [], categoriesById = {}, trendConfig = {}, fi
     tableRows,
     totalLineData,
     totalBarData,
+    regressionLineData,
     multiLineDataSet,
     stackedBarData,
     legend,
@@ -653,6 +680,7 @@ const Dashboard = () => {
         ? nextTrendConfig.dayRangePreset
         : 'auto',
       categoryIds: (nextTrendConfig.categoryIds || []).map((item) => String(item)).filter(Boolean),
+      showRegressionLine: nextTrendConfig.showRegressionLine !== false,
     };
     setTrendConfig(normalizedTrend);
     updatePageConfig(currentPageData.id, currentPageType, (prev) => ({
@@ -881,23 +909,47 @@ const Dashboard = () => {
     formatYLabel: formatYAxisLabel,
   };
 
+  const page1TotalLineDataSet = [
+    {
+      data: trendModel.totalLineData,
+      color: '#0BA5A4',
+      thickness: 2,
+      areaChart: true,
+      startFillColor: '#0BA5A4',
+      startOpacity: 0.1,
+    },
+    ...(trendConfig.showRegressionLine === false
+      ? []
+      : [{
+        data: trendModel.regressionLineData,
+        color: '#f59e0b',
+        thickness: 2,
+        strokeDashArray: [6, 4],
+        hideDataPoints: true,
+      }]),
+  ];
+
   const page1TotalLineProps = {
     ...chartCommonProps,
-    data: trendModel.totalLineData,
+    dataSet: page1TotalLineDataSet,
     maxValue: page1AxisRange,
     mostNegativeValue: -page1AxisRange,
     stepValue: page1StepValue,
     negativeStepValue: page1StepValue,
-    color: '#0BA5A4',
-    areaChart: true,
-    startFillColor: '#0BA5A4',
-    startOpacity: 0.1,
     spacing: page1Spacing,
   };
 
   const page1TotalBarProps = {
     ...chartCommonProps,
     data: trendModel.totalBarData,
+    showLine: trendConfig.showRegressionLine !== false,
+    lineData: trendConfig.showRegressionLine === false ? [] : trendModel.regressionLineData,
+    lineConfig: {
+      color: '#f59e0b',
+      thickness: 2,
+      strokeDashArray: [6, 4],
+      hideDataPoints: true,
+    },
     maxValue: page1AxisRange,
     mostNegativeValue: -page1AxisRange,
     stepValue: page1StepValue,
@@ -949,6 +1001,17 @@ const Dashboard = () => {
     spacing: getDynamicSpacing(chartWidth, projectionModel.pointsCount),
   };
 
+  const filterSignature = JSON.stringify(filterConfig || {});
+
+  const totalSeries = (trendModel.totalLineData || []).map((point) => Number(point?.value || 0).toFixed(4)).join('|');
+  const regressionSeries = (trendModel.regressionLineData || []).map((point) => Number(point?.value || 0).toFixed(4)).join('|');
+  const totalLineChartKey = `total-line-${currentPageId}-${trendConfig.dayRangePreset}-${filterSignature}-${totalSeries}-${regressionSeries}`;
+
+  const seriesSignature = (trendModel.multiLineDataSet || [])
+    .map((series) => (series?.data || []).map((point) => Number(point?.value || 0).toFixed(4)).join('|'))
+    .join('||');
+  const categoryLineChartKey = `category-line-${currentPageId}-${trendConfig.dayRangePreset}-${filterSignature}-${seriesSignature}`;
+
   const renderPage1Chart = () => {
     if (trendConfig.mode === 'category') {
       if (trendModel.legend.length < 2) {
@@ -956,7 +1019,7 @@ const Dashboard = () => {
       }
 
       if (trendConfig.chartType === 'line') {
-        return <LineChart {...page1MultiLineProps} />;
+        return <LineChart key={categoryLineChartKey} {...page1MultiLineProps} />;
       }
 
       return <BarChart {...page1StackedBarProps} />;
@@ -966,7 +1029,7 @@ const Dashboard = () => {
       return <BarChart {...page1TotalBarProps} />;
     }
 
-    return <LineChart {...page1TotalLineProps} />;
+    return <LineChart key={totalLineChartKey} {...page1TotalLineProps} />;
   };
 
   const renderPage2Chart = () => {

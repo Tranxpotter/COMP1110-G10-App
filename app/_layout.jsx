@@ -26,7 +26,6 @@ const TabsLayout = () => {
     <Tabs 
       screenOptions={{ headerShown: false, tabBarStyle: {
         backgroundColor: theme.navBackground, 
-        paddingTop: 10, 
         paddingBottom: insets.bottom,
       }, 
       tabBarActiveTintColor: theme.iconColorFocused, 
