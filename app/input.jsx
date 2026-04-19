@@ -2,8 +2,9 @@ import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View, Text, use
 import React, { useRef, useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SelectList } from "react-native-dropdown-select-list";
-import { SafeAreaInsetsContext } from 'react-native-safe-area-context'
+import { SafeAreaInsetsContext, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { addCategory, addRecipient, addRecord, initTables, fetchAllCategories, fetchAllRecipients, fetchAllRecords, dropAllTables, executeSqlAsync } from '../components/dbClient'
+
 
 // themed components
 import { Colors } from '../constants/Colors'
@@ -14,10 +15,13 @@ import ThemedAutocomplete from '../components/ThemedAutocomplete';
 import ThemedSelectList from '../components/ThemedSelectList';
 import ThemedView from "../components/ThemedView"
 import ThemedScrollView from '../components/ThemedScrollView';
+import CsvUploader from '../components/CsvUploader'
 
 const Input = () => {
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme] ?? Colors.light;
+
+  const insets = useSafeAreaInsets();
 
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -284,12 +288,17 @@ const Input = () => {
       keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
     >
       <ThemedScrollView
-        safe={true}
+        // safe={true}
         useBottomSafe={false}
-        style={styles.scroll}
+        style={[styles.scroll, { marginTop: insets.top }]}
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
+        
+        <View >
+          <CsvUploader /> 
+        </View>
+
         <ThemedView style={styles.form}>
           <View style={styles.fieldRow}>
             <ThemedText style={styles.fieldname}>Date:</ThemedText>
@@ -431,26 +440,29 @@ const Input = () => {
           </View>
         </ThemedView>
 
+
         <View style={[styles.container, { flexDirection: "row", justifyContent: "space-evenly", height: "30" }]}>
 
           <ThemedButton 
-            style={{ backgroundColor: Colors.primary , justifyContent: "center", width: "150" }}
+            style={{ backgroundColor: Colors.primary , justifyContent: "center", width: "150", padding: 10, height: 40 }}
             onPress={handleSubmit}
           >
             <Text style={{ color: "#fff", fontSize: 15, textAlign: "center"}}>Submit</Text>
           </ThemedButton>
 
           <ThemedButton 
-            style={{ backgroundColor: Colors.warning , justifyContent: "center", width: "150" }}
+            style={{ backgroundColor: Colors.warning , justifyContent: "center", width: "150", padding: 10, height: 40 }}
             onPress={reset}
           >
             <Text style={{ color: "#fff", fontSize: 15, textAlign: "center"}}>Reset</Text>
           </ThemedButton>
 
         </View>
-
-        <Text style={{ color: Colors.warning, width: "100%", textAlign: "center"}}>{logMsg}</Text>
-
+            
+        <View style={[styles.logRow, ]}>
+          <Text style={styles.logText}>{logMsg}</Text>
+        </View>
+        
       </ThemedScrollView>
     </KeyboardAvoidingView>
   )
@@ -517,5 +529,22 @@ const styles = StyleSheet.create({
 
     fontSize: 18,
     textAlign: "right",
+  },
+  actionsRow: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginTop: 12,
+    minHeight: 40,
+  },
+  logRow: {
+    marginTop: 30,
+    minHeight: 24,
+    justifyContent: "flex-start",
+  },
+  logText: {
+    color: Colors.warning,
+    width: "100%",
+    textAlign: "center",
   },
 })

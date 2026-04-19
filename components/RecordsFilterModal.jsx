@@ -8,6 +8,7 @@ import ThemedSelectList from './ThemedSelectList'
 import ThemedText from './ThemedText'
 import ThemedTextInput from './ThemedTextInput'
 import ThemedView from './ThemedView'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const SORT_COLUMNS = [
   { key: 'date', label: 'Date', direction: 'desc', enabled: true },
@@ -72,6 +73,8 @@ const RecordsFilterModal = ({
   const [filterState, setFilterState] = useState(defaultFilterState())
   const [activeDatePicker, setActiveDatePicker] = useState(null)
   const [modalResetKey, setModalResetKey] = useState(0)
+
+  const insets = useSafeAreaInsets();
 
   const categoryLabelById = useMemo(() => {
     return (categoryOptions || []).reduce((acc, item) => {
@@ -348,11 +351,11 @@ const RecordsFilterModal = ({
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
         >
-          <ThemedView style={styles.card}>
+          <ThemedView style={[styles.card, { marginTop: insets.top }]}>
             <View style={styles.headerRow}>
               <View style={styles.headerTextWrap}>
-                <ThemedText style={styles.title}>Sort and Filter</ThemedText>
-                <Text style={styles.subtitle}>Focused column: {focusedTitle}</Text>
+                <ThemedText style={styles.title}>Filtering and Sorting</ThemedText>
+                {/* <Text style={styles.subtitle}>Focused column: {focusedTitle}</Text> */}
               </View>
               <Pressable onPress={onClose} style={styles.closeButton}>
                 <Text style={styles.closeButtonText}>Close</Text>
@@ -700,7 +703,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 12,
-    paddingVertical: 18,
   },
   keyboardWrap: {
     width: '100%',
