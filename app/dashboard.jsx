@@ -31,7 +31,10 @@ const screenHeight = Dimensions.get('window').height;
 const PERIOD_COUNT = 12;
 const Y_AXIS_SECTION_COUNT = 4;
 const MAX_CATEGORY_CHART_ITEMS = 11;
-const TREND_COLORS = ['#0BA5A4', '#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6'];
+const CHART_PRIMARY_COLOR = '#1f8a70';
+const CHART_SECONDARY_COLOR = '#f97316';
+const CHART_DASH_ARRAY = [5, 4];
+const TREND_COLORS = ['#1f8a70', '#f97316', '#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899'];
 const PAGE_TYPE_PERIOD_TREND = 'period-trend';
 const PAGE_TYPE_CATEGORY_GROUPS = 'category-groups';
 const PAGE_TYPE_PROJECTION = 'projection';
@@ -353,7 +356,7 @@ const buildTrendModel = (records = [], categoriesById = {}, trendConfig = {}, fi
   const totalBarData = periods.map((period, index) => ({
     label: period.endChartLabel || period.endLabel,
     value: totals[index],
-    frontColor: totals[index] >= 0 ? '#0BA5A4' : '#d32f2f',
+    frontColor: totals[index] >= 0 ? CHART_PRIMARY_COLOR : '#d32f2f',
   }));
 
   const regressionLineData = (() => {
@@ -865,14 +868,14 @@ const Dashboard = () => {
 
   const page2BarData = categoryChartData.map(item => ({
     ...item,
-    frontColor: item.value >= 0 ? '#0BA5A4' : '#d32f2f',
+    frontColor: item.value >= 0 ? CHART_PRIMARY_COLOR : '#d32f2f',
   }));
 
   const chartWidth = screenWidth * 0.84;
   const page1Spacing = getDynamicSpacing(chartWidth, trendModel.pointsCount);
   const page2Spacing = getDynamicSpacing(chartWidth, categoryChartData.length);
 
-  const pieColorPalette = ['#0BA5A4', '#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6', '#f97316', '#7c3aed'];
+  const pieColorPalette = ['#1f8a70', '#f97316', '#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6', '#7c3aed'];
   const getSliceColor = (index) => pieColorPalette[index % pieColorPalette.length];
 
   const incomeCategoryPieData = categoryChartData
@@ -893,6 +896,19 @@ const Dashboard = () => {
       text: item.month,
     }));
 
+  const pieLegendItems = [
+    ...incomeCategoryPieData.map((item, index) => ({
+      key: `income-${index}-${item.label}`,
+      label: `Income: ${item.label}`,
+      color: item.color,
+    })),
+    ...spendingCategoryPieData.map((item, index) => ({
+      key: `spending-${index}-${item.label}`,
+      label: `Spending: ${item.label}`,
+      color: item.color,
+    })),
+  ];
+
   const chartCommonProps = {
     width: chartWidth,
     height: screenHeight * 0.1,
@@ -912,19 +928,22 @@ const Dashboard = () => {
   const page1TotalLineDataSet = [
     {
       data: trendModel.totalLineData,
-      color: '#0BA5A4',
+      color: CHART_PRIMARY_COLOR,
       thickness: 2,
+      dataPointsColor: CHART_PRIMARY_COLOR,
       areaChart: true,
-      startFillColor: '#0BA5A4',
-      startOpacity: 0.1,
+      startFillColor: CHART_PRIMARY_COLOR,
+      endFillColor: CHART_PRIMARY_COLOR,
+      startOpacity: 0.18,
+      endOpacity: 0.02,
     },
     ...(trendConfig.showRegressionLine === false
       ? []
       : [{
         data: trendModel.regressionLineData,
-        color: '#f59e0b',
+        color: CHART_SECONDARY_COLOR,
         thickness: 2,
-        strokeDashArray: [6, 4],
+        strokeDashArray: CHART_DASH_ARRAY,
         hideDataPoints: true,
       }]),
   ];
@@ -945,9 +964,9 @@ const Dashboard = () => {
     showLine: trendConfig.showRegressionLine !== false,
     lineData: trendConfig.showRegressionLine === false ? [] : trendModel.regressionLineData,
     lineConfig: {
-      color: '#f59e0b',
+      color: CHART_SECONDARY_COLOR,
       thickness: 2,
-      strokeDashArray: [6, 4],
+      strokeDashArray: CHART_DASH_ARRAY,
       hideDataPoints: true,
     },
     maxValue: page1AxisRange,
@@ -1038,7 +1057,8 @@ const Dashboard = () => {
     }
 
     return (
-      <View style={styles.pieContainer}>
+      <View style={styles.pieChartArea}>
+        <View style={styles.pieContainer}>
         <View style={styles.pieWrapper}>
           <Text style={styles.miniChartLabel}>Income Categories</Text>
           <PieChart
@@ -1061,6 +1081,7 @@ const Dashboard = () => {
             textColor="white"
             textSize={12}
           />
+        </View>
         </View>
       </View>
     );
@@ -1152,6 +1173,7 @@ const Dashboard = () => {
         {renderChartTitleDropdown(pageTitle || (page2ChartType === 'Bar' ? 'Category Volume (Bar)' : 'Category Volume (Pie)'))}
         {renderPage2Chart()}
       </View>
+      {page2ChartType === 'Pie' ? renderLegend(pieLegendItems, pageKey) : null}
       <TableComponent data={allCategoryRows} firstColumnTitle="Category" firstColumnFlex={1.4} amountColumnFlex={1.6} />
     </View>
   );
@@ -1679,6 +1701,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     width: '100%',
     paddingHorizontal: 10,
+  },
+  pieChartArea: {
+    width: '100%',
+    marginTop: 0,
+    marginBottom: 6,
   },
   pieWrapper: {
     alignItems: 'center',

@@ -91,6 +91,11 @@ const buildSeriesData = (labels = [], actualValues = [], projectedValues = []) =
       textShiftY: -4,
       isAnimated: true,
       hideDataPoints: false,
+      areaChart: true,
+      startFillColor: '#1f8a70',
+      endFillColor: '#1f8a70',
+      startOpacity: 0.18,
+      endOpacity: 0.02,
     },
     {
       data: projectedData,
@@ -101,6 +106,11 @@ const buildSeriesData = (labels = [], actualValues = [], projectedValues = []) =
       isAnimated: true,
       hideDataPoints: false,
       strokeDashArray: PROJECTION_DASH_ARRAY,
+      areaChart: true,
+      startFillColor: '#f97316',
+      endFillColor: '#f97316',
+      startOpacity: 0.14,
+      endOpacity: 0.02,
     },
   ]
 }
