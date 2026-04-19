@@ -18,6 +18,7 @@ import ThemedButton from '../components/ThemedButton'
 import ThemedCard from '../components/ThemedCard'
 import ThemedLoader from '../components/ThemedLoader'
 import ThemedScrollView from '../components/ThemedScrollView'
+import ThemedSelectList from '../components/ThemedSelectList'
 import ThemedText from '../components/ThemedText'
 import ThemedTextInput from '../components/ThemedTextInput'
 import ThemedView from '../components/ThemedView'
@@ -184,10 +185,15 @@ const Alerts = () => {
   const [ruleModalVisible, setRuleModalVisible] = useState(false)
   const [editingRuleId, setEditingRuleId] = useState(null)
   const [ruleForm, setRuleForm] = useState(defaultRuleForm())
+  const [ruleCategoryCandidateId, setRuleCategoryCandidateId] = useState('')
+  const [ruleRecipientCandidateId, setRuleRecipientCandidateId] = useState('')
+  const [ruleModalResetKey, setRuleModalResetKey] = useState(0)
 
   const [goalModalVisible, setGoalModalVisible] = useState(false)
   const [editingGoalId, setEditingGoalId] = useState(null)
   const [goalForm, setGoalForm] = useState(defaultGoalForm())
+  const [goalCategoryCandidateId, setGoalCategoryCandidateId] = useState('')
+  const [goalModalResetKey, setGoalModalResetKey] = useState(0)
 
   const goalProgressById = useMemo(() => {
     return goalProgress.reduce((acc, item) => {
@@ -195,6 +201,38 @@ const Alerts = () => {
       return acc
     }, {})
   }, [goalProgress])
+
+  const categoryOptions = useMemo(() => {
+    return categories
+      .map((item) => ({
+        key: String(item.cid),
+        value: item.cname || `Category ${item.cid}`,
+      }))
+      .sort((left, right) => String(left.value).localeCompare(String(right.value)))
+  }, [categories])
+
+  const recipientOptions = useMemo(() => {
+    return recipients
+      .map((item) => ({
+        key: String(item.rid),
+        value: item.name || `Recipient ${item.rid}`,
+      }))
+      .sort((left, right) => String(left.value).localeCompare(String(right.value)))
+  }, [recipients])
+
+  const categoryLabelById = useMemo(() => {
+    return categoryOptions.reduce((acc, item) => {
+      acc[String(item.key)] = item.value
+      return acc
+    }, {})
+  }, [categoryOptions])
+
+  const recipientLabelById = useMemo(() => {
+    return recipientOptions.reduce((acc, item) => {
+      acc[String(item.key)] = item.value
+      return acc
+    }, {})
+  }, [recipientOptions])
 
   const reloadData = useCallback(async ({
     status = eventStatusFilter,
@@ -283,6 +321,9 @@ const Alerts = () => {
   const openCreateRule = () => {
     setEditingRuleId(null)
     setRuleForm(defaultRuleForm())
+    setRuleCategoryCandidateId('')
+    setRuleRecipientCandidateId('')
+    setRuleModalResetKey((prev) => prev + 1)
     setRuleModalVisible(true)
   }
 
@@ -305,12 +346,17 @@ const Alerts = () => {
       lookbackMonths: config.lookbackMonths == null ? '3' : String(config.lookbackMonths),
       increasePercent: config.increasePercent == null ? '30' : String(config.increasePercent),
     })
+    setRuleCategoryCandidateId('')
+    setRuleRecipientCandidateId('')
+    setRuleModalResetKey((prev) => prev + 1)
     setRuleModalVisible(true)
   }
 
   const openCreateGoal = () => {
     setEditingGoalId(null)
     setGoalForm(defaultGoalForm())
+    setGoalCategoryCandidateId('')
+    setGoalModalResetKey((prev) => prev + 1)
     setGoalModalVisible(true)
   }
 
@@ -324,6 +370,8 @@ const Alerts = () => {
       target_amount: String(goal.target_amount || ''),
       category_ids: Array.isArray(goal.category_ids) ? [...goal.category_ids] : [],
     })
+    setGoalCategoryCandidateId('')
+    setGoalModalResetKey((prev) => prev + 1)
     setGoalModalVisible(true)
   }
 
@@ -361,6 +409,63 @@ const Alerts = () => {
           : [...prev.category_ids, categoryId],
       }
     })
+  }
+
+  const addRuleCategoryFilter = () => {
+    const parsedId = Number(ruleCategoryCandidateId)
+    if (!Number.isFinite(parsedId)) return
+    setRuleForm((prev) => {
+      if (prev.category_ids.includes(parsedId)) return prev
+      return {
+        ...prev,
+        category_ids: [...prev.category_ids, parsedId],
+      }
+    })
+  }
+
+  const removeRuleCategoryFilter = (categoryId) => {
+    setRuleForm((prev) => ({
+      ...prev,
+      category_ids: prev.category_ids.filter((id) => id !== categoryId),
+    }))
+  }
+
+  const addRuleRecipientFilter = () => {
+    const parsedId = Number(ruleRecipientCandidateId)
+    if (!Number.isFinite(parsedId)) return
+    setRuleForm((prev) => {
+      if (prev.recipient_ids.includes(parsedId)) return prev
+      return {
+        ...prev,
+        recipient_ids: [...prev.recipient_ids, parsedId],
+      }
+    })
+  }
+
+  const removeRuleRecipientFilter = (recipientId) => {
+    setRuleForm((prev) => ({
+      ...prev,
+      recipient_ids: prev.recipient_ids.filter((id) => id !== recipientId),
+    }))
+  }
+
+  const addGoalCategoryFilter = () => {
+    const parsedId = Number(goalCategoryCandidateId)
+    if (!Number.isFinite(parsedId)) return
+    setGoalForm((prev) => {
+      if (prev.category_ids.includes(parsedId)) return prev
+      return {
+        ...prev,
+        category_ids: [...prev.category_ids, parsedId],
+      }
+    })
+  }
+
+  const removeGoalCategoryFilter = (categoryId) => {
+    setGoalForm((prev) => ({
+      ...prev,
+      category_ids: prev.category_ids.filter((id) => id !== categoryId),
+    }))
   }
 
   const saveRule = async () => {
@@ -909,29 +1014,75 @@ const Alerts = () => {
                 ) : null}
 
                 <ThemedText style={styles.fieldLabel}>Categories (optional filters)</ThemedText>
-                <View style={styles.filterWrap}>
-                  {categories.map((item) => (
-                    <ActionChip
-                      key={item.cid}
-                      label={item.cname || `Category ${item.cid}`}
-                      theme={theme}
-                      active={ruleForm.category_ids.includes(Number(item.cid))}
-                      onPress={() => toggleRuleCategory(Number(item.cid))}
-                    />
-                  ))}
+                <ThemedSelectList
+                  key={`rule-category-${ruleModalResetKey}`}
+                  data={categoryOptions}
+                  search={true}
+                  save="key"
+                  floating={true}
+                  setSelected={(value) => setRuleCategoryCandidateId(String(value || ''))}
+                  defaultOption={ruleCategoryCandidateId
+                    ? {
+                      key: ruleCategoryCandidateId,
+                      value: categoryLabelById[ruleCategoryCandidateId] || '',
+                    }
+                    : undefined}
+                />
+                <View style={styles.rowActions}>
+                  <ThemedButton style={[styles.smallPrimaryButton, styles.inlineActionButton]} onPress={addRuleCategoryFilter}>
+                    <ThemedText style={styles.buttonText}>Add Category Filter</ThemedText>
+                  </ThemedButton>
+                </View>
+                <View style={styles.selectionGroup}>
+                  <ThemedText style={styles.selectionTitle}>Selected Categories ({ruleForm.category_ids.length})</ThemedText>
+                  {ruleForm.category_ids.length === 0 ? (
+                    <ThemedText style={styles.emptyText}>None selected</ThemedText>
+                  ) : (
+                    ruleForm.category_ids.map((id) => (
+                      <View key={`rule-cat-${id}`} style={styles.selectionRow}>
+                        <ThemedText style={styles.selectionLabel}>{categoryLabelById[String(id)] || `Category ${id}`}</ThemedText>
+                        <Pressable onPress={() => removeRuleCategoryFilter(id)}>
+                          <ThemedText style={styles.removeText}>Remove</ThemedText>
+                        </Pressable>
+                      </View>
+                    ))
+                  )}
                 </View>
 
                 <ThemedText style={styles.fieldLabel}>Recipients (optional filters)</ThemedText>
-                <View style={styles.filterWrap}>
-                  {recipients.map((item) => (
-                    <ActionChip
-                      key={item.rid}
-                      label={item.name || `Recipient ${item.rid}`}
-                      theme={theme}
-                      active={ruleForm.recipient_ids.includes(Number(item.rid))}
-                      onPress={() => toggleRuleRecipient(Number(item.rid))}
-                    />
-                  ))}
+                <ThemedSelectList
+                  key={`rule-recipient-${ruleModalResetKey}`}
+                  data={recipientOptions}
+                  search={true}
+                  save="key"
+                  floating={true}
+                  setSelected={(value) => setRuleRecipientCandidateId(String(value || ''))}
+                  defaultOption={ruleRecipientCandidateId
+                    ? {
+                      key: ruleRecipientCandidateId,
+                      value: recipientLabelById[ruleRecipientCandidateId] || '',
+                    }
+                    : undefined}
+                />
+                <View style={styles.rowActions}>
+                  <ThemedButton style={[styles.smallPrimaryButton, styles.inlineActionButton]} onPress={addRuleRecipientFilter}>
+                    <ThemedText style={styles.buttonText}>Add Recipient Filter</ThemedText>
+                  </ThemedButton>
+                </View>
+                <View style={styles.selectionGroup}>
+                  <ThemedText style={styles.selectionTitle}>Selected Recipients ({ruleForm.recipient_ids.length})</ThemedText>
+                  {ruleForm.recipient_ids.length === 0 ? (
+                    <ThemedText style={styles.emptyText}>None selected</ThemedText>
+                  ) : (
+                    ruleForm.recipient_ids.map((id) => (
+                      <View key={`rule-rec-${id}`} style={styles.selectionRow}>
+                        <ThemedText style={styles.selectionLabel}>{recipientLabelById[String(id)] || `Recipient ${id}`}</ThemedText>
+                        <Pressable onPress={() => removeRuleRecipientFilter(id)}>
+                          <ThemedText style={styles.removeText}>Remove</ThemedText>
+                        </Pressable>
+                      </View>
+                    ))
+                  )}
                 </View>
 
                 <ThemedButton onPress={saveRule}>
@@ -1013,16 +1164,39 @@ const Alerts = () => {
                 {goalForm.mode === 'category' ? (
                   <>
                     <ThemedText style={styles.fieldLabel}>Saving Categories</ThemedText>
-                    <View style={styles.filterWrap}>
-                      {categories.map((item) => (
-                        <ActionChip
-                          key={item.cid}
-                          label={item.cname || `Category ${item.cid}`}
-                          theme={theme}
-                          active={goalForm.category_ids.includes(Number(item.cid))}
-                          onPress={() => toggleGoalCategory(Number(item.cid))}
-                        />
-                      ))}
+                    <ThemedSelectList
+                      key={`goal-category-${goalModalResetKey}`}
+                      data={categoryOptions}
+                      search={true}
+                      save="key"
+                      floating={true}
+                      setSelected={(value) => setGoalCategoryCandidateId(String(value || ''))}
+                      defaultOption={goalCategoryCandidateId
+                        ? {
+                          key: goalCategoryCandidateId,
+                          value: categoryLabelById[goalCategoryCandidateId] || '',
+                        }
+                        : undefined}
+                    />
+                    <View style={styles.rowActions}>
+                      <ThemedButton style={[styles.smallPrimaryButton, styles.inlineActionButton]} onPress={addGoalCategoryFilter}>
+                        <ThemedText style={styles.buttonText}>Add Goal Category</ThemedText>
+                      </ThemedButton>
+                    </View>
+                    <View style={styles.selectionGroup}>
+                      <ThemedText style={styles.selectionTitle}>Selected Categories ({goalForm.category_ids.length})</ThemedText>
+                      {goalForm.category_ids.length === 0 ? (
+                        <ThemedText style={styles.emptyText}>None selected</ThemedText>
+                      ) : (
+                        goalForm.category_ids.map((id) => (
+                          <View key={`goal-cat-${id}`} style={styles.selectionRow}>
+                            <ThemedText style={styles.selectionLabel}>{categoryLabelById[String(id)] || `Category ${id}`}</ThemedText>
+                            <Pressable onPress={() => removeGoalCategoryFilter(id)}>
+                              <ThemedText style={styles.removeText}>Remove</ThemedText>
+                            </Pressable>
+                          </View>
+                        ))
+                      )}
                     </View>
                   </>
                 ) : null}
@@ -1157,6 +1331,30 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
     marginTop: 8,
+  },
+  selectionGroup: {
+    gap: 6,
+    marginTop: 8,
+  },
+  selectionTitle: {
+    fontWeight: '700',
+  },
+  selectionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    backgroundColor: '#eef3f0',
+  },
+  selectionLabel: {
+    flex: 1,
+    paddingRight: 10,
+  },
+  removeText: {
+    color: Colors.warning,
+    fontWeight: '700',
   },
   progressTrack: {
     marginTop: 8,
