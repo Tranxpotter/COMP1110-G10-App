@@ -799,13 +799,22 @@ function normalizeCsvRow(row = {}) {
 }
 
 
-export async function importRecordsFromRows(rows = [], chunkSize = 200) {
-  if (!Array.isArray(rows) || rows.length === 0) return { inserted: 0, skipped: 0 }
+export async function importRecordsFromRows(rows = [], chunkSize = 200, onProgress = null) {
+  if (!Array.isArray(rows) || rows.length === 0) return { inserted: 0, skipped: 0, total: 0 }
   let inserted = 0, skipped = 0
 
   const normalized = rows
     .map(normalizeCsvRow)
     .filter(row => Object.values(row).some(value => value !== undefined && value !== null && String(value).trim() !== ''))
+
+  const total = normalized.length
+  let completed = 0
+
+  if (typeof onProgress === 'function') {
+    onProgress({ completed: 0, total, inserted: 0, skipped: 0, progress: total > 0 ? 0 : 1 })
+  }
+
+  if (total === 0) return { inserted: 0, skipped: 0, total: 0 }
 
   for (let i = 0; i < normalized.length; i += chunkSize) {
     const chunk = normalized.slice(i, i + chunkSize)
@@ -817,10 +826,21 @@ export async function importRecordsFromRows(rows = [], chunkSize = 200) {
         console.warn('importRecordsFromRows insert failed', err)
         skipped += 1
       }
+
+      completed += 1
+      if (typeof onProgress === 'function') {
+        onProgress({
+          completed,
+          total,
+          inserted,
+          skipped,
+          progress: completed / total,
+        })
+      }
     }
   }
 
-  return { inserted, skipped }
+  return { inserted, skipped, total }
 }
 
 

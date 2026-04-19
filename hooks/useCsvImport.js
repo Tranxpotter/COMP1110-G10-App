@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import * as FileSystem from 'expo-file-system/legacy'
 import Papa from 'papaparse'
-import { Alert } from 'react-native'
 import { importRecordsFromRows } from '../components/dbClient' 
 
 export function useCsvImport() {
   const [loading, setLoading] = useState(false)
 
-  async function importCsv(input) {
+  async function importCsv(input, options = {}) {
+    const onProgress = options?.onProgress
+
     setLoading(true)
     try {
       let rows = input
@@ -21,15 +22,19 @@ export function useCsvImport() {
         rows = parsed.data || []
       }
       if (!rows.length) {
-        Alert.alert('Import', 'No rows found in CSV')
-        setLoading(false)
-        return
+        return { inserted: 0, skipped: 0, total: 0 }
       }
-      const result = await importRecordsFromRows(rows) // dbClient does validation & chunking
-      Alert.alert('Import complete', `${result.inserted} inserted, ${result.skipped} skipped`)
+
+      const result = await importRecordsFromRows(rows, 200, (payload) => {
+        if (typeof onProgress === 'function') {
+          onProgress(payload)
+        }
+      })
+
+      return result
     } catch (e) {
       console.log('importCsv error', e)
-      Alert.alert('Import error', String(e))
+      throw e
     } finally {
       setLoading(false)
     }
