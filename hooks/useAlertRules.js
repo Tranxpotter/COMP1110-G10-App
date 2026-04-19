@@ -1,6 +1,40 @@
 import { useState } from 'react'
 import { fetchAllRecords, fetchRecordsByDateRange } from '../components/dbClient'
 
+//date period maker
+function formatDate(d) {
+  const yyyy = d.getFullYear()
+  const mm = String(d.getMonth() + 1).padStart(2, '0')
+  const dd = String(d.getDate()).padStart(2, '0')
+  return `${yyyy}-${mm}-${dd}`
+}
+
+// helper: compute start/end period for a given resetDay (1..31).
+// If resetDay > last day of a month, it uses that month's last day.
+function computePeriod(resetDay, now = new Date()) {
+  const rd = Math.max(1, Math.min(31, Number(resetDay ?? 1)))
+  const year = now.getFullYear()
+  const month = now.getMonth()
+
+  // decide start month
+  const startMonthIndex = (now.getDate() >= rd) ? month : (month - 1)
+  const startYear = (startMonthIndex < 0) ? year - 1 : year
+  const daysInStartMonth = new Date(startYear, startMonthIndex + 1, 0).getDate()
+  const startDay = Math.min(rd, daysInStartMonth)
+  const start = new Date(startYear, startMonthIndex, startDay)
+
+  // next reset (use min(resetDay, daysInNextMonth))
+  const tentativeNext = new Date(start.getFullYear(), start.getMonth() + 1, 1)
+  const daysInNextMonth = new Date(tentativeNext.getFullYear(), tentativeNext.getMonth() + 1, 0).getDate()
+  const nextResetDay = Math.min(rd, daysInNextMonth)
+  const nextReset = new Date(tentativeNext.getFullYear(), tentativeNext.getMonth(), nextResetDay)
+
+  // period end = day before nextReset
+  const end = new Date(nextReset.getFullYear(), nextReset.getMonth(), nextReset.getDate() - 1)
+
+  return { start, end, startDate: formatDate(start), endDate: formatDate(end) }
+}
+
 
 
 export async function oneBigPaymentRule(records = [], options = {}) { //I will probably make a comment on what options avaliable for major function.
@@ -10,28 +44,10 @@ export async function oneBigPaymentRule(records = [], options = {}) { //I will p
   //  - resetDay: day of month for period reset (1..28) (default 1)
   const bigPaymentPercent = Number(options.bigPaymentPercent ?? 50) || 50
   const bigPaymentMinAmount = Number(options.bigPaymentMinAmount ?? 0) || 0
-  const resetDay = Math.max(1, Math.min(28, Number(options.resetDay ?? 1)))
+  
 
-  // compute period start/end (same logic as monthlySpendvsIncomeRule)
-  const now = new Date()
-  let start
-  if (now.getDate() >= resetDay) {
-    start = new Date(now.getFullYear(), now.getMonth(), resetDay)
-  } else {
-    start = new Date(now.getFullYear(), now.getMonth() - 1, resetDay)
-  }
-  const nextReset = new Date(start.getFullYear(), start.getMonth() + 1, resetDay)
-  const end = new Date(nextReset.getFullYear(), nextReset.getMonth(), nextReset.getDate() - 1)
-
-  const formatDate = d => {
-    const yyyy = d.getFullYear()
-    const mm = String(d.getMonth() + 1).padStart(2, '0')
-    const dd = String(d.getDate()).padStart(2, '0')
-    return `${yyyy}-${mm}-${dd}`
-  }
-  const startDate = formatDate(start)
-  const endDate = formatDate(end)
-
+  const resetDay = Number(options.resetDay ?? 1)
+  const { start, end, startDate, endDate } = computePeriod(resetDay)
   // get rows for the period if none provided
   let rows = Array.isArray(records) && records.length ? records : null
   if (!rows) {
@@ -100,27 +116,9 @@ export async function monthlySpendvsIncomeRule(records = [], options = {}) { //a
   //  - resetDay: day of month when the reporting period resets (1..28). default 1
   const amountThreshold = Number(options.amountThreshold ?? 0) || 0
   const percentThreshold = Number(options.percentThreshold ?? 0) || 0
-  const resetDay = Math.max(1, Math.min(28, Number(options.resetDay ?? 1)))
 
-  // determine period start/end based on resetDay
-  const now = new Date()
-  let start
-  if (now.getDate() >= resetDay) {
-    start = new Date(now.getFullYear(), now.getMonth(), resetDay)
-  } else {
-    start = new Date(now.getFullYear(), now.getMonth() - 1, resetDay)
-  }
-  const nextReset = new Date(start.getFullYear(), start.getMonth() + 1, resetDay)
-  const end = new Date(nextReset.getFullYear(), nextReset.getMonth(), nextReset.getDate() - 1)
-
-  const formatDate = d => {
-    const yyyy = d.getFullYear()
-    const mm = String(d.getMonth() + 1).padStart(2, '0')
-    const dd = String(d.getDate()).padStart(2, '0')
-    return `${yyyy}-${mm}-${dd}`
-  }
-  const startDate = formatDate(start)
-  const endDate = formatDate(end)
+  const resetDay = Number(options.resetDay ?? 1)
+  const { start, end, startDate, endDate } = computePeriod(resetDay)
 
   // fetch rows for period if none provided
   let rows = Array.isArray(records) && records.length ? records : null
@@ -197,27 +195,9 @@ export async function recurringPaymentRule(records = [], options = {}) {
   //  - recurringCount: number of occurrences in period to consider recurring (default 3)
   //  - resetDay: day of month when the period resets (1..28). default 1
   const recurringCount = Math.max(1, Number(options.recurringCount ?? 3) || 3)
-  const resetDay = Math.max(1, Math.min(28, Number(options.resetDay ?? 1)))
 
-  // determine period start/end based on resetDay (same logic used elsewhere)
-  const now = new Date()
-  let start
-  if (now.getDate() >= resetDay) {
-    start = new Date(now.getFullYear(), now.getMonth(), resetDay)
-  } else {
-    start = new Date(now.getFullYear(), now.getMonth() - 1, resetDay)
-  }
-  const nextReset = new Date(start.getFullYear(), start.getMonth() + 1, resetDay)
-  const end = new Date(nextReset.getFullYear(), nextReset.getMonth(), nextReset.getDate() - 1)
-
-  const formatDate = d => {
-    const yyyy = d.getFullYear()
-    const mm = String(d.getMonth() + 1).padStart(2, '0')
-    const dd = String(d.getDate()).padStart(2, '0')
-    return `${yyyy}-${mm}-${dd}`
-  }
-  const startDate = formatDate(start)
-  const endDate = formatDate(end)
+  const resetDay = Number(options.resetDay ?? 1)
+  const { start, end, startDate, endDate } = computePeriod(resetDay)
 
   // fetch rows for period if none provided
   let rows = Array.isArray(records) && records.length ? records : null
@@ -280,27 +260,8 @@ export async function monthlySurplusRule(records = [], options = {}) {
   //  - resetDay: day of month when the reporting period resets (1..28). default 1
   const amountThreshold = Number(options.surAmountThreshold ?? 0) || 0
   const percentThreshold = Number(options.surPercentThreshold ?? 0) || 0
-  const resetDay = Math.max(1, Math.min(28, Number(options.resetDay ?? 1)))
-
-  // determine period start/end based on resetDay
-  const now = new Date()
-  let start
-  if (now.getDate() >= resetDay) {
-    start = new Date(now.getFullYear(), now.getMonth(), resetDay)
-  } else {
-    start = new Date(now.getFullYear(), now.getMonth() - 1, resetDay)
-  }
-  const nextReset = new Date(start.getFullYear(), start.getMonth() + 1, resetDay)
-  const end = new Date(nextReset.getFullYear(), nextReset.getMonth(), nextReset.getDate() - 1)
-
-  const formatDate = d => {
-    const yyyy = d.getFullYear()
-    const mm = String(d.getMonth() + 1).padStart(2, '0')
-    const dd = String(d.getDate()).padStart(2, '0')
-    return `${yyyy}-${mm}-${dd}`
-  }
-  const startDate = formatDate(start)
-  const endDate = formatDate(end)
+  const resetDay = Number(options.resetDay ?? 1)
+  const { start, end, startDate, endDate } = computePeriod(resetDay)
 
   // fetch rows for period if none provided
   let rows = Array.isArray(records) && records.length ? records : null
@@ -371,27 +332,8 @@ export async function monthlySavingGoalRule(records = [], options = {}) {
   //  - goalAmount: absolute saving goal to compare against (required to trigger)
   //  - resetDay: day of month when the reporting period resets (1..28). default 1
   const goalAmount = Number(options.goalAmount ?? 0) || 0
-  const resetDay = Math.max(1, Math.min(28, Number(options.resetDay ?? 1)))
-
-  // determine period start/end based on resetDay (same logic used in other rules)
-  const now = new Date()
-  let start
-  if (now.getDate() >= resetDay) {
-    start = new Date(now.getFullYear(), now.getMonth(), resetDay)
-  } else {
-    start = new Date(now.getFullYear(), now.getMonth() - 1, resetDay)
-  }
-  const nextReset = new Date(start.getFullYear(), start.getMonth() + 1, resetDay)
-  const end = new Date(nextReset.getFullYear(), nextReset.getMonth(), nextReset.getDate() - 1)
-
-  const formatDate = d => {
-    const yyyy = d.getFullYear()
-    const mm = String(d.getMonth() + 1).padStart(2, '0')
-    const dd = String(d.getDate()).padStart(2, '0')
-    return `${yyyy}-${mm}-${dd}`
-  }
-  const startDate = formatDate(start)
-  const endDate = formatDate(end)
+  const resetDay = Number(options.resetDay ?? 1)
+  const { start, end, startDate, endDate } = computePeriod(resetDay)
 
   // fetch rows for period if none provided
   let rows = Array.isArray(records) && records.length ? records : null
