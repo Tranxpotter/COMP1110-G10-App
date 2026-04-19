@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator, TextInput, Alert, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator, TextInput, Alert, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
 import React, { useMemo, useState, useCallback, useRef, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { LineChart, BarChart, PieChart } from 'react-native-gifted-charts';
@@ -14,6 +14,7 @@ import DashboardFilterModal from '../components/DashboardFilterModal';
 import DashboardTrendFilter from '../components/DashboardTrendFilter';
 import DashboardProjectionFilter from '../components/DashboardProjectionFilter';
 import ThemedSelectList from '../components/ThemedSelectList';
+import ThemedScrollView from '../components/ThemedScrollView';
 import { Colors } from '../constants/Colors';
 import { readDashboardSettings, writeDashboardSettings } from '../components/dashboardSettingsStore';
 import {
@@ -446,6 +447,7 @@ const buildTrendModel = (records = [], categoriesById = {}, trendConfig = {}, fi
 
 const Dashboard = () => {
   const pagerRef = useRef(null);
+  const pendingPageNavigationRef = useRef(null);
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [trendFilterVisible, setTrendFilterVisible] = useState(false);
   const [projectionChartSetupVisible, setProjectionChartSetupVisible] = useState(false);
@@ -473,6 +475,23 @@ const Dashboard = () => {
   const pageDefinitions = useMemo(() => {
     return [...defaultBasePages, ...customPages];
   }, [customPages]);
+
+  useEffect(() => {
+    const pendingIndex = pendingPageNavigationRef.current;
+    if (pendingIndex == null) return;
+    if (pendingIndex < 0 || pendingIndex >= pageDefinitions.length) return;
+
+    pendingPageNavigationRef.current = null;
+    setCurrentPage(pendingIndex);
+
+    requestAnimationFrame(() => {
+      if (pagerRef.current?.setPageWithoutAnimation) {
+        pagerRef.current.setPageWithoutAnimation(pendingIndex);
+        return;
+      }
+      pagerRef.current?.setPage?.(pendingIndex);
+    });
+  }, [pageDefinitions.length]);
 
   const currentPageData = pageDefinitions[currentPage] || pageDefinitions[0] || defaultBasePages[0];
   const currentPageType = currentPageData?.type || PAGE_TYPE_PERIOD_TREND;
@@ -759,6 +778,8 @@ const Dashboard = () => {
       title: uniqueTitle,
     };
 
+    const nextPageIndex = pageDefinitions.length;
+
     setCustomPages((prev) => [...prev, nextPage]);
     setPageConfigById((prev) => ({
       ...prev,
@@ -771,6 +792,7 @@ const Dashboard = () => {
     setNewProjectionSubtype(PROJECTION_SUBTYPE_MONTHLY_SPENDING);
     setNewPageTitle('');
     setAddPageModalVisible(false);
+    pendingPageNavigationRef.current = nextPageIndex;
   };
 
   const navigateToPage = (index) => {
@@ -1326,80 +1348,93 @@ const Dashboard = () => {
         presentationStyle="overFullScreen"
         onRequestClose={() => setAddPageModalVisible(false)}
       >
-        <Pressable style={styles.modalOverlay} onPress={() => setAddPageModalVisible(false)}>
-          <Pressable style={styles.modalContent} onPress={() => {}}>
-            <View style={styles.modalHeaderRow}>
-              <Text style={styles.modalTitle}>Add Dashboard Page</Text>
-              <TouchableOpacity style={styles.modalCloseButton} onPress={() => setAddPageModalVisible(false)}>
-                <Text style={styles.modalCloseButtonText}>Close</Text>
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.modalSubtitle}>Choose page type and chart title.</Text>
-
-            <View style={styles.modalSection}>
-              <Text style={styles.modalSectionTitle}>Page Type</Text>
-              <View style={styles.optionRow}>
-                <TouchableOpacity
-                  style={[styles.optionButton, newPageType === PAGE_TYPE_PERIOD_TREND && styles.optionButtonActive]}
-                  onPress={() => setNewPageType(PAGE_TYPE_PERIOD_TREND)}
-                >
-                  <Text style={[styles.optionButtonText, newPageType === PAGE_TYPE_PERIOD_TREND && styles.optionButtonTextActive]}>Period Trend</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.optionButton, newPageType === PAGE_TYPE_CATEGORY_GROUPS && styles.optionButtonActive]}
-                  onPress={() => setNewPageType(PAGE_TYPE_CATEGORY_GROUPS)}
-                >
-                  <Text style={[styles.optionButtonText, newPageType === PAGE_TYPE_CATEGORY_GROUPS && styles.optionButtonTextActive]}>Category Groups</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.optionButton, newPageType === PAGE_TYPE_PROJECTION && styles.optionButtonActive]}
-                  onPress={() => setNewPageType(PAGE_TYPE_PROJECTION)}
-                >
-                  <Text style={[styles.optionButtonText, newPageType === PAGE_TYPE_PROJECTION && styles.optionButtonTextActive]}>Projection</Text>
+        <View style={styles.modalOverlay}>
+          <Pressable style={styles.modalBackdrop} onPress={() => setAddPageModalVisible(false)} />
+          <KeyboardAvoidingView
+            style={styles.modalKeyboardWrap}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+          >
+            <View style={styles.modalContent}>
+              <View style={styles.modalHeaderRow}>
+                <Text style={styles.modalTitle}>Add Dashboard Page</Text>
+                <TouchableOpacity style={styles.modalCloseButton} onPress={() => setAddPageModalVisible(false)}>
+                  <Text style={styles.modalCloseButtonText}>Close</Text>
                 </TouchableOpacity>
               </View>
-            </View>
+              <Text style={styles.modalSubtitle}>Choose page type and chart title.</Text>
 
-            {newPageType === PAGE_TYPE_PROJECTION ? (
-              <View style={styles.modalSection}>
-                <Text style={styles.modalSectionTitle}>Projection Subcategory</Text>
-                <View style={styles.optionRow}>
-                  {PROJECTION_SUBTYPE_OPTIONS.map((option) => {
-                    const isActive = newProjectionSubtype === option.key;
-                    return (
-                      <TouchableOpacity
-                        key={option.key}
-                        style={[styles.optionButton, isActive && styles.optionButtonActive]}
-                        onPress={() => setNewProjectionSubtype(option.key)}
-                      >
-                        <Text style={[styles.optionButtonText, isActive && styles.optionButtonTextActive]}>{option.label}</Text>
-                      </TouchableOpacity>
-                    );
-                  })}
+              <ThemedScrollView
+                style={styles.modalScroll}
+                contentContainerStyle={styles.modalScrollContent}
+                keyboardShouldPersistTaps="handled"
+              >
+                <View style={styles.modalSection}>
+                  <Text style={styles.modalSectionTitle}>Page Type</Text>
+                  <View style={styles.optionRow}>
+                    <TouchableOpacity
+                      style={[styles.optionButton, newPageType === PAGE_TYPE_PERIOD_TREND && styles.optionButtonActive]}
+                      onPress={() => setNewPageType(PAGE_TYPE_PERIOD_TREND)}
+                    >
+                      <Text style={[styles.optionButtonText, newPageType === PAGE_TYPE_PERIOD_TREND && styles.optionButtonTextActive]}>Period Trend</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.optionButton, newPageType === PAGE_TYPE_CATEGORY_GROUPS && styles.optionButtonActive]}
+                      onPress={() => setNewPageType(PAGE_TYPE_CATEGORY_GROUPS)}
+                    >
+                      <Text style={[styles.optionButtonText, newPageType === PAGE_TYPE_CATEGORY_GROUPS && styles.optionButtonTextActive]}>Category Groups</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.optionButton, newPageType === PAGE_TYPE_PROJECTION && styles.optionButtonActive]}
+                      onPress={() => setNewPageType(PAGE_TYPE_PROJECTION)}
+                    >
+                      <Text style={[styles.optionButtonText, newPageType === PAGE_TYPE_PROJECTION && styles.optionButtonTextActive]}>Projection</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            ) : null}
 
-            <View style={styles.modalSection}>
-              <Text style={styles.modalSectionTitle}>Chart Title</Text>
-              <TextInput
-                style={styles.pageTitleInput}
-                value={newPageTitle}
-                onChangeText={setNewPageTitle}
-                placeholder="Enter chart title"
-              />
-            </View>
+                {newPageType === PAGE_TYPE_PROJECTION ? (
+                  <View style={styles.modalSection}>
+                    <Text style={styles.modalSectionTitle}>Projection Subcategory</Text>
+                    <View style={styles.optionRow}>
+                      {PROJECTION_SUBTYPE_OPTIONS.map((option) => {
+                        const isActive = newProjectionSubtype === option.key;
+                        return (
+                          <TouchableOpacity
+                            key={option.key}
+                            style={[styles.optionButton, isActive && styles.optionButtonActive]}
+                            onPress={() => setNewProjectionSubtype(option.key)}
+                          >
+                            <Text style={[styles.optionButtonText, isActive && styles.optionButtonTextActive]}>{option.label}</Text>
+                          </TouchableOpacity>
+                        );
+                      })}
+                    </View>
+                  </View>
+                ) : null}
 
-            <View style={styles.modalActionRow}>
-              <TouchableOpacity style={[styles.modalActionButton, styles.applyBtn]} onPress={handleAddPage}>
-                <Text style={styles.applyBtnText}>Add Page</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.modalActionButton, styles.cancelBtn]} onPress={() => setAddPageModalVisible(false)}>
-                <Text style={styles.applyBtnText}>Cancel</Text>
-              </TouchableOpacity>
+                <View style={styles.modalSection}>
+                  <Text style={styles.modalSectionTitle}>Chart Title</Text>
+                  <TextInput
+                    style={styles.pageTitleInput}
+                    value={newPageTitle}
+                    onChangeText={setNewPageTitle}
+                    placeholder="Enter chart title"
+                  />
+                </View>
+
+                <View style={styles.modalActionRow}>
+                  <TouchableOpacity style={[styles.modalActionButton, styles.applyBtn]} onPress={handleAddPage}>
+                    <Text style={styles.applyBtnText}>Add Page</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={[styles.modalActionButton, styles.cancelBtn]} onPress={() => setAddPageModalVisible(false)}>
+                    <Text style={styles.applyBtnText}>Cancel</Text>
+                  </TouchableOpacity>
+                </View>
+              </ThemedScrollView>
             </View>
-          </Pressable>
-        </Pressable>
+          </KeyboardAvoidingView>
+        </View>
       </Modal>
 
       <Modal animationType="fade" transparent={true} visible={chartModalVisible}>
@@ -1838,7 +1873,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 18,
   },
-  modalContent: { backgroundColor: '#fff', width: '100%', maxWidth: 760, maxHeight: '95%', borderRadius: 12, paddingHorizontal: 14, paddingTop: 12, paddingBottom: 16, alignItems: 'stretch' },
+  modalBackdrop: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  },
+  modalKeyboardWrap: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  modalContent: { backgroundColor: '#fff', width: '100%', maxWidth: 760, maxHeight: '100%', borderRadius: 12, paddingHorizontal: 14, paddingTop: 12, paddingBottom: 16, alignItems: 'stretch' },
+  modalScroll: {
+    width: '100%',
+    maxHeight: '85%',
+    borderRadius: 8,
+  },
+  modalScrollContent: {
+    flexGrow: 1,
+    paddingBottom: 4,
+  },
   modalHeaderRow: { width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
   modalTitle: { fontSize: 20, fontWeight: '700' },
   modalSubtitle: { fontSize: 14, color: Colors.light.disabledText, marginBottom: 8 },
