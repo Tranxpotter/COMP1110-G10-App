@@ -1,4 +1,5 @@
 AMOUNT,CNAME,DATE,TYPE,CURRENCY,DESCRIPTION,RNAME
+3000.0,Initial Balance,2024-09-30,income,HKD,Opening balance,Bank Account
 10000.0,Rent,2024-10-01,spending,HKD,Monthly rent,Landlord
 505.66,Groceries,2024-10-02,spending,HKD,Groceries at Wellcome,Wellcome
 110.36,Transport,2024-10-02,spending,HKD,MTR,MTR

@@ -11,6 +11,18 @@ END_DATE = date(2026, 3, 31)
 
 DATA_DIR = "data"
 
+# Opening balance row recorded one day before START_DATE so it sits at the
+# top of the CSV but is naturally excluded from any month-slice validation.
+INITIAL_BALANCE_DATE = date(2024, 9, 30)
+
+INITIAL_BALANCES = {
+    "kelvin":     15000,
+    "auntie_mei":  3000,
+    "ashley":      5000,
+    "brandon":    50000,
+    "priya":      80000,
+}
+
 
 PERSONAS = {
     # ------------------------------------------------------------------

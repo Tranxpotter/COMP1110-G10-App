@@ -22,6 +22,8 @@ from config import (
     BRANDON_SUBSCRIPTIONS,
     DATA_DIR,
     END_DATE,
+    INITIAL_BALANCE_DATE,
+    INITIAL_BALANCES,
     PERSONAS,
     START_DATE,
 )
@@ -527,7 +529,10 @@ def generate(persona: str) -> pd.DataFrame:
     cfg = PERSONAS[persona]
     rng = np.random.default_rng(cfg["seed"])
     gen = GENERATORS[persona]
-    rows = []
+    rows = [row(
+        INITIAL_BALANCES[persona], "Initial Balance", INITIAL_BALANCE_DATE,
+        "income", "Opening balance", "Bank Account",
+    )]
     for y, m in month_iter(START_DATE, END_DATE):
         rows.extend(gen(cfg, y, m, rng))
     rows = sort_rows(rows)
