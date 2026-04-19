@@ -35,6 +35,14 @@ const parseMonthKey = (monthKey) => {
 }
 
 const toMonthChartLabel = (date) => `${date.getFullYear()}\n${String(date.getMonth() + 1).padStart(2, '0')}`
+const toMonthRangeLabel = (months = []) => {
+  if (!Array.isArray(months) || months.length === 0) return ''
+
+  const toLabel = (date) => `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}`
+  const start = months[0]
+  const end = months[months.length - 1]
+  return `${toLabel(start)} to ${toLabel(end)}`
+}
 
 const formatCurrency = (value) => {
   const numeric = Number(value) || 0
@@ -306,6 +314,7 @@ const buildSavingsDebtModel = (records, projectionConfig) => {
 
   const actualMonthlyNet = actualMonths.map((date) => monthlyNetByKey[toMonthKey(date)] || 0)
   const futureMonths = Array.from({ length: horizon }, (_, index) => new Date(currentMonth.getFullYear(), currentMonth.getMonth() + index + 1, 1))
+  const forecastRangeLabel = toMonthRangeLabel(futureMonths)
 
   const labels = [...actualMonths, ...futureMonths].map((date) => toMonthChartLabel(date))
 
@@ -391,7 +400,9 @@ const buildSavingsDebtModel = (records, projectionConfig) => {
       ],
       rows: tableRows,
       summary: {
-        label: 'End-of-horizon projected cumulative',
+        label: forecastRangeLabel
+          ? `Projected cumulative (next ${horizon} months: ${forecastRangeLabel})`
+          : `Projected cumulative (next ${horizon} months)`,
         value: cumulativeProjected[cumulativeProjected.length - 1] ?? displayCumulativeActual[displayCumulativeActual.length - 1] ?? 0,
       },
     },
@@ -421,6 +432,7 @@ const buildYearlyBillsModel = (records, projectionConfig) => {
   const currentMonthKey = toMonthKey(currentMonth)
   const actualMonths = toMonthSequence(currentMonth, 12)
   const futureMonths = Array.from({ length: horizon }, (_, index) => new Date(currentMonth.getFullYear(), currentMonth.getMonth() + index + 1, 1))
+  const forecastRangeLabel = toMonthRangeLabel(futureMonths)
 
   const actualValuesOnly = actualMonths.map((date) => monthlyBillsByKey[toMonthKey(date)] || 0)
 
@@ -485,7 +497,9 @@ const buildYearlyBillsModel = (records, projectionConfig) => {
       ],
       rows: tableRows,
       summary: {
-        label: 'Projected bills total (horizon)',
+        label: forecastRangeLabel
+          ? `Projected bills total (next ${horizon} months: ${forecastRangeLabel})`
+          : `Projected bills total (next ${horizon} months)`,
         value: projectedMonthly.reduce((sum, value) => sum + value, 0),
       },
     },
@@ -523,6 +537,7 @@ const buildSubscriptionModel = (records, projectionConfig) => {
   }
 
   const futureMonths = Array.from({ length: horizon }, (_, index) => new Date(currentMonth.getFullYear(), currentMonth.getMonth() + index + 1, 1))
+  const forecastRangeLabel = toMonthRangeLabel(futureMonths)
   const projectedMonthlySpend = futureMonths.map(() => previousMonthTotal)
 
   const cumulativeDisplayActual = []
@@ -574,8 +589,10 @@ const buildSubscriptionModel = (records, projectionConfig) => {
       ],
       rows: tableRows,
       summary: {
-        label: 'End-of-horizon projected cumulative',
-        value: cumulativeProjected[cumulativeProjected.length - 1] ?? cumulativeDisplayActual[cumulativeDisplayActual.length - 1] ?? 0,
+        label: forecastRangeLabel
+          ? `Projected cumulative (next ${horizon} months: ${forecastRangeLabel})`
+          : `Projected cumulative (next ${horizon} months)`,
+        value: safeRound2(projectedMonthlySpend.reduce((sum, value) => sum + value, 0)),
       },
     },
   }
