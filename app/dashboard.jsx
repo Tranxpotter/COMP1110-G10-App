@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, ScrollView, Modal, ActivityIndicator, TextInput, Alert, Pressable } from 'react-native';
-import React, { useMemo, useState, useCallback, useRef } from 'react';
+import React, { useMemo, useState, useCallback, useRef, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { LineChart, BarChart, PieChart } from 'react-native-gifted-charts';
 import PagerView from 'react-native-pager-view';
@@ -12,8 +12,18 @@ import {
 } from '../components/dbClient';
 import DashboardFilterModal from '../components/DashboardFilterModal';
 import DashboardTrendFilter from '../components/DashboardTrendFilter';
+import DashboardProjectionFilter from '../components/DashboardProjectionFilter';
 import ThemedSelectList from '../components/ThemedSelectList';
 import { Colors } from '../constants/Colors';
+import { readDashboardSettings, writeDashboardSettings } from '../components/dashboardSettingsStore';
+import {
+  PROJECTION_SUBTYPE_MONTHLY_SPENDING,
+  PROJECTION_SUBTYPE_OPTIONS,
+  buildProjectionModel,
+  normalizeProjectionConfig,
+  toDefaultProjectionConfig,
+  toProjectionSubtypeLabel,
+} from '../components/dashboardProjectionUtils';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -24,8 +34,51 @@ const MAX_CATEGORY_CHART_ITEMS = 11;
 const TREND_COLORS = ['#0BA5A4', '#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6'];
 const PAGE_TYPE_PERIOD_TREND = 'period-trend';
 const PAGE_TYPE_CATEGORY_GROUPS = 'category-groups';
+const PAGE_TYPE_PROJECTION = 'projection';
 const MAX_DASHBOARD_PAGES = 10;
 const MAX_PAGE_TITLE_LENGTH = 25;
+
+const defaultTrendConfig = () => ({ mode: 'total', chartType: 'line', dayRangePreset: 'auto', categoryIds: [] });
+const defaultSortConfig = () => RecordSortConfig.byDate('desc').build();
+const defaultFilterConfig = () => RecordFilterConfig.from().build();
+
+const buildDefaultPageConfig = (pageType = PAGE_TYPE_PERIOD_TREND) => ({
+  filterConfig: defaultFilterConfig(),
+  sortConfig: defaultSortConfig(),
+  trendConfig: defaultTrendConfig(),
+  page2ChartType: 'Bar',
+  projectionConfig: normalizeProjectionConfig({}, pageType === PAGE_TYPE_PROJECTION ? PROJECTION_SUBTYPE_MONTHLY_SPENDING : undefined),
+});
+
+const normalizePageConfig = (source = {}, pageType = PAGE_TYPE_PERIOD_TREND) => {
+  const defaults = buildDefaultPageConfig(pageType);
+  return {
+    ...defaults,
+    ...source,
+    filterConfig: RecordFilterConfig.from(source?.filterConfig || defaults.filterConfig).build(),
+    sortConfig: RecordSortConfig.from(source?.sortConfig || defaults.sortConfig).build(),
+    trendConfig: {
+      ...defaults.trendConfig,
+      ...(source?.trendConfig || {}),
+      mode: source?.trendConfig?.mode === 'category' ? 'category' : 'total',
+      chartType: source?.trendConfig?.chartType === 'stackedBar' ? 'stackedBar' : 'line',
+      dayRangePreset: ['auto', 'closest90', 'closest30', 'closest7'].includes(source?.trendConfig?.dayRangePreset)
+        ? source.trendConfig.dayRangePreset
+        : 'auto',
+      categoryIds: (source?.trendConfig?.categoryIds || []).map((item) => String(item)).filter(Boolean),
+    },
+    page2ChartType: source?.page2ChartType === 'Pie' ? 'Pie' : 'Bar',
+    projectionConfig: normalizeProjectionConfig(
+      source?.projectionConfig || {},
+      source?.projectionConfig?.subtype || (pageType === PAGE_TYPE_PROJECTION ? PROJECTION_SUBTYPE_MONTHLY_SPENDING : undefined)
+    ),
+  };
+};
+
+const defaultBasePages = [
+  { id: 'base-period', type: PAGE_TYPE_PERIOD_TREND, title: 'Period Trend (default)' },
+  { id: 'base-category', type: PAGE_TYPE_CATEGORY_GROUPS, title: 'Category groups (default)' },
+];
 
 const formatYAxisLabel = (value) => {
   const numericValue = Number(value) || 0;
@@ -357,28 +410,119 @@ const Dashboard = () => {
   const pagerRef = useRef(null);
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [trendFilterVisible, setTrendFilterVisible] = useState(false);
+  const [projectionChartSetupVisible, setProjectionChartSetupVisible] = useState(false);
+  const [projectionFilterSetupVisible, setProjectionFilterSetupVisible] = useState(false);
   const [chartModalVisible, setChartModalVisible] = useState(false);
   const [addPageModalVisible, setAddPageModalVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [customPages, setCustomPages] = useState([]);
+  const [pageConfigById, setPageConfigById] = useState({});
+  const [recordsByPageId, setRecordsByPageId] = useState({});
+  const [pageLoadingById, setPageLoadingById] = useState({});
+  const [settingsReady, setSettingsReady] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [newPageType, setNewPageType] = useState(PAGE_TYPE_PERIOD_TREND);
   const [newPageTitle, setNewPageTitle] = useState('');
-  const [records, setRecords] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [newProjectionSubtype, setNewProjectionSubtype] = useState(PROJECTION_SUBTYPE_MONTHLY_SPENDING);
   const [categoriesById, setCategoriesById] = useState({});
   const [recipientsById, setRecipientsById] = useState({});
-  const [filterConfig, setFilterConfig] = useState(() => RecordFilterConfig.from().build());
-  const [sortConfig, setSortConfig] = useState(() => RecordSortConfig.byDate('desc').build());
-  const [trendConfig, setTrendConfig] = useState({ mode: 'total', chartType: 'line', dayRangePreset: 'auto', categoryIds: [] });
+  const [filterConfig, setFilterConfig] = useState(() => defaultFilterConfig());
+  const [sortConfig, setSortConfig] = useState(() => defaultSortConfig());
+  const [trendConfig, setTrendConfig] = useState(() => defaultTrendConfig());
   const [page2ChartType, setPage2ChartType] = useState('Bar');
+  const [projectionConfig, setProjectionConfig] = useState(() => toDefaultProjectionConfig(PROJECTION_SUBTYPE_MONTHLY_SPENDING));
 
-  const loadData = useCallback(async (
-    nextFilterConfig = filterConfig,
-    nextSortConfig = sortConfig,
-  ) => {
+  const pageDefinitions = useMemo(() => {
+    return [...defaultBasePages, ...customPages];
+  }, [customPages]);
+
+  const currentPageData = pageDefinitions[currentPage] || pageDefinitions[0] || defaultBasePages[0];
+  const currentPageType = currentPageData?.type || PAGE_TYPE_PERIOD_TREND;
+  const currentPageId = currentPageData?.id || 'base-period';
+  const records = recordsByPageId[currentPageId] || [];
+  const currentPageLoading = Boolean(pageLoadingById[currentPageId]);
+  const hasCurrentPageRecords = Object.prototype.hasOwnProperty.call(recordsByPageId, currentPageId);
+
+  const getNormalizedPageConfig = useCallback((pageId, pageType) => {
+    return normalizePageConfig(pageConfigById?.[pageId] || {}, pageType);
+  }, [pageConfigById]);
+
+  const updatePageConfig = useCallback((pageId, pageType, patch) => {
+    setPageConfigById((prev) => {
+      const current = normalizePageConfig(prev?.[pageId] || {}, pageType);
+      const nextRaw = typeof patch === 'function' ? patch(current) : { ...current, ...(patch || {}) };
+      const next = normalizePageConfig(nextRaw, pageType);
+      return {
+        ...prev,
+        [pageId]: next,
+      };
+    });
+  }, []);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const hydrateSettings = async () => {
+      const defaults = {
+        customPages: [],
+        pageConfigById: {
+          'base-period': buildDefaultPageConfig(PAGE_TYPE_PERIOD_TREND),
+          'base-category': buildDefaultPageConfig(PAGE_TYPE_CATEGORY_GROUPS),
+        },
+        currentPage: 0,
+      };
+
+      const stored = await readDashboardSettings(defaults);
+      if (!mounted) return;
+
+      const nextCustomPages = Array.isArray(stored?.customPages)
+        ? stored.customPages
+          .filter((item) => item && item.id && item.type && item.title)
+          .map((item) => ({ id: String(item.id), type: String(item.type), title: String(item.title) }))
+        : [];
+
+      const allPages = [...defaultBasePages, ...nextCustomPages];
+
+      const rawConfigById = stored?.pageConfigById && typeof stored.pageConfigById === 'object'
+        ? stored.pageConfigById
+        : defaults.pageConfigById;
+
+      const normalizedConfigById = allPages.reduce((acc, page) => {
+        acc[page.id] = normalizePageConfig(rawConfigById?.[page.id] || {}, page.type);
+        return acc;
+      }, {});
+
+      const savedPageIndex = Number(stored?.currentPage);
+      const safePageIndex = Number.isFinite(savedPageIndex)
+        ? Math.max(0, Math.min(Math.trunc(savedPageIndex), allPages.length - 1))
+        : 0;
+
+      setCustomPages(nextCustomPages);
+      setPageConfigById(normalizedConfigById);
+      setCurrentPage(safePageIndex);
+      setSettingsReady(true);
+    };
+
+    hydrateSettings();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!settingsReady) return;
+
+    writeDashboardSettings({
+      customPages,
+      pageConfigById,
+      currentPage,
+    });
+  }, [settingsReady, customPages, pageConfigById, currentPage]);
+
+  const loadReferenceData = useCallback(async () => {
     try {
-      const [nextRecords, categories, recipients] = await Promise.all([
-        fetchRecordsWithFilters(nextFilterConfig, nextSortConfig),
+      const [categories, recipients] = await Promise.all([
         fetchAllCategories(),
         fetchAllRecipients(),
       ]);
@@ -395,18 +539,74 @@ const Dashboard = () => {
 
       setCategoriesById(categoryMap);
       setRecipientsById(recipientMap);
-      setRecords(nextRecords || []);
     } catch (error) {
-      console.error('Dashboard load error', error);
-    } finally {
-      setLoading(false);
+      console.error('Dashboard reference load error', error);
     }
-  }, [filterConfig, sortConfig]);
+  }, []);
+
+  const loadPageData = useCallback(async (
+    pageId,
+    nextFilterConfig,
+    nextSortConfig,
+    options = {}
+  ) => {
+    const { background = false } = options;
+    if (!background) {
+      setPageLoadingById((prev) => ({
+        ...prev,
+        [pageId]: true,
+      }));
+    }
+
+    try {
+      const nextRecords = await fetchRecordsWithFilters(nextFilterConfig, nextSortConfig);
+      setRecordsByPageId((prev) => ({
+        ...prev,
+        [pageId]: nextRecords || [],
+      }));
+    } catch (error) {
+      console.error('Dashboard page data load error', error);
+    } finally {
+      setPageLoadingById((prev) => ({
+        ...prev,
+        [pageId]: false,
+      }));
+      setInitialLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!settingsReady) return;
+    const page = pageDefinitions[currentPage] || pageDefinitions[0];
+    if (!page) return;
+
+    const nextConfig = getNormalizedPageConfig(page.id, page.type);
+    setFilterConfig(nextConfig.filterConfig);
+    setSortConfig(nextConfig.sortConfig);
+    setTrendConfig(nextConfig.trendConfig);
+    setPage2ChartType(nextConfig.page2ChartType);
+    setProjectionConfig(nextConfig.projectionConfig);
+  }, [settingsReady, currentPage, pageDefinitions, getNormalizedPageConfig]);
+
+  useEffect(() => {
+    if (!settingsReady) return;
+    loadReferenceData();
+  }, [settingsReady, loadReferenceData]);
+
+  useEffect(() => {
+    if (!settingsReady) return;
+    if (!currentPageId) return;
+    const hasCache = Object.prototype.hasOwnProperty.call(recordsByPageId, currentPageId);
+    loadPageData(currentPageId, filterConfig, sortConfig, { background: hasCache });
+  }, [settingsReady, currentPageId, filterConfig, sortConfig, loadPageData]);
 
   useFocusEffect(
     useCallback(() => {
-      loadData();
-    }, [loadData])
+      if (!settingsReady) return undefined;
+      loadReferenceData();
+      loadPageData(currentPageId, filterConfig, sortConfig, { background: true });
+      return undefined;
+    }, [settingsReady, loadReferenceData, loadPageData, currentPageId, filterConfig, sortConfig])
   );
 
   const categoryOptions = useMemo(() => {
@@ -433,24 +633,44 @@ const Dashboard = () => {
 
   const handleApplyFilterConfig = (nextConfig = {}) => {
     const normalizedFilter = RecordFilterConfig.from(nextConfig).build();
-    const normalizedSort = RecordSortConfig.from(nextConfig.sort || sortConfig).build();
+    const normalizedSort = RecordSortConfig.from(nextConfig.sort || sortConfig || defaultSortConfig()).build();
     setFilterConfig(normalizedFilter);
     setSortConfig(normalizedSort);
+    updatePageConfig(currentPageData.id, currentPageType, (prev) => ({
+      ...prev,
+      filterConfig: normalizedFilter,
+      sortConfig: normalizedSort,
+    }));
     setFilterModalVisible(false);
-    loadData(normalizedFilter, normalizedSort);
   };
 
   const handleApplyTrendConfig = (nextTrendConfig = {}) => {
-    setTrendConfig((prev) => ({
-      ...prev,
+    const normalizedTrend = {
+      ...trendConfig,
       mode: nextTrendConfig.mode === 'category' ? 'category' : 'total',
       chartType: nextTrendConfig.chartType === 'stackedBar' ? 'stackedBar' : 'line',
       dayRangePreset: ['auto', 'closest90', 'closest30', 'closest7'].includes(nextTrendConfig.dayRangePreset)
         ? nextTrendConfig.dayRangePreset
         : 'auto',
       categoryIds: (nextTrendConfig.categoryIds || []).map((item) => String(item)).filter(Boolean),
+    };
+    setTrendConfig(normalizedTrend);
+    updatePageConfig(currentPageData.id, currentPageType, (prev) => ({
+      ...prev,
+      trendConfig: normalizedTrend,
     }));
     setTrendFilterVisible(false);
+  };
+
+  const handleApplyProjectionConfig = (nextProjectionConfig = {}) => {
+    const normalizedProjection = normalizeProjectionConfig(nextProjectionConfig, nextProjectionConfig?.subtype || projectionConfig?.subtype);
+    setProjectionConfig(normalizedProjection);
+    updatePageConfig(currentPageData.id, currentPageType, (prev) => ({
+      ...prev,
+      projectionConfig: normalizedProjection,
+    }));
+    setProjectionChartSetupVisible(false);
+    setProjectionFilterSetupVisible(false);
   };
 
   const handleAddPage = () => {
@@ -459,8 +679,14 @@ const Dashboard = () => {
       return;
     }
 
-    const nextType = newPageType === PAGE_TYPE_CATEGORY_GROUPS ? PAGE_TYPE_CATEGORY_GROUPS : PAGE_TYPE_PERIOD_TREND;
-    const fallbackTitle = nextType === PAGE_TYPE_PERIOD_TREND ? 'Period Trend' : 'Category groups';
+    const nextType = [PAGE_TYPE_CATEGORY_GROUPS, PAGE_TYPE_PROJECTION].includes(newPageType)
+      ? newPageType
+      : PAGE_TYPE_PERIOD_TREND;
+    const fallbackTitle = nextType === PAGE_TYPE_PERIOD_TREND
+      ? 'Period Trend'
+      : nextType === PAGE_TYPE_CATEGORY_GROUPS
+        ? 'Category groups'
+        : toProjectionSubtypeLabel(newProjectionSubtype);
     const inputTitle = (newPageTitle || '').trim();
 
     if (inputTitle.length > MAX_PAGE_TITLE_LENGTH) {
@@ -494,7 +720,15 @@ const Dashboard = () => {
     };
 
     setCustomPages((prev) => [...prev, nextPage]);
+    setPageConfigById((prev) => ({
+      ...prev,
+      [nextPage.id]: normalizePageConfig({
+        ...buildDefaultPageConfig(nextType),
+        projectionConfig: normalizeProjectionConfig({}, newProjectionSubtype),
+      }, nextType),
+    }));
     setNewPageType(PAGE_TYPE_PERIOD_TREND);
+    setNewProjectionSubtype(PROJECTION_SUBTYPE_MONTHLY_SPENDING);
     setNewPageTitle('');
     setAddPageModalVisible(false);
   };
@@ -522,6 +756,21 @@ const Dashboard = () => {
           onPress: () => {
             const pageId = pageDefinitions[currentPage]?.id;
             setCustomPages((prev) => prev.filter((item) => item.id !== pageId));
+            setPageConfigById((prev) => {
+              const next = { ...prev };
+              delete next[pageId];
+              return next;
+            });
+            setRecordsByPageId((prev) => {
+              const next = { ...prev };
+              delete next[pageId];
+              return next;
+            });
+            setPageLoadingById((prev) => {
+              const next = { ...prev };
+              delete next[pageId];
+              return next;
+            });
             const nextIndex = Math.max(0, currentPage - 1);
             setCurrentPage(nextIndex);
             setTimeout(() => {
@@ -545,16 +794,13 @@ const Dashboard = () => {
     return buildTrendModel(records, categoriesById, trendConfig, filterConfig);
   }, [records, categoriesById, trendConfig, filterConfig]);
 
-  const pageDefinitions = useMemo(() => {
-    const basePages = [
-      { id: 'base-period', type: PAGE_TYPE_PERIOD_TREND, title: 'Period Trend (default)' },
-      { id: 'base-category', type: PAGE_TYPE_CATEGORY_GROUPS, title: 'Category groups (default)' },
-    ];
+  const projectionModel = useMemo(() => {
+    return buildProjectionModel({
+      records,
+      projectionConfig,
+    });
+  }, [records, projectionConfig]);
 
-    return [...basePages, ...customPages];
-  }, [customPages]);
-
-  const currentPageType = pageDefinitions[currentPage]?.type || PAGE_TYPE_PERIOD_TREND;
   const chartTitleOptions = useMemo(() => {
     return pageDefinitions.map((page, index) => ({ key: String(index), value: page.title }));
   }, [pageDefinitions]);
@@ -562,6 +808,8 @@ const Dashboard = () => {
   const page1StepValue = getNiceStepValue(trendModel.maxAbsValue);
   const page1AxisRange = page1StepValue * Y_AXIS_SECTION_COUNT;
   const page2AxisModel = getAxisModel(categoryChartData);
+  const projectionStepValue = getNiceStepValue(projectionModel.maxAbsValue);
+  const projectionAxisRange = projectionStepValue * Y_AXIS_SECTION_COUNT;
 
   const page2Charts = useMemo(() => ([
     {
@@ -579,7 +827,7 @@ const Dashboard = () => {
     }
   ]), []);
 
-  if (loading) {
+  if (initialLoading && !hasCurrentPageRecords) {
     return (
       <View style={styles.container}>
         <ActivityIndicator size="large" color="#0BA5A4" style={{ marginTop: 40 }} />
@@ -691,6 +939,16 @@ const Dashboard = () => {
     spacing: Math.max(8, page2Spacing - 10),
   };
 
+  const projectionLineProps = {
+    ...chartCommonProps,
+    dataSet: projectionModel.dataSet,
+    maxValue: projectionAxisRange,
+    mostNegativeValue: -projectionAxisRange,
+    stepValue: projectionStepValue,
+    negativeStepValue: projectionStepValue,
+    spacing: getDynamicSpacing(chartWidth, projectionModel.pointsCount),
+  };
+
   const renderPage1Chart = () => {
     if (trendConfig.mode === 'category') {
       if (trendModel.legend.length < 2) {
@@ -745,6 +1003,10 @@ const Dashboard = () => {
     );
   };
 
+  const renderProjectionChart = () => {
+    return <LineChart {...projectionLineProps} />;
+  };
+
   const page1Title = trendConfig.mode === 'category'
     ? (trendConfig.chartType === 'line' ? 'Trend by Categories (Multi-Line)' : 'Trend by Categories (Stacked Bar)')
     : (trendConfig.chartType === 'line' ? 'Total Trend (Line)' : 'Total Trend (Bar)');
@@ -767,29 +1029,50 @@ const Dashboard = () => {
     </View>
   );
 
+  const renderLegend = (items = [], pageKey) => {
+    if (!items || items.length === 0) return null;
+
+    return (
+      <View style={styles.legendStrip}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={true}
+          style={styles.legendWrap}
+          contentContainerStyle={styles.legendRow}
+        >
+          {items.map((item) => (
+            <View key={`${pageKey}-${item.key}`} style={styles.legendItem}>
+              {item.dashed ? (
+                <View style={[styles.legendDash, { borderColor: item.color }]} />
+              ) : (
+                <View style={[styles.legendDot, { backgroundColor: item.color }]} />
+              )}
+              <Text style={styles.legendText}>{item.label}</Text>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+    );
+  };
+
+  const renderPageRefreshIndicator = () => {
+    if (!currentPageLoading) return null;
+    return (
+      <View style={styles.pageRefreshIndicator}>
+        <ActivityIndicator size="small" color={Colors.primary} />
+        <Text style={styles.pageRefreshText}>Refreshing current page...</Text>
+      </View>
+    );
+  };
+
   const renderPeriodTrendPage = (pageTitle, pageKey) => (
     <View key={pageKey} style={styles.page}>
+      {renderPageRefreshIndicator()}
       <View style={styles.chartSection}>
         {renderChartTitleDropdown(pageTitle || page1Title)}
         {renderPage1Chart()}
       </View>
-      {trendConfig.mode === 'category' && trendModel.legend.length > 0 ? (
-        <View style={styles.legendStrip}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={true}
-            style={styles.legendWrap}
-            contentContainerStyle={styles.legendRow}
-          >
-            {trendModel.legend.map((item) => (
-              <View key={`${pageKey}-${item.key}`} style={styles.legendItem}>
-                <View style={[styles.legendDot, { backgroundColor: item.color }]} />
-                <Text style={styles.legendText}>{item.label}</Text>
-              </View>
-            ))}
-          </ScrollView>
-        </View>
-      ) : null}
+      {trendConfig.mode === 'category' ? renderLegend(trendModel.legend, pageKey) : null}
       <TableComponent
         data={trendModel.tableRows}
         firstColumnTitle="Period"
@@ -801,11 +1084,30 @@ const Dashboard = () => {
 
   const renderCategoryGroupsPage = (pageTitle, pageKey) => (
     <View key={pageKey} style={styles.page}>
+      {renderPageRefreshIndicator()}
       <View style={styles.chartSection}>
         {renderChartTitleDropdown(pageTitle || (page2ChartType === 'Bar' ? 'Category Volume (Bar)' : 'Category Volume (Pie)'))}
         {renderPage2Chart()}
       </View>
       <TableComponent data={allCategoryRows} firstColumnTitle="Category" firstColumnFlex={1.4} amountColumnFlex={1.6} />
+    </View>
+  );
+
+  const renderProjectionPage = (pageTitle, pageKey) => (
+    <View key={pageKey} style={styles.page}>
+      {renderPageRefreshIndicator()}
+      <View style={styles.chartSection}>
+        {renderChartTitleDropdown(pageTitle || projectionModel.title)}
+        {renderProjectionChart()}
+      </View>
+      {renderLegend(projectionModel.legend, pageKey)}
+      <Text style={styles.projectionSubtitle}>{projectionModel.subtitle}</Text>
+      <TableComponent
+        columns={projectionModel.table.columns}
+        rows={projectionModel.table.rows}
+        summaryLabel={projectionModel.table.summary?.label}
+        summaryValue={projectionModel.table.summary?.value}
+      />
     </View>
   );
 
@@ -837,6 +1139,9 @@ const Dashboard = () => {
           if (page.type === PAGE_TYPE_CATEGORY_GROUPS) {
             return renderCategoryGroupsPage(page.title, page.id);
           }
+          if (page.type === PAGE_TYPE_PROJECTION) {
+            return renderProjectionPage(page.title, page.id);
+          }
           return renderPeriodTrendPage(page.title, page.id);
         })}
       </PagerView>
@@ -847,6 +1152,8 @@ const Dashboard = () => {
           onPress={() => {
             if (currentPageType === PAGE_TYPE_PERIOD_TREND) {
               setTrendFilterVisible(true);
+            } else if (currentPageType === PAGE_TYPE_PROJECTION) {
+              setProjectionChartSetupVisible(true);
             } else {
               setChartModalVisible(true);
             }
@@ -855,7 +1162,16 @@ const Dashboard = () => {
           <Text style={styles.sideButtonText}>Chart</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.sideButton} onPress={handleOpenFilterModal}>
+        <TouchableOpacity
+          style={styles.sideButton}
+          onPress={() => {
+            if (currentPageType === PAGE_TYPE_PROJECTION) {
+              setProjectionFilterSetupVisible(true);
+              return;
+            }
+            handleOpenFilterModal();
+          }}
+        >
           <Text style={styles.sideButtonText}>Filter</Text>
         </TouchableOpacity>
       </View>
@@ -893,8 +1209,34 @@ const Dashboard = () => {
                 >
                   <Text style={[styles.optionButtonText, newPageType === PAGE_TYPE_CATEGORY_GROUPS && styles.optionButtonTextActive]}>Category groups</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.optionButton, newPageType === PAGE_TYPE_PROJECTION && styles.optionButtonActive]}
+                  onPress={() => setNewPageType(PAGE_TYPE_PROJECTION)}
+                >
+                  <Text style={[styles.optionButtonText, newPageType === PAGE_TYPE_PROJECTION && styles.optionButtonTextActive]}>Projection</Text>
+                </TouchableOpacity>
               </View>
             </View>
+
+            {newPageType === PAGE_TYPE_PROJECTION ? (
+              <View style={styles.modalSection}>
+                <Text style={styles.modalSectionTitle}>Projection Subcategory</Text>
+                <View style={styles.optionRow}>
+                  {PROJECTION_SUBTYPE_OPTIONS.map((option) => {
+                    const isActive = newProjectionSubtype === option.key;
+                    return (
+                      <TouchableOpacity
+                        key={option.key}
+                        style={[styles.optionButton, isActive && styles.optionButtonActive]}
+                        onPress={() => setNewProjectionSubtype(option.key)}
+                      >
+                        <Text style={[styles.optionButtonText, isActive && styles.optionButtonTextActive]}>{option.label}</Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              </View>
+            ) : null}
 
             <View style={styles.modalSection}>
               <Text style={styles.modalSectionTitle}>Chart Title</Text>
@@ -938,7 +1280,13 @@ const Dashboard = () => {
                     <TouchableOpacity
                       key={option.id}
                       style={[styles.optionButton, isActive && styles.optionButtonActive]}
-                      onPress={() => setPage2ChartType(option.id)}
+                      onPress={() => {
+                        setPage2ChartType(option.id);
+                        updatePageConfig(currentPageData.id, currentPageType, (prev) => ({
+                          ...prev,
+                          page2ChartType: option.id,
+                        }));
+                      }}
                     >
                       <Text style={[styles.optionButtonText, isActive && styles.optionButtonTextActive]}>{option.label}</Text>
                     </TouchableOpacity>
@@ -975,38 +1323,141 @@ const Dashboard = () => {
         onClose={() => setTrendFilterVisible(false)}
         onApply={handleApplyTrendConfig}
       />
+
+      <DashboardProjectionFilter
+        visible={projectionChartSetupVisible}
+        mode="chart"
+        initialConfig={projectionConfig}
+        categoryOptions={categoryOptions}
+        recipientOptions={recipientOptions}
+        onClose={() => setProjectionChartSetupVisible(false)}
+        onApply={handleApplyProjectionConfig}
+      />
+
+      <DashboardProjectionFilter
+        visible={projectionFilterSetupVisible}
+        mode="filter"
+        initialConfig={projectionConfig}
+        categoryOptions={categoryOptions}
+        recipientOptions={recipientOptions}
+        onClose={() => setProjectionFilterSetupVisible(false)}
+        onApply={handleApplyProjectionConfig}
+      />
     </View>
   );
 };
 
 const TableComponent = ({
   data,
+  rows,
+  columns,
   firstColumnTitle = 'Month',
   firstColumnFlex = 1,
   amountColumnFlex = 2,
+  summaryLabel = 'Summary',
+  summaryValue,
 }) => {
-  const totalAmount = data.reduce((acc, item) => acc + Math.round(item.value * 100), 0) / 100;
+  const isDynamic = Array.isArray(columns) && columns.length > 0;
+  const sourceRows = isDynamic ? (rows || []) : (data || []);
+
+  const computedSummary = isDynamic
+    ? (Number.isFinite(Number(summaryValue))
+      ? Number(summaryValue)
+      : sourceRows.reduce((acc, item) => {
+        const numericValues = columns
+          .filter((column) => column.type === 'amount')
+          .map((column) => Number(item?.[column.key]))
+          .filter((value) => Number.isFinite(value));
+
+        if (numericValues.length === 0) return acc;
+        return acc + numericValues[numericValues.length - 1];
+      }, 0))
+    : sourceRows.reduce((acc, item) => acc + Math.round((Number(item.value) || 0) * 100), 0) / 100;
+
+  const formatAmountCell = (value) => {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) return '-';
+    return numeric >= 0 ? `+$${numeric.toFixed(2)}` : `-$${Math.abs(numeric).toFixed(2)}`;
+  };
+
+  const dynamicSummaryAmountFlex = isDynamic ? (columns?.[columns.length - 1]?.flex || 1) : amountColumnFlex;
+  const dynamicSummaryLabelFlex = isDynamic
+    ? Math.max(1, columns.slice(0, -1).reduce((sum, column) => sum + (column.flex || 1), 0))
+    : firstColumnFlex;
+
   return (
     <View style={styles.tableSection}>
       <View style={styles.tableContainer}>
         <View style={styles.tableHeader}>
-          <Text style={[styles.columnHeader, { flex: firstColumnFlex }]}>{firstColumnTitle}</Text>
-          <Text style={[styles.columnHeader, { flex: amountColumnFlex, textAlign: 'right', paddingRight: 20 }]}>Amount</Text>
+          {isDynamic ? (
+            columns.map((column) => (
+              <Text
+                key={`header-${column.key}`}
+                style={[
+                  styles.columnHeader,
+                  {
+                    flex: column.flex || 1,
+                    textAlign: column.align === 'right' ? 'right' : 'left',
+                    paddingRight: column.align === 'right' ? 12 : 10,
+                  },
+                ]}
+              >
+                {column.label}
+              </Text>
+            ))
+          ) : (
+            <>
+              <Text style={[styles.columnHeader, { flex: firstColumnFlex }]}>{firstColumnTitle}</Text>
+              <Text style={[styles.columnHeader, { flex: amountColumnFlex, textAlign: 'right', paddingRight: 20 }]}>Amount</Text>
+            </>
+          )}
         </View>
         <ScrollView style={styles.scrollBody}>
-          {data.map((item, index) => (
+          {sourceRows.map((item, index) => (
             <View key={index} style={[styles.tableRow, index % 2 === 0 ? styles.evenRow : styles.oddRow]}>
-              <Text style={[styles.cell, { flex: firstColumnFlex }]}>{item.label || item.month}</Text>
-              <Text style={[styles.cell, { flex: amountColumnFlex, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: item.value >= 0 ? '#2e7d32' : '#d32f2f' }]}>
-                {item.value >= 0 ? `+$${item.value.toFixed(2)}` : `-$${Math.abs(item.value).toFixed(2)}`}
-              </Text>
+              {isDynamic ? (
+                columns.map((column) => {
+                  const value = item?.[column.key];
+                  const numeric = Number(value);
+                  const isAmount = column.type === 'amount';
+                  const textValue = isAmount ? formatAmountCell(value) : (value == null || value === '' ? '-' : String(value));
+                  const textColor = isAmount && Number.isFinite(numeric)
+                    ? (numeric >= 0 ? '#2e7d32' : '#d32f2f')
+                    : Colors.light.text;
+
+                  return (
+                    <Text
+                      key={`cell-${index}-${column.key}`}
+                      style={[
+                        styles.cell,
+                        {
+                          flex: column.flex || 1,
+                          textAlign: column.align === 'right' ? 'right' : 'left',
+                          paddingRight: column.align === 'right' ? 12 : 9,
+                          fontWeight: isAmount ? 'bold' : '400',
+                          color: textColor,
+                        },
+                      ]}
+                    >
+                      {textValue}
+                    </Text>
+                  );
+                })
+              ) : (
+                <>
+                  <Text style={[styles.cell, { flex: firstColumnFlex }]}>{item.label || item.month}</Text>
+                  <Text style={[styles.cell, { flex: amountColumnFlex, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: item.value >= 0 ? '#2e7d32' : '#d32f2f' }]}>
+                    {item.value >= 0 ? `+$${item.value.toFixed(2)}` : `-$${Math.abs(item.value).toFixed(2)}`}
+                  </Text>
+                </>
+              )}
             </View>
           ))}
         </ScrollView>
         <View style={styles.summaryRow}>
-          <Text style={[styles.cell, { flex: firstColumnFlex, fontWeight: 'bold' }]}>Summary</Text>
-          <Text style={[styles.cell, { flex: amountColumnFlex, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: totalAmount >= 0 ? '#2e7d32' : '#d32f2f' }]}>
-            ${totalAmount.toFixed(2)}
+          <Text style={[styles.cell, { flex: dynamicSummaryLabelFlex, fontWeight: 'bold' }]}>{summaryLabel}</Text>
+          <Text style={[styles.cell, { flex: dynamicSummaryAmountFlex, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: computedSummary >= 0 ? '#2e7d32' : '#d32f2f' }]}>
+            ${computedSummary.toFixed(2)}
           </Text>
         </View>
       </View>
@@ -1065,6 +1516,19 @@ const styles = StyleSheet.create({
 
   pagerView: { flex: 1, marginTop: 5 },
   page: { flex: 1 },
+  pageRefreshIndicator: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 4,
+    marginBottom: -4,
+    gap: 6,
+  },
+  pageRefreshText: {
+    fontSize: 11,
+    color: Colors.light.disabledText,
+    fontWeight: '600',
+  },
 
   chartSection: { flex: 3, justifyContent: 'center', alignItems: 'center', zIndex: 1 },
   chartLabel: { fontSize: 14, color: Colors.light.text, marginTop: 10, fontWeight: '600' },
@@ -1129,9 +1593,22 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginRight: 6,
   },
+  legendDash: {
+    width: 14,
+    borderTopWidth: 2,
+    borderStyle: 'dashed',
+    marginRight: 6,
+  },
   legendText: {
     color: Colors.light.text,
     fontSize: 12,
+  },
+  projectionSubtitle: {
+    color: Colors.light.disabledText,
+    textAlign: 'center',
+    fontSize: 12,
+    marginBottom: 4,
+    paddingHorizontal: 12,
   },
 
   pieContainer: {
