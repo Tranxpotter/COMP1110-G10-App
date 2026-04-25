@@ -1373,7 +1373,7 @@ const Dashboard = () => {
           ))}
         </View>
 
-        <View style={styles.summaryTableCard}>
+        <View style={[styles.summaryTableCard, styles.summaryCategoryTableCard]}>
           <View style={styles.summaryHeaderRow}>
             <Text style={[styles.summaryHeaderCell, { flex: 1.4 }]}>Category</Text>
             <Text style={[styles.summaryHeaderCell, { flex: 1, textAlign: 'right' }]}>{summaryModel.metricHeader}</Text>
@@ -1928,6 +1928,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginTop: 8,
   },
+  summaryCategoryTableCard: {
+    flex: 1,
+    minHeight: 136,
+  },
   summaryHeaderRow: {
     flexDirection: 'row',
     backgroundColor: Colors.primary,
@@ -1956,8 +1960,14 @@ const styles = StyleSheet.create({
     color: Colors.light.text,
   },
   summarySingleDataCell: { flex: 1, textAlign: 'center' },
-  summaryCategoryScroll: { maxHeight: 104 },
-  summaryCategoryScrollContent: { paddingBottom: 0 },
+  summaryCategoryScroll: {
+    flex: 1,
+    minHeight: 102,
+  },
+  summaryCategoryScrollContent: {
+    minHeight: 102,
+    paddingBottom: 0,
+  },
   summaryHintText: {
     fontSize: 10,
     color: Colors.light.disabledText,
