@@ -16,6 +16,7 @@ import ThemedSelectList from '../components/ThemedSelectList';
 import ThemedView from "../components/ThemedView"
 import ThemedScrollView from '../components/ThemedScrollView';
 import CsvUploader from '../components/CsvUploader'
+import { APP_BASE_CURRENCY, CURRENCY_OPTIONS, convertToBaseAmount } from '../components/fxService'
 
 const Input = () => {
   const colorScheme = useColorScheme();
@@ -27,6 +28,7 @@ const Input = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [transaction_type, setTransactionType] = useState("spending");
   const [typeSelectResetKey, setTypeSelectResetKey] = useState(0.0);
+  const [currencySelectResetKey, setCurrencySelectResetKey] = useState(0)
   const [typeDropdownCloseKey, setTypeDropdownCloseKey] = useState(0);
   const [recipient, setRecipient] = useState("");
   const [category, setCategory] = useState("");
@@ -92,15 +94,37 @@ const Input = () => {
       return;
     }
 
+    const numericAmount = Number(amount)
+    if (!Number.isFinite(numericAmount) || numericAmount <= 0) {
+      setLogMsg('Amount must be a positive number')
+      return
+    }
+
+    const normalizedCurrency = String(currency || APP_BASE_CURRENCY).trim().toUpperCase()
+
     console.log(date.toLocaleDateString('en-CA'), transaction_type, recipient, category, amount, description);
 
     try {
+      setLogMsg('Fetching FX rate...')
+      const fx = await convertToBaseAmount({
+        amount: numericAmount,
+        fromCurrency: normalizedCurrency,
+        quoteCurrency: APP_BASE_CURRENCY,
+        date: date.toLocaleDateString('en-CA'),
+      })
+
       const obj = {
-        amount: amount,
+        amount: numericAmount,
+        amount_base: fx.amountBase,
+        fx_rate_to_base: fx.fxRateToBase,
+        fx_base_currency: fx.fxBaseCurrency,
+        fx_quote_currency: fx.fxQuoteCurrency,
+        fx_rate_date: fx.fxRateDate,
+        fx_provider: fx.fxProvider,
         cname: category || null,
         date: date.toLocaleDateString('en-CA'),
         type: transaction_type || '',
-        currency: currency || '',
+        currency: normalizedCurrency,
         inputdatetime: new Date().toISOString(),
         description: description || '',
         rname: recipient || null
@@ -109,7 +133,11 @@ const Input = () => {
       // clear
       reset()
 
-      setLogMsg("Record added")
+      if (normalizedCurrency === APP_BASE_CURRENCY) {
+        setLogMsg('Record added')
+      } else {
+        setLogMsg(`Record added (${normalizedCurrency}->${APP_BASE_CURRENCY} ${fx.fxRateToBase.toFixed(4)})`)
+      }
       // Alert.alert('Record added', String(res))
     } catch (e) {
       console.log(e)
@@ -127,6 +155,8 @@ const Input = () => {
     setRecipient("")
     setCategory("")
     setAmount(0)
+    setCurrency(APP_BASE_CURRENCY)
+    setCurrencySelectResetKey((prev) => prev + 1)
     setDescription("")
     setLogMsg("")
   }
@@ -492,6 +522,10 @@ const Input = () => {
       ? { key: 'income', value: 'Income' }
       : { key: 'spending', value: 'Spending' }
 
+  const selectedCurrencyOption =
+    CURRENCY_OPTIONS.find((item) => item.key === String(currency || '').toUpperCase())
+      || CURRENCY_OPTIONS[0]
+
 
 
 
@@ -508,6 +542,7 @@ const Input = () => {
         style={[styles.scroll, { marginTop: insets.top }]}
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
+        nestedScrollEnabled={true}
       >
         
         <View >
@@ -641,7 +676,26 @@ const Input = () => {
               onChangeText={(value) => {handleAmountInput(value); setLogMsg("");}}
               returnKeyType="next"
               blurOnSubmit={false}
-              onSubmitEditing={() => descriptionInputRef.current?.focus()}
+              onSubmitEditing={closeAllSuggestions}
+            />
+          </View>
+
+          <View style={[styles.fieldRow, styles.currencyRow]}>
+            <ThemedText style={styles.fieldname}>Currency:</ThemedText>
+
+            <ThemedSelectList
+              key={`currency-${currencySelectResetKey}`}
+              setSelected={(value) => {
+                setCurrency(String(value || APP_BASE_CURRENCY).toUpperCase())
+                setLogMsg('')
+              }}
+              data={CURRENCY_OPTIONS}
+              floating={true}
+              save="key"
+              defaultOption={selectedCurrencyOption}
+              search={false}
+              nestedScrollEnabled={true}
+              dropdownStyles={styles.currencyDropdown}
             />
           </View>
 
@@ -883,6 +937,15 @@ const styles = StyleSheet.create({
   typeDropdown: {
     zIndex: 400,
     elevation: 400,
+  },
+  currencyRow: {
+    zIndex: 220,
+    elevation: 220,
+  },
+  currencyDropdown: {
+    zIndex: 260,
+    elevation: 260,
+    maxHeight: 180,
   },
   textinput: {
     flex: 1,

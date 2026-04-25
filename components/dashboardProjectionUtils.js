@@ -130,13 +130,22 @@ const getMaxAbsFromSeries = (seriesValues = []) => {
 }
 
 const getSignedAmount = (record) => {
-  const rawAmount = Number(record?.amount) || 0
+  const rawAmount = Number.isFinite(Number(record?.amount_base))
+    ? Number(record?.amount_base)
+    : (Number(record?.amount) || 0)
   const transactionType = String(record?.type || '').toLowerCase()
   const magnitude = Math.abs(rawAmount)
 
   if (transactionType === 'spending') return -magnitude
   if (transactionType === 'income') return magnitude
   return rawAmount
+}
+
+const getAmountMagnitude = (record) => {
+  if (Number.isFinite(Number(record?.amount_base))) {
+    return Math.abs(Number(record?.amount_base))
+  }
+  return Math.abs(toNumber(record?.amount, 0))
 }
 
 const toProjectionSubtypeLabel = (subtype) => {
@@ -221,7 +230,7 @@ const buildMonthlySpendingModel = (records, projectionConfig) => {
     if (excludedCategoryIds.has(categoryId)) return
 
     const dayIndex = date.getDate() - 1
-    dailySpend[dayIndex] += Math.abs(toNumber(record?.amount, 0))
+    dailySpend[dayIndex] += getAmountMagnitude(record)
   })
 
   const cumulative = []
@@ -308,7 +317,7 @@ const buildSavingsDebtModel = (records, projectionConfig) => {
       if (!includeCategorySet.has(categoryId)) return
 
       const transactionType = String(record?.type || '').toLowerCase()
-      const amountMagnitude = Math.abs(toNumber(record?.amount, 0))
+      const amountMagnitude = getAmountMagnitude(record)
       const savingsContribution = transactionType === 'spending'
         ? amountMagnitude
         : transactionType === 'income'
@@ -435,7 +444,7 @@ const buildYearlyBillsModel = (records, projectionConfig) => {
     if (includeRecipientIds.size > 0 && !includeRecipientIds.has(String(record?.rid || ''))) return
 
     const monthKey = toMonthKey(startOfMonth(date))
-    monthlyBillsByKey[monthKey] = safeRound2((monthlyBillsByKey[monthKey] || 0) + Math.abs(toNumber(record?.amount, 0)))
+    monthlyBillsByKey[monthKey] = safeRound2((monthlyBillsByKey[monthKey] || 0) + getAmountMagnitude(record))
   })
 
   const currentMonth = startOfMonth(new Date())
@@ -532,7 +541,7 @@ const buildSubscriptionModel = (records, projectionConfig) => {
     if (includeRecipientIds.size > 0 && !includeRecipientIds.has(String(record?.rid || ''))) return
 
     const monthKey = toMonthKey(startOfMonth(date))
-    monthlySpendByKey[monthKey] = safeRound2((monthlySpendByKey[monthKey] || 0) + Math.abs(toNumber(record?.amount, 0)))
+    monthlySpendByKey[monthKey] = safeRound2((monthlySpendByKey[monthKey] || 0) + getAmountMagnitude(record))
   })
 
   const currentMonth = startOfMonth(new Date())

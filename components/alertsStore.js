@@ -330,7 +330,7 @@ async function sumAmountsForPeriod({ startDate, endDate, type, categoryIds = [],
   if (recipientClause) whereClauses.push(recipientClause)
 
   const res = await executeSqlAsync(
-    `SELECT COALESCE(SUM(amount), 0) AS total FROM record WHERE ${whereClauses.join(' AND ')}`,
+    `SELECT COALESCE(SUM(COALESCE(amount_base, amount)), 0) AS total FROM record WHERE ${whereClauses.join(' AND ')}`,
     params
   )
   console.log('sumAmountsForPeriod params:', { startDate, endDate, categoryIds }) //debug
@@ -351,7 +351,7 @@ async function fetchSpendingTransactionsForPeriod({ startDate, endDate, category
   if (recipientClause) whereClauses.push(recipientClause)
 
   const res = await executeSqlAsync(
-    `SELECT tid, amount, date, cid, rid FROM record WHERE ${whereClauses.join(' AND ')} ORDER BY date ASC, tid ASC`,
+    `SELECT tid, COALESCE(amount_base, amount) AS amount, date, cid, rid FROM record WHERE ${whereClauses.join(' AND ')} ORDER BY date ASC, tid ASC`,
     params
   )
 
@@ -372,7 +372,7 @@ async function fetchPairAggregatesForPeriod({ startDate, endDate, categoryIds = 
 
   const res = await executeSqlAsync(
     `
-      SELECT rid, cid, COUNT(*) AS tx_count, COALESCE(SUM(amount), 0) AS total
+      SELECT rid, cid, COUNT(*) AS tx_count, COALESCE(SUM(COALESCE(amount_base, amount)), 0) AS total
       FROM record
       WHERE ${whereClauses.join(' AND ')}
       GROUP BY rid, cid
@@ -409,7 +409,7 @@ async function fetchPairTotalForCycle(pair, cycleBounds, evaluationOptions = {})
   }
 
   const res = await executeSqlAsync(
-    `SELECT COALESCE(SUM(amount), 0) AS total FROM record WHERE ${whereClauses.join(' AND ')}`,
+    `SELECT COALESCE(SUM(COALESCE(amount_base, amount)), 0) AS total FROM record WHERE ${whereClauses.join(' AND ')}`,
     params
   )
 

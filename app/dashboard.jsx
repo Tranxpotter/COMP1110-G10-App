@@ -32,6 +32,7 @@ const screenHeight = Dimensions.get('window').height;
 const PERIOD_COUNT = 12;
 const Y_AXIS_SECTION_COUNT = 4;
 const MAX_CATEGORY_CHART_ITEMS = 11;
+const BASE_CURRENCY_LABEL = 'HKD';
 const CHART_PRIMARY_COLOR = '#1f8a70';
 const CHART_SECONDARY_COLOR = '#f97316';
 const CHART_DASH_ARRAY = [5, 4];
@@ -144,7 +145,9 @@ const getNiceStepValue = (maxAbsValue) => {
 };
 
 const getSignedAmount = (record) => {
-  const rawAmount = Number(record?.amount) || 0;
+  const rawAmount = Number.isFinite(Number(record?.amount_base))
+    ? Number(record?.amount_base)
+    : (Number(record?.amount) || 0);
   const transactionType = String(record?.type || '').toLowerCase();
   const magnitude = Math.abs(rawAmount);
 
@@ -948,15 +951,15 @@ const Dashboard = () => {
     });
 
     const amountHeader = summaryMode === 'income'
-      ? 'Total Income'
+      ? `Total Income (${BASE_CURRENCY_LABEL})`
       : summaryMode === 'spending'
-        ? 'Total Spending'
-        : 'Total Amount';
+        ? `Total Spending (${BASE_CURRENCY_LABEL})`
+        : `Total Amount (${BASE_CURRENCY_LABEL})`;
     const metricHeader = summaryMode === 'income'
-      ? 'Income'
+      ? `Income (${BASE_CURRENCY_LABEL})`
       : summaryMode === 'spending'
-        ? 'Spending'
-        : 'Amount';
+        ? `Spending (${BASE_CURRENCY_LABEL})`
+        : `Amount (${BASE_CURRENCY_LABEL})`;
 
     return {
       amountHeader,
@@ -1796,7 +1799,7 @@ const TableComponent = ({
           ) : (
             <>
               <Text style={[styles.columnHeader, { flex: firstColumnFlex }]}>{firstColumnTitle}</Text>
-              <Text style={[styles.columnHeader, { flex: amountColumnFlex, textAlign: 'right', paddingRight: 20 }]}>Amount</Text>
+              <Text style={[styles.columnHeader, { flex: amountColumnFlex, textAlign: 'right', paddingRight: 20 }]}>{`Amount (${BASE_CURRENCY_LABEL})`}</Text>
             </>
           )}
         </View>
