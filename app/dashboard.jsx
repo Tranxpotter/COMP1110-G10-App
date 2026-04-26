@@ -224,6 +224,18 @@ const toTwoRowDateLabel = (date) => {
   return `${year}\n${month}/${day}`;
 };
 
+const toStartOfDayMs = (value) => {
+  const date = new Date(value);
+  date.setHours(0, 0, 0, 0);
+  return date.getTime();
+};
+
+const toEndOfDayMs = (value) => {
+  const date = new Date(value);
+  date.setHours(23, 59, 59, 999);
+  return date.getTime();
+};
+
 const resolveTrendEndDate = (filterConfig = {}, fallbackDate = null) => {
   const dateFilter = filterConfig?.date || {};
   let candidate = null;
@@ -254,11 +266,11 @@ const toPeriodDefinitions = (records = [], trendConfig = {}, filterConfig = {}, 
 
   if (preset === 'closest7') {
     const days = 7;
-    const endMs = baseEndMs - dayRangeShift * days * dayMs;
+    const endDayStartMs = toStartOfDayMs(baseEndMs) - dayRangeShift * days * dayMs;
     return Array.from({ length: days }, (_, index) => {
       const dayOffset = days - 1 - index;
-      const pointStart = endMs - dayOffset * dayMs;
-      const pointEnd = pointStart + dayMs - 1;
+      const pointStart = endDayStartMs - dayOffset * dayMs;
+      const pointEnd = toEndOfDayMs(pointStart);
       const startDate = new Date(pointStart);
       const finalDate = new Date(pointEnd);
 
@@ -268,7 +280,7 @@ const toPeriodDefinitions = (records = [], trendConfig = {}, filterConfig = {}, 
         startLabel: toSimpleDateString(startDate),
         endLabel: toSimpleDateString(finalDate),
         endChartLabel: toTwoRowDateLabel(finalDate),
-        rangeLabel: `${toSimpleDateString(startDate)}-${toSimpleDateString(finalDate)}`,
+        rangeLabel: toSimpleDateString(startDate),
       };
     });
   }
