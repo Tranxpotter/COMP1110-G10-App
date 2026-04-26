@@ -218,10 +218,14 @@ async function resolveAmountBase({ amount, amount_base, currency, date }) {
   const safeAmount = Number.isFinite(numericAmount) ? numericAmount : 0
   const normalizedCurrency = normalizeCurrencyCode(currency, DEFAULT_BASE_CURRENCY)
 
-  const existingAmountBase = Number(amount_base)
-  if (Number.isFinite(existingAmountBase)) {
-    return existingAmountBase
+  // FIX: Ensure amount_base is actually provided and not null/empty
+  if (amount_base != null && String(amount_base).trim() !== '') {
+    const existingAmountBase = Number(amount_base)
+    if (Number.isFinite(existingAmountBase)) {
+      return existingAmountBase
+    }
   }
+
 
   if (normalizedCurrency === DEFAULT_BASE_CURRENCY) {
     return safeAmount
@@ -976,7 +980,7 @@ function normalizeCsvRow(row = {}) {
 }
 
 
-export async function importRecordsFromRows(rows = [], chunkSize = 200) {
+export async function importRecordsFromRows(rows = [], chunkSize = 200, forceFxRecalculation = false) {
   if (!Array.isArray(rows) || rows.length === 0) return { inserted: 0, skipped: 0 }
   let inserted = 0, skipped = 0
 
@@ -988,6 +992,11 @@ export async function importRecordsFromRows(rows = [], chunkSize = 200) {
     const chunk = normalized.slice(i, i + chunkSize)
     for (const row of chunk) {
       try {
+        // If true, delete the CSV's base amount to force resolveAmountBase to run the FX API
+        if (forceFxRecalculation) {
+          row.amount_base = undefined
+        }
+        
         const res = await addRecord(row)
         if (res) inserted += 1
       } catch (err) {
