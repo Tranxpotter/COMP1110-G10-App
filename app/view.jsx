@@ -2092,8 +2092,7 @@ const styles = StyleSheet.create({
     elevation: 400,
   },
   modalCurrencyRow: {
-    zIndex: 260,
-    elevation: 260,
+    width: "100%"
   },
   modalCurrencyDropdown: {
     zIndex: 300,

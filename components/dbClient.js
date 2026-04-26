@@ -93,11 +93,6 @@ export async function initTables() {
       tid INTEGER PRIMARY KEY AUTOINCREMENT,
       amount REAL,
       amount_base REAL,
-      fx_rate_to_base REAL,
-      fx_base_currency TEXT,
-      fx_quote_currency TEXT,
-      fx_rate_date TEXT,
-      fx_provider TEXT,
       cid INTEGER,
       date DATE,
       type TEXT,
@@ -111,28 +106,86 @@ export async function initTables() {
   `)
 
   await ensureColumnExists('record', 'amount_base', 'REAL')
-  await ensureColumnExists('record', 'fx_rate_to_base', 'REAL')
-  await ensureColumnExists('record', 'fx_base_currency', 'TEXT')
-  await ensureColumnExists('record', 'fx_quote_currency', 'TEXT')
-  await ensureColumnExists('record', 'fx_rate_date', 'TEXT')
-  await ensureColumnExists('record', 'fx_provider', 'TEXT')
+
+  const hasLegacyFxColumns =
+    await tableHasColumn('record', 'fx_rate_to_base')
+    || await tableHasColumn('record', 'fx_base_currency')
+    || await tableHasColumn('record', 'fx_quote_currency')
+    || await tableHasColumn('record', 'fx_rate_date')
+    || await tableHasColumn('record', 'fx_provider')
+
+  if (hasLegacyFxColumns) {
+    await rebuildRecordTableWithoutFxMetadata()
+  }
 
   // Backfill HKD-like legacy rows so base-amount summaries can work immediately.
   await executeSqlAsync(
     `
       UPDATE record
       SET
-        amount_base = amount,
-        fx_rate_to_base = COALESCE(fx_rate_to_base, 1),
-        fx_base_currency = COALESCE(NULLIF(fx_base_currency, ''), UPPER(COALESCE(NULLIF(currency, ''), ?))),
-        fx_quote_currency = COALESCE(NULLIF(fx_quote_currency, ''), ?),
-        fx_rate_date = COALESCE(NULLIF(fx_rate_date, ''), NULLIF(date, ''), SUBSTR(COALESCE(inputdatetime, ''), 1, 10)),
-        fx_provider = COALESCE(NULLIF(fx_provider, ''), 'legacy-default')
+        amount_base = amount
       WHERE amount_base IS NULL
       AND UPPER(COALESCE(NULLIF(currency, ''), ?)) = ?
     `,
-    [DEFAULT_BASE_CURRENCY, DEFAULT_BASE_CURRENCY, DEFAULT_BASE_CURRENCY, DEFAULT_BASE_CURRENCY]
+    [DEFAULT_BASE_CURRENCY, DEFAULT_BASE_CURRENCY]
   )
+}
+
+async function tableHasColumn(tableName, columnName) {
+  const safeTableName = String(tableName || '').replace(/[^a-zA-Z0-9_]/g, '')
+  if (!safeTableName) return false
+
+  const infoRes = await executeSqlAsync(`SELECT name FROM pragma_table_info('${safeTableName}')`)
+  const columns = infoRes?.rows?._array || []
+  return columns.some((column) => String(column?.name || '').toLowerCase() === String(columnName || '').toLowerCase())
+}
+
+async function rebuildRecordTableWithoutFxMetadata() {
+  try {
+    await executeSqlAsync('PRAGMA foreign_keys = OFF')
+
+    await executeSqlAsync('DROP TABLE IF EXISTS record_tmp')
+    await executeSqlAsync(`
+      CREATE TABLE record_tmp (
+        tid INTEGER PRIMARY KEY AUTOINCREMENT,
+        amount REAL,
+        amount_base REAL,
+        cid INTEGER,
+        date DATE,
+        type TEXT,
+        currency TEXT,
+        inputdatetime DATETIME,
+        description TEXT,
+        rid INTEGER,
+        FOREIGN KEY (cid) REFERENCES category(cid) ON DELETE SET NULL,
+        FOREIGN KEY (rid) REFERENCES recipient(rid) ON DELETE SET NULL
+      )
+    `)
+
+    await executeSqlAsync(
+      `
+        INSERT INTO record_tmp (tid, amount, amount_base, cid, date, type, currency, inputdatetime, description, rid)
+        SELECT
+          tid,
+          amount,
+          COALESCE(amount_base, CASE WHEN UPPER(COALESCE(NULLIF(currency, ''), ?)) = ? THEN amount ELSE NULL END),
+          cid,
+          date,
+          type,
+          currency,
+          inputdatetime,
+          description,
+          rid
+        FROM record
+      `,
+      [DEFAULT_BASE_CURRENCY, DEFAULT_BASE_CURRENCY]
+    )
+
+    await executeSqlAsync('DROP TABLE record')
+    await executeSqlAsync('ALTER TABLE record_tmp RENAME TO record')
+  } finally {
+    await executeSqlAsync('PRAGMA foreign_keys = ON')
+  }
 }
 
 async function ensureColumnExists(tableName, columnName, columnDefinition) {
@@ -158,15 +211,6 @@ function normalizeCurrencyCode(value, fallback = DEFAULT_BASE_CURRENCY) {
   if (!/^[A-Z]{3}$/.test(normalized)) return fallback
   return normalized
 }
-
-function normalizeFxDate(value, fallback = '') {
-  const raw = String(value || '').trim()
-  if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw
-  if (fallback && /^\d{4}-\d{2}-\d{2}$/.test(String(fallback))) return String(fallback)
-  return ''
-}
-
-
 
 /* Fetch helpers */
 export async function fetchAllCategories() {
@@ -681,12 +725,7 @@ async function resolveRecipient(value, cidContext = null) {
 export async function addRecord(obj) {
     const {
       amount = 0,
-  amount_base,
-  fx_rate_to_base,
-  fx_base_currency,
-  fx_quote_currency,
-  fx_rate_date,
-  fx_provider,
+    amount_base,
       cid = null,
       cname = null,        // optional category name
       date = '',
@@ -700,24 +739,10 @@ export async function addRecord(obj) {
 
     const normalizedAmount = Number(amount) || 0
     const normalizedCurrency = normalizeCurrencyCode(currency, DEFAULT_BASE_CURRENCY)
-    const normalizedFxBaseCurrency = normalizeCurrencyCode(fx_base_currency, normalizedCurrency)
-    const normalizedFxQuoteCurrency = normalizeCurrencyCode(fx_quote_currency, DEFAULT_BASE_CURRENCY)
-    const normalizedRate = Number.isFinite(Number(fx_rate_to_base)) ? Number(fx_rate_to_base) : null
-
     let normalizedAmountBase = Number.isFinite(Number(amount_base)) ? Number(amount_base) : null
-    if (!Number.isFinite(normalizedAmountBase)) {
-      if (normalizedFxBaseCurrency === normalizedFxQuoteCurrency) {
-        normalizedAmountBase = normalizedAmount
-      } else if (Number.isFinite(normalizedRate)) {
-        normalizedAmountBase = normalizedAmount * normalizedRate
-      }
+    if (!Number.isFinite(normalizedAmountBase) && normalizedCurrency === DEFAULT_BASE_CURRENCY) {
+      normalizedAmountBase = normalizedAmount
     }
-
-    const normalizedFxRate = Number.isFinite(normalizedRate)
-      ? normalizedRate
-      : (normalizedFxBaseCurrency === normalizedFxQuoteCurrency ? 1 : null)
-    const normalizedFxDate = normalizeFxDate(fx_rate_date, date)
-    const normalizedFxProvider = String(fx_provider || '').trim()
 
     // resolve category first (cid or cname)
     let resolvedCid = null
@@ -736,8 +761,8 @@ export async function addRecord(obj) {
     }
 
     const res = await executeSqlAsync(
-      `INSERT INTO record (amount, amount_base, fx_rate_to_base, fx_base_currency, fx_quote_currency, fx_rate_date, fx_provider, cid, date, type, currency, inputdatetime, description, rid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [normalizedAmount, normalizedAmountBase, normalizedFxRate, normalizedFxBaseCurrency, normalizedFxQuoteCurrency, normalizedFxDate, normalizedFxProvider, resolvedCid, date, type, normalizedCurrency, inputdatetime, description, resolvedRid]
+      `INSERT INTO record (amount, amount_base, cid, date, type, currency, inputdatetime, description, rid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [normalizedAmount, normalizedAmountBase, resolvedCid, date, type, normalizedCurrency, inputdatetime, description, resolvedRid]
     )
     return res.insertId ?? res.rowsAffected
 }
@@ -748,11 +773,6 @@ export async function updateRecord(tid, obj) {//this one need id need to conside
     const {
       amount,
       amount_base,
-      fx_rate_to_base,
-      fx_base_currency,
-      fx_quote_currency,
-      fx_rate_date,
-      fx_provider,
       cid,
       cname,
       date,
@@ -766,7 +786,7 @@ export async function updateRecord(tid, obj) {//this one need id need to conside
 
     // fetch existing row if some fields are undefined so we keep them
     let existing = null
-    const needFetch = [amount, amount_base, fx_rate_to_base, fx_base_currency, fx_quote_currency, fx_rate_date, fx_provider, cid, date, type, currency, inputdatetime, description, rid].some(v => v === undefined)
+    const needFetch = [amount, amount_base, cid, date, type, currency, inputdatetime, description, rid].some(v => v === undefined)
     if (needFetch) {
       const cur = await executeSqlAsync('SELECT * FROM record WHERE tid = ? LIMIT 1', [tid])
       if (!cur || !cur.rows || !cur.rows._array || !cur.rows._array.length) {
@@ -781,33 +801,14 @@ export async function updateRecord(tid, obj) {//this one need id need to conside
     const finalDate = (date === undefined) ? existing.date : date
     const finalType = (type === undefined) ? existing.type : type
     const finalCurrency = (currency === undefined) ? existing.currency : currency
-    const finalFxRateInput = (fx_rate_to_base === undefined) ? existing.fx_rate_to_base : fx_rate_to_base
-    const finalFxBaseInput = (fx_base_currency === undefined) ? existing.fx_base_currency : fx_base_currency
-    const finalFxQuoteInput = (fx_quote_currency === undefined) ? existing.fx_quote_currency : fx_quote_currency
-    const finalFxDateInput = (fx_rate_date === undefined) ? existing.fx_rate_date : fx_rate_date
-    const finalFxProviderInput = (fx_provider === undefined) ? existing.fx_provider : fx_provider
     const finalInputdatetime = (inputdatetime === undefined) ? existing.inputdatetime : inputdatetime
     const finalDescription = (description === undefined) ? existing.description : description
 
     const normalizedCurrency = normalizeCurrencyCode(finalCurrency, DEFAULT_BASE_CURRENCY)
-    const normalizedFxBaseCurrency = normalizeCurrencyCode(finalFxBaseInput, normalizedCurrency)
-    const normalizedFxQuoteCurrency = normalizeCurrencyCode(finalFxQuoteInput, DEFAULT_BASE_CURRENCY)
-    const normalizedRate = Number.isFinite(Number(finalFxRateInput)) ? Number(finalFxRateInput) : null
-
     let normalizedAmountBase = Number.isFinite(Number(finalAmountBaseInput)) ? Number(finalAmountBaseInput) : null
-    if (!Number.isFinite(normalizedAmountBase)) {
-      if (normalizedFxBaseCurrency === normalizedFxQuoteCurrency) {
-        normalizedAmountBase = Number(finalAmount) || 0
-      } else if (Number.isFinite(normalizedRate)) {
-        normalizedAmountBase = (Number(finalAmount) || 0) * normalizedRate
-      }
+    if (!Number.isFinite(normalizedAmountBase) && normalizedCurrency === DEFAULT_BASE_CURRENCY) {
+      normalizedAmountBase = Number(finalAmount) || 0
     }
-
-    const normalizedFxRate = Number.isFinite(normalizedRate)
-      ? normalizedRate
-      : (normalizedFxBaseCurrency === normalizedFxQuoteCurrency ? 1 : null)
-    const normalizedFxDate = normalizeFxDate(finalFxDateInput, finalDate)
-    const normalizedFxProvider = String(finalFxProviderInput || '').trim()
 
     // resolve category (prefer explicit cid, then cname, then existing cid)
     const categoryInput = (cid !== undefined) ? cid : (cname !== undefined ? cname : (existing ? existing.cid : null))
@@ -830,8 +831,8 @@ export async function updateRecord(tid, obj) {//this one need id need to conside
     }
 
     await executeSqlAsync(
-      `UPDATE record SET amount = ?, amount_base = ?, fx_rate_to_base = ?, fx_base_currency = ?, fx_quote_currency = ?, fx_rate_date = ?, fx_provider = ?, cid = ?, date = ?, type = ?, currency = ?, inputdatetime = ?, description = ?, rid = ? WHERE tid = ?`,
-      [finalAmount, normalizedAmountBase, normalizedFxRate, normalizedFxBaseCurrency, normalizedFxQuoteCurrency, normalizedFxDate, normalizedFxProvider, resolvedCid, finalDate, finalType, normalizedCurrency, finalInputdatetime, finalDescription, resolvedRid, tid]
+      `UPDATE record SET amount = ?, amount_base = ?, cid = ?, date = ?, type = ?, currency = ?, inputdatetime = ?, description = ?, rid = ? WHERE tid = ?`,
+      [finalAmount, normalizedAmountBase, resolvedCid, finalDate, finalType, normalizedCurrency, finalInputdatetime, finalDescription, resolvedRid, tid]
     )
     return true
 }
@@ -917,11 +918,6 @@ function normalizeCsvRow(row = {}) {
   return {
     amount: normalizeAmount(get('amount', 'amt', 'value', 'transaction amount', 'transaction_amount')),
     amount_base: normalizeNullableAmount(get('amount_base', 'amount_hkd', 'base_amount')),
-    fx_rate_to_base: normalizeNullableAmount(get('fx_rate_to_base', 'fx_rate_to_hkd', 'rate_to_base', 'fx_rate')),
-    fx_base_currency: get('fx_base_currency', 'fx_from_currency', 'fx_base') ?? '',
-    fx_quote_currency: get('fx_quote_currency', 'fx_to_currency', 'fx_quote') ?? '',
-    fx_rate_date: normalizeDate(get('fx_rate_date', 'fx_date', 'rate_date')),
-    fx_provider: get('fx_provider', 'provider') ?? '',
     cid: get('cid', 'categoryid', 'category_id'),
     cname: get('cname', 'category', 'category_name', 'categoryname'),
     date: normalizeDate(get('date', 'transactiondate', 'transaction_date', 'date_time', 'datetime')),
@@ -978,11 +974,6 @@ export async function exportRecordsToCsv() {
       tid: r.tid ?? '',
       amount: r.amount ?? '',
       amount_base: r.amount_base ?? '',
-      fx_rate_to_base: r.fx_rate_to_base ?? '',
-      fx_base_currency: r.fx_base_currency ?? '',
-      fx_quote_currency: r.fx_quote_currency ?? '',
-      fx_rate_date: r.fx_rate_date ?? '',
-      fx_provider: r.fx_provider ?? '',
       cname: r.cname ?? '',
       date: r.date ?? '',
       type: r.type ?? '',

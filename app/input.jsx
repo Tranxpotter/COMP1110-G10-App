@@ -16,6 +16,7 @@ import ThemedSelectList from '../components/ThemedSelectList';
 import ThemedView from "../components/ThemedView"
 import ThemedScrollView from '../components/ThemedScrollView';
 import CsvUploader from '../components/CsvUploader'
+import CurrencyPickerField from '../components/CurrencyPickerField'
 import { APP_BASE_CURRENCY, CURRENCY_OPTIONS, convertToBaseAmount } from '../components/fxService'
 
 const Input = () => {
@@ -116,11 +117,6 @@ const Input = () => {
       const obj = {
         amount: numericAmount,
         amount_base: fx.amountBase,
-        fx_rate_to_base: fx.fxRateToBase,
-        fx_base_currency: fx.fxBaseCurrency,
-        fx_quote_currency: fx.fxQuoteCurrency,
-        fx_rate_date: fx.fxRateDate,
-        fx_provider: fx.fxProvider,
         cname: category || null,
         date: date.toLocaleDateString('en-CA'),
         type: transaction_type || '',
@@ -939,8 +935,7 @@ const styles = StyleSheet.create({
     elevation: 400,
   },
   currencyRow: {
-    zIndex: 220,
-    elevation: 220,
+    width: "100%"
   },
   currencyDropdown: {
     zIndex: 260,
