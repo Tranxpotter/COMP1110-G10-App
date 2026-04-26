@@ -2,6 +2,7 @@ import * as SQLite from 'expo-sqlite'
 import Papa from 'papaparse'
 import * as FileSystem from 'expo-file-system/legacy'
 import * as Sharing from 'expo-sharing'
+import { convertToBaseAmount } from './fxService'
 
 const DEFAULT_BASE_CURRENCY = 'HKD'
 
@@ -210,6 +211,46 @@ function normalizeCurrencyCode(value, fallback = DEFAULT_BASE_CURRENCY) {
   const normalized = String(value || '').trim().toUpperCase()
   if (!/^[A-Z]{3}$/.test(normalized)) return fallback
   return normalized
+}
+
+async function resolveAmountBase({ amount, amount_base, currency, date }) {
+  const numericAmount = Number(amount)
+  const safeAmount = Number.isFinite(numericAmount) ? numericAmount : 0
+  const normalizedCurrency = normalizeCurrencyCode(currency, DEFAULT_BASE_CURRENCY)
+
+  const existingAmountBase = Number(amount_base)
+  if (Number.isFinite(existingAmountBase)) {
+    return existingAmountBase
+  }
+
+  if (normalizedCurrency === DEFAULT_BASE_CURRENCY) {
+    return safeAmount
+  }
+
+  try {
+    const fx = await convertToBaseAmount({
+      amount: Math.abs(safeAmount),
+      fromCurrency: normalizedCurrency,
+      quoteCurrency: DEFAULT_BASE_CURRENCY,
+      date,
+    })
+    const sign = safeAmount < 0 ? -1 : 1
+    return sign * Number(fx.amountBase)
+  } catch (error) {
+    try {
+      const fxLatest = await convertToBaseAmount({
+        amount: Math.abs(safeAmount),
+        fromCurrency: normalizedCurrency,
+        quoteCurrency: DEFAULT_BASE_CURRENCY,
+        date: '',
+      })
+      const sign = safeAmount < 0 ? -1 : 1
+      return sign * Number(fxLatest.amountBase)
+    } catch (fallbackError) {
+      console.warn('resolveAmountBase: FX conversion failed, leaving amount_base empty', error, fallbackError)
+      return null
+    }
+  }
 }
 
 /* Fetch helpers */
@@ -739,10 +780,12 @@ export async function addRecord(obj) {
 
     const normalizedAmount = Number(amount) || 0
     const normalizedCurrency = normalizeCurrencyCode(currency, DEFAULT_BASE_CURRENCY)
-    let normalizedAmountBase = Number.isFinite(Number(amount_base)) ? Number(amount_base) : null
-    if (!Number.isFinite(normalizedAmountBase) && normalizedCurrency === DEFAULT_BASE_CURRENCY) {
-      normalizedAmountBase = normalizedAmount
-    }
+    const normalizedAmountBase = await resolveAmountBase({
+      amount: normalizedAmount,
+      amount_base,
+      currency: normalizedCurrency,
+      date,
+    })
 
     // resolve category first (cid or cname)
     let resolvedCid = null
@@ -805,10 +848,12 @@ export async function updateRecord(tid, obj) {//this one need id need to conside
     const finalDescription = (description === undefined) ? existing.description : description
 
     const normalizedCurrency = normalizeCurrencyCode(finalCurrency, DEFAULT_BASE_CURRENCY)
-    let normalizedAmountBase = Number.isFinite(Number(finalAmountBaseInput)) ? Number(finalAmountBaseInput) : null
-    if (!Number.isFinite(normalizedAmountBase) && normalizedCurrency === DEFAULT_BASE_CURRENCY) {
-      normalizedAmountBase = Number(finalAmount) || 0
-    }
+    const normalizedAmountBase = await resolveAmountBase({
+      amount: finalAmount,
+      amount_base: finalAmountBaseInput,
+      currency: normalizedCurrency,
+      date: finalDate,
+    })
 
     // resolve category (prefer explicit cid, then cname, then existing cid)
     const categoryInput = (cid !== undefined) ? cid : (cname !== undefined ? cname : (existing ? existing.cid : null))
@@ -983,7 +1028,10 @@ export async function exportRecordsToCsv() {
       rname: r.rname ?? ''
     }))
 
-    const csv = Papa.unparse(mapped)
+    const csv = Papa.unparse({
+      fields: ['tid', 'amount', 'amount_base', 'cname', 'date', 'type', 'currency', 'inputdatetime', 'description', 'rname'],
+      data: mapped,
+    })
     const ts = new Date().toISOString().slice(0,19).replace(/[:T]/g, '-')
     const filename = `records-${ts}.csv`
     const path = `${FileSystem.cacheDirectory}${filename}`

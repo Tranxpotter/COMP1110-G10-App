@@ -245,13 +245,13 @@ const DashboardTrendFilter = ({
                 />
 
                 <View style={styles.optionRow}>
-                  <ThemedButton style={styles.optionButton} onPress={addCategory}>
+                  <ThemedButton style={styles.optionButtonOrange} onPress={addCategory}>
                     <Text style={styles.optionButtonText}>Add</Text>
                   </ThemedButton>
-                  <ThemedButton style={styles.optionButton} onPress={setAllCategories}>
+                  <ThemedButton style={styles.optionButtonOrange} onPress={setAllCategories}>
                     <Text style={styles.optionButtonText}>Add All</Text>
                   </ThemedButton>
-                  <ThemedButton style={styles.optionButton} onPress={clearAllCategories}>
+                  <ThemedButton style={styles.optionButtonOrange} onPress={clearAllCategories}>
                     <Text style={styles.optionButtonText}>Clear</Text>
                   </ThemedButton>
                 </View>
@@ -352,7 +352,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   optionButton: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.secondary,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  optionButtonOrange: {
+    backgroundColor: Colors.accent,
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,

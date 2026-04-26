@@ -2205,7 +2205,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   optionButton: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.secondary,
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,

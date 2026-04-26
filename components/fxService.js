@@ -2,6 +2,7 @@ export const APP_BASE_CURRENCY = 'HKD'
 
 export const CURRENCY_OPTIONS = [
   { key: 'HKD', value: 'HKD' },
+  { key: 'TWD', value: 'TWD' },
   { key: 'USD', value: 'USD' },
   { key: 'CNY', value: 'CNY' },
   { key: 'EUR', value: 'EUR' },

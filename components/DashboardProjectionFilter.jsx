@@ -244,7 +244,7 @@ const DashboardProjectionFilter = ({
                   defaultOption={categoryCandidateId ? { key: categoryCandidateId, value: selectedCategoryCandidateLabel } : undefined}
                 />
                 <View style={styles.optionRow}>
-                  <ThemedButton style={styles.optionButton} onPress={() => addCategoryTo('monthlySpending', 'excludedCategoryIds')}>
+                  <ThemedButton style={styles.optionButtonOrange} onPress={() => addCategoryTo('monthlySpending', 'excludedCategoryIds')}>
                     <Text style={styles.optionButtonText}>Add Exclusion</Text>
                   </ThemedButton>
                 </View>
@@ -299,7 +299,7 @@ const DashboardProjectionFilter = ({
                       defaultOption={categoryCandidateId ? { key: categoryCandidateId, value: selectedCategoryCandidateLabel } : undefined}
                     />
                     <View style={styles.optionRow}>
-                      <ThemedButton style={styles.optionButton} onPress={() => addCategoryTo('savingsDebt', 'includeCategoryIds')}>
+                      <ThemedButton style={styles.optionButtonOrange} onPress={() => addCategoryTo('savingsDebt', 'includeCategoryIds')}>
                         <Text style={styles.optionButtonText}>Add Category</Text>
                       </ThemedButton>
                     </View>
@@ -328,7 +328,7 @@ const DashboardProjectionFilter = ({
                   defaultOption={categoryCandidateId ? { key: categoryCandidateId, value: selectedCategoryCandidateLabel } : undefined}
                 />
                 <View style={styles.optionRow}>
-                  <ThemedButton style={styles.optionButton} onPress={() => addCategoryTo('yearlyBills', 'includeCategoryIds')}>
+                  <ThemedButton style={styles.optionButtonOrange} onPress={() => addCategoryTo('yearlyBills', 'includeCategoryIds')}>
                     <Text style={styles.optionButtonText}>Add Category</Text>
                   </ThemedButton>
                 </View>
@@ -349,7 +349,7 @@ const DashboardProjectionFilter = ({
                   defaultOption={recipientCandidateId ? { key: recipientCandidateId, value: selectedRecipientCandidateLabel } : undefined}
                 />
                 <View style={styles.optionRow}>
-                  <ThemedButton style={styles.optionButton} onPress={addRecipientToBills}>
+                  <ThemedButton style={styles.optionButtonOrange} onPress={addRecipientToBills}>
                     <Text style={styles.optionButtonText}>Add Recipient</Text>
                   </ThemedButton>
                 </View>
@@ -376,7 +376,7 @@ const DashboardProjectionFilter = ({
                   defaultOption={categoryCandidateId ? { key: categoryCandidateId, value: selectedCategoryCandidateLabel } : undefined}
                 />
                 <View style={styles.optionRow}>
-                  <ThemedButton style={styles.optionButton} onPress={() => addCategoryTo('subscriptions', 'includeCategoryIds')}>
+                  <ThemedButton style={styles.optionButtonOrange} onPress={() => addCategoryTo('subscriptions', 'includeCategoryIds')}>
                     <Text style={styles.optionButtonText}>Add Category</Text>
                   </ThemedButton>
                 </View>
@@ -397,7 +397,7 @@ const DashboardProjectionFilter = ({
                   defaultOption={recipientCandidateId ? { key: recipientCandidateId, value: selectedRecipientCandidateLabel } : undefined}
                 />
                 <View style={styles.optionRow}>
-                  <ThemedButton style={styles.optionButton} onPress={() => addRecipientTo('subscriptions', 'includeRecipientIds')}>
+                  <ThemedButton style={styles.optionButtonOrange} onPress={() => addRecipientTo('subscriptions', 'includeRecipientIds')}>
                     <Text style={styles.optionButtonText}>Add Recipient</Text>
                   </ThemedButton>
                 </View>
@@ -491,7 +491,13 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   optionButton: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.secondary,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  optionButtonOrange: {
+    backgroundColor: Colors.accent,
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
