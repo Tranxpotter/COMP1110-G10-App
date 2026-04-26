@@ -1459,6 +1459,7 @@ const Dashboard = () => {
         rows={projectionModel.table.rows}
         summaryLabel={projectionModel.table.summary?.label}
         summaryValue={projectionModel.table.summary?.value}
+        amountSignMode={projectionModel.table.amountSignMode}
       />
     </View>
   );
@@ -1753,9 +1754,17 @@ const TableComponent = ({
   amountColumnFlex = 2,
   summaryLabel = 'Summary',
   summaryValue,
+  amountSignMode = 'default',
 }) => {
   const isDynamic = Array.isArray(columns) && columns.length > 0;
   const sourceRows = isDynamic ? (rows || []) : (data || []);
+  const shouldInvertAmountSign = amountSignMode === 'spending-negative';
+
+  const toDisplayAmount = (value) => {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) return null;
+    return shouldInvertAmountSign ? -numeric : numeric;
+  };
 
   const computedSummary = isDynamic
     ? (Number.isFinite(Number(summaryValue))
@@ -1772,10 +1781,12 @@ const TableComponent = ({
     : sourceRows.reduce((acc, item) => acc + Math.round((Number(item.value) || 0) * 100), 0) / 100;
 
   const formatAmountCell = (value) => {
-    const numeric = Number(value);
-    if (!Number.isFinite(numeric)) return '-';
-    return numeric >= 0 ? `+$${numeric.toFixed(2)}` : `-$${Math.abs(numeric).toFixed(2)}`;
+    const displayValue = toDisplayAmount(value);
+    if (!Number.isFinite(displayValue)) return '-';
+    return displayValue >= 0 ? `+$${displayValue.toFixed(2)}` : `-$${Math.abs(displayValue).toFixed(2)}`;
   };
+
+  const computedSummaryDisplay = toDisplayAmount(computedSummary);
 
   const dynamicSummaryAmountFlex = isDynamic ? (columns?.[columns.length - 1]?.flex || 1) : amountColumnFlex;
   const dynamicSummaryLabelFlex = isDynamic
@@ -1815,11 +1826,11 @@ const TableComponent = ({
               {isDynamic ? (
                 columns.map((column) => {
                   const value = item?.[column.key];
-                  const numeric = Number(value);
+                  const displayNumeric = toDisplayAmount(value);
                   const isAmount = column.type === 'amount';
                   const textValue = isAmount ? formatAmountCell(value) : (value == null || value === '' ? '-' : String(value));
-                  const textColor = isAmount && Number.isFinite(numeric)
-                    ? (numeric >= 0 ? '#2e7d32' : '#d32f2f')
+                  const textColor = isAmount && Number.isFinite(displayNumeric)
+                    ? (displayNumeric >= 0 ? '#2e7d32' : '#d32f2f')
                     : Colors.light.text;
 
                   return (
@@ -1853,8 +1864,10 @@ const TableComponent = ({
         </ScrollView>
         <View style={styles.summaryRow}>
           <Text style={[styles.cell, { flex: dynamicSummaryLabelFlex, fontWeight: 'bold' }]}>{summaryLabel}</Text>
-          <Text style={[styles.cell, { flex: dynamicSummaryAmountFlex, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: computedSummary >= 0 ? '#2e7d32' : '#d32f2f' }]}>
-            ${computedSummary.toFixed(2)}
+          <Text style={[styles.cell, { flex: dynamicSummaryAmountFlex, textAlign: 'right', paddingRight: 20, fontWeight: 'bold', color: Number.isFinite(computedSummaryDisplay) && computedSummaryDisplay >= 0 ? '#2e7d32' : '#d32f2f' }]}>
+            {Number.isFinite(computedSummaryDisplay)
+              ? (computedSummaryDisplay >= 0 ? `+$${computedSummaryDisplay.toFixed(2)}` : `-$${Math.abs(computedSummaryDisplay).toFixed(2)}`)
+              : '$0.00'}
           </Text>
         </View>
       </View>

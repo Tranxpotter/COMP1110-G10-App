@@ -274,6 +274,7 @@ const buildMonthlySpendingModel = (records, projectionConfig, referenceDate = nu
       { key: 'projection', label: 'Projected cumulative spending', color: '#f97316', dashed: true },
     ],
     table: {
+      amountSignMode: 'spending-negative',
       columns: [
         { key: 'period', label: 'Day', flex: 1.4, type: 'text', align: 'left' },
         { key: 'actual', label: 'Actual', flex: 1.1, type: 'amount', align: 'right' },
@@ -509,6 +510,7 @@ const buildYearlyBillsModel = (records, projectionConfig, referenceDate = null) 
       { key: 'projection', label: 'Projected monthly bills', color: '#f97316', dashed: true },
     ],
     table: {
+      amountSignMode: 'spending-negative',
       columns: [
         { key: 'period', label: 'Month', flex: 1.5, type: 'text', align: 'left' },
         { key: 'actual', label: 'Actual Bills', flex: 1.2, type: 'amount', align: 'right' },
@@ -600,6 +602,7 @@ const buildSubscriptionModel = (records, projectionConfig, referenceDate = null)
       { key: 'projection', label: 'Projected cumulative subscriptions', color: '#f97316', dashed: true },
     ],
     table: {
+      amountSignMode: 'spending-negative',
       columns: [
         { key: 'period', label: 'Month', flex: 1.4, type: 'text', align: 'left' },
         { key: 'monthlyActual', label: 'Actual Monthly', flex: 1.2, type: 'amount', align: 'right' },
