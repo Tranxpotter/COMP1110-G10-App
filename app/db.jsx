@@ -191,16 +191,7 @@ export default function InputForms() {
         <TextInput value={description} onChangeText={setDescription} placeholder="Description" style={styles.input} />
         <Button title="Add Record" onPress={onAddRecord} />
       </View>
-    <View style={{ padding: 16, borderTopWidth: 1, borderColor: '#eee' }}>
-        <Text style={styles.title}>Debug — Categories</Text>
-        <Text selectable>{JSON.stringify(categories, null, 2)}</Text>
-
-        <Text style={[styles.title, { marginTop: 12 }]}>Debug — Recipients</Text>
-        <Text selectable>{JSON.stringify(recipients, null, 2)}</Text>
-
-        <Text style={[styles.title, { marginTop: 12 }]}>Debug — Records</Text>
-        <Text selectable>{JSON.stringify(records, null, 2)}</Text>
-      </View>
+ 
       <View style={{ marginTop: 12 }}>
           <Button title="Drop all tables (debug)" color="#b22222" onPress={onDropAllConfirm} />
       </View>
@@ -223,7 +214,16 @@ export default function InputForms() {
       <View style={{ marginTop: 12 }}>
         <CsvDownloader /> 
       </View>
+      <View style={{ padding: 16, borderTopWidth: 1, borderColor: '#eee' }}>
+        <Text style={styles.title}>Debug — Categories</Text>
+        <Text selectable>{JSON.stringify(categories, null, 2)}</Text>
 
+        <Text style={[styles.title, { marginTop: 12 }]}>Debug — Recipients</Text>
+        <Text selectable>{JSON.stringify(recipients, null, 2)}</Text>
+
+        <Text style={[styles.title, { marginTop: 12 }]}>Debug — Records</Text>
+        <Text selectable>{JSON.stringify(records, null, 2)}</Text>
+      </View>
       </ScrollView>
   )
 }

@@ -2,6 +2,9 @@ import * as SQLite from 'expo-sqlite'
 import Papa from 'papaparse'
 import * as FileSystem from 'expo-file-system/legacy'
 import * as Sharing from 'expo-sharing'
+import { convertToBaseAmount } from './fxService'
+
+const DEFAULT_BASE_CURRENCY = 'HKD'
 
 // lazy/open async DB (uses new expo-sqlite async API)
 let _db = null
@@ -90,6 +93,7 @@ export async function initTables() {
     CREATE TABLE IF NOT EXISTS record (
       tid INTEGER PRIMARY KEY AUTOINCREMENT,
       amount REAL,
+      amount_base REAL,
       cid INTEGER,
       date DATE,
       type TEXT,
@@ -101,9 +105,157 @@ export async function initTables() {
       FOREIGN KEY (rid) REFERENCES recipient(rid) ON DELETE SET NULL
     )
   `)
+
+  await ensureColumnExists('record', 'amount_base', 'REAL')
+
+  const hasLegacyFxColumns =
+    await tableHasColumn('record', 'fx_rate_to_base')
+    || await tableHasColumn('record', 'fx_base_currency')
+    || await tableHasColumn('record', 'fx_quote_currency')
+    || await tableHasColumn('record', 'fx_rate_date')
+    || await tableHasColumn('record', 'fx_provider')
+
+  if (hasLegacyFxColumns) {
+    await rebuildRecordTableWithoutFxMetadata()
+  }
+
+  // Backfill HKD-like legacy rows so base-amount summaries can work immediately.
+  await executeSqlAsync(
+    `
+      UPDATE record
+      SET
+        amount_base = amount
+      WHERE amount_base IS NULL
+      AND UPPER(COALESCE(NULLIF(currency, ''), ?)) = ?
+    `,
+    [DEFAULT_BASE_CURRENCY, DEFAULT_BASE_CURRENCY]
+  )
 }
 
+async function tableHasColumn(tableName, columnName) {
+  const safeTableName = String(tableName || '').replace(/[^a-zA-Z0-9_]/g, '')
+  if (!safeTableName) return false
 
+  const infoRes = await executeSqlAsync(`SELECT name FROM pragma_table_info('${safeTableName}')`)
+  const columns = infoRes?.rows?._array || []
+  return columns.some((column) => String(column?.name || '').toLowerCase() === String(columnName || '').toLowerCase())
+}
+
+async function rebuildRecordTableWithoutFxMetadata() {
+  try {
+    await executeSqlAsync('PRAGMA foreign_keys = OFF')
+
+    await executeSqlAsync('DROP TABLE IF EXISTS record_tmp')
+    await executeSqlAsync(`
+      CREATE TABLE record_tmp (
+        tid INTEGER PRIMARY KEY AUTOINCREMENT,
+        amount REAL,
+        amount_base REAL,
+        cid INTEGER,
+        date DATE,
+        type TEXT,
+        currency TEXT,
+        inputdatetime DATETIME,
+        description TEXT,
+        rid INTEGER,
+        FOREIGN KEY (cid) REFERENCES category(cid) ON DELETE SET NULL,
+        FOREIGN KEY (rid) REFERENCES recipient(rid) ON DELETE SET NULL
+      )
+    `)
+
+    await executeSqlAsync(
+      `
+        INSERT INTO record_tmp (tid, amount, amount_base, cid, date, type, currency, inputdatetime, description, rid)
+        SELECT
+          tid,
+          amount,
+          COALESCE(amount_base, CASE WHEN UPPER(COALESCE(NULLIF(currency, ''), ?)) = ? THEN amount ELSE NULL END),
+          cid,
+          date,
+          type,
+          currency,
+          inputdatetime,
+          description,
+          rid
+        FROM record
+      `,
+      [DEFAULT_BASE_CURRENCY, DEFAULT_BASE_CURRENCY]
+    )
+
+    await executeSqlAsync('DROP TABLE record')
+    await executeSqlAsync('ALTER TABLE record_tmp RENAME TO record')
+  } finally {
+    await executeSqlAsync('PRAGMA foreign_keys = ON')
+  }
+}
+
+async function ensureColumnExists(tableName, columnName, columnDefinition) {
+  const safeTableName = String(tableName || '').replace(/[^a-zA-Z0-9_]/g, '')
+  if (!safeTableName) throw new Error('Invalid table name for ensureColumnExists')
+
+  const infoRes = await executeSqlAsync(`SELECT name FROM pragma_table_info('${safeTableName}')`)
+  const columns = infoRes?.rows?._array || []
+  const exists = columns.some((column) => String(column?.name || '').toLowerCase() === String(columnName).toLowerCase())
+  if (exists) return
+
+  try {
+    await executeSqlAsync(`ALTER TABLE ${safeTableName} ADD COLUMN ${columnName} ${columnDefinition}`)
+  } catch (error) {
+    const message = String(error?.message || error || '')
+    if (message.toLowerCase().includes('duplicate column name')) return
+    throw error
+  }
+}
+
+function normalizeCurrencyCode(value, fallback = DEFAULT_BASE_CURRENCY) {
+  const normalized = String(value || '').trim().toUpperCase()
+  if (!/^[A-Z]{3}$/.test(normalized)) return fallback
+  return normalized
+}
+
+async function resolveAmountBase({ amount, amount_base, currency, date }) {
+  const numericAmount = Number(amount)
+  const safeAmount = Number.isFinite(numericAmount) ? numericAmount : 0
+  const normalizedCurrency = normalizeCurrencyCode(currency, DEFAULT_BASE_CURRENCY)
+
+  // FIX: Ensure amount_base is actually provided and not null/empty
+  if (amount_base != null && String(amount_base).trim() !== '') {
+    const existingAmountBase = Number(amount_base)
+    if (Number.isFinite(existingAmountBase)) {
+      return existingAmountBase
+    }
+  }
+
+
+  if (normalizedCurrency === DEFAULT_BASE_CURRENCY) {
+    return safeAmount
+  }
+
+  try {
+    const fx = await convertToBaseAmount({
+      amount: Math.abs(safeAmount),
+      fromCurrency: normalizedCurrency,
+      quoteCurrency: DEFAULT_BASE_CURRENCY,
+      date,
+    })
+    const sign = safeAmount < 0 ? -1 : 1
+    return sign * Number(fx.amountBase)
+  } catch (error) {
+    try {
+      const fxLatest = await convertToBaseAmount({
+        amount: Math.abs(safeAmount),
+        fromCurrency: normalizedCurrency,
+        quoteCurrency: DEFAULT_BASE_CURRENCY,
+        date: '',
+      })
+      const sign = safeAmount < 0 ? -1 : 1
+      return sign * Number(fxLatest.amountBase)
+    } catch (fallbackError) {
+      console.warn('resolveAmountBase: FX conversion failed, leaving amount_base empty', error, fallbackError)
+      return null
+    }
+  }
+}
 
 /* Fetch helpers */
 export async function fetchAllCategories() {
@@ -618,6 +770,7 @@ async function resolveRecipient(value, cidContext = null) {
 export async function addRecord(obj) {
     const {
       amount = 0,
+    amount_base,
       cid = null,
       cname = null,        // optional category name
       date = '',
@@ -628,6 +781,15 @@ export async function addRecord(obj) {
       rid = null,
       rname = null         // optional recipient name
     } = obj || {}
+
+    const normalizedAmount = Number(amount) || 0
+    const normalizedCurrency = normalizeCurrencyCode(currency, DEFAULT_BASE_CURRENCY)
+    const normalizedAmountBase = await resolveAmountBase({
+      amount: normalizedAmount,
+      amount_base,
+      currency: normalizedCurrency,
+      date,
+    })
 
     // resolve category first (cid or cname)
     let resolvedCid = null
@@ -646,8 +808,8 @@ export async function addRecord(obj) {
     }
 
     const res = await executeSqlAsync(
-        `INSERT INTO record (amount, cid, date, type, currency, inputdatetime, description, rid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-        [Number(amount) || 0, resolvedCid, date, type, currency, inputdatetime, description, resolvedRid]
+      `INSERT INTO record (amount, amount_base, cid, date, type, currency, inputdatetime, description, rid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [normalizedAmount, normalizedAmountBase, resolvedCid, date, type, normalizedCurrency, inputdatetime, description, resolvedRid]
     )
     return res.insertId ?? res.rowsAffected
 }
@@ -657,6 +819,7 @@ export async function updateRecord(tid, obj) {//this one need id need to conside
     if (!tid) throw new Error('tid required')
     const {
       amount,
+      amount_base,
       cid,
       cname,
       date,
@@ -670,7 +833,7 @@ export async function updateRecord(tid, obj) {//this one need id need to conside
 
     // fetch existing row if some fields are undefined so we keep them
     let existing = null
-    const needFetch = [amount, cid, date, type, currency, inputdatetime, description, rid].some(v => v === undefined)
+    const needFetch = [amount, amount_base, cid, date, type, currency, inputdatetime, description, rid].some(v => v === undefined)
     if (needFetch) {
       const cur = await executeSqlAsync('SELECT * FROM record WHERE tid = ? LIMIT 1', [tid])
       if (!cur || !cur.rows || !cur.rows._array || !cur.rows._array.length) {
@@ -681,11 +844,20 @@ export async function updateRecord(tid, obj) {//this one need id need to conside
 
     //type casting
     const finalAmount = (amount === undefined) ? existing.amount : amount
+    const finalAmountBaseInput = (amount_base === undefined) ? existing.amount_base : amount_base
     const finalDate = (date === undefined) ? existing.date : date
     const finalType = (type === undefined) ? existing.type : type
     const finalCurrency = (currency === undefined) ? existing.currency : currency
     const finalInputdatetime = (inputdatetime === undefined) ? existing.inputdatetime : inputdatetime
     const finalDescription = (description === undefined) ? existing.description : description
+
+    const normalizedCurrency = normalizeCurrencyCode(finalCurrency, DEFAULT_BASE_CURRENCY)
+    const normalizedAmountBase = await resolveAmountBase({
+      amount: finalAmount,
+      amount_base: finalAmountBaseInput,
+      currency: normalizedCurrency,
+      date: finalDate,
+    })
 
     // resolve category (prefer explicit cid, then cname, then existing cid)
     const categoryInput = (cid !== undefined) ? cid : (cname !== undefined ? cname : (existing ? existing.cid : null))
@@ -708,8 +880,8 @@ export async function updateRecord(tid, obj) {//this one need id need to conside
     }
 
     await executeSqlAsync(
-        `UPDATE record SET amount = ?, cid = ?, date = ?, type = ?, currency = ?, inputdatetime = ?, description = ?, rid = ? WHERE tid = ?`,
-        [finalAmount, resolvedCid, finalDate, finalType, finalCurrency, finalInputdatetime, finalDescription, resolvedRid, tid]
+      `UPDATE record SET amount = ?, amount_base = ?, cid = ?, date = ?, type = ?, currency = ?, inputdatetime = ?, description = ?, rid = ? WHERE tid = ?`,
+      [finalAmount, normalizedAmountBase, resolvedCid, finalDate, finalType, normalizedCurrency, finalInputdatetime, finalDescription, resolvedRid, tid]
     )
     return true
 }
@@ -741,8 +913,16 @@ function normalizeCsvRow(row = {}) {
 
   const normalizeAmount = (value) => {
     if (value === undefined || value === null) return 0
+    if (String(value).trim() === '') return 0
     const parsed = Number(String(value).replace(/,/g, '').trim())
     return Number.isFinite(parsed) ? parsed : 0
+  }
+
+  const normalizeNullableAmount = (value) => {
+    if (value === undefined || value === null) return null
+    if (String(value).trim() === '') return null
+    const parsed = Number(String(value).replace(/,/g, '').trim())
+    return Number.isFinite(parsed) ? parsed : null
   }
 
   const normalizeType = (value) => {
@@ -786,6 +966,7 @@ function normalizeCsvRow(row = {}) {
 
   return {
     amount: normalizeAmount(get('amount', 'amt', 'value', 'transaction amount', 'transaction_amount')),
+    amount_base: normalizeNullableAmount(get('amount_base', 'amount_hkd', 'base_amount')),
     cid: get('cid', 'categoryid', 'category_id'),
     cname: get('cname', 'category', 'category_name', 'categoryname'),
     date: normalizeDate(get('date', 'transactiondate', 'transaction_date', 'date_time', 'datetime')),
@@ -799,7 +980,7 @@ function normalizeCsvRow(row = {}) {
 }
 
 
-export async function importRecordsFromRows(rows = [], chunkSize = 200) {
+export async function importRecordsFromRows(rows = [], chunkSize = 200, forceFxRecalculation = false) {
   if (!Array.isArray(rows) || rows.length === 0) return { inserted: 0, skipped: 0 }
   let inserted = 0, skipped = 0
 
@@ -811,6 +992,11 @@ export async function importRecordsFromRows(rows = [], chunkSize = 200) {
     const chunk = normalized.slice(i, i + chunkSize)
     for (const row of chunk) {
       try {
+        // If true, delete the CSV's base amount to force resolveAmountBase to run the FX API
+        if (forceFxRecalculation) {
+          row.amount_base = undefined
+        }
+        
         const res = await addRecord(row)
         if (res) inserted += 1
       } catch (err) {
@@ -841,6 +1027,7 @@ export async function exportRecordsToCsv() {
     const mapped = rows.map(r => ({
       tid: r.tid ?? '',
       amount: r.amount ?? '',
+      amount_base: r.amount_base ?? '',
       cname: r.cname ?? '',
       date: r.date ?? '',
       type: r.type ?? '',
@@ -850,7 +1037,10 @@ export async function exportRecordsToCsv() {
       rname: r.rname ?? ''
     }))
 
-    const csv = Papa.unparse(mapped)
+    const csv = Papa.unparse({
+      fields: ['tid', 'amount', 'amount_base', 'cname', 'date', 'type', 'currency', 'inputdatetime', 'description', 'rname'],
+      data: mapped,
+    })
     const ts = new Date().toISOString().slice(0,19).replace(/[:T]/g, '-')
     const filename = `records-${ts}.csv`
     const path = `${FileSystem.cacheDirectory}${filename}`

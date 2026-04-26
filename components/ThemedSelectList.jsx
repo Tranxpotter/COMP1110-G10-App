@@ -27,6 +27,7 @@ const ThemedSelectList = ({ boxStyles, inputStyles, dropdownStyles, dropdownItem
         dropdownTextStyles={[{ color: theme.text }, dropdownTextStyles]}
         disabledItemStyles={[{}, disabledItemStyles]}
         disabledTextStyles={[{ color: theme.disabledText }, disabledTextStyles]}
+        nestedScrollEnabled={true}
         { ...props }
       />
     )
@@ -42,6 +43,7 @@ const ThemedSelectList = ({ boxStyles, inputStyles, dropdownStyles, dropdownItem
         dropdownTextStyles={[{ color: theme.text }, dropdownTextStyles]}
         disabledItemStyles={[{}, disabledItemStyles]}
         disabledTextStyles={[{ color: theme.disabledText }, disabledTextStyles]}
+        nestedScrollEnabled={true}
         { ...props }
       />
     )

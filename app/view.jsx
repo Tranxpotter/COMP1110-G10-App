@@ -12,6 +12,7 @@ import ThemedTextInput from '../components/ThemedTextInput'
 import ThemedView from '../components/ThemedView'
 import RecordsFilterModal from '../components/RecordsFilterModal'
 import CsvDownloader from '../components/CsvDownloader'
+import { APP_BASE_CURRENCY, CURRENCY_OPTIONS, convertToBaseAmount } from '../components/fxService'
 
 const RECORD_COLUMNS = [
   { key: 'date', width: 110, maxWidth: 110 },
@@ -86,6 +87,7 @@ const UpdateRecordModal = ({
   const [transactionType, setTransactionType] = useState('spending')
   const [typeSelectResetKey, setTypeSelectResetKey] = useState(0)
   const [typeDropdownCloseKey, setTypeDropdownCloseKey] = useState(0)
+  const [currencySelectResetKey, setCurrencySelectResetKey] = useState(0)
   const [recipient, setRecipient] = useState('')
   const [category, setCategory] = useState('')
   const [amount, setAmount] = useState('0')
@@ -100,7 +102,6 @@ const UpdateRecordModal = ({
   const recipientInputRef = useRef(null)
   const categoryInputRef = useRef(null)
   const amountInputRef = useRef(null)
-  const currencyInputRef = useRef(null)
   const descriptionInputRef = useRef(null)
   const initialValuesRef = useRef(null)
 
@@ -119,6 +120,7 @@ const UpdateRecordModal = ({
     setTransactionType(nextType)
     setTypeSelectResetKey((prev) => prev + 1)
     setTypeDropdownCloseKey((prev) => prev + 1)
+    setCurrencySelectResetKey((prev) => prev + 1)
     setRecipient(initialRecipient)
     setCategory(initialCategory)
     setAmount(initialAmount)
@@ -186,6 +188,10 @@ const UpdateRecordModal = ({
     transactionType === 'income'
       ? { key: 'income', value: 'Income' }
       : { key: 'spending', value: 'Spending' }
+
+  const selectedCurrencyOption =
+    CURRENCY_OPTIONS.find((item) => item.key === String(currency || '').toUpperCase())
+      || CURRENCY_OPTIONS[0]
 
   const closeRecipientSuggestions = useCallback(() => {
     setMatchingRecipients([])
@@ -347,7 +353,7 @@ const UpdateRecordModal = ({
         type: normalizedType,
         recipient: trimmedRecipient,
         category: trimmedCategory,
-        currency: String(currency || '').trim(),
+        currency: String(currency || APP_BASE_CURRENCY).trim().toUpperCase(),
         description: String(description || ''),
       })
     } catch (e) {
@@ -380,7 +386,7 @@ const UpdateRecordModal = ({
               </Pressable>
             </View>
 
-            <ScrollView style={styles.modalScroll} keyboardShouldPersistTaps="handled">
+            <ScrollView style={styles.modalScroll} keyboardShouldPersistTaps="handled" nestedScrollEnabled={true}>
               <View style={styles.modalFieldRow}>
                 <ThemedText style={styles.modalFieldName}>Date:</ThemedText>
                 <ThemedButton
@@ -520,24 +526,25 @@ const UpdateRecordModal = ({
                   onChangeText={handleAmountInput}
                   returnKeyType="next"
                   blurOnSubmit={false}
-                  onSubmitEditing={() => currencyInputRef.current?.focus()}
+                  onSubmitEditing={closeAllSuggestions}
                 />
               </View>
 
-              <View style={styles.modalFieldRow}>
+              <View style={[styles.modalFieldRow, styles.modalCurrencyRow]}>
                 <ThemedText style={styles.modalFieldName}>Currency:</ThemedText>
-                <ThemedTextInput
-                  ref={currencyInputRef}
-                  style={styles.modalTextInput}
-                  value={currency}
-                  onFocus={closeAllSuggestions}
-                  onChangeText={(value) => {
-                    setCurrency(value)
+                <ThemedSelectList
+                  key={`update-currency-${currencySelectResetKey}`}
+                  setSelected={(value) => {
+                    setCurrency(String(value || APP_BASE_CURRENCY).toUpperCase())
                     setErrorMsg('')
                   }}
-                  returnKeyType="next"
-                  blurOnSubmit={false}
-                  onSubmitEditing={() => descriptionInputRef.current?.focus()}
+                  data={CURRENCY_OPTIONS}
+                  floating={true}
+                  save="key"
+                  defaultOption={selectedCurrencyOption}
+                  search={false}
+                  nestedScrollEnabled={true}
+                  dropdownStyles={styles.modalCurrencyDropdown}
                 />
               </View>
 
@@ -1364,13 +1371,27 @@ const ViewTable = () => {
   }, [loadRecords, rowsPerPage])
 
   const handleSaveUpdate = useCallback(async (payload) => {
+    const normalizedCurrency = String(payload.currency || APP_BASE_CURRENCY).trim().toUpperCase()
+    const fx = await convertToBaseAmount({
+      amount: payload.amount,
+      fromCurrency: normalizedCurrency,
+      quoteCurrency: APP_BASE_CURRENCY,
+      date: payload.date,
+    })
+
     await updateRecord(payload.tid, {
       amount: payload.amount,
+      amount_base: fx.amountBase,
+      fx_rate_to_base: fx.fxRateToBase,
+      fx_base_currency: fx.fxBaseCurrency,
+      fx_quote_currency: fx.fxQuoteCurrency,
+      fx_rate_date: fx.fxRateDate,
+      fx_provider: fx.fxProvider,
       cname: payload.category,
       rname: payload.recipient,
       date: payload.date,
       type: payload.type,
-      currency: payload.currency,
+      currency: normalizedCurrency,
       description: payload.description,
       inputdatetime: new Date().toISOString(),
     })
@@ -2069,6 +2090,14 @@ const styles = StyleSheet.create({
   modalTypeDropdown: {
     zIndex: 400,
     elevation: 400,
+  },
+  modalCurrencyRow: {
+    width: "100%"
+  },
+  modalCurrencyDropdown: {
+    zIndex: 300,
+    elevation: 300,
+    maxHeight: 180,
   },
   modalFieldName: {
     width: 100,

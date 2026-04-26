@@ -76,7 +76,7 @@ export async function oneBigPaymentRule(records = [], options = {}) { //I will p
   // compute total income for the period
   let income = 0
   for (const r of rows) {
-    const amt = Number(r.amount) || 0
+    const amt = Number.isFinite(Number(r.amount_base)) ? Number(r.amount_base) : (Number(r.amount) || 0)
     if ((r.type || '').toLowerCase() === 'income') income += amt
   }
 
@@ -87,7 +87,7 @@ export async function oneBigPaymentRule(records = [], options = {}) { //I will p
 
   const out = []
   for (const r of rows) {
-    const amt = Number(r.amount) || 0
+    const amt = Number.isFinite(Number(r.amount_base)) ? Number(r.amount_base) : (Number(r.amount) || 0)
     if ((r.type || '').toLowerCase() === 'income') continue
     if (amt >= threshold && amt > 0) {
       out.push({
@@ -148,7 +148,7 @@ export async function monthlySpendvsIncomeRule(records = [], options = {}) { //a
   let income = 0
   let spending = 0
   for (const r of rows) {
-    const amt = Number(r.amount) || 0
+    const amt = Number.isFinite(Number(r.amount_base)) ? Number(r.amount_base) : (Number(r.amount) || 0)
     if ((r.type || '').toLowerCase() === 'income') income += amt
     else spending += amt
   }
@@ -290,7 +290,7 @@ export async function monthlySurplusRule(records = [], options = {}) {
   let income = 0
   let spending = 0
   for (const r of rows) {
-    const amt = Number(r.amount) || 0
+    const amt = Number.isFinite(Number(r.amount_base)) ? Number(r.amount_base) : (Number(r.amount) || 0)
     if ((r.type || '').toLowerCase() === 'income') income += amt
     else spending += amt
   }
@@ -363,7 +363,7 @@ export async function monthlySavingGoalRule(records = [], options = {}) {
   let income = 0
   let spending = 0
   for (const r of rows) {
-    const amt = Number(r.amount) || 0
+    const amt = Number.isFinite(Number(r.amount_base)) ? Number(r.amount_base) : (Number(r.amount) || 0)
     if ((r.type || '').toLowerCase() === 'income') income += amt
     else spending += amt
   }

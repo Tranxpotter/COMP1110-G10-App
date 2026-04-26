@@ -477,16 +477,16 @@ const DashboardFilterModal = ({
                 />
 
                 <View style={styles.optionRow}>
-                  <ThemedButton style={styles.optionButton} onPress={() => addCategoryChoice('include')}>
+                  <ThemedButton style={styles.optionButtonOrange} onPress={() => addCategoryChoice('include')}>
                     <Text style={styles.optionButtonText}>Include</Text>
                   </ThemedButton>
-                  <ThemedButton style={styles.optionButton} onPress={() => addCategoryChoice('exclude')}>
+                  <ThemedButton style={styles.optionButtonOrange} onPress={() => addCategoryChoice('exclude')}>
                     <Text style={styles.optionButtonText}>Exclude</Text>
                   </ThemedButton>
-                  <ThemedButton style={[styles.optionButton, filterState.category.includeIds.length === categoryOptions.length && categoryOptions.length > 0 && styles.optionButtonActive]} onPress={() => setAllCategories('include')}>
+                  <ThemedButton style={[styles.optionButtonOrange, filterState.category.includeIds.length === categoryOptions.length && categoryOptions.length > 0 && styles.optionButtonActive]} onPress={() => setAllCategories('include')}>
                     <Text style={[styles.optionButtonText, filterState.category.includeIds.length === categoryOptions.length && categoryOptions.length > 0 && styles.optionButtonTextActive]}>Include All</Text>
                   </ThemedButton>
-                  <ThemedButton style={[styles.optionButton, filterState.category.excludeIds.length === categoryOptions.length && categoryOptions.length > 0 && styles.optionButtonActive]} onPress={() => setAllCategories('exclude')}>
+                  <ThemedButton style={[styles.optionButtonOrange, filterState.category.excludeIds.length === categoryOptions.length && categoryOptions.length > 0 && styles.optionButtonActive]} onPress={() => setAllCategories('exclude')}>
                     <Text style={[styles.optionButtonText, filterState.category.excludeIds.length === categoryOptions.length && categoryOptions.length > 0 && styles.optionButtonTextActive]}>Exclude All</Text>
                   </ThemedButton>
                 </View>
@@ -545,16 +545,16 @@ const DashboardFilterModal = ({
                 />
 
                 <View style={styles.optionRow}>
-                  <ThemedButton style={styles.optionButton} onPress={() => addRecipientChoice('include')}>
+                  <ThemedButton style={styles.optionButtonOrange} onPress={() => addRecipientChoice('include')}>
                     <Text style={styles.optionButtonText}>Include</Text>
                   </ThemedButton>
-                  <ThemedButton style={styles.optionButton} onPress={() => addRecipientChoice('exclude')}>
+                  <ThemedButton style={styles.optionButtonOrange} onPress={() => addRecipientChoice('exclude')}>
                     <Text style={styles.optionButtonText}>Exclude</Text>
                   </ThemedButton>
-                  <ThemedButton style={[styles.optionButton, filterState.recipient.includeIds.length === recipientOptions.length && recipientOptions.length > 0 && styles.optionButtonActive]} onPress={() => setAllRecipients('include')}>
+                  <ThemedButton style={[styles.optionButtonOrange, filterState.recipient.includeIds.length === recipientOptions.length && recipientOptions.length > 0 && styles.optionButtonActive]} onPress={() => setAllRecipients('include')}>
                     <Text style={[styles.optionButtonText, filterState.recipient.includeIds.length === recipientOptions.length && recipientOptions.length > 0 && styles.optionButtonTextActive]}>Include All</Text>
                   </ThemedButton>
-                  <ThemedButton style={[styles.optionButton, filterState.recipient.excludeIds.length === recipientOptions.length && recipientOptions.length > 0 && styles.optionButtonActive]} onPress={() => setAllRecipients('exclude')}>
+                  <ThemedButton style={[styles.optionButtonOrange, filterState.recipient.excludeIds.length === recipientOptions.length && recipientOptions.length > 0 && styles.optionButtonActive]} onPress={() => setAllRecipients('exclude')}>
                     <Text style={[styles.optionButtonText, filterState.recipient.excludeIds.length === recipientOptions.length && recipientOptions.length > 0 && styles.optionButtonTextActive]}>Exclude All</Text>
                   </ThemedButton>
                 </View>
@@ -686,7 +686,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   optionButton: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.secondary,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'transparent',
+  },
+  optionButtonOrange: {
+    backgroundColor: Colors.accent,
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
