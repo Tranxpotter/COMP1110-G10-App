@@ -25,9 +25,10 @@ const toDateStringValue = (value) => {
   return ''
 }
 
-const parseDateValue = (value) => {
-  const parsed = value ? new Date(value) : new Date()
-  if (Number.isNaN(parsed.getTime())) return new Date()
+const parseDateValue = (value, fallbackDate = null) => {
+  const fallback = fallbackDate instanceof Date ? fallbackDate : new Date()
+  const parsed = value ? new Date(value) : fallback
+  if (Number.isNaN(parsed.getTime())) return fallback
   return parsed
 }
 
@@ -65,6 +66,7 @@ const RecordsFilterModal = ({
   visible,
   activeColumnKey,
   initialConfig,
+  defaultDate,
   categoryOptions = [],
   recipientOptions = [],
   onClose,
@@ -309,7 +311,7 @@ const RecordsFilterModal = ({
   }
 
   const renderDatePicker = (field) => {
-    const currentValue = parseDateValue(filterState.date[field])
+    const currentValue = parseDateValue(filterState.date[field], defaultDate)
     return (
       <DateTimePicker
         key={`${field}-${modalResetKey}`}

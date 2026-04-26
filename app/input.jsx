@@ -1,5 +1,5 @@
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View, Text, useColorScheme, Pressable, Alert, Modal } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SelectList } from "react-native-dropdown-select-list";
 import { SafeAreaInsetsContext, useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -18,14 +18,16 @@ import ThemedScrollView from '../components/ThemedScrollView';
 import CsvUploader from '../components/CsvUploader'
 import CurrencyPickerField from '../components/CurrencyPickerField'
 import { APP_BASE_CURRENCY, CURRENCY_OPTIONS, convertToBaseAmount } from '../components/fxService'
+import { useDateContext } from '../contexts/DateContext'
 
 const Input = () => {
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme] ?? Colors.light;
+  const { debugDate, getCurrentDate } = useDateContext()
 
   const insets = useSafeAreaInsets();
 
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(() => getCurrentDate());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [transaction_type, setTransactionType] = useState("spending");
   const [typeSelectResetKey, setTypeSelectResetKey] = useState(0.0);
@@ -56,6 +58,10 @@ const Input = () => {
   const newRecipientNameInputRef = useRef(null);
   const newRecipientDefaultCategoryInputRef = useRef(null);
   const newCategoryNameInputRef = useRef(null);
+
+  useEffect(() => {
+    setDate(getCurrentDate())
+  }, [debugDate, getCurrentDate])
 
   function handleAmountInput(text) {
     let numericValue = String(text || '').replace(/[^0-9.]/g, '');
@@ -144,7 +150,7 @@ const Input = () => {
   
 
   function reset() {
-    setDate(new Date())
+    setDate(getCurrentDate())
     setTransactionType("spending")
     setTypeSelectResetKey((prev) => prev + 1)
     setTypeDropdownCloseKey((prev) => prev + 1)

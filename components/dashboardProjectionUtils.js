@@ -210,9 +210,9 @@ const normalizeProjectionConfig = (source = {}, subtype = PROJECTION_SUBTYPE_MON
   }
 }
 
-const buildMonthlySpendingModel = (records, projectionConfig) => {
+const buildMonthlySpendingModel = (records, projectionConfig, referenceDate = null) => {
   const excludedCategoryIds = new Set((projectionConfig?.monthlySpending?.excludedCategoryIds || []).map((item) => String(item)))
-  const today = new Date()
+  const today = referenceDate instanceof Date ? new Date(referenceDate) : new Date()
   const monthStart = startOfMonth(today)
   const monthEnd = endOfMonth(today)
   const daysInMonth = monthEnd.getDate()
@@ -297,12 +297,12 @@ const toMonthSequence = (endDate, count) => {
   })
 }
 
-const buildSavingsDebtModel = (records, projectionConfig) => {
+const buildSavingsDebtModel = (records, projectionConfig, referenceDate = null) => {
   const horizon = projectionConfig?.forecastHorizonMonths || DEFAULT_FORECAST_HORIZON_MONTHS
   const mode = projectionConfig?.savingsDebt?.mode === 'categories' ? 'categories' : 'surplus'
   const includeCategorySet = new Set((projectionConfig?.savingsDebt?.includeCategoryIds || []).map((item) => String(item)))
 
-  const currentMonth = startOfMonth(new Date())
+  const currentMonth = startOfMonth(referenceDate instanceof Date ? new Date(referenceDate) : new Date())
   const actualMonths = toMonthSequence(currentMonth, 12)
   const monthlyNetByKey = {}
 
@@ -428,7 +428,7 @@ const buildSavingsDebtModel = (records, projectionConfig) => {
   }
 }
 
-const buildYearlyBillsModel = (records, projectionConfig) => {
+const buildYearlyBillsModel = (records, projectionConfig, referenceDate = null) => {
   const horizon = projectionConfig?.forecastHorizonMonths || DEFAULT_FORECAST_HORIZON_MONTHS
   const includeCategoryIds = new Set((projectionConfig?.yearlyBills?.includeCategoryIds || []).map((item) => String(item)))
   const includeRecipientIds = new Set((projectionConfig?.yearlyBills?.includeRecipientIds || []).map((item) => String(item)))
@@ -447,7 +447,7 @@ const buildYearlyBillsModel = (records, projectionConfig) => {
     monthlyBillsByKey[monthKey] = safeRound2((monthlyBillsByKey[monthKey] || 0) + getAmountMagnitude(record))
   })
 
-  const currentMonth = startOfMonth(new Date())
+  const currentMonth = startOfMonth(referenceDate instanceof Date ? new Date(referenceDate) : new Date())
   const currentMonthKey = toMonthKey(currentMonth)
   const actualMonths = toMonthSequence(currentMonth, 12)
   const futureMonths = Array.from({ length: horizon }, (_, index) => new Date(currentMonth.getFullYear(), currentMonth.getMonth() + index + 1, 1))
@@ -525,7 +525,7 @@ const buildYearlyBillsModel = (records, projectionConfig) => {
   }
 }
 
-const buildSubscriptionModel = (records, projectionConfig) => {
+const buildSubscriptionModel = (records, projectionConfig, referenceDate = null) => {
   const horizon = projectionConfig?.forecastHorizonMonths || DEFAULT_FORECAST_HORIZON_MONTHS
   const includeCategoryIds = new Set((projectionConfig?.subscriptions?.includeCategoryIds || []).map((item) => String(item)))
   const includeRecipientIds = new Set((projectionConfig?.subscriptions?.includeRecipientIds || []).map((item) => String(item)))
@@ -544,7 +544,7 @@ const buildSubscriptionModel = (records, projectionConfig) => {
     monthlySpendByKey[monthKey] = safeRound2((monthlySpendByKey[monthKey] || 0) + getAmountMagnitude(record))
   })
 
-  const currentMonth = startOfMonth(new Date())
+  const currentMonth = startOfMonth(referenceDate instanceof Date ? new Date(referenceDate) : new Date())
   const previousMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
   const previousMonthKey = toMonthKey(previousMonth)
   const previousMonthTotal = monthlySpendByKey[previousMonthKey] || 0
@@ -617,22 +617,22 @@ const buildSubscriptionModel = (records, projectionConfig) => {
   }
 }
 
-const buildProjectionModel = ({ records = [], projectionConfig = {} }) => {
+const buildProjectionModel = ({ records = [], projectionConfig = {}, referenceDate = null }) => {
   const normalized = normalizeProjectionConfig(projectionConfig, projectionConfig?.subtype)
 
   if (normalized.subtype === PROJECTION_SUBTYPE_SAVINGS_DEBT) {
-    return buildSavingsDebtModel(records, normalized)
+    return buildSavingsDebtModel(records, normalized, referenceDate)
   }
 
   if (normalized.subtype === PROJECTION_SUBTYPE_YEARLY_BILLS) {
-    return buildYearlyBillsModel(records, normalized)
+    return buildYearlyBillsModel(records, normalized, referenceDate)
   }
 
   if (normalized.subtype === PROJECTION_SUBTYPE_SUBSCRIPTIONS) {
-    return buildSubscriptionModel(records, normalized)
+    return buildSubscriptionModel(records, normalized, referenceDate)
   }
 
-  return buildMonthlySpendingModel(records, normalized)
+  return buildMonthlySpendingModel(records, normalized, referenceDate)
 }
 
 export {

@@ -992,6 +992,38 @@ export async function deleteSavingsGoal(goalId) {
   return 1
 }
 
+export async function deleteAllAlertRulesAndSavingsGoals() {
+  const store = await readStore()
+
+  const rulesDeleted = store.rules.length
+  const goalsDeleted = store.goals.length
+  const eventsBefore = store.events.length
+
+  store.rules = []
+  store.goals = []
+  store.events = store.events.filter((event) => (
+    event?.source_type !== 'rule' &&
+    event?.source_type !== 'goal' &&
+    event?.rule_id == null &&
+    event?.goal_id == null
+  ))
+  store.counters.rule = 0
+  store.counters.goal = 0
+
+  const eventsDeleted = Math.max(0, eventsBefore - store.events.length)
+  const shouldPersist = rulesDeleted > 0 || goalsDeleted > 0 || eventsDeleted > 0
+
+  if (shouldPersist) {
+    await persistStore(store)
+  }
+
+  return {
+    rulesDeleted,
+    goalsDeleted,
+    eventsDeleted,
+  }
+}
+
 export async function fetchAlertEvents(options = {}) {
   const status = String(options?.status || 'all').toLowerCase()
   const limit = Number(options?.limit)

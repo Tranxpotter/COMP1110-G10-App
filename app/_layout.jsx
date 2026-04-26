@@ -1,10 +1,11 @@
-import { useColorScheme } from 'react-native'
+import { Alert, useColorScheme } from 'react-native'
 import { Tabs } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useEffect } from 'react'
 import { Colors } from '../constants/Colors'
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context'
-import { addCategory, addRecipient, addRecord, initTables, fetchAllCategories, fetchAllRecipients, fetchAllRecords, dropAllTables } from '../components/dbClient'
+import { initTables } from '../components/dbClient'
+import { DateContextProvider } from '../contexts/DateContext'
 
 const TabsLayout = () => {
   const colorScheme = useColorScheme();
@@ -77,6 +78,19 @@ const TabsLayout = () => {
           ),
         }}
       />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              size={24}
+              name={focused ? 'settings' : 'settings-outline'}
+              color={focused ? theme.iconColorFocused : theme.iconColor}
+            />
+          ),
+        }}
+      />
         
     </Tabs>
   )
@@ -85,7 +99,9 @@ const TabsLayout = () => {
 const RootLayout = () => {
   return (
     <SafeAreaProvider>
-      <TabsLayout />
+      <DateContextProvider>
+        <TabsLayout />
+      </DateContextProvider>
     </SafeAreaProvider>
   )
 }

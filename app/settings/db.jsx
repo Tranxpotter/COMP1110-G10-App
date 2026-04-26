@@ -1,11 +1,11 @@
 import React, { useState , useEffect} from 'react'
 import { View, Text, TextInput, Button, Alert, ScrollView, StyleSheet } from 'react-native'
-import { addCategory, addRecipient, addRecord, initTables, fetchAllCategories, fetchAllRecipients, fetchAllRecords, dropAllTables } from '../components/dbClient'
-import CsvUploader from '../components/CsvUploader'
-import AlertRunner from '../components/AlertRunner'
-import CsvDownloader from '../components/CsvDownloader'
+import { addCategory, addRecipient, addRecord, initTables, fetchAllCategories, fetchAllRecipients, fetchAllRecords, dropAllTables } from '../../components/dbClient'
+import CsvUploader from '../../components/CsvUploader'
+import AlertRunner from '../../components/AlertRunner'
+import CsvDownloader from '../../components/CsvDownloader'
 
-export default function InputForms() {
+export default function DbDebugScreen() {
 
   const [categories, setCategories] = useState([])
   const [recipients, setRecipients] = useState([])

@@ -22,6 +22,7 @@ import ThemedSelectList from '../components/ThemedSelectList'
 import ThemedText from '../components/ThemedText'
 import ThemedTextInput from '../components/ThemedTextInput'
 import ThemedView from '../components/ThemedView'
+import { useDateContext } from '../contexts/DateContext'
 import { fetchAllCategories, fetchAllRecipients } from '../components/dbClient'
 import {
   addAlertRule,
@@ -42,28 +43,6 @@ import {
   updateAlertRule,
   updateSavingsGoal,
 } from '../components/alertsStore'
-
-const ISO_DATE_INPUT_REGEX = /^\d{4}-\d{2}-\d{2}$/
-
-function normalizeDateInput(value = '') {
-  return String(value || '').trim()
-}
-
-function isValidIsoDateInput(value = '') {
-  const normalized = normalizeDateInput(value)
-  if (!ISO_DATE_INPUT_REGEX.test(normalized)) return false
-
-  const [year, month, day] = normalized.split('-').map((token) => Number(token))
-  if (!Number.isFinite(year) || !Number.isFinite(month) || !Number.isFinite(day)) return false
-
-  const date = new Date(normalized)
-  if (Number.isNaN(date.getTime())) return false
-
-  const yyyy = date.getFullYear()
-  const mm = date.getMonth() + 1
-  const dd = date.getDate()
-  return yyyy === year && mm === month && dd === day
-}
 
 const ALERT_TYPE_OPTIONS = [
   { key: 'spending_limit', label: 'Spending limits' },
@@ -169,6 +148,7 @@ function defaultGoalForm() {
 const Alerts = () => {
   const colorScheme = useColorScheme()
   const theme = Colors[colorScheme] ?? Colors.light
+  const { debugDate, getCurrentDate } = useDateContext()
 
   const [loading, setLoading] = useState(true)
   const [rules, setRules] = useState([])
@@ -178,9 +158,6 @@ const Alerts = () => {
   const [categories, setCategories] = useState([])
   const [recipients, setRecipients] = useState([])
   const [eventStatusFilter, setEventStatusFilter] = useState('all')
-  const [debugDateInput, setDebugDateInput] = useState('')
-  const [appliedDebugDate, setAppliedDebugDate] = useState('')
-  const [showDebugControls, setShowDebugControls] = useState(false)
 
   const [ruleModalVisible, setRuleModalVisible] = useState(false)
   const [editingRuleId, setEditingRuleId] = useState(null)
@@ -234,15 +211,17 @@ const Alerts = () => {
     }, {})
   }, [recipientOptions])
 
+  const currentDate = useMemo(() => getCurrentDate(), [debugDate, getCurrentDate])
+
   const reloadData = useCallback(async ({
     status = eventStatusFilter,
-    evaluateDate = appliedDebugDate,
+    evaluateDate = currentDate,
   } = {}) => {
     setLoading(true)
     try {
-      const effectiveEvaluateDate = evaluateDate || new Date()
-      const evaluationOptions = evaluateDate
-        ? { cutoffDateExclusive: evaluateDate }
+      const effectiveEvaluateDate = evaluateDate || currentDate
+      const evaluationOptions = debugDate
+        ? { cutoffDateExclusive: debugDate }
         : {}
 
       await evaluateAlertsForDate(effectiveEvaluateDate, evaluationOptions)
@@ -275,7 +254,7 @@ const Alerts = () => {
     } finally {
       setLoading(false)
     }
-  }, [appliedDebugDate, eventStatusFilter])
+  }, [currentDate, debugDate, eventStatusFilter])
 
   useFocusEffect(
     useCallback(() => {
@@ -283,33 +262,16 @@ const Alerts = () => {
     }, [reloadData, eventStatusFilter])
   )
 
-  const onApplyDebugDate = async () => {
-    const normalizedDate = normalizeDateInput(debugDateInput)
-    if (!isValidIsoDateInput(normalizedDate)) {
-      Alert.alert('Debug Date', 'Use valid date format YYYY-MM-DD.')
-      return
-    }
-
-    setAppliedDebugDate(normalizedDate)
-    setDebugDateInput(normalizedDate)
-    await reloadData({ status: eventStatusFilter, evaluateDate: normalizedDate })
-  }
-
-  const onClearDebugDate = async () => {
-    setAppliedDebugDate('')
-    setDebugDateInput('')
-    await reloadData({ status: eventStatusFilter, evaluateDate: '' })
-  }
-
   const onRefreshEvaluations = async () => {
     setLoading(true)
     try {
       await refreshAlertEvaluations({
-        cutoffDateExclusive: appliedDebugDate || null,
+        cutoffDateExclusive: debugDate || null,
+        referenceDate: currentDate,
       })
       await reloadData({
         status: eventStatusFilter,
-        evaluateDate: appliedDebugDate,
+        evaluateDate: currentDate,
       })
     } catch (e) {
       console.error('onRefreshEvaluations failed', e)
@@ -663,52 +625,16 @@ const Alerts = () => {
         <View style={styles.headerActionsRow}>
           <ThemedButton
             style={[styles.smallPrimaryButton, styles.headerActionButton]}
-            onPress={() => setShowDebugControls((prev) => !prev)}
-          >
-            <ThemedText style={styles.buttonText}>{showDebugControls ? 'Hide Debug' : 'Debug Date'}</ThemedText>
-          </ThemedButton>
-
-          <ThemedButton
-            style={[styles.smallPrimaryButton, styles.headerActionButton]}
             onPress={onRefreshEvaluations}
           >
             <ThemedText style={styles.buttonText}>Refresh</ThemedText>
           </ThemedButton>
         </View>
 
-        {appliedDebugDate ? (
+        {debugDate ? (
           <ThemedText style={styles.debugInfoText}>
-            {`Debug date active: ${appliedDebugDate}. Evaluations only use records before this date.`}
+            {`Debug date active from Settings: ${debugDate}. Evaluations only use records before this date.`}
           </ThemedText>
-        ) : null}
-
-        {showDebugControls ? (
-          <ThemedCard style={styles.debugCard}>
-            <ThemedText style={styles.sectionTitle}>Debug Evaluate Date</ThemedText>
-            <ThemedText style={styles.itemMeta}>Set YYYY-MM-DD. Rules evaluate as-of this date and only include earlier records.</ThemedText>
-
-            <ThemedText style={styles.fieldLabel}>Evaluate Date (YYYY-MM-DD)</ThemedText>
-            <ThemedTextInput
-              value={debugDateInput}
-              onChangeText={setDebugDateInput}
-              placeholder="YYYY-MM-DD"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.fieldInput}
-            />
-
-            <View style={styles.rowActions}>
-              <ThemedButton style={[styles.smallPrimaryButton, styles.inlineActionButton]} onPress={onApplyDebugDate}>
-                <ThemedText style={styles.buttonText}>Apply Date</ThemedText>
-              </ThemedButton>
-              <Pressable
-                onPress={onClearDebugDate}
-                style={[styles.secondaryAction, { borderColor: theme.iconColor }]}
-              >
-                <ThemedText>Clear Date</ThemedText>
-              </Pressable>
-            </View>
-          </ThemedCard>
         ) : null}
 
         {loading ? <ThemedLoader /> : null}

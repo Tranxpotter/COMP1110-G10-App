@@ -13,6 +13,7 @@ import ThemedView from '../components/ThemedView'
 import RecordsFilterModal from '../components/RecordsFilterModal'
 import CsvDownloader from '../components/CsvDownloader'
 import { APP_BASE_CURRENCY, CURRENCY_OPTIONS, convertToBaseAmount } from '../components/fxService'
+import { useDateContext } from '../contexts/DateContext'
 
 const RECORD_COLUMNS = [
   { key: 'date', width: 110, maxWidth: 110 },
@@ -68,9 +69,9 @@ const normalizePage = (value) => {
   return Math.trunc(parsed)
 }
 
-const parseDateValue = (value) => {
+const parseDateValue = (value, fallbackDate = null) => {
   const parsed = new Date(value)
-  if (Number.isNaN(parsed.getTime())) return new Date()
+  if (Number.isNaN(parsed.getTime())) return fallbackDate || new Date()
   return parsed
 }
 
@@ -82,6 +83,7 @@ const UpdateRecordModal = ({
   onClose,
   onSave,
 }) => {
+  const { debugDate, getCurrentDate } = useDateContext()
   const [date, setDate] = useState(new Date())
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [transactionType, setTransactionType] = useState('spending')
@@ -109,7 +111,7 @@ const UpdateRecordModal = ({
     if (!visible || !record) return
 
     const nextType = String(record.type || '').toLowerCase() === 'income' ? 'income' : 'spending'
-    const initialDate = parseDateValue(record.date)
+    const initialDate = parseDateValue(record.date, getCurrentDate())
     const initialRecipient = String(recipientsById[record.rid] || '')
     const initialCategory = String(categoriesById[record.cid] || '')
     const initialAmount = String(record.amount ?? 0)
@@ -142,7 +144,7 @@ const UpdateRecordModal = ({
       currency: initialCurrency,
       description: initialDescription,
     }
-  }, [visible, record, categoriesById, recipientsById])
+  }, [visible, record, categoriesById, recipientsById, debugDate, getCurrentDate])
 
   const hasUnsavedChanges = useMemo(() => {
     if (!visible || !record || !initialValuesRef.current) return false
@@ -941,6 +943,7 @@ const UpdateRecipientModal = ({ visible, recipient, onClose, onSave }) => {
 }
 
 const ViewTable = () => {
+  const { debugDate, getCurrentDate } = useDateContext()
   const [tableMode, setTableMode] = useState('transactions')
   const [records, setRecords] = useState([])
   const [categoriesTableRows, setCategoriesTableRows] = useState([])
@@ -992,6 +995,8 @@ const ViewTable = () => {
       .filter((item) => item.value)
       .sort((left, right) => String(left.value).localeCompare(String(right.value)))
   }, [recipientsById])
+
+  const currentDate = useMemo(() => getCurrentDate(), [debugDate, getCurrentDate])
 
   const loadRecords = useCallback(async (
     nextFilterConfig = filterConfig,
@@ -1580,6 +1585,7 @@ const ViewTable = () => {
         visible={isTransactionsMode && filterModalVisible}
         activeColumnKey={filterModalColumnKey}
         initialConfig={{ ...filterConfig, sort: sortConfig }}
+        defaultDate={currentDate}
         categoryOptions={categoryOptions}
         recipientOptions={recipientOptions}
         onClose={handleCloseFilterModal}

@@ -25,6 +25,7 @@ import {
   toDefaultProjectionConfig,
   toProjectionSubtypeLabel,
 } from '../components/dashboardProjectionUtils';
+import { useDateContext } from '../contexts/DateContext';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -223,7 +224,7 @@ const toTwoRowDateLabel = (date) => {
   return `${year}\n${month}/${day}`;
 };
 
-const resolveTrendEndDate = (filterConfig = {}) => {
+const resolveTrendEndDate = (filterConfig = {}, fallbackDate = null) => {
   const dateFilter = filterConfig?.date || {};
   let candidate = null;
 
@@ -233,18 +234,19 @@ const resolveTrendEndDate = (filterConfig = {}) => {
     candidate = toValidDate(dateFilter.before);
   }
 
-  return candidate || new Date();
+  return candidate || fallbackDate || new Date();
 };
 
-const toPeriodDefinitions = (records = [], trendConfig = {}, filterConfig = {}) => {
+const toPeriodDefinitions = (records = [], trendConfig = {}, filterConfig = {}, fallbackDate = null) => {
   const validDates = records
     .map((item) => toValidDate(item.date))
     .filter(Boolean)
     .map((item) => item.getTime())
     .sort((a, b) => a - b);
 
-  const nowMs = new Date().getTime();
-  const baseEndMs = Math.min(resolveTrendEndDate(filterConfig).getTime(), nowMs);
+  const fallback = fallbackDate || new Date();
+  const nowMs = fallback.getTime();
+  const baseEndMs = Math.min(resolveTrendEndDate(filterConfig, fallback).getTime(), nowMs);
   const dayMs = 24 * 60 * 60 * 1000;
 
   const preset = trendConfig?.dayRangePreset || 'auto';
@@ -351,8 +353,8 @@ const toPeriodIndex = (dateValue, periods) => {
   return -1;
 };
 
-const buildTrendModel = (records = [], categoriesById = {}, trendConfig = {}, filterConfig = {}) => {
-  const periods = toPeriodDefinitions(records, trendConfig, filterConfig);
+const buildTrendModel = (records = [], categoriesById = {}, trendConfig = {}, filterConfig = {}, fallbackDate = null) => {
+  const periods = toPeriodDefinitions(records, trendConfig, filterConfig, fallbackDate);
   const totals = Array.from({ length: periods.length }, () => 0);
 
   const selectedCategoryIds = Array.from(new Set((trendConfig.categoryIds || []).map((item) => String(item)).filter(Boolean)));
@@ -470,6 +472,7 @@ const buildTrendModel = (records = [], categoriesById = {}, trendConfig = {}, fi
 };
 
 const Dashboard = () => {
+  const { debugDate, getCurrentDate } = useDateContext();
   const pagerRef = useRef(null);
   const pendingPageNavigationRef = useRef(null);
   const [filterModalVisible, setFilterModalVisible] = useState(false);
@@ -496,6 +499,7 @@ const Dashboard = () => {
   const [page2ChartType, setPage2ChartType] = useState('Bar');
   const [projectionConfig, setProjectionConfig] = useState(() => toDefaultProjectionConfig(PROJECTION_SUBTYPE_MONTHLY_SPENDING));
   const [summaryMode, setSummaryMode] = useState('all');
+  const currentDate = useMemo(() => getCurrentDate(), [debugDate, getCurrentDate]);
 
   const pageDefinitions = useMemo(() => {
     return [...defaultBasePages, ...customPages];
@@ -890,20 +894,21 @@ const Dashboard = () => {
   }, [allCategoryRows]);
 
   const trendModel = useMemo(() => {
-    return buildTrendModel(records, categoriesById, trendConfig, filterConfig);
-  }, [records, categoriesById, trendConfig, filterConfig]);
+    return buildTrendModel(records, categoriesById, trendConfig, filterConfig, currentDate);
+  }, [records, categoriesById, trendConfig, filterConfig, currentDate]);
 
   const projectionModel = useMemo(() => {
     return buildProjectionModel({
       records,
       projectionConfig,
+      referenceDate: currentDate,
     });
-  }, [records, projectionConfig]);
+  }, [records, projectionConfig, currentDate]);
 
   const summaryModel = useMemo(() => {
     const filtered = records.filter((record) => matchesSummaryMode(record, summaryMode));
 
-    const now = new Date();
+    const now = currentDate;
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
     const todayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
@@ -972,7 +977,7 @@ const Dashboard = () => {
       ],
       categoryRows,
     };
-  }, [records, summaryMode, categoriesById]);
+  }, [records, summaryMode, categoriesById, currentDate]);
 
   const chartTitleOptions = useMemo(() => {
     return pageDefinitions.map((page, index) => ({ key: String(index), value: page.title }));
@@ -1701,6 +1706,7 @@ const Dashboard = () => {
       <DashboardFilterModal
         visible={filterModalVisible}
         initialConfig={filterConfig}
+        defaultDate={currentDate}
         categoryOptions={categoryOptions}
         recipientOptions={recipientOptions}
         onClose={handleCloseFilterModal}

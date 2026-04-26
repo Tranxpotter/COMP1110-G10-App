@@ -17,9 +17,10 @@ const toDateStringValue = (value) => {
   return ''
 }
 
-const parseDateValue = (value) => {
-  const parsed = value ? new Date(value) : new Date()
-  if (Number.isNaN(parsed.getTime())) return new Date()
+const parseDateValue = (value, fallbackDate = null) => {
+  const fallback = fallbackDate instanceof Date ? fallbackDate : new Date()
+  const parsed = value ? new Date(value) : fallback
+  if (Number.isNaN(parsed.getTime())) return fallback
   return parsed
 }
 
@@ -54,6 +55,7 @@ const normalizeIds = (values) => Array.from(new Set((values || []).map((value) =
 const DashboardFilterModal = ({
   visible,
   initialConfig,
+  defaultDate,
   categoryOptions = [],
   recipientOptions = [],
   onClose,
@@ -263,7 +265,7 @@ const DashboardFilterModal = ({
   }
 
   const renderDatePicker = (field) => {
-    const currentValue = parseDateValue(filterState.date[field])
+    const currentValue = parseDateValue(filterState.date[field], defaultDate)
     return (
       <DateTimePicker
         key={`${field}-${modalResetKey}`}
