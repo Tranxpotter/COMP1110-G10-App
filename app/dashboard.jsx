@@ -1221,6 +1221,14 @@ const Dashboard = () => {
     .join('||');
   const categoryLineChartKey = `category-line-${currentPageId}-${trendConfig.dayRangePreset}-${trendConfig.dayRangeShift}-${filterSignature}-${seriesSignature}`;
 
+  const projectionSeriesSignature = (projectionModel.dataSet || [])
+    .map((series) => (series?.data || [])
+      .map((point) => (Number.isFinite(Number(point?.value)) ? Number(point.value).toFixed(4) : 'null'))
+      .join('|'))
+    .join('||');
+  const projectionConfigSignature = JSON.stringify(projectionConfig || {});
+  const projectionLineChartKey = `projection-line-${currentPageId}-${projectionConfigSignature}-${filterSignature}-${projectionSeriesSignature}`;
+
   const renderTrendRangeNavigator = () => {
     if (!isShiftablePreset) return null;
 
@@ -1294,7 +1302,7 @@ const Dashboard = () => {
   };
 
   const renderProjectionChart = () => {
-    return <LineChart {...projectionLineProps} />;
+    return <LineChart key={projectionLineChartKey} {...projectionLineProps} />;
   };
 
   const page1Title = trendConfig.mode === 'category'
