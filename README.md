@@ -51,10 +51,31 @@ Please download the required APP to run our app.
 
 
 ## Testing the app with data sets 
-    Reminder: Set date to 31-3-2026 for every settings in debug date
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GAbYAX0jjck?si=mf_rd5Si1ar439I9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+```
+Reminder: Set date to 31-3-2026 for every settings in debug date
+```
 Go to /testingdata/data [link](testingdata/data)
 
-### Ashley [link](testingdata/data/ashley.csv)
+Note everytime after testing a case, go to settings and press clear all records in database.
+
+## Steps in reproducing test cases (please download the required csv files in the links below first)
+1. Go to input tab
+2. Click upload
+3. Select the csv file for this test case
+
+<img src="assets/Input.jpg" width="350">
+
+4. Choose the debug date to 31-3-2026 for suitable test cases
+
+<img src="assets/Date.jpg" width="350">
+5. Add suitable rule by pressing the add rule button, follow the configs in tables below for each test cases
+6. Add suitable goal by pressing the add goal button, follow the configs in tables below for each test cases
+7. After testing, go to settings page and remove all records by pressing the Clear all records in database button
+
+<img src="assets/Alert.PNG" width="350">
+
+### Ashley [File Link](testingdata/data/ashley.csv)
 | Rule | Config |
 |---|---|
 | Spending Limit | categories = `[Dining, Shopping, Entertainment]`, threshold = HK$16,000, reset day 1 |
@@ -62,7 +83,7 @@ Go to /testingdata/data [link](testingdata/data)
 | Recurring Payment | N = 15  |
 | Extra Surplus | month-end residual ≥ HK$10,000 |
 
-### anutie_mei [file link](testingdata/data/auntie_mei.csv)
+### anutie_mei [File Link](testingdata/data/auntie_mei.csv)
 | Rule | Config |
 |---|---|
 | Spending Limit | categories = `[Groceries, Dining, Entertainment, Kids]`, threshold = HK$15,400, reset day 15 (payday) |
@@ -70,14 +91,14 @@ Go to /testingdata/data [link](testingdata/data)
 | Recurring Payment | N = 3  |
 | Extra Surplus | month-end residual ≥ HK$1,200 |
 
-### brandon [file link](testingdata/data/brandon.csv)
+### brandon [File Link](testingdata/data/brandon.csv)
 | Rule | Config |
 |---|---|
 | Spending Limit | categories = `[Shopping, Dining, Subscriptions]`, threshold = HK$22,500, reset day 1 |
 | Big 1-Time Payment | categories = `[Shopping]`, threshold = HK$9,000 |
 | Recurring Payment | N = 3  |
 | Extra Surplus | month-end residual ≥ HK$20,000 |
-### kelvin [file link](testingdata/data/kelvin.csv)
+### kelvin [File Link](testingdata/data/kelvin.csv)
 | Rule | Config |
 |---|---|
 | Spending Limit | categories = `[Dining, Entertainment, Shopping]`, threshold = HK$19,250, reset day 1 |
@@ -85,7 +106,7 @@ Go to /testingdata/data [link](testingdata/data)
 | Recurring Payment | N = 3 |
 | Projected Monthly Spending Alert | trigger day 15, exclude `Rent`, threshold = HK$35,000 |
 | Extra Surplus | month-end residual = HK$4,000 |
-### priya [file link](testingdata/data/priya.csv)
+### priya [File Link](testingdata/data/priya.csv)
 | Rule | Config |
 |---|---|
 | Spending Limit | categories = `[Dining, Entertainment, Other]`, threshold = HK$16,000, reset day 1 |
