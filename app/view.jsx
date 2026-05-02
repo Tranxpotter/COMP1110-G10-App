@@ -1594,12 +1594,6 @@ const ViewTable = () => {
 
       {loading ? (
         <Text style={styles.statusText}>Loading data...</Text>
-      ) : isTransactionsMode && records.length === 0 ? (
-        <Text style={styles.statusText}>No transactions yet.</Text>
-      ) : isCategoriesMode && categoriesTableRows.length === 0 ? (
-        <Text style={styles.statusText}>No categories yet.</Text>
-      ) : isRecipientsMode && recipientsTableRows.length === 0 ? (
-        <Text style={styles.statusText}>No recipients yet.</Text>
       ) : (
         <ScrollView style={styles.verticalScroll} contentContainerStyle={styles.verticalContent}>
           {isTransactionsMode && (
@@ -1672,6 +1666,12 @@ const ViewTable = () => {
                     )}
                   </View>
                 ))}
+
+                {records.length === 0 && (
+                  <View style={[styles.row, styles.emptyRow]}>
+                    <Text style={[styles.cell, styles.emptyCell, { width: transactionTableWidth, minWidth: transactionTableWidth, maxWidth: transactionTableWidth }]}>No transactions yet.</Text>
+                  </View>
+                )}
               </View>
             </ScrollView>
           )}
@@ -1714,6 +1714,12 @@ const ViewTable = () => {
                     </View>
                   </View>
                 ))}
+
+                {categoriesTableRows.length === 0 && (
+                  <View style={[styles.row, styles.emptyRow]}>
+                    <Text style={[styles.cell, styles.emptyCell, { width: categoryTableWidth, minWidth: categoryTableWidth, maxWidth: categoryTableWidth }]}>No categories yet.</Text>
+                  </View>
+                )}
               </View>
             </ScrollView>
           )}
@@ -1759,6 +1765,12 @@ const ViewTable = () => {
                     </View>
                   </View>
                 ))}
+
+                {recipientsTableRows.length === 0 && (
+                  <View style={[styles.row, styles.emptyRow]}>
+                    <Text style={[styles.cell, styles.emptyCell, { width: recipientTableWidth, minWidth: recipientTableWidth, maxWidth: recipientTableWidth }]}>No recipients yet.</Text>
+                  </View>
+                )}
               </View>
             </ScrollView>
           )}
@@ -1975,6 +1987,9 @@ const styles = StyleSheet.create({
   oddRow: {
     backgroundColor: '#f5f7fa',
   },
+  emptyRow: {
+    backgroundColor: '#ffffff',
+  },
   cell: {
     flexShrink: 0,
     paddingHorizontal: 8,
@@ -1982,6 +1997,10 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#d0d0d0',
+  },
+  emptyCell: {
+    color: '#666',
+    textAlign: 'center',
   },
   headerCell: {
     color: '#fff',
