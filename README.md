@@ -5,10 +5,12 @@
 
 If this link failed, go to folder named Android APL and directly download the APK file inside, note it is the same apk file on the link.
 
+If you don't have an Android, consider using emulators. You can do so by installing Android studio and using the default emulators. Here is the [link](https://developer.android.com/studio/run/emulator) to the guide. If you don't have android studio, go to [Get started with Android studio](https://developer.android.com/studio/install) to install first.
+
 #### Note this is the easiest way to test our app, after downloading you can directly use the app, and the following steps can be ignored.
 
 
-## Download App from github
+## Download App from github(not recommended)
     First download the whole project file from github
 
 ### Install Required Packages
@@ -46,3 +48,7 @@ This should produce a QR code for you to scan in the terminal
 Use normal camera to scan the QR code, it will prompt you to go to the expo go app, and this will load the app and 
 
 When you want to stop, just quite the app and press ctrl+c in terminal.
+
+## Inspecting our source code
+
+Note the main code is in the app, components and hooks folders.
