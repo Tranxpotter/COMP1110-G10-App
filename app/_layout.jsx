@@ -35,7 +35,7 @@ const TabsLayout = () => {
 
     >
       <Tabs.Screen 
-        name="input" 
+        name="index" 
         options={{ title: "Input", tabBarIcon: ({ focused }) => (
           <Ionicons 
             size={24}
