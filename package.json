@@ -41,5 +41,8 @@
     "react-native-web": "^0.21.0",
     "react-papaparse": "^4.4.0"
   },
+  "devDependencies": {
+    "@expo/ngrok": "^4.1.0"
+  },
   "private": true
 }
