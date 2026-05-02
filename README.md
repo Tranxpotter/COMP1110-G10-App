@@ -1,6 +1,6 @@
 # How to run on mobile
 
-## Using Android to run directly with APK(Easiest way)
+## Using Android to run directly with APK(Easiest Suggested way)
 [Click this link to directly install the apk and run the application](https://expo.dev/artifacts/eas/3Hdvc7b1QJw5FHcuxBdYwe.apk)
 
 If this link failed, go to folder named Android APL and directly download the APK file inside, note it is the same apk file on the link.
@@ -14,7 +14,7 @@ If this link failed, go to folder named Android APL and directly download the AP
 ### Install Required Packages
 To Install the required packages, we need to have npm installed which require the installation of node.js, you can do so by following the guide in the link below
 
-[Guide linke](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+[Guide link](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 Go to terminal or cmd, go to the project file directly
 
@@ -22,10 +22,10 @@ Go to terminal or cmd, go to the project file directly
 cd <path to project file>
 ```
 
-Then run npm install, as we already have a package.json, this will directly install all the required packages
+Then run npm force install, as we already have a package.json, this will directly install all the required packages. Note we need to use force because we used some older versions of libraries.
 
 ```bash
-npm install
+npm install --f
 ```
 
 ### Download Expo go
