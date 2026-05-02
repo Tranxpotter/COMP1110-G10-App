@@ -1,54 +1,50 @@
-# How to run on mobile
+# Project Overview
+This project uses react-native expo to create a budgeting app. 
 
-## Using Android to run directly with APK(Easiest Suggested way)
-[Click this link to directly install the apk and run the application](https://expo.dev/artifacts/eas/3Hdvc7b1QJw5FHcuxBdYwe.apk)
+# How to run
 
-If this link failed, go to folder named Android APL and directly download the APK file inside, note it is the same apk file on the link.
+## Using Android to install directly with APK (Suggested)
+[Click this link to download the apk](https://expo.dev/artifacts/eas/3Hdvc7b1QJw5FHcuxBdYwe.apk)
 
-If you don't have an Android, consider using emulators. You can do so by installing Android studio and using the default emulators. Here is the [link](https://developer.android.com/studio/run/emulator) to the guide. If you don't have android studio, go to [Get started with Android studio](https://developer.android.com/studio/install) to install first.
+If this link failed, download the file [APK](Android_APK\application-68e0ce76-c286-4af5-bbf0-d96e97d51de9.apk). 
 
-#### Note this is the easiest way to test our app, after downloading you can directly use the app, and the following steps can be ignored.
+**If you don't have an Android, consider using emulators.**
+- [Bluestacks](https://www.bluestacks.com/) 
+- [Android Studio](https://developer.android.com/studio/install)  [Android Studio Guide](https://developer.android.com/studio/run/emulator)
 
 
-## Download App from github(not recommended)
-    First download the whole project file from github
 
-### Install Required Packages
-To Install the required packages, we need to have npm installed which require the installation of node.js, you can do so by following the guide in the link below
+## Expo Go
+There are 2 ways to use expo go to test our app, both requiring downloading of complete source code. 
 
-[Guide link](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+First, either `git clone https://github.com/Tranxpotter/COMP1110-G10-App.git` or download zip on github and unpack. 
 
-Go to terminal or cmd, go to the project file directly
+### Local installation (Complicated)
+Local installation can differ from devices, requries Node.js installation
 
-```bash
-cd <path to project file>
-```
+- https://nodejs.org/en/download/ (install v24.xx.x LTS)
 
-Then run npm force install, as we already have a package.json, this will directly install all the required packages. Note we need to use force because we used some older versions of libraries.
+1. Run `npm install --f` in the root directory of the project code
+2. Then run `npx expo start`
+3. Download the app [expo go](https://expo.dev/go), and scan QR code with app (or scan with camera on IOS).
+4. If you have an IOS phone, scan the QR code with your phone camera
+5. If your phone was unable to connect to the app, try the command `npx expo start --tunnel`
 
-```bash
-npm install --f
-```
 
-### Download Expo go
+### VSCode Devcontainer (Easier)
+Requirements: [Docker](https://www.docker.com/products/docker-desktop/), [VSCode](https://code.visualstudio.com/)
+
+1. Install [Devcontainer Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) in VSCode 
+2. Open project root folder with VSCode
+3. Reopen in Container
+4. After the container finishes setting up, run `npx expo start --tunnel`
+5. Download the app [expo go](https://expo.dev/go), and scan QR code with app (or scan with camera on IOS).
+6. Wait for the app to bundle and test the app! (It can take a while)
+
+
+## Download Expo go
 Please download the required APP to run our app.
 #### Android
 [Android download link](https://play.google.com/store/apps/details?id=host.exp.exponent)
 #### IOS
 [IOS download link](https://apps.apple.com/app/id982107779)
-
-### Run the code
-In the project file directory, run this command
-```bash
-npx expo start
-```
-This should produce a QR code for you to scan in the terminal
-
-
-Use normal camera to scan the QR code, it will prompt you to go to the expo go app, and this will load the app and 
-
-When you want to stop, just quite the app and press ctrl+c in terminal.
-
-## Inspecting our source code
-
-Note the main code is in the app, components and hooks folders.
