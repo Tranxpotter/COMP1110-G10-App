@@ -48,3 +48,48 @@ Please download the required APP to run our app.
 [Android download link](https://play.google.com/store/apps/details?id=host.exp.exponent)
 #### IOS
 [IOS download link](https://apps.apple.com/app/id982107779)
+
+
+## Testing the app with data sets 
+    Reminder: Set date to 31-3-2026 for every settings in debug date
+Go to /testingdata/data [link](testingdata/data)
+
+### Ashley [link](testingdata/data/ashley.csv)
+| Rule | Config |
+|---|---|
+| Spending Limit | categories = `[Dining, Shopping, Entertainment]`, threshold = HK$16,000, reset day 1 |
+| Big 1-Time Payment | categories = `[Shopping]`, threshold = HK$4,000 |
+| Recurring Payment | N = 15  |
+| Extra Surplus | month-end residual ≥ HK$10,000 |
+
+### anutie_mei [file link](testingdata/data/auntie_mei.csv)
+| Rule | Config |
+|---|---|
+| Spending Limit | categories = `[Groceries, Dining, Entertainment, Kids]`, threshold = HK$15,400, reset day 15 (payday) |
+| Big 1-Time Payment | categories = `[Kids, Entertainment]`, threshold = HK$5,600 |
+| Recurring Payment | N = 3  |
+| Extra Surplus | month-end residual ≥ HK$1,200 |
+
+### brandon [file link](testingdata/data/brandon.csv)
+| Rule | Config |
+|---|---|
+| Spending Limit | categories = `[Shopping, Dining, Subscriptions]`, threshold = HK$22,500, reset day 1 |
+| Big 1-Time Payment | categories = `[Shopping]`, threshold = HK$9,000 |
+| Recurring Payment | N = 3  |
+| Extra Surplus | month-end residual ≥ HK$20,000 |
+### kelvin [file link](testingdata/data/kelvin.csv)
+| Rule | Config |
+|---|---|
+| Spending Limit | categories = `[Dining, Entertainment, Shopping]`, threshold = HK$19,250, reset day 1 |
+| Big 1-Time Payment | categories = `[Shopping, Entertainment]`, threshold = HK$7,000 |
+| Recurring Payment | N = 3 |
+| Projected Monthly Spending Alert | trigger day 15, exclude `Rent`, threshold = HK$35,000 |
+| Extra Surplus | month-end residual = HK$4,000 |
+### priya [file link](testingdata/data/priya.csv)
+| Rule | Config |
+|---|---|
+| Spending Limit | categories = `[Dining, Entertainment, Other]`, threshold = HK$16,000, reset day 1 |
+| Big 1-Time Payment | categories = `[Other]`, threshold = HK$8,000 |
+| Recurring Payment | N = 3 |
+| Extra Surplus | month-end residual = HK$20,000 OR = 35% of monthly income |
+| Monthly Savings Goal | `= 20%` |
